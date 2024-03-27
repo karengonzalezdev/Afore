@@ -1,0 +1,1455 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mx.profuturo.nci.persistence.CifrasGeneralesPersistence">
+
+	<resultMap id="BaseResultMap" type="mx.profuturo.nci.business.vo.CifrasGeneralesVO">
+
+		<association property="totalGeneralConciliado" javaType="mx.profuturo.nci.business.vo.ElementoVO">
+			<result column="TOTAL_CONCILIADO" property="registros" />
+		</association>
+		
+		<association property="totalGeneralNoConciliado" javaType="mx.profuturo.nci.business.vo.ElementoVO">
+			<result column="TOTAL_NO_CONCILIADO" property="registros" />
+		</association>
+		
+		<collection property="secciones" javaType="ArrayList" ofType="mx.profuturo.nci.business.vo.SeccionVO">
+			
+			<result column="FCC_VALOR_ORIGEN" property="nombreSeccion" />
+			
+			<association property="totalConciliado"	javaType="mx.profuturo.nci.business.vo.ElementoVO">
+				<result column="CONCILIADO" property="registros" />
+			</association>
+			
+			<association property="totalNoConciliado" javaType="mx.profuturo.nci.business.vo.ElementoVO">
+				<result column="NO_CONCILIADO" property="registros" />
+			</association>
+			
+			<collection property="elementos" javaType="ArrayList" ofType="mx.profuturo.nci.business.vo.ElementoVO">
+				<result column="FTN_IMPORTE" property="importe" />
+				<result column="REGISTROS" property="registros" />
+				<result column="NOMBRE_ELEMENTO" property="nombreElemento" />
+				<result column="FTD_FEH_PAGO_APOVOL" property="fecha" />
+				<result column="ESTATUS" property="estatus" />
+				<result column="FCC_VALOR_ORIGEN" property="banco" />
+			</collection>
+
+		</collection>
+	</resultMap>
+
+	<resultMap id="BaseResultMapTipo" type="mx.profuturo.nci.business.vo.CifrasGeneralesTipoVO">
+	
+		<association property="totalGeneralConciliado" javaType="mx.profuturo.nci.business.vo.ElementoVO">
+			<result column="TOTAL_CONCILIADO" property="registros" />
+		</association>
+		
+		<association property="totalGeneralNoConciliado" javaType="mx.profuturo.nci.business.vo.ElementoVO">
+			<result column="TOTAL_NO_CONCILIADO" property="registros" />
+		</association>
+		
+		<collection property="seccionesLargoPlazo" javaType="ArrayList" ofType="mx.profuturo.nci.business.vo.SeccionVO">
+			
+			<result column="FCC_VALOR_ORIGEN" property="nombreSeccion" />
+			
+			<association property="totalConciliado"	javaType="mx.profuturo.nci.business.vo.ElementoVO">
+				<result column="CONCILIADO" property="registros" />
+			</association>
+			
+			<association property="totalNoConciliado" javaType="mx.profuturo.nci.business.vo.ElementoVO">
+				<result column="NO_CONCILIADO" property="registros" />
+			</association>
+			
+			<collection property="elementos" javaType="ArrayList" ofType="mx.profuturo.nci.business.vo.ElementoVO">
+				<result column="FTN_IMPORTE" property="importe" />
+				<result column="REGISTROS" property="registros" />
+				<result column="NOMBRE_ELEMENTO" property="nombreElemento" />
+				<result column="FTD_FEH_PAGO_APOVOL" property="fecha" />
+				<result column="ESTATUS" property="estatus" />
+			</collection>
+		
+		</collection>
+	</resultMap>
+	
+	<resultMap id="BaseResultMapTipoCorto" type="mx.profuturo.nci.business.vo.CifrasGeneralesTipoVO">
+	
+		<association property="totalGeneralConciliado" javaType="mx.profuturo.nci.business.vo.ElementoVO">
+			<result column="TOTAL_CONCILIADO" property="registros" />
+		</association>
+		
+		<association property="totalGeneralNoConciliado" javaType="mx.profuturo.nci.business.vo.ElementoVO">
+			<result column="TOTAL_NO_CONCILIADO" property="registros" />
+		</association>
+	
+		<collection property="seccionesCortoPlazo" javaType="ArrayList"	ofType="mx.profuturo.nci.business.vo.SeccionVO">
+			
+			<result column="FCC_VALOR_ORIGEN" property="nombreSeccion" />
+			
+			<association property="totalConciliado" javaType="mx.profuturo.nci.business.vo.ElementoVO">
+				<result column="CONCILIADO" property="registros" />
+			</association>
+			
+			<association property="totalNoConciliado" javaType="mx.profuturo.nci.business.vo.ElementoVO">
+				<result column="NO_CONCILIADO" property="registros" />
+			</association>
+			
+			<collection property="elementos" javaType="ArrayList" ofType="mx.profuturo.nci.business.vo.ElementoVO">
+				<result column="FTN_IMPORTE" property="importe" />
+				<result column="REGISTROS" property="registros" />
+				<result column="NOMBRE_ELEMENTO" property="nombreElemento" />
+				<result column="FTD_FEH_PAGO_APOVOL" property="fecha" />
+				<result column="ESTATUS" property="estatus" />
+			</collection>
+		</collection>
+		
+	</resultMap>
+	
+	<resultMap id="BaseResultMapTipoReporte" type="mx.profuturo.nci.business.vo.CifrasGeneralesTipoVO">
+	
+		<association property="totalGeneralConciliado" javaType="mx.profuturo.nci.business.vo.ElementoVO">
+			<result column="TOTAL_CONCILIADO" property="registros" />
+		</association>
+		
+		<association property="totalGeneralNoConciliado" javaType="mx.profuturo.nci.business.vo.ElementoVO">
+			<result column="TOTAL_NO_CONCILIADO" property="registros" />
+		</association>
+		
+		<collection property="seccionesLargoPlazo" javaType="ArrayList" ofType="mx.profuturo.nci.business.vo.SeccionVO">
+			
+			<result column="NOMBRE_ELEMENTO" property="nombreSeccion" />
+			
+			<association property="totalConciliado"	javaType="mx.profuturo.nci.business.vo.ElementoVO">
+				<result column="CONCILIADO" property="registros" />
+			</association>
+			
+			<association property="totalNoConciliado" javaType="mx.profuturo.nci.business.vo.ElementoVO">
+				<result column="NO_CONCILIADO" property="registros" />
+			</association>
+			
+			<collection property="elementos" javaType="ArrayList" ofType="mx.profuturo.nci.business.vo.ElementoVO">
+				<result column="FTN_IMPORTE" property="importe" />
+				<result column="REGISTROS" property="registros" />
+				<result column="FCC_VALOR_ORIGEN" property="nombreElemento" />
+				<result column="FTD_FEH_PAGO_APOVOL" property="fecha" />
+				<result column="ESTATUS" property="estatus" />
+			</collection>
+		
+		</collection>
+	</resultMap>
+	
+	<resultMap id="BaseResultMapTipoCortoReporte" type="mx.profuturo.nci.business.vo.CifrasGeneralesTipoVO">
+	
+		<association property="totalGeneralConciliado" javaType="mx.profuturo.nci.business.vo.ElementoVO">
+			<result column="TOTAL_CONCILIADO" property="registros" />
+		</association>
+		
+		<association property="totalGeneralNoConciliado" javaType="mx.profuturo.nci.business.vo.ElementoVO">
+			<result column="TOTAL_NO_CONCILIADO" property="registros" />
+		</association>
+	
+		<collection property="seccionesCortoPlazo" javaType="ArrayList"	ofType="mx.profuturo.nci.business.vo.SeccionVO">
+			
+			<result column="NOMBRE_ELEMENTO" property="nombreSeccion" />
+			
+			<association property="totalConciliado" javaType="mx.profuturo.nci.business.vo.ElementoVO">
+				<result column="CONCILIADO" property="registros" />
+			</association>
+			
+			<association property="totalNoConciliado" javaType="mx.profuturo.nci.business.vo.ElementoVO">
+				<result column="NO_CONCILIADO" property="registros" />
+			</association>
+			
+			<collection property="elementos" javaType="ArrayList" ofType="mx.profuturo.nci.business.vo.ElementoVO">
+				<result column="FTN_IMPORTE" property="importe" />
+				<result column="REGISTROS" property="registros" />
+				<result column="FCC_VALOR_ORIGEN" property="nombreElemento" />
+				<result column="FTD_FEH_PAGO_APOVOL" property="fecha" />
+				<result column="ESTATUS" property="estatus" />
+			</collection>
+		</collection>
+		
+	</resultMap>
+	
+	<select id="selectTotales" parameterType="mx.profuturo.nci.business.wrapped.CifrasGeneralesFilter" resultMap="BaseResultMap">
+
+		SELECT SUM(CASE WHEN A.FTN_REG_CONCILIADO = 0 AND A.FTN_MOV_GENERADO = 0 THEN 1 ELSE 0 END) AS	TOTAL_NO_CONCILIADO,
+		SUM(CASE WHEN A.FTN_REG_CONCILIADO = 1 AND A.FTN_MOV_GENERADO = 0 THEN 1 ELSE 0 END) AS TOTAL_CONCILIADO
+		FROM TTAFOAVOL_CONCILIACION A, TCCRXGRAL_CAT_CATALOGO B 
+		<where>
+			<if test="idTipo != null">
+				AND FTN_REF_SUBCTA_APOVOL = #{idTipo}
+			</if>
+			AND A.FTN_ORIGEN_APORTACION = B.FCN_ID_CAT_CATALOGO
+		</where>  
+	</select>
+	
+	<select id="selectPorTipoLP" parameterType="mx.profuturo.nci.business.wrapped.CifrasGeneralesFilter" resultMap="BaseResultMapTipo">
+	
+		SELECT
+		    ORDEN,
+		    APOVOL AS NOMBRE_ELEMENTO,
+		    ORIGEN AS FCC_VALOR_ORIGEN,
+		    SUM(REGISTROS) AS REGISTROS,
+		    SUM(IMPORTE) AS FTN_IMPORTE,
+		    SUM(CONCILIADOS) AS CONCILIADO,
+		    TOTAL_CONCILIADOS AS TOTAL_CONCILIADO,
+		    SUM(NO_CONCILIADOS) AS NO_CONCILIADO,
+		    TOTAL_NO_CONCILIADOS AS TOTAL_NO_CONCILIADO,
+		    ESTATUS AS ESTATUS
+		FROM(
+		SELECT
+		    (CASE CON.FTN_REF_SUBCTA_APOVOL
+		      WHEN 174 THEN 2
+		      WHEN 175 THEN 3
+		      WHEN 172 THEN 4
+		    END) AS ORDEN,
+		    CATAPOVOL.FCC_VALOR AS APOVOL,
+		    CATORIGEN.FCC_VALOR AS ORIGEN,
+		    COUNT(CON.FTN_REF_SUBCTA_APOVOL) AS REGISTROS,
+		    SUM(CON.FTN_IMPORTE) AS IMPORTE,
+		    (CASE WHEN CON.FTN_REG_CONCILIADO = 1 THEN COUNT(CON.FTN_REF_SUBCTA_APOVOL) ELSE 0 END) AS CONCILIADOS,
+		    ((SELECT COUNT(CON.FTN_REF_SUBCTA_APOVOL) FROM TTAFOAVOL_CONCILIACION CON
+		      INNER JOIN TRAFOGRAL_ARCHIVO_FOLIO ARCHFOL 
+		        ON CON.FTC_FOLIO = ARCHFOL.FTC_FOLIO
+		      INNER JOIN TTAFOGRAL_ARCHIVO ARCH 
+		        ON ARCHFOL.FTN_ID_ARCHIVO = ARCH.FTN_ID_ARCHIVO
+		      WHERE 
+		          CON.FTN_ORIGEN_APORTACION NOT IN (288,292,291,845,844)
+		        AND
+		          CON.FTN_REF_SUBCTA_APOVOL IN (174,175,172)
+		        AND
+		          CON.FTN_REG_CONCILIADO = 1
+		        AND
+		          CON.FTN_MOV_GENERADO = 0
+		        AND
+		          ARCH.FCN_ID_ESTATUS_ARCHIVO = 3
+			  )
+		          +
+		     (SELECT COUNT(DIVCON.FTN_FONDO_APOVOL) FROM TTAFOAVOL_CONCILIACION CON
+		      INNER JOIN TTAFOAVOL_DIVERSIF_CONC DIVCON
+		        ON CON.FTN_ID_CONCILIACION = DIVCON.FTN_ID_CONCILIACION
+		      WHERE 
+		          CON.FTN_ORIGEN_APORTACION IN (288,292,291,845,844)
+		        AND
+		          DIVCON.FTN_FONDO_APOVOL IN (742,743,744)
+		        AND
+		          CON.FTN_REG_CONCILIADO = 1
+		        AND
+		          CON.FTN_MOV_GENERADO = 0
+			  ))AS TOTAL_CONCILIADOS,
+		    (CASE WHEN CON.FTN_REG_CONCILIADO = 0 THEN COUNT(CON.FTN_REF_SUBCTA_APOVOL) ELSE 0 END) AS NO_CONCILIADOS,
+		    ((SELECT COUNT(CON.FTN_REF_SUBCTA_APOVOL) FROM TTAFOAVOL_CONCILIACION CON
+		      INNER JOIN TRAFOGRAL_ARCHIVO_FOLIO ARCHFOL 
+		        ON CON.FTC_FOLIO = ARCHFOL.FTC_FOLIO
+		      INNER JOIN TTAFOGRAL_ARCHIVO ARCH 
+		        ON ARCHFOL.FTN_ID_ARCHIVO = ARCH.FTN_ID_ARCHIVO
+		      WHERE 
+		          CON.FTN_ORIGEN_APORTACION NOT IN (288,292,291,845,844)
+		        AND
+		          CON.FTN_REF_SUBCTA_APOVOL IN (174,175,172)
+		        AND
+		          CON.FTN_REG_CONCILIADO = 0
+		        AND
+		          CON.FTN_MOV_GENERADO = 0
+		        AND
+		          ARCH.FCN_ID_ESTATUS_ARCHIVO = 3
+			  )
+		          +
+		     (SELECT COUNT(DIVCON.FTN_FONDO_APOVOL) FROM TTAFOAVOL_CONCILIACION CON
+		      INNER JOIN TTAFOAVOL_DIVERSIF_CONC DIVCON
+		        ON CON.FTN_ID_CONCILIACION = DIVCON.FTN_ID_CONCILIACION
+		      WHERE 
+		          CON.FTN_ORIGEN_APORTACION IN (288,292,291,845,844)
+		        AND
+		          DIVCON.FTN_FONDO_APOVOL IN (742,743,744)
+		        AND
+		          CON.FTN_REG_CONCILIADO = 0
+		        AND
+		          CON.FTN_MOV_GENERADO = 0
+			  ))AS TOTAL_NO_CONCILIADOS,
+		    (CASE WHEN CON.FTN_REG_CONCILIADO = 1 THEN 'CONCILIADO' ELSE 'NO CONCILIADO' END) AS ESTATUS  
+		FROM TTAFOAVOL_CONCILIACION CON
+		INNER JOIN TRAFOGRAL_ARCHIVO_FOLIO ARCHFOL 
+		  ON CON.FTC_FOLIO = ARCHFOL.FTC_FOLIO
+		INNER JOIN TTAFOGRAL_ARCHIVO ARCH 
+		  ON ARCHFOL.FTN_ID_ARCHIVO = ARCH.FTN_ID_ARCHIVO
+		INNER JOIN TCCRXGRAL_CAT_CATALOGO CATORIGEN 
+		  ON CON.FTN_ORIGEN_APORTACION = CATORIGEN.FCN_ID_CAT_CATALOGO
+		INNER JOIN TCCRXGRAL_CAT_CATALOGO CATAPOVOL
+		  ON CON.FTN_REF_SUBCTA_APOVOL = CATAPOVOL.FCN_ID_CAT_CATALOGO
+		<where> 
+		    CON.FTN_ORIGEN_APORTACION NOT IN (288,292,291,845,844)
+		  AND
+		    CON.FTN_REF_SUBCTA_APOVOL IN (174,175,172)
+		  AND
+		    CON.FTN_REG_CONCILIADO = 1
+		  AND
+		    CON.FTN_MOV_GENERADO = 0
+		  AND
+		    ARCH.FCN_ID_ESTATUS_ARCHIVO = 3
+		    <if test="folioConciliacion != null">
+		    	AND CON.FTC_FOLIO_CONCILIACION = #{folioConciliacion}
+		    </if>
+		 </where>
+		GROUP BY 
+		  CON.FTN_REF_SUBCTA_APOVOL,
+		  CATAPOVOL.FCC_VALOR,
+		  CATORIGEN.FCC_VALOR,
+		  CON.FTN_REG_CONCILIADO
+		
+		UNION
+		
+  SELECT 
+ORDEN,
+APOVOL,
+ORIGEN,
+SUM(REGISTROS) as REGISTROS,
+SUM(IMPORTE) as IMPORTE,
+SUM(CONCILIADOS) as CONCILIADOS,
+SUM(TOTAL_CONCILIADOS) as TOTAL_CONCILIADOS,
+SUM(NO_CONCILIADOS) as NO_CONCILIADOS,
+SUM(TOTAL_NO_CONCILIADOS) as TOTAL_NO_CONCILIADOS,
+ESTATUS
+FROM (
+SELECT
+		    (CASE DIVCON.FTN_FONDO_APOVOL
+		      WHEN 742 THEN 2
+		      WHEN 743 THEN 3
+		      WHEN 744 THEN 4
+		    END) AS ORDEN,
+		    (CASE DIVCON.FTN_FONDO_APOVOL 
+		    WHEN 742 THEN (SELECT CATDIVCON.FCC_VALOR FROM TCCRXGRAL_CAT_CATALOGO CATDIVCON WHERE CATDIVCON.FCN_ID_CAT_CATALOGO = 174)
+		    WHEN 743 THEN (SELECT CATDIVCON.FCC_VALOR FROM TCCRXGRAL_CAT_CATALOGO CATDIVCON WHERE CATDIVCON.FCN_ID_CAT_CATALOGO = 175)
+		    WHEN 744 THEN (SELECT CATDIVCON.FCC_VALOR FROM TCCRXGRAL_CAT_CATALOGO CATDIVCON WHERE CATDIVCON.FCN_ID_CAT_CATALOGO = 172)
+		    END) AS APOVOL,
+		    CATORIGEN.FCC_VALOR AS ORIGEN,
+		    COUNT(DIVCON.FTN_FONDO_APOVOL) AS REGISTROS,
+		    SUM(CASE WHEN DIVCON.FTN_MONTO IS NULL THEN (DIVCON.FTN_PORCENTAJE * CON.FTN_IMPORTE) / 100 ELSE DIVCON.FTN_MONTO END) AS IMPORTE,
+		    (CASE WHEN CON.FTN_REG_CONCILIADO = 1 THEN COUNT(DIVCON.FTN_FONDO_APOVOL) ELSE 0 END) AS CONCILIADOS,
+		    ((SELECT COUNT(CON.FTN_REF_SUBCTA_APOVOL) FROM TTAFOAVOL_CONCILIACION CON
+		      INNER JOIN TRAFOGRAL_ARCHIVO_FOLIO ARCHFOL 
+		        ON CON.FTC_FOLIO = ARCHFOL.FTC_FOLIO
+		      INNER JOIN TTAFOGRAL_ARCHIVO ARCH 
+		        ON ARCHFOL.FTN_ID_ARCHIVO = ARCH.FTN_ID_ARCHIVO
+		      WHERE 
+		          CON.FTN_ORIGEN_APORTACION NOT IN (288,292,291,845,844)
+		        AND
+		          CON.FTN_REF_SUBCTA_APOVOL IN (174,175,172)
+		        AND
+		          CON.FTN_REG_CONCILIADO = 1
+		        AND
+		          CON.FTN_MOV_GENERADO = 0
+		        AND
+		          ARCH.FCN_ID_ESTATUS_ARCHIVO = 3
+			  )
+		          +
+		     (SELECT COUNT(DIVCON.FTN_FONDO_APOVOL) FROM TTAFOAVOL_CONCILIACION CON
+		      INNER JOIN TTAFOAVOL_DIVERSIF_CONC DIVCON
+		        ON CON.FTN_ID_CONCILIACION = DIVCON.FTN_ID_CONCILIACION
+		      WHERE 
+		          CON.FTN_ORIGEN_APORTACION IN (288,292,291,845,844)
+		        AND
+		          DIVCON.FTN_FONDO_APOVOL IN (742,743,744)
+		        AND
+		          CON.FTN_REG_CONCILIADO = 1
+		        AND
+		          CON.FTN_MOV_GENERADO = 0
+			  )) AS TOTAL_CONCILIADOS,
+		    (CASE WHEN CON.FTN_REG_CONCILIADO = 1 THEN COUNT(DIVCON.FTN_FONDO_APOVOL) ELSE 0 END) AS NO_CONCILIADOS,
+		    ((SELECT COUNT(CON.FTN_REF_SUBCTA_APOVOL) FROM TTAFOAVOL_CONCILIACION CON
+		      INNER JOIN TRAFOGRAL_ARCHIVO_FOLIO ARCHFOL 
+		        ON CON.FTC_FOLIO = ARCHFOL.FTC_FOLIO
+		      INNER JOIN TTAFOGRAL_ARCHIVO ARCH 
+		        ON ARCHFOL.FTN_ID_ARCHIVO = ARCH.FTN_ID_ARCHIVO
+		      WHERE 
+		          CON.FTN_ORIGEN_APORTACION NOT IN (288,292,291,845,844)
+		        AND
+		          CON.FTN_REF_SUBCTA_APOVOL IN (174,175,172)
+		        AND
+		          CON.FTN_REG_CONCILIADO = 1
+		        AND
+		          CON.FTN_MOV_GENERADO = 0
+		        AND
+		          ARCH.FCN_ID_ESTATUS_ARCHIVO = 3
+			  )
+		          +
+		     (SELECT COUNT(DIVCON.FTN_FONDO_APOVOL) FROM TTAFOAVOL_CONCILIACION CON
+		      INNER JOIN TTAFOAVOL_DIVERSIF_CONC DIVCON
+		        ON CON.FTN_ID_CONCILIACION = DIVCON.FTN_ID_CONCILIACION
+		      WHERE 
+		          CON.FTN_ORIGEN_APORTACION IN (288,292,291,845,844)
+		        AND
+		          DIVCON.FTN_FONDO_APOVOL IN (742,743,744)
+		        AND
+		          CON.FTN_REG_CONCILIADO = 1
+		        AND
+		          CON.FTN_MOV_GENERADO = 0
+			  )) AS TOTAL_NO_CONCILIADOS,
+		    (CASE WHEN CON.FTN_REG_CONCILIADO = 1 THEN 'CONCILIADO' ELSE 'NO CONCILIADO' END) AS ESTATUS  
+		FROM TTAFOAVOL_CONCILIACION CON
+		INNER JOIN TTAFOAVOL_DIVERSIF_CONC DIVCON
+		  ON CON.FTN_ID_CONCILIACION = DIVCON.FTN_ID_CONCILIACION
+		INNER JOIN TCCRXGRAL_CAT_CATALOGO CATORIGEN 
+		  ON CON.FTN_ORIGEN_APORTACION = CATORIGEN.FCN_ID_CAT_CATALOGO
+		INNER JOIN TCCRXGRAL_CAT_CATALOGO CATAPOVOL
+		  ON DIVCON.FTN_FONDO_APOVOL = CATAPOVOL.FCN_ID_CAT_CATALOGO
+		<where>
+		    CON.FTN_ORIGEN_APORTACION IN (288,292,291,845,844)
+		  AND
+		    DIVCON.FTN_FONDO_APOVOL IN (742,743,744)
+		  AND
+		    CON.FTN_REG_CONCILIADO = 1
+		  AND
+		    CON.FTN_MOV_GENERADO = 0
+		    <if test="folioConciliacion != null">
+		    	AND CON.FTC_FOLIO_CONCILIACION = #{folioConciliacion}
+		    </if>
+		 </where>
+		GROUP BY 
+		  DIVCON.FTN_FONDO_APOVOL,
+		  CATAPOVOL.FCC_VALOR,
+		  CATORIGEN.FCC_VALOR,
+		  CON.FTN_REG_CONCILIADO
+ 
+      
+      UNION
+      
+      	
+	SELECT
+                (CASE CON.FTN_REF_SUBCTA_APOVOL
+                  WHEN 174 THEN 2
+                  WHEN 175 THEN 3
+                  WHEN 172 THEN 4
+                END) AS ORDEN,
+                CATAPOVOL.FCC_VALOR  AS ORIGEN,
+                DECODE(CATORIGEN.FCC_VALOR,'DOMICILIACION E-SAR','DOMICILIACION',CATORIGEN.FCC_VALOR)AS APOVOL,
+                COUNT(CON.FTN_REF_SUBCTA_APOVOL) AS REGISTROS,
+                SUM(CON.FTN_IMPORTE) AS IMPORTE,
+                (CASE WHEN CON.FTN_REG_CONCILIADO = 1 THEN COUNT(CON.FTN_REF_SUBCTA_APOVOL) ELSE 0 END) AS CONCILIADOS,
+               ((SELECT COUNT(CON.FTN_REF_SUBCTA_APOVOL) FROM TTAFOAVOL_CONCILIACION CON
+                  INNER JOIN TRAFOGRAL_ARCHIVO_FOLIO ARCHFOL 
+                    ON CON.FTC_FOLIO = ARCHFOL.FTC_FOLIO
+                  INNER JOIN TTAFOGRAL_ARCHIVO ARCH 
+                    ON ARCHFOL.FTN_ID_ARCHIVO = ARCH.FTN_ID_ARCHIVO
+                    WHERE CON.FTN_ORIGEN_APORTACION NOT IN (288,292,291,845,844)
+                    AND 
+                    CON.FTN_REF_SUBCTA_APOVOL != 57822
+                    AND
+                      CON.FTN_REG_CONCILIADO = 1
+                    AND
+                      CON.FTN_MOV_GENERADO = 0
+                    AND
+                      ARCH.FCN_ID_ESTATUS_ARCHIVO = 3 )
+                      +
+                 (SELECT COUNT(DIVCON.FTN_FONDO_APOVOL) FROM TTAFOAVOL_CONCILIACION CON
+                  INNER JOIN TTAFOAVOL_DIVERSIF_CONC DIVCON
+                    ON CON.FTN_ID_CONCILIACION = DIVCON.FTN_ID_CONCILIACION
+                    WHERE CON.FTN_ORIGEN_APORTACION IN (288,292,291,845,844)
+                    AND
+                      CON.FTN_REG_CONCILIADO = 1
+                    AND
+                      CON.FTN_MOV_GENERADO = 0  )) AS TOTAL_CONCILIADOS,
+            (CASE WHEN CON.FTN_REG_CONCILIADO = 0 THEN COUNT(CON.FTN_REF_SUBCTA_APOVOL) ELSE 0 END) AS NO_CONCILIADOS,
+             ((SELECT COUNT(CON.FTN_REF_SUBCTA_APOVOL) FROM TTAFOAVOL_CONCILIACION CON
+                  INNER JOIN TRAFOGRAL_ARCHIVO_FOLIO ARCHFOL 
+                    ON CON.FTC_FOLIO = ARCHFOL.FTC_FOLIO
+                  INNER JOIN TTAFOGRAL_ARCHIVO ARCH 
+                    ON ARCHFOL.FTN_ID_ARCHIVO = ARCH.FTN_ID_ARCHIVO
+                    WHERE CON.FTN_ORIGEN_APORTACION NOT IN (288,292,291,845,844)
+                    AND 
+                    CON.FTN_REF_SUBCTA_APOVOL != 57822
+                    AND
+                      CON.FTN_REG_CONCILIADO = 0
+                    AND
+                      CON.FTN_MOV_GENERADO = 0
+                    AND
+                      ARCH.FCN_ID_ESTATUS_ARCHIVO = 3 )
+                      +
+                (SELECT COUNT(DIVCON.FTN_FONDO_APOVOL) FROM TTAFOAVOL_CONCILIACION CON
+                  INNER JOIN TTAFOAVOL_DIVERSIF_CONC DIVCON
+                    ON CON.FTN_ID_CONCILIACION = DIVCON.FTN_ID_CONCILIACION
+                    WHERE CON.FTN_ORIGEN_APORTACION IN (288,292,291,845,844)
+                    AND
+                      CON.FTN_REG_CONCILIADO = 0
+                    AND
+                      CON.FTN_MOV_GENERADO = 0  )) AS TOTAL_NO_CONCILIADOS,
+                      (CASE WHEN CON.FTN_REG_CONCILIADO = 1 THEN 'CONCILIADO' ELSE 'NO CONCILIADO' END) AS ESTATUS 
+            FROM TTAFOAVOL_CONCILIACION CON
+            INNER JOIN TCCRXGRAL_CAT_CATALOGO CATORIGEN 
+              ON CON.FTN_ORIGEN_APORTACION = CATORIGEN.FCN_ID_CAT_CATALOGO
+            INNER JOIN TCCRXGRAL_CAT_CATALOGO CATAPOVOL
+              ON CON.FTN_REF_SUBCTA_APOVOL = CATAPOVOL.FCN_ID_CAT_CATALOGO
+            INNER JOIN TCCRXGRAL_CAT_CATALOGO CATORIGEN
+              ON CON.FTN_ORIGEN_APORTACION= CATORIGEN.FCN_ID_CAT_CATALOGO
+             <where>
+				CON.FTN_ORIGEN_APORTACION IN (288,292,291,845,844)
+              AND
+              CON.FTN_REF_SUBCTA_APOVOL IN (174,175,172)
+              AND
+                CON.FTN_REG_CONCILIADO = 1
+              AND
+                CON.FTN_MOV_GENERADO = 0
+                <if test="folioConciliacion != null">
+		    		AND CON.FTC_FOLIO_CONCILIACION = #{folioConciliacion}
+		    	</if>
+		    </where>   
+            GROUP BY 
+              DECODE(CATORIGEN.FCC_VALOR,'DOMICILIACION E-SAR','DOMICILIACION',CATORIGEN.FCC_VALOR),
+              CATORIGEN.FCC_VALOR,
+              CON.FTN_REF_SUBCTA_APOVOL,
+              CATAPOVOL.FCC_VALOR,
+              CON.FTN_REG_CONCILIADO
+              )
+              GROUP BY 
+              APOVOL,
+              ORIGEN,
+              ORDEN,
+              ESTATUS
+		  
+		  
+		)GROUP BY   
+		  ESTATUS,
+		  ORIGEN,
+		  APOVOL,
+		  ORDEN,
+		  TOTAL_CONCILIADOS,
+		  TOTAL_NO_CONCILIADOS
+		ORDER BY
+		    ESTATUS ASC,
+		    ORDEN ASC,
+		    ORIGEN ASC,
+		    APOVOL ASC		
+	
+	</select>
+	
+	<select id="selectPorTipoCP" parameterType="mx.profuturo.nci.business.wrapped.CifrasGeneralesFilter" resultMap="BaseResultMapTipoCorto">
+		SELECT
+       			ORDEN, NOMBRE_ELEMENTO, FCC_VALOR_ORIGEN, SUM(REGISTROS) AS REGISTROS, SUM(FTN_IMPORTE) AS FTN_IMPORTE, SUM(CONCILIADO) AS CONCILIADO,
+       			SUM(TOTAL_CONCILIADO) AS TOTAL_CONCILIADO, SUM(NO_CONCILIADO) AS NO_CONCILIADO, SUM(TOTAL_NO_CONCILIADO) AS TOTAL_NO_CONCILIADO, ESTATUS
+			FROM ( SELECT ORDEN, APOVOL AS NOMBRE_ELEMENTO, ORIGEN AS FCC_VALOR_ORIGEN, SUM(REGISTROS) AS REGISTROS, SUM(IMPORTE) AS FTN_IMPORTE,
+             				SUM(CONCILIADOS) AS CONCILIADO, TOTAL_CONCILIADOS AS TOTAL_CONCILIADO, SUM(NO_CONCILIADOS) AS NO_CONCILIADO, TOTAL_NO_CONCILIADOS AS TOTAL_NO_CONCILIADO, ESTATUS AS ESTATUS
+       					FROM (with CONSILDS as (SELECT COUNT(CON.FTN_REF_SUBCTA_APOVOL) COUNT_RSAC
+                    								FROM TTAFOAVOL_CONCILIACION CON
+                          INNER JOIN TRAFOGRAL_ARCHIVO_FOLIO ARCHFOL ON CON.FTC_FOLIO = ARCHFOL.FTC_FOLIO
+                          INNER JOIN TTAFOGRAL_ARCHIVO ARCH ON ARCHFOL.FTN_ID_ARCHIVO = ARCH.FTN_ID_ARCHIVO
+                    WHERE CON.FTN_ORIGEN_APORTACION NOT IN (288,292,291,845,844) AND CON.FTN_REF_SUBCTA_APOVOL IN (170) AND CON.FTN_REG_CONCILIADO = 1 AND CON.FTN_MOV_GENERADO = 0 AND ARCH.FCN_ID_ESTATUS_ARCHIVO = 3
+             ),CONSILDS_DIV as(SELECT COUNT(DIVCON.FTN_FONDO_APOVOL) COUNT_FAPOVL 
+             						FROM TTAFOAVOL_CONCILIACION CON
+                        INNER JOIN TTAFOAVOL_DIVERSIF_CONC DIVCON ON CON.FTN_ID_CONCILIACION = DIVCON.FTN_ID_CONCILIACION
+                    WHERE CON.FTN_ORIGEN_APORTACION IN (288,292,291,845,844) AND DIVCON.FTN_FONDO_APOVOL IN (741) AND CON.FTN_REG_CONCILIADO = 1 AND CON.FTN_MOV_GENERADO = 0
+            ),CONSILDS_SIN_DIV as(SELECT COUNT(CON.FTN_REF_SUBCTA_APOVOL) COUNT_RSAPOVOL
+                                   	FROM TTAFOAVOL_CONCILIACION CON
+                    WHERE CON.FTN_ORIGEN_APORTACION IN (288,292,291,845,844) AND CON.FTN_REF_SUBCTA_APOVOL IN (170) AND CON.FTN_REG_CONCILIADO = 1 AND CON.FTN_MOV_GENERADO = 0)
+             SELECT
+                    (CASE
+                          CON.FTN_REF_SUBCTA_APOVOL WHEN 170 THEN 1
+                    END) AS ORDEN,
+                    CATAPOVOL.FCC_VALOR AS APOVOL,
+                    CATORIGEN.FCC_VALOR AS ORIGEN,
+                    COUNT(CON.FTN_REF_SUBCTA_APOVOL) AS REGISTROS,
+                    SUM(CON.FTN_IMPORTE) AS IMPORTE,
+                    (CASE
+                          WHEN CON.FTN_REG_CONCILIADO = 1 THEN COUNT(CON.FTN_REF_SUBCTA_APOVOL)
+                          ELSE 0
+                    END) AS CONCILIADOS,
+                    ((select COUNT_RSAC from CONSILDS) + (select COUNT_FAPOVL from CONSILDS_DIV)) AS TOTAL_CONCILIADOS,
+                    (CASE
+                          WHEN CON.FTN_REG_CONCILIADO = 1 THEN COUNT(CON.FTN_REF_SUBCTA_APOVOL)
+                          ELSE 0
+                    END) AS NO_CONCILIADOS,
+                    ((select COUNT_RSAC from CONSILDS) + (select COUNT_FAPOVL from CONSILDS_DIV)) AS TOTAL_NO_CONCILIADOS,
+                    (CASE
+                          WHEN CON.FTN_REG_CONCILIADO = 1 THEN 'CONCILIADO'
+                          ELSE 'NO CONCILIADO'
+                    END) AS ESTATUS
+             FROM  TTAFOAVOL_CONCILIACION CON
+             INNER JOIN TRAFOGRAL_ARCHIVO_FOLIO ARCHFOL     ON CON.FTC_FOLIO = ARCHFOL.FTC_FOLIO
+             INNER JOIN TTAFOGRAL_ARCHIVO ARCH                 ON ARCHFOL.FTN_ID_ARCHIVO = ARCH.FTN_ID_ARCHIVO
+             INNER JOIN TCCRXGRAL_CAT_CATALOGO CATORIGEN     ON CON.FTN_ORIGEN_APORTACION = CATORIGEN.FCN_ID_CAT_CATALOGO
+             INNER JOIN TCCRXGRAL_CAT_CATALOGO CATAPOVOL     ON CON.FTN_REF_SUBCTA_APOVOL = CATAPOVOL.FCN_ID_CAT_CATALOGO
+             WHERE CON.FTN_ORIGEN_APORTACION NOT IN (288,292,291,845,844) AND CON.FTN_REF_SUBCTA_APOVOL IN (170) AND CON.FTN_REG_CONCILIADO = 1 AND CON.FTN_MOV_GENERADO = 0 AND ARCH.FCN_ID_ESTATUS_ARCHIVO = 3
+					<if test="folioConciliacion != null">
+		    			AND CON.FTC_FOLIO_CONCILIACION = #{folioConciliacion}
+		    		</if>                    
+             GROUP BY CON.FTN_REF_SUBCTA_APOVOL, CATAPOVOL.FCC_VALOR, CATORIGEN.FCC_VALOR, CON.FTN_REG_CONCILIADO
+UNION
+             SELECT
+                    (CASE
+                          DIVCON.FTN_FONDO_APOVOL
+                          WHEN 741 THEN 1
+                    END) AS ORDEN,
+                    (CASE
+                          WHEN DIVCON.FTN_FONDO_APOVOL = 741 THEN (
+                          SELECT
+                                 CATDIVCON.FCC_VALOR
+                          FROM
+                                 TCCRXGRAL_CAT_CATALOGO CATDIVCON
+                          WHERE
+                                 CATDIVCON.FCN_ID_CAT_CATALOGO = 170)
+                    END) AS APOVOL,
+                    CATORIGEN.FCC_VALOR AS ORIGEN,
+                    COUNT(DIVCON.FTN_FONDO_APOVOL) AS REGISTROS,
+                    SUM(CASE WHEN DIVCON.FTN_MONTO IS NULL THEN (DIVCON.FTN_PORCENTAJE * CON.FTN_IMPORTE) / 100 ELSE DIVCON.FTN_MONTO END) AS IMPORTE,
+                    (CASE
+                          WHEN CON.FTN_REG_CONCILIADO = 1 THEN COUNT(DIVCON.FTN_FONDO_APOVOL)
+                          ELSE 0
+                    END) AS CONCILIADOS,
+                    ((select COUNT_RSAC from CONSILDS) + (select COUNT_FAPOVL from CONSILDS_DIV)) AS TOTAL_CONCILIADOS,
+                    (CASE
+                          WHEN CON.FTN_REG_CONCILIADO = 1 THEN COUNT(DIVCON.FTN_FONDO_APOVOL)
+                          ELSE 0
+                    END) AS NO_CONCILIADOS,
+                    ((select COUNT_RSAC from CONSILDS) + (select COUNT_FAPOVL from CONSILDS_DIV)) AS TOTAL_NO_CONCILIADOS,
+                    (CASE
+                          WHEN CON.FTN_REG_CONCILIADO = 1 THEN 'CONCILIADO'
+                          ELSE 'NO CONCILIADO'
+                    END) AS ESTATUS
+             FROM  TTAFOAVOL_CONCILIACION CON
+             INNER JOIN TTAFOAVOL_DIVERSIF_CONC DIVCON   ON CON.FTN_ID_CONCILIACION = DIVCON.FTN_ID_CONCILIACION
+             INNER JOIN TCCRXGRAL_CAT_CATALOGO CATORIGEN ON CON.FTN_ORIGEN_APORTACION = CATORIGEN.FCN_ID_CAT_CATALOGO
+             INNER JOIN TCCRXGRAL_CAT_CATALOGO CATAPOVOL ON DIVCON.FTN_FONDO_APOVOL = CATAPOVOL.FCN_ID_CAT_CATALOGO
+             WHERE CON.FTN_ORIGEN_APORTACION IN (288,292,291,845,844) AND DIVCON.FTN_FONDO_APOVOL IN (741) AND CON.FTN_REG_CONCILIADO = 1 AND CON.FTN_MOV_GENERADO = 0
+					<if test="folioConciliacion != null">
+		    			AND CON.FTC_FOLIO_CONCILIACION = #{folioConciliacion}
+		    		</if>                    
+             GROUP BY DIVCON.FTN_FONDO_APOVOL, CATAPOVOL.FCC_VALOR, CATORIGEN.FCC_VALOR, CON.FTN_REG_CONCILIADO
+       UNION
+             SELECT
+                    (CASE
+                          CON.FTN_REF_SUBCTA_APOVOL
+                          WHEN 170 THEN 1
+                    END) AS ORDEN,
+                    (CASE
+                          WHEN CON.FTN_REF_SUBCTA_APOVOL = 170 THEN (
+                          SELECT
+                                 CATDIVCON.FCC_VALOR
+                          FROM
+                                 TCCRXGRAL_CAT_CATALOGO CATDIVCON
+                          WHERE
+                                 CATDIVCON.FCN_ID_CAT_CATALOGO = 170)
+                    END) AS APOVOL,
+                    CATORIGEN.FCC_VALOR AS ORIGEN,
+                    COUNT(CON.FTN_REF_SUBCTA_APOVOL) AS REGISTROS,
+                    SUM(CON.FTN_IMPORTE) AS IMPORTE,
+                    (CASE
+                          WHEN CON.FTN_REG_CONCILIADO = 1 THEN COUNT(CON.FTN_REF_SUBCTA_APOVOL)
+                          ELSE 0
+                    END) AS CONCILIADOS,
+                    ((select COUNT_RSAC from CONSILDS) + (select COUNT_RSAPOVOL from CONSILDS_SIN_DIV)) AS TOTAL_CONCILIADOS,
+                    (CASE
+                          WHEN CON.FTN_REG_CONCILIADO = 1 THEN COUNT(CON.FTN_REF_SUBCTA_APOVOL)
+                          ELSE 0
+                    END) AS NO_CONCILIADOS,
+                    ((select COUNT_RSAC from CONSILDS) + (select COUNT_RSAPOVOL from CONSILDS_SIN_DIV)) AS TOTAL_NO_CONCILIADOS,
+                    (CASE
+                          WHEN CON.FTN_REG_CONCILIADO = 1 THEN 'CONCILIADO'
+                          ELSE 'NO CONCILIADO'
+                    END) AS ESTATUS
+             FROM  TTAFOAVOL_CONCILIACION CON
+             INNER JOIN TCCRXGRAL_CAT_CATALOGO CATORIGEN ON    CON.FTN_ORIGEN_APORTACION = CATORIGEN.FCN_ID_CAT_CATALOGO
+             INNER JOIN TCCRXGRAL_CAT_CATALOGO CATAPOVOL ON CON.FTN_REF_SUBCTA_APOVOL = CATAPOVOL.FCN_ID_CAT_CATALOGO
+             WHERE CON.FTN_ORIGEN_APORTACION IN (288,292,291,845,844) AND CON.FTN_REF_SUBCTA_APOVOL IN (170) AND CON.FTN_REG_CONCILIADO = 1 AND CON.FTN_MOV_GENERADO = 0
+					<if test="folioConciliacion != null">
+		    			AND CON.FTC_FOLIO_CONCILIACION = #{folioConciliacion}
+		    		</if>  
+             GROUP BY CON.FTN_REF_SUBCTA_APOVOL, CATAPOVOL.FCC_VALOR, CATORIGEN.FCC_VALOR, CON.FTN_REG_CONCILIADO )
+        GROUP BY ESTATUS, ORIGEN, APOVOL,ORDEN,TOTAL_CONCILIADOS,TOTAL_NO_CONCILIADOS)
+		GROUP BY NOMBRE_ELEMENTO,FCC_VALOR_ORIGEN,ORDEN,ESTATUS ORDER BY ESTATUS ASC, FCC_VALOR_ORIGEN ASC, NOMBRE_ELEMENTO ASC		
+	</select>
+	
+	<select id="selectPorSBC" parameterType="mx.profuturo.nci.business.wrapped.CifrasGeneralesFilter" resultMap="BaseResultMap">
+	
+		SELECT 
+			CAT.FCC_VALOR AS FCC_VALOR_ORIGEN, 
+			AR.FTC_NOMBRE AS NOMBRE_ELEMENTO,
+			COUNT (BANCO.FTN_CVE_BANCO) AS REGISTROS,
+			SUM(BANCO.FTN_IMPORTE) AS FTN_IMPORTE, 
+			SUM(CASE WHEN BANCO.FTN_REG_CONCILIADO = 0 THEN 1 ELSE 0 END) AS NO_CONCILIADO,	
+	        0 AS CONCILIADO,
+		        (SELECT COUNT(B.FTN_REG_CONCILIADO)
+		        FROM TTAFOAVOL_BANCOS B
+		        INNER JOIN TRAFOGRAL_ARCHIVO_FOLIO FOL ON FOL.FTC_FOLIO = B.FTC_FOLIO
+            	INNER JOIN TTAFOGRAL_ARCHIVO AR ON AR.FTN_ID_ARCHIVO = FOL.FTN_ID_ARCHIVO
+		         WHERE  
+		          B.FTN_IND_SBC = 591
+			      AND B.FTN_REG_CONCILIADO = 0 
+			      AND BANCO.FTN_REF_SUBCTA_APOVOL != 57822
+			      AND AR.FCN_ID_ESTATUS_ARCHIVO = 3) AS TOTAL_NO_CONCILIADO,
+	        0 AS TOTAL_CONCILIADO,
+	        (CASE WHEN BANCO.FTN_REG_CONCILIADO = 0 THEN 'NO CONCILIADO' END) as ESTATUS
+   		FROM TTAFOAVOL_BANCOS BANCO
+        LEFT JOIN TCCRXGRAL_CAT_CATALOGO CAT ON CAT.FCN_ID_CAT_CATALOGO = BANCO.FTN_CVE_BANCO
+        INNER JOIN TRAFOGRAL_ARCHIVO_FOLIO FOL ON FOL.FTC_FOLIO = BANCO.FTC_FOLIO
+        INNER JOIN TTAFOGRAL_ARCHIVO AR ON AR.FTN_ID_ARCHIVO = FOL.FTN_ID_ARCHIVO
+        <where>
+	       BANCO.FTN_IND_SBC = 591
+	       AND BANCO.FTN_REG_CONCILIADO = 0
+	       AND BANCO.FTN_REF_SUBCTA_APOVOL != 57822
+	       AND AR.FCN_ID_ESTATUS_ARCHIVO = 3
+		</where>
+	    GROUP BY FCC_VALOR, FTC_NOMBRE, FTN_REG_CONCILIADO, BANCO.FTN_REF_SUBCTA_APOVOL
+	    ORDER BY FTC_NOMBRE
+		
+	</select>
+	
+	<select id="selectPorOrigen" parameterType="mx.profuturo.nci.business.wrapped.CifrasGeneralesFilter" resultMap="BaseResultMap">
+	   SELECT ORDEN, APOVOL AS NOMBRE_ELEMENTO, ORIGEN AS FCC_VALOR_ORIGEN, SUM(REGISTROS) AS REGISTROS, NVL(SUM(IMPORTE), 0) AS FTN_IMPORTE, SUM(CONCILIADOS) AS CONCILIADO, TOTAL_CONCILIADOS AS TOTAL_CONCILIADO,
+       SUM(NO_CONCILIADOS) AS NO_CONCILIADO, TOTAL_NO_CONCILIADOS AS TOTAL_NO_CONCILIADO, ESTATUS AS ESTATUS
+	   FROM (with CONSILDS as(SELECT COUNT(CON.FTN_REF_SUBCTA_APOVOL) as COUNT_RSA FROM TTAFOAVOL_CONCILIACION CON INNER JOIN TRAFOGRAL_ARCHIVO_FOLIO ARCHFOL ON CON.FTC_FOLIO = ARCHFOL.FTC_FOLIO INNER JOIN TTAFOGRAL_ARCHIVO ARCH ON ARCHFOL.FTN_ID_ARCHIVO = ARCH.FTN_ID_ARCHIVO WHERE CON.FTN_ORIGEN_APORTACION NOT IN (288,292,291,845,844) AND CON.FTN_REF_SUBCTA_APOVOL  != 57822 AND ARCH.FCN_ID_ESTATUS_ARCHIVO = 3 AND CON.FTN_MOV_GENERADO = 0 AND CON.FTN_REG_CONCILIADO = 1),NO_CONSILDS as(SELECT COUNT(CON.FTN_REF_SUBCTA_APOVOL) AS COUNT_RSA FROM TTAFOAVOL_CONCILIACION CON
+       INNER JOIN TRAFOGRAL_ARCHIVO_FOLIO ARCHFOL ON CON.FTC_FOLIO = ARCHFOL.FTC_FOLIO INNER JOIN TTAFOGRAL_ARCHIVO ARCH ON ARCHFOL.FTN_ID_ARCHIVO = ARCH.FTN_ID_ARCHIVO WHERE CON.FTN_ORIGEN_APORTACION NOT IN (288,292,291,845,844) AND CON.FTN_REF_SUBCTA_APOVOL  != 57822 AND ARCH.FCN_ID_ESTATUS_ARCHIVO = 3 AND CON.FTN_MOV_GENERADO = 0 AND CON.FTN_REG_CONCILIADO = 0
+       ),CONSILDS_FA as(SELECT COUNT(DIVCON.FTN_FONDO_APOVOL) as COUNT_FA FROM TTAFOAVOL_CONCILIACION CON INNER JOIN TTAFOAVOL_DIVERSIF_CONC DIVCON ON    CON.FTN_ID_CONCILIACION = DIVCON.FTN_ID_CONCILIACION WHERE CON.FTN_ORIGEN_APORTACION IN (288,292,291,845,844) AND CON.FTN_REG_CONCILIADO = 1 AND CON.FTN_MOV_GENERADO = 0
+       ),NO_CONSILDS_FA as(SELECT COUNT(DIVCON.FTN_FONDO_APOVOL) as COUNT_FA FROM TTAFOAVOL_CONCILIACION CON INNER JOIN TTAFOAVOL_DIVERSIF_CONC DIVCON ON CON.FTN_ID_CONCILIACION = DIVCON.FTN_ID_CONCILIACION WHERE CON.FTN_ORIGEN_APORTACION IN (288,292,291,845,844) AND CON.FTN_REG_CONCILIADO = 0 AND CON.FTN_MOV_GENERADO = 0)
+       SELECT (CASE CON.FTN_REF_SUBCTA_APOVOL WHEN 170 THEN 1 WHEN 174 THEN 2 WHEN 175 THEN 3 WHEN 172 THEN 4 END) AS ORDEN,
+       DECODE(CATORIGEN.FCC_VALOR, 'DOMICILIACION E-SAR', 'DOMICILIACION', CATORIGEN.FCC_VALOR) AS ORIGEN,
+       CATAPOVOL.FCC_VALOR AS APOVOL, COUNT(CON.FTN_REF_SUBCTA_APOVOL) AS REGISTROS, SUM(CON.FTN_IMPORTE) AS IMPORTE,
+       (CASE WHEN CON.FTN_REG_CONCILIADO = 1 THEN COUNT(CON.FTN_REF_SUBCTA_APOVOL) ELSE 0 END) AS CONCILIADOS,
+       ((select COUNT_RSA from CONSILDS) + (select COUNT_FA from CONSILDS_FA)) AS TOTAL_CONCILIADOS,
+       (CASE WHEN CON.FTN_REG_CONCILIADO = 0 THEN COUNT(CON.FTN_REF_SUBCTA_APOVOL) ELSE 0 END) AS NO_CONCILIADOS,
+       ((select COUNT_RSA from NO_CONSILDS) + (select COUNT_FA from NO_CONSILDS_FA)) AS TOTAL_NO_CONCILIADOS,
+       (CASE WHEN CON.FTN_REG_CONCILIADO = 1 THEN 'CONCILIADO' ELSE 'NO CONCILIADO' END) AS ESTATUS
+       FROM  TTAFOAVOL_CONCILIACION CON
+       INNER JOIN TRAFOGRAL_ARCHIVO_FOLIO ARCHFOL ON    CON.FTC_FOLIO = ARCHFOL.FTC_FOLIO
+       INNER JOIN TTAFOGRAL_ARCHIVO ARCH ON    ARCHFOL.FTN_ID_ARCHIVO = ARCH.FTN_ID_ARCHIVO
+       INNER JOIN TCCRXGRAL_CAT_CATALOGO CATORIGEN ON    CON.FTN_ORIGEN_APORTACION = CATORIGEN.FCN_ID_CAT_CATALOGO
+       INNER JOIN TCCRXGRAL_CAT_CATALOGO CATAPOVOL ON    CON.FTN_REF_SUBCTA_APOVOL = CATAPOVOL.FCN_ID_CAT_CATALOGO
+       WHERE CON.FTN_ORIGEN_APORTACION NOT IN (288,292,291,845,844) AND CON.FTN_REF_SUBCTA_APOVOL != 57822 AND CON.FTN_REG_CONCILIADO = 1 AND CON.FTN_MOV_GENERADO = 0 AND ARCH.FCN_ID_ESTATUS_ARCHIVO IN (3,6)
+       <if test="folioConciliacion != null"> AND CON.FTC_FOLIO_CONCILIACION = #{folioConciliacion}</if>
+       GROUP BY DECODE(CATORIGEN.FCC_VALOR, 'DOMICILIACION E-SAR', 'DOMICILIACION', CATORIGEN.FCC_VALOR), CATORIGEN.FCC_VALOR, CON.FTN_REF_SUBCTA_APOVOL, CATAPOVOL.FCC_VALOR, CON.FTN_REG_CONCILIADO
+UNION
+       SELECT (CASE DIVCON.FTN_FONDO_APOVOL WHEN 741 THEN 1 WHEN 742 THEN 2 WHEN 743 THEN 3 WHEN 744 THEN 4 END) AS ORDEN,
+             DECODE(CATORIGEN.FCC_VALOR, 'DOMICILIACION E-SAR', 'DOMICILIACION', CATORIGEN.FCC_VALOR) AS ORIGEN,
+             (CASE DIVCON.FTN_FONDO_APOVOL
+                    WHEN 741 THEN (SELECT CATDIVCON.FCC_VALOR FROM TCCRXGRAL_CAT_CATALOGO CATDIVCON WHERE CATDIVCON.FCN_ID_CAT_CATALOGO = 170 )
+                    WHEN 742 THEN (SELECT CATDIVCON.FCC_VALOR FROM TCCRXGRAL_CAT_CATALOGO CATDIVCON WHERE CATDIVCON.FCN_ID_CAT_CATALOGO = 174 )
+                    WHEN 743 THEN (SELECT CATDIVCON.FCC_VALOR FROM TCCRXGRAL_CAT_CATALOGO CATDIVCON WHERE CATDIVCON.FCN_ID_CAT_CATALOGO = 175 )
+                    WHEN 744 THEN (SELECT CATDIVCON.FCC_VALOR FROM TCCRXGRAL_CAT_CATALOGO CATDIVCON WHERE CATDIVCON.FCN_ID_CAT_CATALOGO = 172 )
+       END) AS APOVOL,
+       COUNT(DIVCON.FTN_FONDO_APOVOL) AS REGISTROS,
+       SUM(CASE WHEN DIVCON.FTN_MONTO IS NULL THEN (DIVCON.FTN_PORCENTAJE * CON.FTN_IMPORTE) / 100 ELSE DIVCON.FTN_MONTO END) AS IMPORTE,
+       (CASE WHEN CON.FTN_REG_CONCILIADO = 1 THEN COUNT(DIVCON.FTN_FONDO_APOVOL) ELSE 0 END) AS CONCILIADOS,
+       ((select COUNT_RSA from CONSILDS) + (select COUNT_FA from CONSILDS_FA)) AS TOTAL_CONCILIADOS,
+       (CASE WHEN CON.FTN_REG_CONCILIADO = 0 THEN COUNT(DIVCON.FTN_FONDO_APOVOL) ELSE 0 END) AS NO_CONCILIADOS,
+       ((select COUNT_RSA from NO_CONSILDS) + (select COUNT_FA from NO_CONSILDS_FA)) AS TOTAL_NO_CONCILIADOS,
+       (CASE WHEN CON.FTN_REG_CONCILIADO = 1 THEN 'CONCILIADO' ELSE 'NO CONCILIADO' END) AS ESTATUS
+       FROM TTAFOAVOL_CONCILIACION CON
+       INNER JOIN TTAFOAVOL_DIVERSIF_CONC DIVCON ON CON.FTN_ID_CONCILIACION = DIVCON.FTN_ID_CONCILIACION
+       INNER JOIN TCCRXGRAL_CAT_CATALOGO CATORIGEN ON CON.FTN_ORIGEN_APORTACION = CATORIGEN.FCN_ID_CAT_CATALOGO
+       INNER JOIN TCCRXGRAL_CAT_CATALOGO CATAPOVOL ON DIVCON.FTN_FONDO_APOVOL = CATAPOVOL.FCN_ID_CAT_CATALOGO
+       WHERE CON.FTN_ORIGEN_APORTACION IN (288,292,291,845,844) AND CON.FTN_REG_CONCILIADO = 1 AND CON.FTN_MOV_GENERADO = 0
+       <if test="folioConciliacion != null"> AND CON.FTC_FOLIO_CONCILIACION = #{folioConciliacion}</if>
+       GROUP BY DECODE(CATORIGEN.FCC_VALOR, 'DOMICILIACION E-SAR', 'DOMICILIACION', CATORIGEN.FCC_VALOR), CATORIGEN.FCC_VALOR, DIVCON.FTN_FONDO_APOVOL, CATAPOVOL.FCC_VALOR, CON.FTN_REG_CONCILIADO
+UNION
+       SELECT (CASE CON.FTN_REF_SUBCTA_APOVOL WHEN 170 THEN 1 WHEN 174 THEN 2 WHEN 175 THEN 3 WHEN 172 THEN 4 END) AS ORDEN, 
+        DECODE(CATORIGEN.FCC_VALOR, 'DOMICILIACION E-SAR', 'DOMICILIACION', CATORIGEN.FCC_VALOR) AS ORIGEN, CATAPOVOL.FCC_VALOR AS APOVOL, COUNT(CON.FTN_REF_SUBCTA_APOVOL) AS REGISTROS, SUM(CON.FTN_IMPORTE) AS IMPORTE,
+        (CASE WHEN CON.FTN_REG_CONCILIADO = 1 THEN COUNT(CON.FTN_REF_SUBCTA_APOVOL) ELSE 0 END) AS CONCILIADOS,
+        ((select COUNT_RSA from CONSILDS) + (select COUNT_FA from CONSILDS_FA)) AS TOTAL_CONCILIADOS,
+        (CASE WHEN CON.FTN_REG_CONCILIADO = 0 THEN COUNT(CON.FTN_REF_SUBCTA_APOVOL) ELSE 0 END) AS NO_CONCILIADOS,
+        ((select COUNT_RSA from NO_CONSILDS) + (select COUNT_FA from NO_CONSILDS_FA)) AS TOTAL_NO_CONCILIADOS,
+        (CASE WHEN CON.FTN_REG_CONCILIADO = 1 THEN 'CONCILIADO' ELSE 'NO CONCILIADO' END) AS ESTATUS
+       	FROM  TTAFOAVOL_CONCILIACION CON
+       	INNER JOIN TCCRXGRAL_CAT_CATALOGO CATORIGEN ON CON.FTN_ORIGEN_APORTACION = CATORIGEN.FCN_ID_CAT_CATALOGO
+       	INNER JOIN TCCRXGRAL_CAT_CATALOGO CATAPOVOL ON CON.FTN_REF_SUBCTA_APOVOL = CATAPOVOL.FCN_ID_CAT_CATALOGO
+       	INNER JOIN TCCRXGRAL_CAT_CATALOGO CATORIGEN ON CON.FTN_ORIGEN_APORTACION = CATORIGEN.FCN_ID_CAT_CATALOGO
+       	WHERE CON.FTN_ORIGEN_APORTACION IN (288,292,291,845,844) AND CON.FTN_REG_CONCILIADO = 1 AND CON.FTN_MOV_GENERADO = 0
+        <if test="folioConciliacion != null"> AND CON.FTC_FOLIO_CONCILIACION = #{folioConciliacion}</if>
+       	GROUP BY DECODE(CATORIGEN.FCC_VALOR, 'DOMICILIACION E-SAR', 'DOMICILIACION', CATORIGEN.FCC_VALOR), CATORIGEN.FCC_VALOR, CON.FTN_REF_SUBCTA_APOVOL, CATAPOVOL.FCC_VALOR, CON.FTN_REG_CONCILIADO )
+		GROUP BY ESTATUS, ORIGEN, APOVOL, ORDEN, TOTAL_CONCILIADOS, TOTAL_NO_CONCILIADOS
+		ORDER BY ESTATUS ASC, ORIGEN ASC, ORDEN ASC, APOVOL ASC		
+	</select>
+
+	<select id="selectPorBanco"	parameterType="mx.profuturo.nci.business.wrapped.CifrasGeneralesFilter"	resultMap="BaseResultMap">
+SELECT ORDEN, APOVOL AS NOMBRE_ELEMENTO, BANCOS AS FCC_VALOR_ORIGEN, SUM(REGISTROS) AS REGISTROS, SUM(IMPORTE) AS FTN_IMPORTE, SUM(CONCILIADOS) AS CONCILIADO, TOTAL_CONCILIADOS AS TOTAL_CONCILIADO, SUM(NO_CONCILIADOS) AS NO_CONCILIADO, TOTAL_NO_CONCILIADOS AS TOTAL_NO_CONCILIADO, ESTATUS AS ESTATUS FROM ( with CONSILDS_IN as( SELECT COUNT(CON.FTN_REF_SUBCTA_APOVOL)     as COUNT_RSA FROM TTAFOAVOL_CONCILIACION CON INNER JOIN TRAFOGRAL_ARCHIVO_FOLIO ARCHFOL     ON    CON.FTC_FOLIO = ARCHFOL.FTC_FOLIO INNER JOIN TTAFOGRAL_ARCHIVO ARCH             ON    ARCHFOL.FTN_ID_ARCHIVO = ARCH.FTN_ID_ARCHIVO WHERE CON.FTN_ORIGEN_APORTACION IN (287) AND CON.FTN_REF_SUBCTA_APOVOL     != 57822 AND CON.FTN_REG_CONCILIADO         = 1 AND CON.FTN_MOV_GENERADO         = 0 AND ARCH.FCN_ID_ESTATUS_ARCHIVO = 3 ),NO_CONSILDS_IN as( SELECT COUNT(CON.FTN_REF_SUBCTA_APOVOL)    as COUNT_RSA FROM TTAFOAVOL_CONCILIACION CON INNER JOIN TRAFOGRAL_ARCHIVO_FOLIO ARCHFOL     ON    CON.FTC_FOLIO = ARCHFOL.FTC_FOLIO INNER JOIN TTAFOGRAL_ARCHIVO ARCH             ON    ARCHFOL.FTN_ID_ARCHIVO = ARCH.FTN_ID_ARCHIVO WHERE CON.FTN_ORIGEN_APORTACION IN (287) AND CON.FTN_REF_SUBCTA_APOVOL     != 57822 AND CON.FTN_REG_CONCILIADO         = 0 AND CON.FTN_MOV_GENERADO         = 0 AND ARCH.FCN_ID_ESTATUS_ARCHIVO = 3 ),CONSILDS_NOTIN as( SELECT COUNT(CON.FTN_REF_SUBCTA_APOVOL)    as COUNT_RSA FROM TTAFOAVOL_CONCILIACION CON INNER JOIN TRAFOGRAL_ARCHIVO_FOLIO ARCHFOL     ON    CON.FTC_FOLIO = ARCHFOL.FTC_FOLIO INNER JOIN TTAFOGRAL_ARCHIVO ARCH             ON    ARCHFOL.FTN_ID_ARCHIVO = ARCH.FTN_ID_ARCHIVO WHERE CON.FTN_ORIGEN_APORTACION         NOT IN (288,292,291,845,844) AND CON.FTN_REF_SUBCTA_APOVOL     != 57822 AND CON.FTN_REG_CONCILIADO         = 1 AND CON.FTN_MOV_GENERADO         = 0 AND ARCH.FCN_ID_ESTATUS_ARCHIVO = 3 ),NO_CONSILDS_NOTIN as( SELECT COUNT(CON.FTN_REF_SUBCTA_APOVOL)    as COUNT_RSA FROM TTAFOAVOL_CONCILIACION CON INNER JOIN TRAFOGRAL_ARCHIVO_FOLIO ARCHFOL     ON    CON.FTC_FOLIO = ARCHFOL.FTC_FOLIO INNER JOIN TTAFOGRAL_ARCHIVO ARCH             ON    ARCHFOL.FTN_ID_ARCHIVO = ARCH.FTN_ID_ARCHIVO WHERE CON.FTN_ORIGEN_APORTACION         NOT IN (288,292,291,845,844) AND CON.FTN_REF_SUBCTA_APOVOL     != 57822 AND CON.FTN_REG_CONCILIADO         = 0 AND CON.FTN_MOV_GENERADO         = 0 AND ARCH.FCN_ID_ESTATUS_ARCHIVO = 3 ),CONSILDS_NOTIN_BNCO as( SELECT COUNT(CON.FTN_REF_SUBCTA_APOVOL)    as COUNT_RSA FROM TTAFOAVOL_CONCILIACION CON INNER JOIN TLAFOAVOL_SUM_CONCILIACION SUMCON     ON    CON.FTC_FOLIO = SUMCON.FTC_FOLIO LEFT JOIN TTAFOAVOL_BANCOS BANCO                 ON    SUMCON.FTN_IMPORTE = BANCO.FTN_IMPORTE AND CON.FTC_FOLIO = BANCO.FTC_FOLIO_REL INNER JOIN TRAFOGRAL_ARCHIVO_FOLIO ARCHFOL         ON    CON.FTC_FOLIO = ARCHFOL.FTC_FOLIO INNER JOIN TTAFOGRAL_ARCHIVO ARCH                 ON    ARCHFOL.FTN_ID_ARCHIVO = ARCH.FTN_ID_ARCHIVO WHERE CON.FTN_ORIGEN_APORTACION         NOT IN (287,288,291,844,845,292) AND CON.FTN_REF_SUBCTA_APOVOL     != 57822 AND CON.FTN_REG_CONCILIADO         = 1 AND CON.FTN_MOV_GENERADO         = 0 AND ARCH.FCN_ID_ESTATUS_ARCHIVO = 3 ),NO_CONSILDS_NOTIN_BNCO as( SELECT COUNT(CON.FTN_REF_SUBCTA_APOVOL)    as COUNT_RSA FROM TTAFOAVOL_CONCILIACION CON INNER JOIN TLAFOAVOL_SUM_CONCILIACION SUMCON     ON    CON.FTC_FOLIO = SUMCON.FTC_FOLIO LEFT JOIN TTAFOAVOL_BANCOS BANCO                 ON    SUMCON.FTN_IMPORTE = BANCO.FTN_IMPORTE AND CON.FTC_FOLIO = BANCO.FTC_FOLIO_REL INNER JOIN TRAFOGRAL_ARCHIVO_FOLIO ARCHFOL         ON    CON.FTC_FOLIO = ARCHFOL.FTC_FOLIO INNER JOIN TTAFOGRAL_ARCHIVO ARCH                 ON    ARCHFOL.FTN_ID_ARCHIVO = ARCH.FTN_ID_ARCHIVO WHERE CON.FTN_ORIGEN_APORTACION         NOT IN (287,288,291,844,845,292) AND CON.FTN_REF_SUBCTA_APOVOL     != 57822 AND CON.FTN_REG_CONCILIADO         = 0 AND CON.FTN_MOV_GENERADO         = 0 AND ARCH.FCN_ID_ESTATUS_ARCHIVO = 3 ),NO_CONSILDS_DIVER as( SELECT COUNT(DIVCON.FTN_FONDO_APOVOL)    as COUNT_FA FROM TTAFOAVOL_CONCILIACION CON INNER JOIN TTAFOAVOL_DIVERSIF_CONC DIVCON ON    CON.FTN_ID_CONCILIACION = DIVCON.FTN_ID_CONCILIACION WHERE CON.FTN_ORIGEN_APORTACION     IN (288,292,291,845,844) AND CON.FTN_REG_CONCILIADO     = 0 AND CON.FTN_MOV_GENERADO     = 0 ),CONSILDS_DIVER as( SELECT COUNT(DIVCON.FTN_FONDO_APOVOL)    as COUNT_FA FROM TTAFOAVOL_CONCILIACION CON INNER JOIN TTAFOAVOL_DIVERSIF_CONC DIVCON ON    CON.FTN_ID_CONCILIACION = DIVCON.FTN_ID_CONCILIACION WHERE CON.FTN_ORIGEN_APORTACION     IN (288,292,291,845,844) AND CON.FTN_REG_CONCILIADO     = 1 AND CON.FTN_MOV_GENERADO     = 0 ) SELECT CATBANCOS.FCC_VALOR AS BANCOS, (CASE CON.FTN_REF_SUBCTA_APOVOL WHEN 170 THEN 1 WHEN 174 THEN 2 WHEN 175 THEN 3 WHEN 172 THEN 4 END) AS ORDEN, CATAPOVOL.FCC_VALOR AS APOVOL, COUNT(CON.FTN_REF_SUBCTA_APOVOL) AS REGISTROS, SUM(CON.FTN_IMPORTE) AS IMPORTE, (CASE WHEN CON.FTN_REG_CONCILIADO = 1 THEN COUNT(CON.FTN_REF_SUBCTA_APOVOL) ELSE 0 END) AS CONCILIADOS, ((select COUNT_RSA from CONSILDS_IN) + (select COUNT_RSA from CONSILDS_NOTIN_BNCO) + ( SELECT COUNT(DIVCON.FTN_FONDO_APOVOL) FROM TTAFOAVOL_CONCILIACION CON INNER JOIN TTAFOAVOL_DIVERSIF_CONC DIVCON ON CON.FTN_ID_CONCILIACION = DIVCON.FTN_ID_CONCILIACION WHERE CON.FTN_ORIGEN_APORTACION IN (288,291,844,845) AND CON.FTN_REG_CONCILIADO = 1 AND CON.FTN_MOV_GENERADO = 0 ) + ( SELECT COUNT(DIVCON.FTN_FONDO_APOVOL) FROM TTAFOAVOL_CONCILIACION CON INNER JOIN TTAFOAVOL_DIVERSIF_CONC DIVCON ON CON.FTN_ID_CONCILIACION = DIVCON.FTN_ID_CONCILIACION WHERE CON.FTN_ORIGEN_APORTACION IN (292) AND CON.FTN_REG_CONCILIADO = 1 AND CON.FTN_MOV_GENERADO = 0 )) AS TOTAL_CONCILIADOS, (CASE WHEN CON.FTN_REG_CONCILIADO = 0 THEN COUNT(CON.FTN_REF_SUBCTA_APOVOL) ELSE 0 END) AS NO_CONCILIADOS, ((select COUNT_RSA from NO_CONSILDS_IN) + (select COUNT_RSA from NO_CONSILDS_NOTIN_BNCO) + ( SELECT COUNT(DIVCON.FTN_FONDO_APOVOL) FROM TTAFOAVOL_CONCILIACION CON INNER JOIN TTAFOAVOL_DIVERSIF_CONC DIVCON ON CON.FTN_ID_CONCILIACION = DIVCON.FTN_ID_CONCILIACION WHERE CON.FTN_ORIGEN_APORTACION IN (288,291,844,845) AND CON.FTN_REG_CONCILIADO = 0 AND CON.FTN_MOV_GENERADO = 0 ) + ( SELECT COUNT(DIVCON.FTN_FONDO_APOVOL) FROM TTAFOAVOL_CONCILIACION CON INNER JOIN TTAFOAVOL_DIVERSIF_CONC DIVCON ON CON.FTN_ID_CONCILIACION = DIVCON.FTN_ID_CONCILIACION WHERE CON.FTN_ORIGEN_APORTACION IN (292) AND CON.FTN_REG_CONCILIADO = 0 AND CON.FTN_MOV_GENERADO = 0 )) AS TOTAL_NO_CONCILIADOS, (CASE WHEN CON.FTN_REG_CONCILIADO = 1 THEN 'CONCILIADO' ELSE 'NO CONCILIADO' END) AS ESTATUS FROM TTAFOAVOL_CONCILIACION CON INNER JOIN TRAFOGRAL_ARCHIVO_FOLIO ARCHFOL ON CON.FTC_FOLIO = ARCHFOL.FTC_FOLIO INNER JOIN TTAFOGRAL_ARCHIVO ARCH ON ARCHFOL.FTN_ID_ARCHIVO = ARCH.FTN_ID_ARCHIVO INNER JOIN TCCRXGRAL_CAT_CATALOGO CATAPOVOL ON CON.FTN_REF_SUBCTA_APOVOL = CATAPOVOL.FCN_ID_CAT_CATALOGO LEFT JOIN TCCRXGRAL_CAT_CATALOGO CATBANCOS ON CON.FTN_CVE_BANCO = CATBANCOS.FCN_ID_CAT_CATALOGO WHERE CON.FTN_ORIGEN_APORTACION IN (287) AND CON.FTN_REF_SUBCTA_APOVOL != 57822 AND CON.FTN_REG_CONCILIADO = 1 AND CON.FTN_MOV_GENERADO = 0 AND ARCH.FCN_ID_ESTATUS_ARCHIVO = 3
+<if test="folioConciliacion != null"> AND CON.FTC_FOLIO_CONCILIACION = #{folioConciliacion}</if> 
+GROUP BY CON.FTN_CVE_BANCO, CATBANCOS.FCC_VALOR, CON.FTN_REF_SUBCTA_APOVOL, CATAPOVOL.FCC_VALOR, CON.FTN_REG_CONCILIADO UNION SELECT (CATBANCOS.FCC_VALOR) AS BANCOS, (CASE CON.FTN_REF_SUBCTA_APOVOL WHEN 170 THEN 1 WHEN 174 THEN 2 WHEN 175 THEN 3 WHEN 172 THEN 4 END) AS ORDEN, CATAPOVOL.FCC_VALOR AS APOVOL, COUNT(CON.FTN_REF_SUBCTA_APOVOL) AS REGISTROS, SUM(CON.FTN_IMPORTE) AS IMPORTE, (CASE WHEN CON.FTN_REG_CONCILIADO = 1 THEN COUNT(CON.FTN_REF_SUBCTA_APOVOL) ELSE 0 END) AS CONCILIADOS, ((select COUNT_RSA from CONSILDS_IN) + (select COUNT_RSA from CONSILDS_NOTIN_BNCO) + ( SELECT COUNT(DIVCON.FTN_FONDO_APOVOL) FROM TTAFOAVOL_CONCILIACION CON INNER JOIN TTAFOAVOL_DIVERSIF_CONC DIVCON ON CON.FTN_ID_CONCILIACION = DIVCON.FTN_ID_CONCILIACION WHERE CON.FTN_ORIGEN_APORTACION IN (288,291,844,845) AND CON.FTN_REG_CONCILIADO = 1 AND CON.FTN_MOV_GENERADO = 0 ) + ( SELECT COUNT(DIVCON.FTN_FONDO_APOVOL) FROM TTAFOAVOL_CONCILIACION CON INNER JOIN TTAFOAVOL_DIVERSIF_CONC DIVCON ON CON.FTN_ID_CONCILIACION = DIVCON.FTN_ID_CONCILIACION WHERE CON.FTN_ORIGEN_APORTACION IN (292) AND CON.FTN_REG_CONCILIADO = 1 AND CON.FTN_MOV_GENERADO = 0 )) AS TOTAL_CONCILIADOS, (CASE WHEN CON.FTN_REG_CONCILIADO = 0 THEN COUNT(CON.FTN_REF_SUBCTA_APOVOL) ELSE 0 END) AS NO_CONCILIADOS, ((select COUNT_RSA from NO_CONSILDS_IN) + (select COUNT_RSA from NO_CONSILDS_NOTIN_BNCO) + ( SELECT COUNT(DIVCON.FTN_FONDO_APOVOL) FROM TTAFOAVOL_CONCILIACION CON INNER JOIN TTAFOAVOL_DIVERSIF_CONC DIVCON ON CON.FTN_ID_CONCILIACION = DIVCON.FTN_ID_CONCILIACION WHERE CON.FTN_ORIGEN_APORTACION IN (288,291,844,845) AND CON.FTN_REG_CONCILIADO = 0 AND CON.FTN_MOV_GENERADO = 0 ) + ( SELECT COUNT(DIVCON.FTN_FONDO_APOVOL) FROM TTAFOAVOL_CONCILIACION CON INNER JOIN TTAFOAVOL_DIVERSIF_CONC DIVCON ON CON.FTN_ID_CONCILIACION = DIVCON.FTN_ID_CONCILIACION WHERE CON.FTN_ORIGEN_APORTACION IN (292) AND CON.FTN_REG_CONCILIADO = 0 AND CON.FTN_MOV_GENERADO = 0 )) AS TOTAL_NO_CONCILIADOS, (CASE WHEN CON.FTN_REG_CONCILIADO = 1 THEN 'CONCILIADO' ELSE 'NO CONCILIADO' END) AS ESTATUS FROM TTAFOAVOL_CONCILIACION CON INNER JOIN ( SELECT DISTINCT FB.FTC_FOLIO, B.FTN_CVE_BANCO FROM TRAFOAVOL_FOLIO_BANCO FB, TTAFOAVOL_BANCOS B WHERE FB.FTN_ID_BANCO = B.FTN_ID_BANCO) BANCO ON CON.FTC_FOLIO = BANCO.FTC_FOLIO INNER JOIN TRAFOGRAL_ARCHIVO_FOLIO ARCHFOL ON CON.FTC_FOLIO = ARCHFOL.FTC_FOLIO INNER JOIN TTAFOGRAL_ARCHIVO ARCH ON ARCHFOL.FTN_ID_ARCHIVO = ARCH.FTN_ID_ARCHIVO INNER JOIN TCCRXGRAL_CAT_CATALOGO CATAPOVOL ON CON.FTN_REF_SUBCTA_APOVOL = CATAPOVOL.FCN_ID_CAT_CATALOGO LEFT JOIN TCCRXGRAL_CAT_CATALOGO CATBANCOS ON CON.FTN_CVE_BANCO = CATBANCOS.FCN_ID_CAT_CATALOGO OR BANCO.FTN_CVE_BANCO = CATBANCOS.FCN_ID_CAT_CATALOGO WHERE CON.FTN_ORIGEN_APORTACION NOT IN (287,288,291,844,845,292) AND CON.FTN_REF_SUBCTA_APOVOL != 57822 AND CON.FTN_REG_CONCILIADO = 1 AND CON.FTN_MOV_GENERADO = 0 AND ARCH.FCN_ID_ESTATUS_ARCHIVO = 3
+<if test="folioConciliacion != null"> AND CON.FTC_FOLIO_CONCILIACION = #{folioConciliacion}</if> 
+GROUP BY CON.FTN_CVE_BANCO, CATBANCOS.FCC_VALOR, CON.FTN_REF_SUBCTA_APOVOL, CATAPOVOL.FCC_VALOR, CON.FTN_REG_CONCILIADO UNION SELECT (CATBANCOS.FCC_VALOR) AS BANCOS, (CASE DIVCON.FTN_FONDO_APOVOL WHEN 741 THEN 1 WHEN 742 THEN 2 WHEN 743 THEN 3 WHEN 744 THEN 4 END) AS ORDEN, (CASE DIVCON.FTN_FONDO_APOVOL WHEN 741 THEN ( SELECT CATDIVCON.FCC_VALOR FROM TCCRXGRAL_CAT_CATALOGO CATDIVCON WHERE CATDIVCON.FCN_ID_CAT_CATALOGO = 170 ) WHEN 742 THEN ( SELECT CATDIVCON.FCC_VALOR FROM TCCRXGRAL_CAT_CATALOGO CATDIVCON WHERE CATDIVCON.FCN_ID_CAT_CATALOGO = 174 ) WHEN 743 THEN ( SELECT CATDIVCON.FCC_VALOR FROM TCCRXGRAL_CAT_CATALOGO CATDIVCON WHERE CATDIVCON.FCN_ID_CAT_CATALOGO = 175 ) WHEN 744 THEN ( SELECT CATDIVCON.FCC_VALOR FROM TCCRXGRAL_CAT_CATALOGO CATDIVCON WHERE CATDIVCON.FCN_ID_CAT_CATALOGO = 172 ) END) AS APOVOL, COUNT(DIVCON.FTN_FONDO_APOVOL) AS REGISTROS, SUM(CASE WHEN DIVCON.FTN_MONTO IS NULL THEN (DIVCON.FTN_PORCENTAJE * CON.FTN_IMPORTE) / 100 ELSE DIVCON.FTN_MONTO END) AS IMPORTE, (CASE WHEN CON.FTN_REG_CONCILIADO = 1 THEN COUNT(DIVCON.FTN_FONDO_APOVOL) ELSE 0 END) AS CONCILIADOS, ((select COUNT_RSA from CONSILDS_IN) + (select COUNT_RSA from CONSILDS_NOTIN_BNCO) + ( SELECT COUNT(DIVCON.FTN_FONDO_APOVOL) FROM TTAFOAVOL_CONCILIACION CON INNER JOIN TTAFOAVOL_DIVERSIF_CONC DIVCON ON CON.FTN_ID_CONCILIACION = DIVCON.FTN_ID_CONCILIACION WHERE CON.FTN_ORIGEN_APORTACION IN (288,291,844,845) AND CON.FTN_REG_CONCILIADO = 1 AND CON.FTN_MOV_GENERADO = 0 ) + ( SELECT COUNT(DIVCON.FTN_FONDO_APOVOL) FROM TTAFOAVOL_CONCILIACION CON INNER JOIN TTAFOAVOL_DIVERSIF_CONC DIVCON ON CON.FTN_ID_CONCILIACION = DIVCON.FTN_ID_CONCILIACION WHERE CON.FTN_ORIGEN_APORTACION IN (292) AND CON.FTN_REG_CONCILIADO = 1 AND CON.FTN_MOV_GENERADO = 0 )) AS TOTAL_CONCILIADOS, (CASE WHEN CON.FTN_REG_CONCILIADO = 0 THEN COUNT(DIVCON.FTN_FONDO_APOVOL) ELSE 0 END) AS NO_CONCILIADOS, ((select COUNT_RSA from NO_CONSILDS_IN) + (select COUNT_RSA from NO_CONSILDS_NOTIN_BNCO) + ( SELECT COUNT(DIVCON.FTN_FONDO_APOVOL) FROM TTAFOAVOL_CONCILIACION CON INNER JOIN TTAFOAVOL_DIVERSIF_CONC DIVCON ON CON.FTN_ID_CONCILIACION = DIVCON.FTN_ID_CONCILIACION WHERE CON.FTN_ORIGEN_APORTACION IN (288,291,844,845) AND CON.FTN_REG_CONCILIADO = 0 AND CON.FTN_MOV_GENERADO = 0 ) + ( SELECT COUNT(DIVCON.FTN_FONDO_APOVOL) FROM TTAFOAVOL_CONCILIACION CON INNER JOIN TTAFOAVOL_DIVERSIF_CONC DIVCON ON CON.FTN_ID_CONCILIACION = DIVCON.FTN_ID_CONCILIACION WHERE CON.FTN_ORIGEN_APORTACION IN (292) AND CON.FTN_REG_CONCILIADO = 0 AND CON.FTN_MOV_GENERADO = 0 )) AS TOTAL_NO_CONCILIADOS, (CASE WHEN CON.FTN_REG_CONCILIADO = 1 THEN 'CONCILIADO' ELSE 'NO CONCILIADO' END) AS ESTATUS FROM TTAFOAVOL_CONCILIACION CON INNER JOIN TTAFOAVOL_DIVERSIF_CONC DIVCON ON CON.FTN_ID_CONCILIACION = DIVCON.FTN_ID_CONCILIACION INNER JOIN TCCRXGRAL_CAT_CATALOGO CATAPOVOL ON DIVCON.FTN_FONDO_APOVOL = CATAPOVOL.FCN_ID_CAT_CATALOGO LEFT JOIN TCCRXGRAL_CAT_CATALOGO CATBANCOS ON CON.FTN_CVE_BANCO = CATBANCOS.FCN_ID_CAT_CATALOGO WHERE CON.FTN_ORIGEN_APORTACION IN (288,291,844,845) AND CON.FTN_REG_CONCILIADO = 1 AND CON.FTN_CVE_BANCO IN (459,460) AND CON.FTN_MOV_GENERADO = 0
+<if test="folioConciliacion != null"> AND CON.FTC_FOLIO_CONCILIACION = #{folioConciliacion}</if> 
+GROUP BY CON.FTN_CVE_BANCO, CATBANCOS.FCC_VALOR, DIVCON.FTN_FONDO_APOVOL, CATAPOVOL.FCC_VALOR, CON.FTN_REG_CONCILIADO UNION SELECT (CATBANCOS.FCC_VALOR) AS BANCOS, (CASE DIVCON.FTN_FONDO_APOVOL WHEN 741 THEN 1 WHEN 742 THEN 2 WHEN 743 THEN 3 WHEN 744 THEN 4 END) AS ORDEN, (CASE DIVCON.FTN_FONDO_APOVOL WHEN 741 THEN ( SELECT CATDIVCON.FCC_VALOR FROM TCCRXGRAL_CAT_CATALOGO CATDIVCON WHERE CATDIVCON.FCN_ID_CAT_CATALOGO = 170 ) WHEN 742 THEN ( SELECT CATDIVCON.FCC_VALOR FROM TCCRXGRAL_CAT_CATALOGO CATDIVCON WHERE CATDIVCON.FCN_ID_CAT_CATALOGO = 174 ) WHEN 743 THEN ( SELECT CATDIVCON.FCC_VALOR FROM TCCRXGRAL_CAT_CATALOGO CATDIVCON WHERE CATDIVCON.FCN_ID_CAT_CATALOGO = 175 ) WHEN 744 THEN ( SELECT CATDIVCON.FCC_VALOR FROM TCCRXGRAL_CAT_CATALOGO CATDIVCON WHERE CATDIVCON.FCN_ID_CAT_CATALOGO = 172 ) END) AS APOVOL, COUNT(DIVCON.FTN_FONDO_APOVOL) AS REGISTROS, SUM(CASE WHEN DIVCON.FTN_MONTO IS NULL THEN (DIVCON.FTN_PORCENTAJE * CON.FTN_IMPORTE) / 100 ELSE DIVCON.FTN_MONTO END) AS IMPORTE, (CASE WHEN CON.FTN_REG_CONCILIADO = 1 THEN COUNT(DIVCON.FTN_FONDO_APOVOL) ELSE 0 END) AS CONCILIADOS, ((select COUNT_RSA from CONSILDS_IN) + (select COUNT_RSA from CONSILDS_NOTIN_BNCO) + ( SELECT COUNT(DIVCON.FTN_FONDO_APOVOL) FROM TTAFOAVOL_CONCILIACION CON INNER JOIN TTAFOAVOL_DIVERSIF_CONC DIVCON ON CON.FTN_ID_CONCILIACION = DIVCON.FTN_ID_CONCILIACION WHERE CON.FTN_ORIGEN_APORTACION IN (288,291,844,845) AND CON.FTN_REG_CONCILIADO = 1 AND CON.FTN_MOV_GENERADO = 0 ) + ( SELECT COUNT(DIVCON.FTN_FONDO_APOVOL) FROM TTAFOAVOL_CONCILIACION CON INNER JOIN TTAFOAVOL_DIVERSIF_CONC DIVCON ON CON.FTN_ID_CONCILIACION = DIVCON.FTN_ID_CONCILIACION WHERE CON.FTN_ORIGEN_APORTACION IN (292) AND CON.FTN_REG_CONCILIADO = 1 AND CON.FTN_MOV_GENERADO = 0 )) AS TOTAL_CONCILIADOS, (CASE WHEN CON.FTN_REG_CONCILIADO = 0 THEN COUNT(DIVCON.FTN_FONDO_APOVOL) ELSE 0 END) AS NO_CONCILIADOS, ((select COUNT_RSA from NO_CONSILDS_IN) + (select COUNT_RSA from NO_CONSILDS_NOTIN_BNCO) + ( SELECT COUNT(DIVCON.FTN_FONDO_APOVOL) FROM TTAFOAVOL_CONCILIACION CON INNER JOIN TTAFOAVOL_DIVERSIF_CONC DIVCON ON CON.FTN_ID_CONCILIACION = DIVCON.FTN_ID_CONCILIACION WHERE CON.FTN_ORIGEN_APORTACION IN (288,291,844,845) AND CON.FTN_REG_CONCILIADO = 0 AND CON.FTN_MOV_GENERADO = 0 ) + ( SELECT COUNT(DIVCON.FTN_FONDO_APOVOL) FROM TTAFOAVOL_CONCILIACION CON INNER JOIN TTAFOAVOL_DIVERSIF_CONC DIVCON ON CON.FTN_ID_CONCILIACION = DIVCON.FTN_ID_CONCILIACION WHERE CON.FTN_ORIGEN_APORTACION IN (292) AND CON.FTN_REG_CONCILIADO = 0 AND CON.FTN_MOV_GENERADO = 0 )) AS TOTAL_NO_CONCILIADOS, (CASE WHEN CON.FTN_REG_CONCILIADO = 1 THEN 'CONCILIADO' ELSE 'NO CONCILIADO' END) AS ESTATUS FROM TTAFOAVOL_CONCILIACION CON INNER JOIN TRAFOGRAL_ARCHIVO_FOLIO AF ON CON.FTC_FOLIO = AF.FTC_FOLIO INNER JOIN TTAFOGRAL_ARCHIVO AR ON AR.FTN_ID_ARCHIVO = AF.FTN_ID_ARCHIVO INNER JOIN TTAFOAVOL_DIVERSIF_CONC DIVCON ON CON.FTN_ID_CONCILIACION = DIVCON.FTN_ID_CONCILIACION INNER JOIN TCCRXGRAL_CAT_CATALOGO CATAPOVOL ON DIVCON.FTN_FONDO_APOVOL = CATAPOVOL.FCN_ID_CAT_CATALOGO LEFT JOIN TCCRXGRAL_CAT_CATALOGO CATBANCOS ON AR.FTN_ID_DETALLE_ORIGEN = CATBANCOS.FCN_ID_CAT_CATALOGO WHERE CON.FTN_ORIGEN_APORTACION IN (288,291,844,845) AND CON.FTN_REG_CONCILIADO = 1 AND CON.FTN_CVE_BANCO IN (461) AND CON.FTN_MOV_GENERADO = 0 
+<if test="folioConciliacion != null"> AND CON.FTC_FOLIO_CONCILIACION = #{folioConciliacion}</if> 
+GROUP BY CON.FTN_CVE_BANCO, CATBANCOS.FCC_VALOR, DIVCON.FTN_FONDO_APOVOL, CATAPOVOL.FCC_VALOR, CON.FTN_REG_CONCILIADO UNION SELECT (CATBANCOSIN.FCC_VALOR) AS BANCOS, (CASE DIVCON.FTN_FONDO_APOVOL WHEN 741 THEN 1 WHEN 742 THEN 2 WHEN 743 THEN 3 WHEN 744 THEN 4 END) AS ORDEN, (CASE DIVCON.FTN_FONDO_APOVOL WHEN 741 THEN ( SELECT CATDIVCON.FCC_VALOR FROM TCCRXGRAL_CAT_CATALOGO CATDIVCON WHERE CATDIVCON.FCN_ID_CAT_CATALOGO = 170 ) WHEN 742 THEN ( SELECT CATDIVCON.FCC_VALOR FROM TCCRXGRAL_CAT_CATALOGO CATDIVCON WHERE CATDIVCON.FCN_ID_CAT_CATALOGO = 174 ) WHEN 743 THEN ( SELECT CATDIVCON.FCC_VALOR FROM TCCRXGRAL_CAT_CATALOGO CATDIVCON WHERE CATDIVCON.FCN_ID_CAT_CATALOGO = 175 ) WHEN 744 THEN ( SELECT CATDIVCON.FCC_VALOR FROM TCCRXGRAL_CAT_CATALOGO CATDIVCON WHERE CATDIVCON.FCN_ID_CAT_CATALOGO = 172 ) END) AS APOVOL, COUNT(DIVCON.FTN_FONDO_APOVOL) AS REGISTROS, SUM(CASE WHEN DIVCON.FTN_MONTO IS NULL THEN (DIVCON.FTN_PORCENTAJE * CON.FTN_IMPORTE) / 100 ELSE DIVCON.FTN_MONTO END) AS IMPORTE, (CASE WHEN CON.FTN_REG_CONCILIADO = 1 THEN COUNT(DIVCON.FTN_FONDO_APOVOL) ELSE 0 END) AS CONCILIADOS, ((select COUNT_RSA from CONSILDS_IN) + (select COUNT_RSA from CONSILDS_NOTIN_BNCO) + ( SELECT COUNT(DIVCON.FTN_FONDO_APOVOL) FROM TTAFOAVOL_CONCILIACION CON INNER JOIN TTAFOAVOL_DIVERSIF_CONC DIVCON ON CON.FTN_ID_CONCILIACION = DIVCON.FTN_ID_CONCILIACION WHERE CON.FTN_ORIGEN_APORTACION IN (288,291,844,845) AND CON.FTN_REG_CONCILIADO = 1 AND CON.FTN_MOV_GENERADO = 0 ) + ( SELECT COUNT(DIVCON.FTN_FONDO_APOVOL) FROM TTAFOAVOL_CONCILIACION CON INNER JOIN TTAFOAVOL_DIVERSIF_CONC DIVCON ON CON.FTN_ID_CONCILIACION = DIVCON.FTN_ID_CONCILIACION WHERE CON.FTN_ORIGEN_APORTACION IN (292) AND CON.FTN_REG_CONCILIADO = 1 AND CON.FTN_MOV_GENERADO = 0 )) AS TOTAL_CONCILIADOS, (CASE WHEN CON.FTN_REG_CONCILIADO = 0 THEN COUNT(DIVCON.FTN_FONDO_APOVOL) ELSE 0 END) AS NO_CONCILIADOS, ((select COUNT_RSA from NO_CONSILDS_IN) + (select COUNT_RSA from NO_CONSILDS_NOTIN_BNCO) + ( SELECT COUNT(DIVCON.FTN_FONDO_APOVOL) FROM TTAFOAVOL_CONCILIACION CON INNER JOIN TTAFOAVOL_DIVERSIF_CONC DIVCON ON CON.FTN_ID_CONCILIACION = DIVCON.FTN_ID_CONCILIACION WHERE CON.FTN_ORIGEN_APORTACION IN (288,291,844,845) AND CON.FTN_REG_CONCILIADO = 0 AND CON.FTN_MOV_GENERADO = 0 ) + ( SELECT COUNT(DIVCON.FTN_FONDO_APOVOL) FROM TTAFOAVOL_CONCILIACION CON INNER JOIN TTAFOAVOL_DIVERSIF_CONC DIVCON ON CON.FTN_ID_CONCILIACION = DIVCON.FTN_ID_CONCILIACION WHERE CON.FTN_ORIGEN_APORTACION IN (292) AND CON.FTN_REG_CONCILIADO = 0 AND CON.FTN_MOV_GENERADO = 0 )) AS TOTAL_NO_CONCILIADOS, (CASE WHEN CON.FTN_REG_CONCILIADO = 1 THEN 'CONCILIADO' ELSE 'NO CONCILIADO' END) AS ESTATUS FROM TTAFOAVOL_CONCILIACION CON INNER JOIN TTAFOAVOL_DIVERSIF_CONC DIVCON ON CON.FTN_ID_CONCILIACION = DIVCON.FTN_ID_CONCILIACION INNER JOIN ( SELECT DISTINCT FB.FTC_FOLIO, B.FTN_CVE_BANCO FROM TRAFOAVOL_FOLIO_BANCO FB, TTAFOAVOL_BANCOS B WHERE FB.FTN_ID_BANCO = B.FTN_ID_BANCO) BS ON CON.FTC_FOLIO = BS.FTC_FOLIO INNER JOIN TCCRXGRAL_CAT_CATALOGO CATAPOVOL ON DIVCON.FTN_FONDO_APOVOL = CATAPOVOL.FCN_ID_CAT_CATALOGO LEFT JOIN TCCRXGRAL_CAT_CATALOGO CATBANCOSIN ON BS.FTN_CVE_BANCO = CATBANCOSIN.FCN_ID_CAT_CATALOGO WHERE CON.FTN_ORIGEN_APORTACION IN (288,291,844,845) AND CON.FTN_REG_CONCILIADO = 1 AND CON.FTN_CVE_BANCO NOT IN (459,460,461) AND CON.FTN_MOV_GENERADO = 0
+<if test="folioConciliacion != null"> AND CON.FTC_FOLIO_CONCILIACION = #{folioConciliacion}</if> 
+GROUP BY CATBANCOSIN.FCC_VALOR, DIVCON.FTN_FONDO_APOVOL, CATAPOVOL.FCC_VALOR, CON.FTN_REG_CONCILIADO UNION SELECT DECODE(CATORIGEN.FCC_VALOR, 'DOMICILIACION E-SAR', 'DOMICILIACION', CATORIGEN.FCC_VALOR) AS ORIGEN, (CASE DIVCON.FTN_FONDO_APOVOL WHEN 741 THEN 1 WHEN 742 THEN 2 WHEN 743 THEN 3 WHEN 744 THEN 4 END) AS ORDEN, (CASE DIVCON.FTN_FONDO_APOVOL WHEN 741 THEN ( SELECT CATDIVCON.FCC_VALOR FROM TCCRXGRAL_CAT_CATALOGO CATDIVCON WHERE CATDIVCON.FCN_ID_CAT_CATALOGO = 170 ) WHEN 742 THEN ( SELECT CATDIVCON.FCC_VALOR FROM TCCRXGRAL_CAT_CATALOGO CATDIVCON WHERE CATDIVCON.FCN_ID_CAT_CATALOGO = 174 ) WHEN 743 THEN ( SELECT CATDIVCON.FCC_VALOR FROM TCCRXGRAL_CAT_CATALOGO CATDIVCON WHERE CATDIVCON.FCN_ID_CAT_CATALOGO = 175 ) WHEN 744 THEN ( SELECT CATDIVCON.FCC_VALOR FROM TCCRXGRAL_CAT_CATALOGO CATDIVCON WHERE CATDIVCON.FCN_ID_CAT_CATALOGO = 172 ) END) AS APOVOL, COUNT(DIVCON.FTN_FONDO_APOVOL) AS REGISTROS, SUM(CASE WHEN DIVCON.FTN_MONTO IS NULL THEN (DIVCON.FTN_PORCENTAJE * CON.FTN_IMPORTE) / 100 ELSE DIVCON.FTN_MONTO END) AS IMPORTE, (CASE WHEN CON.FTN_REG_CONCILIADO = 1 THEN COUNT(DIVCON.FTN_FONDO_APOVOL) ELSE 0 END) AS CONCILIADOS, ((select COUNT_RSA from CONSILDS_NOTIN) + (select COUNT_FA from CONSILDS_DIVER)) AS TOTAL_CONCILIADOS, (CASE WHEN CON.FTN_REG_CONCILIADO = 0 THEN COUNT(DIVCON.FTN_FONDO_APOVOL) ELSE 0 END) AS NO_CONCILIADOS, ((select COUNT_RSA from NO_CONSILDS_NOTIN) + (select COUNT_FA from NO_CONSILDS_DIVER)) AS TOTAL_NO_CONCILIADOS, (CASE WHEN CON.FTN_REG_CONCILIADO = 1 THEN 'CONCILIADO' ELSE 'NO CONCILIADO' END) AS ESTATUS FROM TTAFOAVOL_CONCILIACION CON INNER JOIN TTAFOAVOL_DIVERSIF_CONC DIVCON ON CON.FTN_ID_CONCILIACION = DIVCON.FTN_ID_CONCILIACION INNER JOIN TCCRXGRAL_CAT_CATALOGO CATORIGEN ON CON.FTN_ORIGEN_APORTACION = CATORIGEN.FCN_ID_CAT_CATALOGO INNER JOIN TCCRXGRAL_CAT_CATALOGO CATAPOVOL ON DIVCON.FTN_FONDO_APOVOL = CATAPOVOL.FCN_ID_CAT_CATALOGO WHERE CON.FTN_ORIGEN_APORTACION IN (292) AND CON.FTN_REG_CONCILIADO = 1 AND CON.FTN_MOV_GENERADO = 0
+<if test="folioConciliacion != null"> AND CON.FTC_FOLIO_CONCILIACION = #{folioConciliacion}</if> 
+GROUP BY DECODE(CATORIGEN.FCC_VALOR, 'DOMICILIACION E-SAR', 'DOMICILIACION', CATORIGEN.FCC_VALOR), CATORIGEN.FCC_VALOR, DIVCON.FTN_FONDO_APOVOL, CATAPOVOL.FCC_VALOR, CON.FTN_REG_CONCILIADO UNION SELECT DECODE(CATORIGEN.FCC_VALOR, 'DOMICILIACION E-SAR', 'DOMICILIACION', CATORIGEN.FCC_VALOR) AS ORIGEN, (CASE CON.FTN_REF_SUBCTA_APOVOL WHEN 170 THEN 1 WHEN 174 THEN 2 WHEN 175 THEN 3 WHEN 172 THEN 4 END) AS ORDEN, CATAPOVOL.FCC_VALOR AS APOVOL, COUNT(CON.FTN_REF_SUBCTA_APOVOL) AS REGISTROS, SUM(CON.FTN_IMPORTE) AS IMPORTE, (CASE WHEN CON.FTN_REG_CONCILIADO = 1 THEN COUNT(CON.FTN_REF_SUBCTA_APOVOL) ELSE 0 END) AS CONCILIADOS, ((select COUNT_RSA from CONSILDS_NOTIN) + (select COUNT_FA from CONSILDS_DIVER)) AS TOTAL_CONCILIADOS, (CASE WHEN CON.FTN_REG_CONCILIADO = 0 THEN COUNT(CON.FTN_REF_SUBCTA_APOVOL) ELSE 0 END) AS NO_CONCILIADOS, ((select COUNT_RSA from NO_CONSILDS_NOTIN) + (select COUNT_FA from NO_CONSILDS_DIVER)) AS TOTAL_NO_CONCILIADOS, (CASE WHEN CON.FTN_REG_CONCILIADO = 1 THEN 'CONCILIADO' ELSE 'NO CONCILIADO' END) AS ESTATUS FROM TTAFOAVOL_CONCILIACION CON INNER JOIN TCCRXGRAL_CAT_CATALOGO CATORIGEN ON CON.FTN_ORIGEN_APORTACION = CATORIGEN.FCN_ID_CAT_CATALOGO INNER JOIN TCCRXGRAL_CAT_CATALOGO CATAPOVOL ON CON.FTN_REF_SUBCTA_APOVOL = CATAPOVOL.FCN_ID_CAT_CATALOGO INNER JOIN TCCRXGRAL_CAT_CATALOGO CATORIGEN ON CON.FTN_ORIGEN_APORTACION = CATORIGEN.FCN_ID_CAT_CATALOGO WHERE CON.FTN_ORIGEN_APORTACION IN (292) AND CON.FTN_REG_CONCILIADO = 1 AND CON.FTN_MOV_GENERADO = 0
+<if test="folioConciliacion != null"> AND CON.FTC_FOLIO_CONCILIACION = #{folioConciliacion}</if> 
+GROUP BY DECODE(CATORIGEN.FCC_VALOR, 'DOMICILIACION E-SAR', 'DOMICILIACION', CATORIGEN.FCC_VALOR), CATORIGEN.FCC_VALOR, CON.FTN_REF_SUBCTA_APOVOL, CATAPOVOL.FCC_VALOR, CON.FTN_REG_CONCILIADO ) GROUP BY ESTATUS, BANCOS, ORDEN, APOVOL, TOTAL_CONCILIADOS, TOTAL_NO_CONCILIADOS ORDER BY ESTATUS ASC, BANCOS ASC, ORDEN ASC
+	</select>
+	
+	<select id="selectPorTipoLPReporte" parameterType="mx.profuturo.nci.business.wrapped.CifrasGeneralesFilter" resultMap="BaseResultMapTipoReporte">
+	
+		SELECT
+		    ORDEN,
+		    APOVOL AS FCC_VALOR_ORIGEN,
+		    ORIGEN AS NOMBRE_ELEMENTO,
+		    SUM(REGISTROS) AS REGISTROS,
+		    NVL(SUM(IMPORTE),0) AS FTN_IMPORTE,
+		    SUM(CONCILIADOS) AS CONCILIADO,
+		    TOTAL_CONCILIADOS AS TOTAL_CONCILIADO,
+		    SUM(NO_CONCILIADOS) AS NO_CONCILIADO,
+		    TOTAL_NO_CONCILIADOS AS TOTAL_NO_CONCILIADO,
+		    ESTATUS AS ESTATUS
+		FROM(
+		SELECT
+		    (CASE CON.FTN_REF_SUBCTA_APOVOL
+		      WHEN 174 THEN 2
+		      WHEN 175 THEN 3
+		      WHEN 172 THEN 4
+		    END) AS ORDEN,
+		    CATAPOVOL.FCC_VALOR AS APOVOL,
+		    CATORIGEN.FCC_VALOR AS ORIGEN,
+		    COUNT(CON.FTN_REF_SUBCTA_APOVOL) AS REGISTROS,
+		    SUM(CON.FTN_IMPORTE) AS IMPORTE,
+		    (CASE WHEN CON.FTN_REG_CONCILIADO = 1 THEN COUNT(CON.FTN_REF_SUBCTA_APOVOL) ELSE 0 END) AS CONCILIADOS,
+		    ((SELECT COUNT(CON.FTN_REF_SUBCTA_APOVOL) FROM TTAFOAVOL_CONCILIACION CON
+		      INNER JOIN TRAFOGRAL_ARCHIVO_FOLIO ARCHFOL 
+		        ON CON.FTC_FOLIO = ARCHFOL.FTC_FOLIO
+		      INNER JOIN TTAFOGRAL_ARCHIVO ARCH 
+		        ON ARCHFOL.FTN_ID_ARCHIVO = ARCH.FTN_ID_ARCHIVO
+		      WHERE 
+		          CON.FTN_ORIGEN_APORTACION NOT IN (288,292,291,845,844)
+		        AND
+		          CON.FTN_REF_SUBCTA_APOVOL IN (174,175,172)
+		        AND
+		          CON.FTN_REG_CONCILIADO = 1
+		        AND
+		          CON.FTN_MOV_GENERADO = 0
+		        AND
+		          ARCH.FCN_ID_ESTATUS_ARCHIVO = 3
+			  )
+		          +
+		     (SELECT COUNT(DIVCON.FTN_FONDO_APOVOL) FROM TTAFOAVOL_CONCILIACION CON
+		      INNER JOIN TTAFOAVOL_DIVERSIF_CONC DIVCON
+		        ON CON.FTN_ID_CONCILIACION = DIVCON.FTN_ID_CONCILIACION
+		      WHERE 
+		          CON.FTN_ORIGEN_APORTACION IN (288,292,291,845,844)
+		        AND
+		          DIVCON.FTN_FONDO_APOVOL IN (742,743,744)
+		        AND
+		          CON.FTN_REG_CONCILIADO = 1
+		        AND
+		          CON.FTN_MOV_GENERADO = 0
+			  ))AS TOTAL_CONCILIADOS,
+		    (CASE WHEN CON.FTN_REG_CONCILIADO = 0 THEN COUNT(CON.FTN_REF_SUBCTA_APOVOL) ELSE 0 END) AS NO_CONCILIADOS,
+		    ((SELECT COUNT(CON.FTN_REF_SUBCTA_APOVOL) FROM TTAFOAVOL_CONCILIACION CON
+		      INNER JOIN TRAFOGRAL_ARCHIVO_FOLIO ARCHFOL 
+		        ON CON.FTC_FOLIO = ARCHFOL.FTC_FOLIO
+		      INNER JOIN TTAFOGRAL_ARCHIVO ARCH 
+		        ON ARCHFOL.FTN_ID_ARCHIVO = ARCH.FTN_ID_ARCHIVO
+		      WHERE 
+		          CON.FTN_ORIGEN_APORTACION NOT IN (288,292,291,845,844)
+		        AND
+		          CON.FTN_REF_SUBCTA_APOVOL IN (174,175,172)
+		        AND
+		          CON.FTN_REG_CONCILIADO = 0
+		        AND
+		          CON.FTN_MOV_GENERADO = 0
+		        AND
+		          ARCH.FCN_ID_ESTATUS_ARCHIVO = 3
+			  )
+		          +
+		     (SELECT COUNT(DIVCON.FTN_FONDO_APOVOL) FROM TTAFOAVOL_CONCILIACION CON
+		      INNER JOIN TTAFOAVOL_DIVERSIF_CONC DIVCON
+		        ON CON.FTN_ID_CONCILIACION = DIVCON.FTN_ID_CONCILIACION
+		      WHERE 
+		          CON.FTN_ORIGEN_APORTACION IN (288,292,291,845,844)
+		        AND
+		          DIVCON.FTN_FONDO_APOVOL IN (742,743,744)
+		        AND
+		          CON.FTN_REG_CONCILIADO = 0
+		        AND
+		          CON.FTN_MOV_GENERADO = 0
+			  ))AS TOTAL_NO_CONCILIADOS,
+		    (CASE WHEN CON.FTN_REG_CONCILIADO = 1 THEN 'CONCILIADO' ELSE 'NO CONCILIADO' END) AS ESTATUS  
+		FROM TTAFOAVOL_CONCILIACION CON
+		INNER JOIN TRAFOGRAL_ARCHIVO_FOLIO ARCHFOL 
+		  ON CON.FTC_FOLIO = ARCHFOL.FTC_FOLIO
+		INNER JOIN TTAFOGRAL_ARCHIVO ARCH 
+		  ON ARCHFOL.FTN_ID_ARCHIVO = ARCH.FTN_ID_ARCHIVO
+		INNER JOIN TCCRXGRAL_CAT_CATALOGO CATORIGEN 
+		  ON CON.FTN_ORIGEN_APORTACION = CATORIGEN.FCN_ID_CAT_CATALOGO
+		INNER JOIN TCCRXGRAL_CAT_CATALOGO CATAPOVOL
+		  ON CON.FTN_REF_SUBCTA_APOVOL = CATAPOVOL.FCN_ID_CAT_CATALOGO
+		<where> 
+		    CON.FTN_ORIGEN_APORTACION NOT IN (288,292,291,845,844)
+		  AND
+		    CON.FTN_REF_SUBCTA_APOVOL IN (174,175,172)
+		  AND
+		    CON.FTN_REG_CONCILIADO = 1
+		  AND
+		    CON.FTN_MOV_GENERADO = 0
+		  AND
+		    ARCH.FCN_ID_ESTATUS_ARCHIVO = 3
+		    <if test="folioConciliacion != null">
+		    	AND CON.FTC_FOLIO_CONCILIACION = #{folioConciliacion}
+		    </if>
+		 </where>
+		GROUP BY 
+		  CON.FTN_REF_SUBCTA_APOVOL,
+		  CATAPOVOL.FCC_VALOR,
+		  CATORIGEN.FCC_VALOR,
+		  CON.FTN_REG_CONCILIADO
+		
+		UNION
+		
+  SELECT 
+ORDEN,
+APOVOL,
+ORIGEN,
+SUM(REGISTROS) as REGISTROS,
+SUM(IMPORTE) as IMPORTE,
+SUM(CONCILIADOS) as CONCILIADOS,
+SUM(TOTAL_CONCILIADOS) as TOTAL_CONCILIADOS,
+SUM(NO_CONCILIADOS) as NO_CONCILIADOS,
+SUM(TOTAL_NO_CONCILIADOS) as TOTAL_NO_CONCILIADOS,
+ESTATUS
+FROM (
+SELECT
+		    (CASE DIVCON.FTN_FONDO_APOVOL
+		      WHEN 742 THEN 2
+		      WHEN 743 THEN 3
+		      WHEN 744 THEN 4
+		    END) AS ORDEN,
+		    (CASE DIVCON.FTN_FONDO_APOVOL 
+		    WHEN 742 THEN (SELECT CATDIVCON.FCC_VALOR FROM TCCRXGRAL_CAT_CATALOGO CATDIVCON WHERE CATDIVCON.FCN_ID_CAT_CATALOGO = 174)
+		    WHEN 743 THEN (SELECT CATDIVCON.FCC_VALOR FROM TCCRXGRAL_CAT_CATALOGO CATDIVCON WHERE CATDIVCON.FCN_ID_CAT_CATALOGO = 175)
+		    WHEN 744 THEN (SELECT CATDIVCON.FCC_VALOR FROM TCCRXGRAL_CAT_CATALOGO CATDIVCON WHERE CATDIVCON.FCN_ID_CAT_CATALOGO = 172)
+		    END) AS APOVOL,
+		    CATORIGEN.FCC_VALOR AS ORIGEN,
+		    COUNT(DIVCON.FTN_FONDO_APOVOL) AS REGISTROS,
+		    SUM(CASE WHEN DIVCON.FTN_MONTO IS NULL THEN (DIVCON.FTN_PORCENTAJE * CON.FTN_IMPORTE) / 100 ELSE DIVCON.FTN_MONTO END) AS IMPORTE,
+		    (CASE WHEN CON.FTN_REG_CONCILIADO = 1 THEN COUNT(DIVCON.FTN_FONDO_APOVOL) ELSE 0 END) AS CONCILIADOS,
+		    ((SELECT COUNT(CON.FTN_REF_SUBCTA_APOVOL) FROM TTAFOAVOL_CONCILIACION CON
+		      INNER JOIN TRAFOGRAL_ARCHIVO_FOLIO ARCHFOL 
+		        ON CON.FTC_FOLIO = ARCHFOL.FTC_FOLIO
+		      INNER JOIN TTAFOGRAL_ARCHIVO ARCH 
+		        ON ARCHFOL.FTN_ID_ARCHIVO = ARCH.FTN_ID_ARCHIVO
+		      WHERE 
+		          CON.FTN_ORIGEN_APORTACION NOT IN (288,292,291,845,844)
+		        AND
+		          CON.FTN_REF_SUBCTA_APOVOL IN (174,175,172)
+		        AND
+		          CON.FTN_REG_CONCILIADO = 1
+		        AND
+		          CON.FTN_MOV_GENERADO = 0
+		        AND
+		          ARCH.FCN_ID_ESTATUS_ARCHIVO = 3
+			  )
+		          +
+		     (SELECT COUNT(DIVCON.FTN_FONDO_APOVOL) FROM TTAFOAVOL_CONCILIACION CON
+		      INNER JOIN TTAFOAVOL_DIVERSIF_CONC DIVCON
+		        ON CON.FTN_ID_CONCILIACION = DIVCON.FTN_ID_CONCILIACION
+		      WHERE 
+		          CON.FTN_ORIGEN_APORTACION IN (288,292,291,845,844)
+		        AND
+		          DIVCON.FTN_FONDO_APOVOL IN (742,743,744)
+		        AND
+		          CON.FTN_REG_CONCILIADO = 1
+		        AND
+		          CON.FTN_MOV_GENERADO = 0
+			  )) AS TOTAL_CONCILIADOS,
+		    (CASE WHEN CON.FTN_REG_CONCILIADO = 1 THEN COUNT(DIVCON.FTN_FONDO_APOVOL) ELSE 0 END) AS NO_CONCILIADOS,
+		    ((SELECT COUNT(CON.FTN_REF_SUBCTA_APOVOL) FROM TTAFOAVOL_CONCILIACION CON
+		      INNER JOIN TRAFOGRAL_ARCHIVO_FOLIO ARCHFOL 
+		        ON CON.FTC_FOLIO = ARCHFOL.FTC_FOLIO
+		      INNER JOIN TTAFOGRAL_ARCHIVO ARCH 
+		        ON ARCHFOL.FTN_ID_ARCHIVO = ARCH.FTN_ID_ARCHIVO
+		      WHERE 
+		          CON.FTN_ORIGEN_APORTACION NOT IN (288,292,291,845,844)
+		        AND
+		          CON.FTN_REF_SUBCTA_APOVOL IN (174,175,172)
+		        AND
+		          CON.FTN_REG_CONCILIADO = 1
+		        AND
+		          CON.FTN_MOV_GENERADO = 0
+		        AND
+		          ARCH.FCN_ID_ESTATUS_ARCHIVO = 3
+			  )
+		          +
+		     (SELECT COUNT(DIVCON.FTN_FONDO_APOVOL) FROM TTAFOAVOL_CONCILIACION CON
+		      INNER JOIN TTAFOAVOL_DIVERSIF_CONC DIVCON
+		        ON CON.FTN_ID_CONCILIACION = DIVCON.FTN_ID_CONCILIACION
+		      WHERE 
+		          CON.FTN_ORIGEN_APORTACION IN (288,292,291,845,844)
+		        AND
+		          DIVCON.FTN_FONDO_APOVOL IN (742,743,744)
+		        AND
+		          CON.FTN_REG_CONCILIADO = 1
+		        AND
+		          CON.FTN_MOV_GENERADO = 0
+			  )) AS TOTAL_NO_CONCILIADOS,
+		    (CASE WHEN CON.FTN_REG_CONCILIADO = 1 THEN 'CONCILIADO' ELSE 'NO CONCILIADO' END) AS ESTATUS  
+		FROM TTAFOAVOL_CONCILIACION CON
+		INNER JOIN TTAFOAVOL_DIVERSIF_CONC DIVCON
+		  ON CON.FTN_ID_CONCILIACION = DIVCON.FTN_ID_CONCILIACION
+		INNER JOIN TCCRXGRAL_CAT_CATALOGO CATORIGEN 
+		  ON CON.FTN_ORIGEN_APORTACION = CATORIGEN.FCN_ID_CAT_CATALOGO
+		INNER JOIN TCCRXGRAL_CAT_CATALOGO CATAPOVOL
+		  ON DIVCON.FTN_FONDO_APOVOL = CATAPOVOL.FCN_ID_CAT_CATALOGO
+		<where>
+		    CON.FTN_ORIGEN_APORTACION IN (288,292,291,845,844)
+		  AND
+		    DIVCON.FTN_FONDO_APOVOL IN (742,743,744)
+		  AND
+		    CON.FTN_REG_CONCILIADO = 1
+		  AND
+		    CON.FTN_MOV_GENERADO = 0
+		    <if test="folioConciliacion != null">
+		    	AND CON.FTC_FOLIO_CONCILIACION = #{folioConciliacion}
+		    </if>
+		 </where>
+		GROUP BY 
+		  DIVCON.FTN_FONDO_APOVOL,
+		  CATAPOVOL.FCC_VALOR,
+		  CATORIGEN.FCC_VALOR,
+		  CON.FTN_REG_CONCILIADO
+ 
+      
+      UNION
+      
+      	
+	SELECT
+                (CASE CON.FTN_REF_SUBCTA_APOVOL
+                  WHEN 174 THEN 2
+                  WHEN 175 THEN 3
+                  WHEN 172 THEN 4
+                END) AS ORDEN,
+                CATAPOVOL.FCC_VALOR  AS ORIGEN,
+                DECODE(CATORIGEN.FCC_VALOR,'DOMICILIACION E-SAR','DOMICILIACION',CATORIGEN.FCC_VALOR)AS APOVOL,
+                COUNT(CON.FTN_REF_SUBCTA_APOVOL) AS REGISTROS,
+                SUM(CON.FTN_IMPORTE) AS IMPORTE,
+                (CASE WHEN CON.FTN_REG_CONCILIADO = 1 THEN COUNT(CON.FTN_REF_SUBCTA_APOVOL) ELSE 0 END) AS CONCILIADOS,
+               ((SELECT COUNT(CON.FTN_REF_SUBCTA_APOVOL) FROM TTAFOAVOL_CONCILIACION CON
+                  INNER JOIN TRAFOGRAL_ARCHIVO_FOLIO ARCHFOL 
+                    ON CON.FTC_FOLIO = ARCHFOL.FTC_FOLIO
+                  INNER JOIN TTAFOGRAL_ARCHIVO ARCH 
+                    ON ARCHFOL.FTN_ID_ARCHIVO = ARCH.FTN_ID_ARCHIVO
+                    WHERE CON.FTN_ORIGEN_APORTACION NOT IN (288,292,291,845,844)
+                    AND 
+                    CON.FTN_REF_SUBCTA_APOVOL != 57822
+                    AND
+                      CON.FTN_REG_CONCILIADO = 1
+                    AND
+                      CON.FTN_MOV_GENERADO = 0
+                    AND
+                      ARCH.FCN_ID_ESTATUS_ARCHIVO = 3 )
+                      +
+                 (SELECT COUNT(DIVCON.FTN_FONDO_APOVOL) FROM TTAFOAVOL_CONCILIACION CON
+                  INNER JOIN TTAFOAVOL_DIVERSIF_CONC DIVCON
+                    ON CON.FTN_ID_CONCILIACION = DIVCON.FTN_ID_CONCILIACION
+                    WHERE CON.FTN_ORIGEN_APORTACION IN (288,292,291,845,844)
+                    AND
+                      CON.FTN_REG_CONCILIADO = 1
+                    AND
+                      CON.FTN_MOV_GENERADO = 0  )) AS TOTAL_CONCILIADOS,
+            (CASE WHEN CON.FTN_REG_CONCILIADO = 0 THEN COUNT(CON.FTN_REF_SUBCTA_APOVOL) ELSE 0 END) AS NO_CONCILIADOS,
+             ((SELECT COUNT(CON.FTN_REF_SUBCTA_APOVOL) FROM TTAFOAVOL_CONCILIACION CON
+                  INNER JOIN TRAFOGRAL_ARCHIVO_FOLIO ARCHFOL 
+                    ON CON.FTC_FOLIO = ARCHFOL.FTC_FOLIO
+                  INNER JOIN TTAFOGRAL_ARCHIVO ARCH 
+                    ON ARCHFOL.FTN_ID_ARCHIVO = ARCH.FTN_ID_ARCHIVO
+                    WHERE CON.FTN_ORIGEN_APORTACION NOT IN (288,292,291,845,844)
+                    AND 
+                    CON.FTN_REF_SUBCTA_APOVOL != 57822
+                    AND
+                      CON.FTN_REG_CONCILIADO = 0
+                    AND
+                      CON.FTN_MOV_GENERADO = 0
+                    AND
+                      ARCH.FCN_ID_ESTATUS_ARCHIVO = 3 )
+                      +
+                (SELECT COUNT(DIVCON.FTN_FONDO_APOVOL) FROM TTAFOAVOL_CONCILIACION CON
+                  INNER JOIN TTAFOAVOL_DIVERSIF_CONC DIVCON
+                    ON CON.FTN_ID_CONCILIACION = DIVCON.FTN_ID_CONCILIACION
+                    WHERE CON.FTN_ORIGEN_APORTACION IN (288,292,291,845,844)
+                    AND
+                      CON.FTN_REG_CONCILIADO = 0
+                    AND
+                      CON.FTN_MOV_GENERADO = 0  )) AS TOTAL_NO_CONCILIADOS,
+                      (CASE WHEN CON.FTN_REG_CONCILIADO = 1 THEN 'CONCILIADO' ELSE 'NO CONCILIADO' END) AS ESTATUS 
+            FROM TTAFOAVOL_CONCILIACION CON
+            INNER JOIN TCCRXGRAL_CAT_CATALOGO CATORIGEN 
+              ON CON.FTN_ORIGEN_APORTACION = CATORIGEN.FCN_ID_CAT_CATALOGO
+            INNER JOIN TCCRXGRAL_CAT_CATALOGO CATAPOVOL
+              ON CON.FTN_REF_SUBCTA_APOVOL = CATAPOVOL.FCN_ID_CAT_CATALOGO
+            INNER JOIN TCCRXGRAL_CAT_CATALOGO CATORIGEN
+              ON CON.FTN_ORIGEN_APORTACION= CATORIGEN.FCN_ID_CAT_CATALOGO
+             <where>
+				CON.FTN_ORIGEN_APORTACION IN (288,292,291,845,844)
+              AND
+              CON.FTN_REF_SUBCTA_APOVOL IN (174,175,172)
+              AND
+                CON.FTN_REG_CONCILIADO = 1
+              AND
+                CON.FTN_MOV_GENERADO = 0
+                <if test="folioConciliacion != null">
+		    		AND CON.FTC_FOLIO_CONCILIACION = #{folioConciliacion}
+		    	</if>
+		    </where>   
+            GROUP BY 
+              DECODE(CATORIGEN.FCC_VALOR,'DOMICILIACION E-SAR','DOMICILIACION',CATORIGEN.FCC_VALOR),
+              CATORIGEN.FCC_VALOR,
+              CON.FTN_REF_SUBCTA_APOVOL,
+              CATAPOVOL.FCC_VALOR,
+              CON.FTN_REG_CONCILIADO
+              )
+              GROUP BY 
+              APOVOL,
+              ORIGEN,
+              ORDEN,
+              ESTATUS
+		  
+		  
+		)GROUP BY   
+		  ESTATUS,
+		  ORIGEN,
+		  APOVOL,
+		  ORDEN,
+		  TOTAL_CONCILIADOS,
+		  TOTAL_NO_CONCILIADOS
+		ORDER BY
+		    ESTATUS ASC,
+		    ORDEN ASC,
+		    ORIGEN ASC,
+		    APOVOL ASC		
+	
+	</select>
+	
+	<select id="selectPorTipoCPReporte" parameterType="mx.profuturo.nci.business.wrapped.CifrasGeneralesFilter" resultMap="BaseResultMapTipoCortoReporte">
+		
+		SELECT 
+ORDEN,
+NOMBRE_ELEMENTO,
+FCC_VALOR_ORIGEN,
+SUM(REGISTROS) as REGISTROS,
+NVL(SUM(FTN_IMPORTE),0) as FTN_IMPORTE,
+SUM(CONCILIADO) as CONCILIADO,
+SUM(TOTAL_CONCILIADO) as TOTAL_CONCILIADO,
+SUM(NO_CONCILIADO) as NO_CONCILIADO,
+SUM(TOTAL_NO_CONCILIADO) as TOTAL_NO_CONCILIADO,
+ESTATUS
+FROM (
+SELECT
+		    ORDEN,
+		    APOVOL AS FCC_VALOR_ORIGEN,
+		    ORIGEN AS NOMBRE_ELEMENTO,
+		    SUM(REGISTROS) AS REGISTROS,
+		    SUM(IMPORTE) AS FTN_IMPORTE,
+		    SUM(CONCILIADOS) AS CONCILIADO,
+		    TOTAL_CONCILIADOS AS TOTAL_CONCILIADO,
+		    SUM(NO_CONCILIADOS) AS NO_CONCILIADO,
+		    TOTAL_NO_CONCILIADOS AS TOTAL_NO_CONCILIADO,
+		    ESTATUS AS ESTATUS
+		FROM(
+		SELECT
+		    (CASE CON.FTN_REF_SUBCTA_APOVOL
+		      WHEN 170 THEN 1
+		    END) AS ORDEN,
+		    CATAPOVOL.FCC_VALOR AS APOVOL,
+		    CATORIGEN.FCC_VALOR AS ORIGEN,
+		    COUNT(CON.FTN_REF_SUBCTA_APOVOL) AS REGISTROS,
+		    SUM(CON.FTN_IMPORTE) AS IMPORTE,
+		    (CASE WHEN CON.FTN_REG_CONCILIADO = 1 THEN COUNT(CON.FTN_REF_SUBCTA_APOVOL) ELSE 0 END) AS CONCILIADOS,
+		    ((SELECT COUNT(CON.FTN_REF_SUBCTA_APOVOL) FROM TTAFOAVOL_CONCILIACION CON
+		      INNER JOIN TRAFOGRAL_ARCHIVO_FOLIO ARCHFOL 
+		        ON CON.FTC_FOLIO = ARCHFOL.FTC_FOLIO
+		      INNER JOIN TTAFOGRAL_ARCHIVO ARCH 
+		        ON ARCHFOL.FTN_ID_ARCHIVO = ARCH.FTN_ID_ARCHIVO
+		      WHERE 
+		          CON.FTN_ORIGEN_APORTACION NOT IN (288,292,291,845,844)
+		        AND
+		          CON.FTN_REF_SUBCTA_APOVOL IN (170)
+		        AND
+		          CON.FTN_REG_CONCILIADO = 1
+		        AND
+		          CON.FTN_MOV_GENERADO = 0
+		        AND
+		          ARCH.FCN_ID_ESTATUS_ARCHIVO = 3
+			  ) 
+		          +
+		    (SELECT COUNT(DIVCON.FTN_FONDO_APOVOL) FROM TTAFOAVOL_CONCILIACION CON
+		      INNER JOIN TTAFOAVOL_DIVERSIF_CONC DIVCON
+		        ON CON.FTN_ID_CONCILIACION = DIVCON.FTN_ID_CONCILIACION
+		      WHERE 
+		          CON.FTN_ORIGEN_APORTACION IN (288,292,291,845,844)
+		        AND
+		          DIVCON.FTN_FONDO_APOVOL IN (741)
+		        AND
+		          CON.FTN_REG_CONCILIADO = 1
+		        AND
+		          CON.FTN_MOV_GENERADO = 0
+			  )) AS TOTAL_CONCILIADOS,
+		    (CASE WHEN CON.FTN_REG_CONCILIADO = 1 THEN COUNT(CON.FTN_REF_SUBCTA_APOVOL) ELSE 0 END) AS NO_CONCILIADOS,
+		    ((SELECT COUNT(CON.FTN_REF_SUBCTA_APOVOL) FROM TTAFOAVOL_CONCILIACION CON
+		      INNER JOIN TRAFOGRAL_ARCHIVO_FOLIO ARCHFOL 
+		        ON CON.FTC_FOLIO = ARCHFOL.FTC_FOLIO
+		      INNER JOIN TTAFOGRAL_ARCHIVO ARCH 
+		        ON ARCHFOL.FTN_ID_ARCHIVO = ARCH.FTN_ID_ARCHIVO
+		      WHERE 
+		          CON.FTN_ORIGEN_APORTACION NOT IN (288,292,291,845,844)
+		        AND
+		          CON.FTN_REF_SUBCTA_APOVOL IN (170)
+		        AND
+		          CON.FTN_REG_CONCILIADO = 1
+		        AND
+		          CON.FTN_MOV_GENERADO = 0
+		        AND
+		          ARCH.FCN_ID_ESTATUS_ARCHIVO = 3
+			  )
+		          +
+		    (SELECT COUNT(DIVCON.FTN_FONDO_APOVOL) FROM TTAFOAVOL_CONCILIACION CON
+		      INNER JOIN TTAFOAVOL_DIVERSIF_CONC DIVCON
+		        ON CON.FTN_ID_CONCILIACION = DIVCON.FTN_ID_CONCILIACION
+		      WHERE 
+		          CON.FTN_ORIGEN_APORTACION IN (288,292,291,845,844)
+		        AND
+		          DIVCON.FTN_FONDO_APOVOL IN (741)
+		        AND
+		          CON.FTN_REG_CONCILIADO = 1
+		        AND
+		          CON.FTN_MOV_GENERADO = 0
+			  )) AS TOTAL_NO_CONCILIADOS,
+		    (CASE WHEN CON.FTN_REG_CONCILIADO = 1 THEN 'CONCILIADO' ELSE 'NO CONCILIADO' END) AS ESTATUS  
+		FROM TTAFOAVOL_CONCILIACION CON
+		INNER JOIN TRAFOGRAL_ARCHIVO_FOLIO ARCHFOL 
+		  ON CON.FTC_FOLIO = ARCHFOL.FTC_FOLIO
+		INNER JOIN TTAFOGRAL_ARCHIVO ARCH 
+		  ON ARCHFOL.FTN_ID_ARCHIVO = ARCH.FTN_ID_ARCHIVO
+		INNER JOIN TCCRXGRAL_CAT_CATALOGO CATORIGEN 
+		  ON CON.FTN_ORIGEN_APORTACION = CATORIGEN.FCN_ID_CAT_CATALOGO
+		INNER JOIN TCCRXGRAL_CAT_CATALOGO CATAPOVOL
+		  ON CON.FTN_REF_SUBCTA_APOVOL = CATAPOVOL.FCN_ID_CAT_CATALOGO
+		<where>
+		    CON.FTN_ORIGEN_APORTACION NOT IN (288,292,291,845,844)
+		  AND
+		    CON.FTN_REF_SUBCTA_APOVOL IN (170)
+		  AND
+		    CON.FTN_REG_CONCILIADO = 1
+		  AND
+		    CON.FTN_MOV_GENERADO = 0
+		  AND
+		    ARCH.FCN_ID_ESTATUS_ARCHIVO = 3
+		    <if test="folioConciliacion != null">
+		    	AND CON.FTC_FOLIO_CONCILIACION = #{folioConciliacion}
+		    </if>
+		 </where>
+		GROUP BY 
+		  CON.FTN_REF_SUBCTA_APOVOL,
+		  CATAPOVOL.FCC_VALOR,
+		  CATORIGEN.FCC_VALOR,
+		  CON.FTN_REG_CONCILIADO
+		
+		UNION
+		
+		SELECT
+		    (CASE DIVCON.FTN_FONDO_APOVOL
+		      WHEN 741 THEN 1
+		    END) AS ORDEN,
+		    (CASE WHEN DIVCON.FTN_FONDO_APOVOL = 741 
+		    THEN (SELECT CATDIVCON.FCC_VALOR FROM TCCRXGRAL_CAT_CATALOGO CATDIVCON WHERE CATDIVCON.FCN_ID_CAT_CATALOGO = 170)
+		    END) AS APOVOL,
+		    CATORIGEN.FCC_VALOR AS ORIGEN,
+		    COUNT(DIVCON.FTN_FONDO_APOVOL) AS REGISTROS,
+		    SUM(CASE WHEN DIVCON.FTN_MONTO IS NULL THEN (DIVCON.FTN_PORCENTAJE * CON.FTN_IMPORTE) / 100 ELSE DIVCON.FTN_MONTO END) AS IMPORTE,
+		    (CASE WHEN CON.FTN_REG_CONCILIADO = 1 THEN COUNT(DIVCON.FTN_FONDO_APOVOL) ELSE 0 END) AS CONCILIADOS,
+		    ((SELECT COUNT(CON.FTN_REF_SUBCTA_APOVOL) FROM TTAFOAVOL_CONCILIACION CON
+		      INNER JOIN TRAFOGRAL_ARCHIVO_FOLIO ARCHFOL 
+		        ON CON.FTC_FOLIO = ARCHFOL.FTC_FOLIO
+		      INNER JOIN TTAFOGRAL_ARCHIVO ARCH 
+		        ON ARCHFOL.FTN_ID_ARCHIVO = ARCH.FTN_ID_ARCHIVO
+		      WHERE 
+		          CON.FTN_ORIGEN_APORTACION NOT IN (288,292,291,845,844)
+		        AND
+		          CON.FTN_REF_SUBCTA_APOVOL IN (170)
+		        AND
+		          CON.FTN_REG_CONCILIADO = 1
+		        AND
+		          CON.FTN_MOV_GENERADO = 0
+		        AND
+		          ARCH.FCN_ID_ESTATUS_ARCHIVO = 3
+			  )
+		          +
+		     (SELECT COUNT(DIVCON.FTN_FONDO_APOVOL) FROM TTAFOAVOL_CONCILIACION CON
+		      INNER JOIN TTAFOAVOL_DIVERSIF_CONC DIVCON
+		        ON CON.FTN_ID_CONCILIACION = DIVCON.FTN_ID_CONCILIACION
+		      WHERE 
+		          CON.FTN_ORIGEN_APORTACION IN (288,292,291,845,844)
+		        AND
+		          DIVCON.FTN_FONDO_APOVOL IN (741)
+		        AND
+		          CON.FTN_REG_CONCILIADO = 1
+		        AND
+		          CON.FTN_MOV_GENERADO = 0
+			  )) AS TOTAL_CONCILIADOS,
+		    (CASE WHEN CON.FTN_REG_CONCILIADO = 1 THEN COUNT(DIVCON.FTN_FONDO_APOVOL) ELSE 0 END) AS NO_CONCILIADOS,
+		    ((SELECT COUNT(CON.FTN_REF_SUBCTA_APOVOL) FROM TTAFOAVOL_CONCILIACION CON
+		      INNER JOIN TRAFOGRAL_ARCHIVO_FOLIO ARCHFOL 
+		        ON CON.FTC_FOLIO = ARCHFOL.FTC_FOLIO
+		      INNER JOIN TTAFOGRAL_ARCHIVO ARCH 
+		        ON ARCHFOL.FTN_ID_ARCHIVO = ARCH.FTN_ID_ARCHIVO
+		      WHERE 
+		          CON.FTN_ORIGEN_APORTACION NOT IN (288,292,291,845,844)
+		        AND
+		          CON.FTN_REF_SUBCTA_APOVOL IN (170)
+		        AND
+		          CON.FTN_REG_CONCILIADO = 1
+		        AND
+		          CON.FTN_MOV_GENERADO = 0
+		        AND
+		          ARCH.FCN_ID_ESTATUS_ARCHIVO = 3
+			  )
+		          +
+		     (SELECT COUNT(DIVCON.FTN_FONDO_APOVOL) FROM TTAFOAVOL_CONCILIACION CON
+		      INNER JOIN TTAFOAVOL_DIVERSIF_CONC DIVCON
+		        ON CON.FTN_ID_CONCILIACION = DIVCON.FTN_ID_CONCILIACION
+		      WHERE 
+		          CON.FTN_ORIGEN_APORTACION IN (288,292,291,845,844)
+		        AND
+		          DIVCON.FTN_FONDO_APOVOL IN (741)
+		        AND
+		          CON.FTN_REG_CONCILIADO = 1
+		        AND
+		          CON.FTN_MOV_GENERADO = 0
+			  )) AS TOTAL_NO_CONCILIADOS,
+		    (CASE WHEN CON.FTN_REG_CONCILIADO = 1 THEN 'CONCILIADO' ELSE 'NO CONCILIADO' END) AS ESTATUS  
+		FROM TTAFOAVOL_CONCILIACION CON
+		INNER JOIN TTAFOAVOL_DIVERSIF_CONC DIVCON
+		  ON CON.FTN_ID_CONCILIACION = DIVCON.FTN_ID_CONCILIACION
+		INNER JOIN TCCRXGRAL_CAT_CATALOGO CATORIGEN 
+		  ON CON.FTN_ORIGEN_APORTACION = CATORIGEN.FCN_ID_CAT_CATALOGO
+		INNER JOIN TCCRXGRAL_CAT_CATALOGO CATAPOVOL
+		  ON DIVCON.FTN_FONDO_APOVOL = CATAPOVOL.FCN_ID_CAT_CATALOGO
+		<where> 
+		    CON.FTN_ORIGEN_APORTACION IN (288,292,291,845,844)
+		  AND
+		    DIVCON.FTN_FONDO_APOVOL IN (741)
+		  AND
+		    CON.FTN_REG_CONCILIADO = 1
+		  AND
+		    CON.FTN_MOV_GENERADO = 0
+		    <if test="folioConciliacion != null">
+		    	AND CON.FTC_FOLIO_CONCILIACION = #{folioConciliacion}
+		    </if>
+		 </where>
+		GROUP BY 
+		  DIVCON.FTN_FONDO_APOVOL,
+		  CATAPOVOL.FCC_VALOR,
+		  CATORIGEN.FCC_VALOR,
+		  CON.FTN_REG_CONCILIADO
+		  
+		UNION
+
+			SELECT
+		    (CASE CON.FTN_REF_SUBCTA_APOVOL
+		      WHEN 170 THEN 1
+		    END) AS ORDEN,
+		    (CASE WHEN CON.FTN_REF_SUBCTA_APOVOL = 170
+		    THEN (SELECT CATDIVCON.FCC_VALOR FROM TCCRXGRAL_CAT_CATALOGO CATDIVCON WHERE CATDIVCON.FCN_ID_CAT_CATALOGO = 170)
+		    END) AS APOVOL,
+		    CATORIGEN.FCC_VALOR AS ORIGEN,
+		    COUNT(CON.FTN_REF_SUBCTA_APOVOL) AS REGISTROS,
+        
+		    SUM(CON.FTN_IMPORTE) AS IMPORTE,
+		    (CASE WHEN CON.FTN_REG_CONCILIADO = 1 THEN COUNT(CON.FTN_REF_SUBCTA_APOVOL) ELSE 0 END) AS CONCILIADOS,
+		    ((SELECT COUNT(CON.FTN_REF_SUBCTA_APOVOL) FROM TTAFOAVOL_CONCILIACION CON
+		      INNER JOIN TRAFOGRAL_ARCHIVO_FOLIO ARCHFOL 
+		        ON CON.FTC_FOLIO = ARCHFOL.FTC_FOLIO
+		      INNER JOIN TTAFOGRAL_ARCHIVO ARCH 
+		        ON ARCHFOL.FTN_ID_ARCHIVO = ARCH.FTN_ID_ARCHIVO
+		      WHERE 
+		          CON.FTN_ORIGEN_APORTACION NOT IN (288,292,291,845,844)
+		        AND
+		          CON.FTN_REF_SUBCTA_APOVOL IN (170)
+		        AND
+		          CON.FTN_REG_CONCILIADO = 1
+		        AND
+		          CON.FTN_MOV_GENERADO = 0
+		        AND
+		          ARCH.FCN_ID_ESTATUS_ARCHIVO = 3
+			  )
+		          +
+		     (SELECT COUNT(CON.FTN_REF_SUBCTA_APOVOL) FROM TTAFOAVOL_CONCILIACION CON
+		      WHERE 
+		          CON.FTN_ORIGEN_APORTACION IN (288,292,291,845,844)
+		        AND
+		          CON.FTN_REF_SUBCTA_APOVOL IN (170)
+		        AND
+		          CON.FTN_REG_CONCILIADO = 1
+		        AND
+		          CON.FTN_MOV_GENERADO = 0
+			  )) AS TOTAL_CONCILIADOS,
+		    (CASE WHEN CON.FTN_REG_CONCILIADO = 1 THEN COUNT(CON.FTN_REF_SUBCTA_APOVOL) ELSE 0 END) AS NO_CONCILIADOS,
+		    ((SELECT COUNT(CON.FTN_REF_SUBCTA_APOVOL) FROM TTAFOAVOL_CONCILIACION CON
+		      INNER JOIN TRAFOGRAL_ARCHIVO_FOLIO ARCHFOL 
+		        ON CON.FTC_FOLIO = ARCHFOL.FTC_FOLIO
+		      INNER JOIN TTAFOGRAL_ARCHIVO ARCH 
+		        ON ARCHFOL.FTN_ID_ARCHIVO = ARCH.FTN_ID_ARCHIVO
+		      WHERE 
+		          CON.FTN_ORIGEN_APORTACION NOT IN (288,292,291,845,844)
+		        AND
+		          CON.FTN_REF_SUBCTA_APOVOL IN (170)
+		        AND
+		          CON.FTN_REG_CONCILIADO = 1
+		        AND
+		          CON.FTN_MOV_GENERADO = 0
+		        AND
+		          ARCH.FCN_ID_ESTATUS_ARCHIVO = 3
+			  )
+		          +
+		     (SELECT COUNT(CON.FTN_REF_SUBCTA_APOVOL) FROM TTAFOAVOL_CONCILIACION CON
+		      WHERE 
+		          CON.FTN_ORIGEN_APORTACION IN (288,292,291,845,844)
+		        AND
+		          CON.FTN_REF_SUBCTA_APOVOL IN (170)
+		        AND
+		          CON.FTN_REG_CONCILIADO = 1
+		        AND
+		          CON.FTN_MOV_GENERADO = 0
+			  )) AS TOTAL_NO_CONCILIADOS,
+		    (CASE WHEN CON.FTN_REG_CONCILIADO = 1 THEN 'CONCILIADO' ELSE 'NO CONCILIADO' END) AS ESTATUS  
+		FROM TTAFOAVOL_CONCILIACION CON
+		INNER JOIN TCCRXGRAL_CAT_CATALOGO CATORIGEN 
+		  ON CON.FTN_ORIGEN_APORTACION = CATORIGEN.FCN_ID_CAT_CATALOGO
+		INNER JOIN TCCRXGRAL_CAT_CATALOGO CATAPOVOL
+		  ON CON.FTN_REF_SUBCTA_APOVOL = CATAPOVOL.FCN_ID_CAT_CATALOGO
+		<where>
+		    CON.FTN_ORIGEN_APORTACION IN (288,292,291,845,844)
+		  AND
+		    CON.FTN_REF_SUBCTA_APOVOL IN (170)
+		  AND
+		    CON.FTN_REG_CONCILIADO = 1
+		  AND
+		    CON.FTN_MOV_GENERADO = 0
+		    <if test="folioConciliacion != null">
+		    	AND CON.FTC_FOLIO_CONCILIACION = #{folioConciliacion}
+		    </if>
+		</where>
+		GROUP BY 
+		  CON.FTN_REF_SUBCTA_APOVOL,
+		  CATAPOVOL.FCC_VALOR,
+		  CATORIGEN.FCC_VALOR,
+		  CON.FTN_REG_CONCILIADO		  
+		)GROUP BY   
+		  ESTATUS,
+		  ORIGEN,
+		  APOVOL,
+		  ORDEN,
+		  TOTAL_CONCILIADOS,
+		  TOTAL_NO_CONCILIADOS
+		ORDER BY
+		    ESTATUS ASC,
+		    ORDEN ASC,
+		    ORIGEN ASC,
+		    APOVOL ASC
+        )
+              GROUP BY 
+              NOMBRE_ELEMENTO,
+              FCC_VALOR_ORIGEN,
+              ORDEN,
+              ESTATUS
+              			
+            ORDER BY
+		    ESTATUS ASC,
+		    FCC_VALOR_ORIGEN ASC,
+		    NOMBRE_ELEMENTO ASC
+
+	</select>
+
+</mapper>

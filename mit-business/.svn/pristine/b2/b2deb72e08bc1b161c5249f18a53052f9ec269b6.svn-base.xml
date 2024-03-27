@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mx.profuturo.nci.persistence.CifrasControlClientePersistence">
+
+	<resultMap id="cifrasControlClienteMap"
+		type="mx.profuturo.nci.business.vo.SolicitudReclasificacionVO">
+
+		<id property="clave" javaType="string" column="CLAVE" jdbcType="VARCHAR" />
+
+		<result property="folio" javaType="string" column="FOLIO"
+			jdbcType="VARCHAR" />
+
+		<result property="fechaInicio" javaType="Date" column="FECHASOLICITUD"
+			jdbcType="TIMESTAMP" />
+
+		<result property="origen" javaType="int" column="IDORIGEN"
+			jdbcType="DECIMAL" />
+
+		<result property="descOrigen" javaType="string" column="DESCORIGEN"
+			jdbcType="VARCHAR" />
+
+		<result property="cuenta" javaType="long" column="CUENTA"
+			jdbcType="DECIMAL" />
+
+		<result property="nombre" javaType="string" column="NOMBRE"
+			jdbcType="VARCHAR" />
+
+		<result property="aPaterno" javaType="string" column="APATERNO"
+			jdbcType="VARCHAR" />
+
+		<result property="aMaterno" javaType="string" column="AMATERNO"
+			jdbcType="VARCHAR" />
+
+		<result property="importe" javaType="BigDecimal" column="IMPORTE"
+			jdbcType="DECIMAL" />
+
+		<result property="estatus" javaType="int" column="IDESTATUS"
+			jdbcType="DECIMAL" />
+
+		<result property="descEstatus" javaType="string" column="ESTATUS"
+			jdbcType="VARCHAR" />
+
+		<result property="curp" javaType="string" column="CURP"
+			jdbcType="VARCHAR" />
+
+		<result property="nss" javaType="string" column="NSS" jdbcType="VARCHAR" />
+
+		<result property="fondo" javaType="string" column="FONDO"
+			jdbcType="VARCHAR" />
+
+		<result property="subCuenta" javaType="string" column="SUBCUENTA"
+			jdbcType="VARCHAR" />
+
+		<result property="siefore" javaType="string" column="SIEFORE"
+			jdbcType="VARCHAR" />
+
+		<result property="monto" javaType="BigDecimal" column="MONTO"
+			jdbcType="DECIMAL" />
+
+		<result property="pesos" javaType="BigDecimal" column="PESOS"
+			jdbcType="DECIMAL" />
+		
+		<result property="porcentaje" javaType="Integer" column="PORCENTAJE"
+			jdbcType="DECIMAL" />
+		
+
+	</resultMap>
+
+
+	<select id="consultaSolicitudes"
+		parameterType="mx.profuturo.nci.business.vo.SolicitudReclasificacionVO"
+		resultMap="cifrasControlClienteMap">
+
+		SELECT
+		SOLICITUD.FTC_CVE_SOLICITUD CLAVE,
+		SOLICITUD.FTC_FOLIO FOLIO,
+		SOLICITUD.FTD_FEH_CAP FECHASOLICITUD,
+		ORIGEN.FCC_VALOR DESCORIGEN,
+		ORIGEN.FCN_ID_CAT_CATALOGO IDORIGEN,
+		SOLICITUD.FTN_NUM_CTA_INVDUAL CUENTA,
+		SOLICITANTE.FTC_NOMBRE_CTE NOMBRE,
+		SOLICITANTE.FTC_AP_PATERNO_CTE APATERNO,
+		SOLICITANTE.FTC_AP_MATERNO_CTE AMATERNO,
+		SOLICITUD.FTN_MONTO_RECLASIF IMPORTE,
+		ESTATUS.FCC_VALOR ESTATUS,
+		ESTATUS.FCN_ID_CAT_CATALOGO IDESTATUS,
+		SOLICITANTE.FTC_CURP CURP,
+		SOLICITANTE.FTC_NSS NSS,
+		FONDO.FCC_VALOR FONDO,
+
+		SOLICITUD.FTN_MONTO_RECLASIF MONTO
+
+
+		FROM PROFAPOVOL.TTAFOAVOL_SOL_RECLASIFICACION SOLICITUD
+		INNER JOIN PROFAPOVOL.TTAFOAVOL_RECLA_SOLICITANTE SOLICITANTE
+		ON SOLICITUD.FTN_NUM_CTA_INVDUAL = SOLICITANTE.FTN_NUM_CTA_INVDUAL
+ 		INNER JOIN TTAFOAVOL_RECLA_DIVERSIFICA DIVERSIFICA 
+ 		ON SOLICITUD.FTC_CVE_SOLICITUD = DIVERSIFICA.FTC_CVE_SOLICITUD 
+		INNER JOIN TCCRXGRAL_CAT_CATALOGO ORIGEN
+		ON SOLICITUD.FCN_ID_ORIGEN_CAPTURA = ORIGEN.FCN_ID_CAT_CATALOGO
+		INNER JOIN TCCRXGRAL_CAT_CATALOGO ESTATUS
+		ON SOLICITUD.FCN_ID_ESTATUS_SOLICITUD = ESTATUS.FCN_ID_CAT_CATALOGO
+		INNER JOIN TCCRXGRAL_CAT_CATALOGO FONDO
+		ON SOLICITUD.FCN_ID_FONDO_APP = FONDO.FCN_ID_CAT_CATALOGO
+
+
+
+		<where>
+			DIVERSIFICA.FCN_ID_TIPO_MOV=180
+			<if test="nss != null">
+				AND SOLICITANTE.FTC_NSS=#{nss,jdbcType=VARCHAR}
+			</if>
+			<if test="curp != null">
+				AND SOLICITANTE.FTC_CURP=#{curp,jdbcType=VARCHAR}
+			</if>
+			<if test="cuenta != null and cuenta != 0">
+				AND
+				SOLICITUD.FTN_NUM_CTA_INVDUAL=#{cuenta,jdbcType=DECIMAL}
+			</if>
+			<if test="origen != null and origen != 0">
+				AND
+				SOLICITUD.FCN_ID_ORIGEN_CAPTURA=#{origen,jdbcType=DECIMAL}
+			</if>
+			<if test="estatus != null and estatus != 0">
+				AND
+				SOLICITUD.FCN_ID_ESTATUS_SOLICITUD=#{estatus,jdbcType=DECIMAL}
+			</if>
+
+			<if test="fechaInicio != null and fechaFin != null">
+				AND SOLICITUD.FTD_FEH_CAP BETWEEN trunc(#{fechaInicio}) AND
+				trunc(#{fechaFin})+.99999
+			</if>
+
+			<if test="fechaInicio != null and fechaFin == null">
+				AND SOLICITUD.FTD_FEH_CAP >= to_timestamp(#{fechaInicio,jdbcType=DATE},
+				'dd/MM/yy hh24:mi:ss.FF9')
+			</if>
+			<if test="fechaFin != null and fechaInicio == null">
+				AND SOLICITUD.FTD_FEH_CAP >= to_timestamp(#{fechaFin,jdbcType=DATE},
+				'dd/MM/yy hh24:mi:ss.FF9')
+			</if>
+
+			ORDER BY FTD_FEH_CAP DESC
+
+		</where>
+
+	</select>
+
+	<select id="consultaSolicitudesDetalle"
+		parameterType="java.lang.String"
+		resultMap="cifrasControlClienteMap">
+		
+		SELECT 
+		FONDO.FCC_VALOR SUBCUENTA, 
+		DIVERSIFICA.FTN_PESOS PESOS, 
+		DIVERSIFICA.FTN_PORCENTAJE PORCENTAJE
+		
+		FROM TTAFOAVOL_RECLA_DIVERSIFICA DIVERSIFICA
+
+		INNER JOIN TTAFOAVOL_SOL_RECLASIFICACION SOLICITUD ON
+		DIVERSIFICA.FTC_CVE_SOLICITUD=SOLICITUD.FTC_CVE_SOLICITUD
+
+		LEFT JOIN TCCRXGRAL_CAT_CATALOGO FONDO ON
+		DIVERSIFICA.FCN_ID_FONDO_APP=FONDO.FCN_ID_CAT_CATALOGO
+		
+		<where>
+			DIVERSIFICA.FCN_ID_TIPO_MOV =181
+			AND DIVERSIFICA.FTC_CVE_SOLICITUD = #{clave,jdbcType=VARCHAR}
+		</where>
+
+	</select>
+	
+		<select id="consultaSolicitudesDetalleCargo"
+		parameterType="java.lang.String"
+		resultMap="cifrasControlClienteMap">
+		
+		SELECT 
+		FONDO.FCC_VALOR SUBCUENTA, 
+		DIVERSIFICA.FTN_PESOS PESOS, 
+		DIVERSIFICA.FTN_PORCENTAJE PORCENTAJE
+		
+		FROM TTAFOAVOL_RECLA_DIVERSIFICA DIVERSIFICA
+
+		INNER JOIN TTAFOAVOL_SOL_RECLASIFICACION SOLICITUD ON
+		DIVERSIFICA.FTC_CVE_SOLICITUD=SOLICITUD.FTC_CVE_SOLICITUD
+
+		LEFT JOIN TCCRXGRAL_CAT_CATALOGO FONDO ON
+		DIVERSIFICA.FCN_ID_FONDO_APP=FONDO.FCN_ID_CAT_CATALOGO
+		
+		<where>
+			DIVERSIFICA.FCN_ID_TIPO_MOV =180
+			AND DIVERSIFICA.FTC_CVE_SOLICITUD = #{clave,jdbcType=VARCHAR}
+		</where>
+
+	</select>
+
+
+	<resultMap id="BaseResultMap" type="mx.profuturo.nci.business.vo.CatalogoVO">
+		<id property="idCatCatalogo" javaType="short" column="FCN_ID_CAT_CATALOGO"
+			jdbcType="DECIMAL" />
+		<result property="idCatPadre" javaType="short" column="FCN_ID_CAT_PADRE"
+			jdbcType="DECIMAL" />
+		<result property="valor" javaType="string" column="FCC_VALOR"
+			jdbcType="VARCHAR" />
+		<result property="desc" javaType="string" column="FCC_DESC"
+			jdbcType="VARCHAR" />
+		<result property="vigencia" javaType="boolean" column="FCB_CAT_VIGENCIA"
+			jdbcType="CHAR" />
+		<result property="fehCre" javaType="date" column="FCD_CAT_FEH_CRE"
+			jdbcType="TIMESTAMP" />
+		<result property="usuCre" javaType="string" column="FCC_CAT_USU_CRE"
+			jdbcType="VARCHAR" />
+		<result property="fehAct" javaType="date" column="FCD_CAT_FEH_ACT"
+			jdbcType="TIMESTAMP" />
+		<result property="usuAct" javaType="string" column="FCC_CAT_USU_ACT"
+			jdbcType="VARCHAR" />
+
+		<association property="catalogType"
+			resultMap="mx.profuturo.nci.persistence.TipoCatalogoPersistence.BaseResultMap" />
+	</resultMap>
+
+	<select id="consultaOrigen" parameterType="mx.profuturo.nci.business.vo.CatalogoVO"
+		resultMap="BaseResultMap">
+
+		SELECT * FROM TCCRXGRAL_CAT_CATALOGO where FCN_ID_CAT_CATALOGO=463 OR FCN_ID_CAT_CATALOGO =462
+				OR FCN_ID_CAT_CATALOGO=465 AND FCN_ID_TIPO_CAT=48
+
+		ORDER BY
+		FCC_VALOR
+	</select>
+
+	<select id="consultaEstatus" parameterType="mx.profuturo.nci.business.vo.CatalogoVO"
+		resultMap="BaseResultMap">
+
+		SELECT * FROM TCCRXGRAL_CAT_CATALOGO where  FCN_ID_CAT_CATALOGO=512 OR FCN_ID_CAT_CATALOGO=509 OR FCN_ID_CAT_CATALOGO=511
+ 		OR FCN_ID_CAT_CATALOGO=516 AND FCN_ID_TIPO_CAT=55
+
+		ORDER BY
+		FCC_VALOR
+	</select>
+
+	<select id="consultaMotivos" parameterType="mx.profuturo.nci.business.vo.CatalogoVO"
+		resultMap="BaseResultMap">
+
+		SELECT * FROM TCCRXGRAL_CAT_CATALOGO
+		WHERE FCN_ID_TIPO_CAT=243 ORDER BY FCC_VALOR
+
+	</select>
+
+
+	<update id="actualizarEstatus"
+		parameterType="mx.profuturo.nci.business.vo.SolicitudReclasificacionVO"
+		keyColumn="FTC_CVE_SOLICITUD">
+
+		UPDATE PROFAPOVOL.TTAFOAVOL_SOL_RECLASIFICACION
+		SET
+
+		<if test="estatus == 512">
+			FCN_ID_ESTATUS_SOLICITUD = 516
+		</if>
+		<if test="estatus == 516">
+			FCN_ID_ESTATUS_SOLICITUD = 512
+		</if>
+
+		<where>
+			FTC_CVE_SOLICITUD=#{clave,jdbcType=VARCHAR}
+		</where>
+
+	</update>
+
+	<resultMap id="cifrasControlClienteReporte"
+		type="mx.profuturo.nci.business.vo.ReporteCifrasControlVO">
+
+		<result property="fechaCaptura" javaType="string" column="FECHCAP"
+		jdbcType="VARCHAR" />
+		
+	<result property="fechaLiquidacion" javaType="string" column="FEHlIQ"
+		jdbcType="VARCHAR" />
+
+		<result property="claveSolicitud" javaType="string" column="CLAVESOLI"
+			jdbcType="VARCHAR" />
+
+		<result property="folio" javaType="string" column="FOLIO"
+			jdbcType="VARCHAR" />
+
+		<result property="estatusSolicitud" javaType="string" column="ESTAUSSOLI"
+			jdbcType="VARCHAR" />
+
+		<result property="fechaUltimoEstatus" javaType="string" column="FECHACT"
+			jdbcType="VARCHAR" />
+
+		<result property="usuarioActualizacion" javaType="string"
+			column="USUARIOACT" jdbcType="VARCHAR" />
+
+		<result property="numeroCuenta" javaType="string" column="CUENTAINDI"
+			jdbcType="VARCHAR" />
+
+		<result property="rfc" javaType="string" column="RFC" jdbcType="VARCHAR" />
+
+		<result property="curp" javaType="string" column="CURP"
+			jdbcType="VARCHAR" />
+
+		<result property="nss" javaType="string" column="NSS" jdbcType="VARCHAR" />
+
+		<result property="nombre" javaType="string" column="NOMBRE"
+			jdbcType="VARCHAR" />
+
+		<result property="origenCaptura" javaType="string" column="ORIGEN"
+			jdbcType="VARCHAR" />
+
+		<result property="usuarioCaptura" javaType="string" column="USUARIOCAP"
+			jdbcType="VARCHAR" />
+
+		<result property="tipoMonto" javaType="string" column="TIPOMONTO"
+			jdbcType="VARCHAR" />
+
+		<result property="porcentaje" javaType="Integer" column="PORCENTAJE"
+			jdbcType="DECIMAL" />
+
+	</resultMap>
+
+	<select id="consultaReporte" parameterType="mx.profuturo.nci.business.vo.ReporteCifrasControlVO"
+		resultMap="cifrasControlClienteReporte">
+
+		SELECT  RECLASIFICACION.FTD_FEH_CAP AS FECHCAP,
+		MOVS.FTD_FEH_LIQUIDACION FEHlIQ,
+        SOLICITANTE.FTN_NUM_CTA_INVDUAL AS CUENTAINDI,
+        SOLICITANTE.FTC_NSS AS NSS,
+        SOLICITANTE.FTC_CURP AS CURP,
+        SOLICITANTE.FTC_NOMBRE_CTE ||' '||
+		SOLICITANTE.FTC_AP_PATERNO_CTE ||' '||
+		SOLICITANTE.FTC_AP_MATERNO_CTE AS NOMBRE,
+        RECLASIFICACION.FTC_CVE_SOLICITUD AS CLAVESOLI, 
+        RECLASIFICACION.FTC_FOLIO FOLIO, 
+        ESTATUS.FCC_VALOR AS ESTAUSSOLI,
+        ORIGEN.FCC_VALOR AS ORIGEN,
+        TIPORECLA.FCC_VALOR AS TIPOMONTO, 
+        
+        RECLASIFICACION.FTC_USU_CRE AS USUARIOCAP,
+        RECLASIFICACION.FTD_FEH_ACT AS FECHACT,
+        RECLASIFICACION.FTC_USU_ACT AS USUARIOACT
+        
+        FROM TTAFOAVOL_SOL_RECLASIFICACION RECLASIFICACION
+        
+        INNER JOIN TTAFOAVOL_RECLA_SOLICITANTE SOLICITANTE ON RECLASIFICACION.FTN_NUM_CTA_INVDUAL = SOLICITANTE.FTN_NUM_CTA_INVDUAL
+        INNER JOIN TTAFOAVOL_RECLA_DIVERSIFICA DIVERSIFICA ON RECLASIFICACION.FTC_CVE_SOLICITUD = DIVERSIFICA.FTC_CVE_SOLICITUD 
+        INNER JOIN TCCRXGRAL_CAT_CATALOGO ESTATUS ON RECLASIFICACION.FCN_ID_ESTATUS_SOLICITUD = ESTATUS.FCN_ID_CAT_CATALOGO
+        INNER JOIN TCCRXGRAL_CAT_CATALOGO ORIGEN ON RECLASIFICACION.FCN_ID_ORIGEN_CAPTURA = ORIGEN.FCN_ID_CAT_CATALOGO
+        LEFT JOIN TCCRXGRAL_CAT_CATALOGO TIPORECLA ON RECLASIFICACION.FCN_ID_TIPO_RECLASIFICACION = TIPORECLA.FCN_ID_CAT_CATALOGO
+                LEFT JOIN ( 
+                
+				SELECT /*+ PARALLEL(10) */ FTC_FOLIO,FTD_FEH_LIQUIDACION  FROM TTAFOGRAL_MOV_AVOL mavol  GROUP BY FTC_FOLIO,FTD_FEH_LIQUIDACION
+				UNION
+				SELECT /*+ PARALLEL(10) */ FTC_FOLIO,FTD_FEH_LIQUIDACION  FROM TTAFOGRAL_MOV_COMP mcomp GROUP BY FTC_FOLIO,FTD_FEH_LIQUIDACION
+				
+			) MOVS ON MOVS.FTC_FOLIO = RECLASIFICACION.FTC_FOLIO 
+
+		<where>
+				DIVERSIFICA.FCN_ID_TIPO_MOV=180
+			<if test="nss != null">
+				AND SOLICITANTE.FTC_NSS=#{nss,jdbcType=VARCHAR}
+			</if>
+			<if test="curp != null">
+				AND SOLICITANTE.FTC_CURP=#{curp,jdbcType=VARCHAR}
+			</if>
+			<if test="cuenta != null and cuenta != 0">
+				AND
+				SOLICITANTE.FTN_NUM_CTA_INVDUAL=#{cuenta,jdbcType=DECIMAL}
+			</if>
+			<if test="origen != null and origen != 0">
+				AND
+				RECLASIFICACION.FCN_ID_ORIGEN_CAPTURA=#{origen,jdbcType=DECIMAL}
+			</if>
+			<if test="estatus != null and estatus != 0">
+				AND
+				RECLASIFICACION.FCN_ID_ESTATUS_SOLICITUD=#{estatus,jdbcType=DECIMAL}
+			</if>
+			<if test="fechaInicio != null and fechaFin != null">
+				AND RECLASIFICACION.FTD_FEH_CAP BETWEEN trunc(#{fechaInicio}) AND
+				trunc(#{fechaFin})+.99999
+			</if>
+
+			<if test="fechaInicio != null and fechaFin == null">
+				AND RECLASIFICACION.FTD_FEH_CAP >= to_timestamp(#{fechaInicio,jdbcType=DATE},
+				'dd/MM/yy hh24:mi:ss.FF9')
+			</if>
+			<if test="fechaFin != null and fechaInicio == null">
+				AND RECLASIFICACION.FTD_FEH_CAP >= to_timestamp(#{fechaFin,jdbcType=DATE},
+				'dd/MM/yy hh24:mi:ss.FF9')
+			</if>
+			ORDER BY FTD_FEH_CAP ASC
+			
+		</where>
+
+
+
+	</select>
+
+</mapper>

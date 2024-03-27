@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mx.profuturo.nci.persistence.BancoPersistence">
+
+	<resultMap id="BaseResultMap" type="mx.profuturo.nci.business.vo.BancosVO">
+<!-- 		<id column="ROW_ID" property="rowId" /> -->
+		<id column="FTN_ID_BANCO" property="idBanco" />
+		<result column="FTC_FOLIO" property="folio" />
+<!-- 		<id column="FTC_FOLIO_REL" property="folioRelacionado" /> -->
+		<result column="FTN_REF_CUENTA" property="cuenta" />
+		<result column="FTN_AUT_BANCO" property="autBanco" />
+		<!--<id column="FTN_REF_SUBCTA_APOVOL" property="idArchivo" /> -->
+		<result column="FTN_IMPORTE" property="importe" />
+		<result column="FTD_FEH_CARGA" property="fechaCarga" />
+		<result column="FTD_FEH_DEPOSITO" property="fechaDeposito" />
+		<!-- <id column="FTN_IND_SBC" property="indicadorSbc" /> -->
+		<result column="FTN_NUM_CTA_INVDUAL" property="numCuentaIndividual" />
+		<result column="FTC_CURP" property="curp" />
+		<result column="FTN_REG_CONCILIADO" property="regConciliado" />
+		<!-- <id column="FTN_ESTATUS_IDC" property="estatusIDC" /> -->
+		<result column="FTD_FEH_CRE" property="fechaCreacion" />
+		<result column="FTC_USU_CRE" property="usuarioCreacion" />
+		<result column="FTD_FEH_ACT" property="fechaActualizacion" />
+		<result column="FTC_USU_ACT" property="usuarioActualizacion" />
+		<result column="FTN_TIPO_ID" property="tipoIdentificacion" />
+
+		<association property="empresa" javaType="mx.profuturo.nci.business.vo.GenericCatalogoVO">
+			<result column="FTN_ID_EMPRESA" property="id" />
+		</association>
+		<association property="claveBanco"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericClaveBanco" />
+		<association property="estatusProceso"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericEstatusProceso" />
+		<association property="origenAportacion"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericOrigenAportacion" />
+		<association property="indicadorSbc"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericIndicadorSBC" />
+		<association property="estatusIDC"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericEstatusIDC" />
+		<association property="subctaApovol"
+			resultMap="mx.profuturo.nci.persistence.MapaReferenciasPersistence.ResultMapMapaReferencias" />
+		<association property="estatusConvivencia"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resEstatusConvivencia" />
+		<association property="motivoNoConvivencia"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMotivoNoConvivencia" />
+			
+		<collection property="folioRelacionado" javaType="ArrayList" ofType="mx.profuturo.nci.business.vo.FolioBancoVO">
+			<result column="FA_FTC_FOLIO" 		property="folio" />
+			<result column="FA_FTD_FEH_CRE" 	property="fechaCreacion" />
+			<result column="FA_FTC_USU_CRE" 	property="usuarioCreacion" />
+			<result column="FA_FTD_FEH_ACT" 	property="fechaActualizacion" />
+			<result column="FA_FTC_USU_ACT" 	property="usuarioActualizacion" />
+		</collection>
+
+	</resultMap>
+
+	<select id="select" parameterType="mx.profuturo.nci.business.wrapped.BancosFilter"
+		resultMap="BaseResultMap">
+		select 
+			BANC.FTN_ID_BANCO, 
+			BANC.FTC_FOLIO, 
+			BANC.FTN_REF_CUENTA,
+			TO_CHAR(BANC.FTN_AUT_BANCO) AS FTN_AUT_BANCO,
+			BANC.FTN_REF_SUBCTA_APOVOL,
+			(	SELECT
+					DISTINCT(TMC_DESC_ITGY) 
+				FROM TTAFOAVOL_BANCOS B 
+					LEFT JOIN TMSISGRAL_MAP_NCI_ITGY A ON A.TMN_CVE_NCI = B.FTN_REF_SUBCTA_APOVOL
+				WHERE BANC.FTN_REF_SUBCTA_APOVOL = B.FTN_REF_SUBCTA_APOVOL
+					AND A.TMC_USO = 'REFERENCIAS DEPOSITOS APOVOL') AS TMC_DESC_ITGY,
+			BANC.FTN_IMPORTE,
+			BANC.FTN_CVE_BANCO,  CVE_BANC.FCC_VALOR AS FCC_VALOR_CLAVE_BANCO, 
+			BANC.FTD_FEH_CARGA,
+			BANC.FTN_ORIGEN_APORTACION, ORIGEN.FCC_VALOR AS FCC_VALOR_ORIGEN_APORTACION,
+			BANC.FTN_IND_SBC, SBC.FCC_VALOR AS FCC_VALOR_IND_SBC,
+			BANC.FTN_NUM_CTA_INVDUAL,
+			BANC.FTC_CURP,
+			BANC.FTN_REG_CONCILIADO,
+			BANC.FTN_ESTATUS_IDC, IDC.FCC_VALOR AS FCC_VALOR_ESTATUS_IDC, 
+			BANC.FTN_ID_EMPRESA,
+			BANC.FTN_TIPO_ID,
+			FA.FTC_FOLIO AS FA_FTC_FOLIO,
+			FA.FTD_FEH_CRE AS FA_FTD_FEH_CRE,
+			FA.FTC_USU_CRE AS FA_FTC_USU_CRE,
+			FA.FTD_FEH_ACT AS FA_FTD_FEH_ACT,
+			FA.FTC_USU_ACT AS FA_FTC_USU_ACT
+		from TTAFOAVOL_BANCOS BANC
+			LEFT JOIN TRAFOAVOL_FOLIO_BANCO FA ON FA.FTN_ID_BANCO = BANC.FTN_ID_BANCO
+			LEFT JOIN TCCRXGRAL_CAT_CATALOGO CVE_BANC ON CVE_BANC.FCN_ID_CAT_CATALOGO= BANC.FTN_CVE_BANCO
+			LEFT JOIN TCCRXGRAL_CAT_CATALOGO ORIGEN ON ORIGEN.FCN_ID_CAT_CATALOGO = BANC.FTN_ORIGEN_APORTACION
+			LEFT JOIN TCCRXGRAL_CAT_CATALOGO IDC ON	IDC.FCN_ID_CAT_CATALOGO =BANC.FTN_ESTATUS_IDC
+			LEFT JOIN TCCRXGRAL_CAT_CATALOGO SBC ON SBC.FCN_ID_CAT_CATALOGO = BANC.FTN_IND_SBC
+		<where>
+			<if test="regConciliado != null">
+				AND BANC.FTN_REG_CONCILIADO = #{regConciliado}
+			</if>
+			<if test="claveBanco != null and claveBanco.id != null">
+				AND BANC.FTN_CVE_BANCO = #{claveBanco.id}
+			</if>
+			<if test="fechaInicio != null and fechaFinal != null">
+				AND BANC.FTD_FEH_CARGA BETWEEN trunc(#{fechaInicio,jdbcType=TIMESTAMP}) AND
+				trunc(#{fechaFinal,jdbcType=TIMESTAMP})+.99999
+			</if>
+			<if test="folio != null">
+				AND BANC.FTC_FOLIO = #{folio}
+			</if>
+			<if test="numCuentaIndividual != null">
+				AND BANC.FTN_NUM_CTA_INVDUAL = #{numCuentaIndividual}
+			</if>
+			<if test="claveBanco != null and claveBanco.id != null">
+				AND BANC.FTN_CVE_BANCO = #{claveBanco.id}
+			</if>
+			<if test="tipoIdentificacion != null">
+				AND BANC.FTN_TIPO_ID = #{tipoIdentificacion}
+			</if>
+			<if test="origenAportaciones != null">
+				AND BANC.FTN_ORIGEN_APORTACION IN
+
+				<foreach item="origen" index="index" collection="origenAportaciones"
+					open="(" separator="," close=")">
+					#{origen,jdbcType=DECIMAL}
+				</foreach>
+			</if>
+			<if test="idBanco != null">
+				AND BANC.FTN_ID_BANCO = #{idBanco}
+			</if>
+			  AND BANC.FTN_IMPORTE>0
+			  AND BANC.FTN_ORIGEN_APORTACION not in (288)
+		</where>
+	</select>
+
+<!-- No se usa en los servicios -->
+	<select id="selectMovs" parameterType="mx.profuturo.nci.business.wrapped.BancosFilter"
+		resultMap="BaseResultMap">
+		SELECT BANC.FTN_ID_BANCO, BANC.FTC_FOLIO, BANC.FTC_FOLIO_REL, BANC.FTN_REF_CUENTA,
+		       TO_CHAR(BANC.FTN_AUT_BANCO) AS FTN_AUT_BANCO, BANC.FTN_REF_SUBCTA_APOVOL, 
+		       (SELECT DISTINCT(TMC_DESC_ITGY) 
+		          FROM TTAFOAVOL_BANCOS B 
+		          LEFT JOIN TMSISGRAL_MAP_NCI_ITGY A ON A.TMN_CVE_NCI = B.FTN_REF_SUBCTA_APOVOL
+		         WHERE BANC.FTN_REF_SUBCTA_APOVOL = B.FTN_REF_SUBCTA_APOVOL
+		           AND A.TMC_USO = 'REFERENCIAS DEPOSITOS APOVOL') AS
+		       TMC_DESC_ITGY, BANC.FTN_IMPORTE, BANC.FTN_CVE_BANCO, CVE_BANC.FCC_VALOR AS FCC_VALOR_CLAVE_BANCO, 
+		       BANC.FTD_FEH_CARGA, BANC.FTN_ORIGEN_APORTACION, ORIGEN.FCC_VALOR AS FCC_VALOR_ORIGEN_APORTACION,
+		       BANC.FTN_IND_SBC, SBC.FCC_VALOR AS FCC_VALOR_IND_SBC, BANC.FTN_NUM_CTA_INVDUAL, BANC.FTC_CURP,
+		       BANC.FTN_REG_CONCILIADO, BANC.FTN_ESTATUS_IDC, IDC.FCC_VALOR AS FCC_VALOR_ESTATUS_IDC, BANC.FTN_ID_EMPRESA,
+		       BANC.FTN_ESTATUS_CONV,BANC.FTN_MOTIVO_RECHAZO,MOR.FCC_VALOR AS FCC_VALOR_MOTIVO_RECHAZO,
+		       BANC.FTD_FEH_DEPOSITO
+		  FROM TTAFOAVOL_BANCOS BANC
+		 INNER JOIN TRAFOGRAL_ARCHIVO_FOLIO AF ON AF.FTC_FOLIO=BANC.FTC_FOLIO
+         INNER JOIN TTAFOGRAL_ARCHIVO FOL ON FOL.FTN_ID_ARCHIVO=AF.FTN_ID_ARCHIVO
+		  LEFT JOIN TCCRXGRAL_CAT_CATALOGO CVE_BANC ON CVE_BANC.FCN_ID_CAT_CATALOGO = BANC.FTN_CVE_BANCO
+		  LEFT JOIN TCCRXGRAL_CAT_CATALOGO ORIGEN ON ORIGEN.FCN_ID_CAT_CATALOGO = BANC.FTN_ORIGEN_APORTACION
+		  LEFT JOIN TCCRXGRAL_CAT_CATALOGO IDC ON IDC.FCN_ID_CAT_CATALOGO = BANC.FTN_ESTATUS_IDC
+		  LEFT JOIN TCCRXGRAL_CAT_CATALOGO SBC ON SBC.FCN_ID_CAT_CATALOGO = BANC.FTN_IND_SBC
+		  LEFT JOIN TCCRXGRAL_CAT_CATALOGO MOR ON MOR.FCN_ID_CAT_CATALOGO = BANC.FTN_MOTIVO_RECHAZO
+		  LEFT JOIN TTAFOGRAL_IND_CTA_INDV CTA ON BANC.FTN_NUM_CTA_INVDUAL = CTA.FTN_NUM_CTA_INVDUAl AND FFN_ID_CONFIG_INDI=2
+		<where>
+<!-- 			<if test="regConciliado != null"> -->
+<!-- 				AND BANC.FTN_REG_CONCILIADO in (0) -->
+<!-- 			</if> -->
+
+			<if test="claveBanco != null and claveBanco.id != null">
+				AND BANC.FTN_CVE_BANCO = #{claveBanco.id}
+			</if>
+			<if test="fechaInicio != null and fechaFinal != null">
+				AND FOL.FTD_FEH_ARCHIVO BETWEEN trunc(#{fechaInicio,jdbcType=TIMESTAMP}) AND
+				trunc(#{fechaFinal,jdbcType=TIMESTAMP})+.99999
+			</if>
+			<if test="folio != null">
+				AND BANC.FTC_FOLIO = #{folio}
+			</if>
+			<if test="numCuentaIndividual != null">
+				AND BANC.FTN_NUM_CTA_INVDUAL = #{numCuentaIndividual}
+			</if>
+			<if test="origenAportaciones != null">
+				AND BANC.FTN_ORIGEN_APORTACION IN
+
+				<foreach item="origen" index="index" collection="origenAportaciones"
+					open="(" separator="," close=")">
+					#{origen,jdbcType=DECIMAL}
+				</foreach>
+			</if>
+			
+			
+			<if test="estatusConvivencia != null and estatusConvivencia.id != null and estatusIDC != null and estatusIDC.id != null">
+				AND  (BANC.FTN_ESTATUS_CONV = #{estatusConvivencia.id} OR BANC.FTN_ESTATUS_IDC = #{estatusIDC.id})
+			</if>
+			<if test="estatusConvivencia == null and estatusIDC != null and estatusIDC.id != null">
+				AND  (BANC.FTN_ESTATUS_IDC = #{estatusIDC.id})
+			</if>
+			<if test="estatusConvivencia != null and estatusConvivencia.id != null and estatusIDC == null">
+				AND  (BANC.FTN_ESTATUS_CONV = #{estatusConvivencia.id})
+			</if>
+			
+			<if test="idBanco != null">
+				AND BANC.FTN_ID_BANCO = #{idBanco}
+			</if>
+			  AND BANC.FTN_IMPORTE>0
+		</where>
+		UNION
+		SELECT BANC.FTN_ID_BANCO, BANC.FTC_FOLIO, BANC.FTC_FOLIO_REL, BANC.FTN_REF_CUENTA,
+		       TO_CHAR(BANC.FTN_AUT_BANCO) AS FTN_AUT_BANCO, BANC.FTN_REF_SUBCTA_APOVOL, 
+		       (SELECT DISTINCT(TMC_DESC_ITGY) 
+		          FROM TTAFOAVOL_BANCOS B 
+		          LEFT JOIN TMSISGRAL_MAP_NCI_ITGY A ON A.TMN_CVE_NCI = B.FTN_REF_SUBCTA_APOVOL
+		         WHERE BANC.FTN_REF_SUBCTA_APOVOL = B.FTN_REF_SUBCTA_APOVOL
+		           AND A.TMC_USO = 'REFERENCIAS DEPOSITOS APOVOL') AS
+		       TMC_DESC_ITGY, BANC.FTN_IMPORTE, BANC.FTN_CVE_BANCO, CVE_BANC.FCC_VALOR AS FCC_VALOR_CLAVE_BANCO, 
+		       BANC.FTD_FEH_CARGA, BANC.FTN_ORIGEN_APORTACION, ORIGEN.FCC_VALOR AS FCC_VALOR_ORIGEN_APORTACION,
+		       BANC.FTN_IND_SBC, SBC.FCC_VALOR AS FCC_VALOR_IND_SBC, BANC.FTN_NUM_CTA_INVDUAL, BANC.FTC_CURP,
+		       BANC.FTN_REG_CONCILIADO, BANC.FTN_ESTATUS_IDC, IDC.FCC_VALOR AS FCC_VALOR_ESTATUS_IDC, BANC.FTN_ID_EMPRESA,
+		       BANC.FTN_ESTATUS_CONV,BANC.FTN_MOTIVO_RECHAZO,MOR.FCC_VALOR AS FCC_VALOR_MOTIVO_RECHAZO,
+		       BANC.FTD_FEH_DEPOSITO
+		  FROM TTAFOAVOL_BANCOS BANC
+		 INNER JOIN TRAFOGRAL_ARCHIVO_FOLIO AF ON AF.FTC_FOLIO=BANC.FTC_FOLIO
+         INNER JOIN TTAFOGRAL_ARCHIVO FOL ON FOL.FTN_ID_ARCHIVO=AF.FTN_ID_ARCHIVO
+		  LEFT JOIN TCCRXGRAL_CAT_CATALOGO CVE_BANC ON CVE_BANC.FCN_ID_CAT_CATALOGO = BANC.FTN_CVE_BANCO
+		  LEFT JOIN TCCRXGRAL_CAT_CATALOGO ORIGEN ON ORIGEN.FCN_ID_CAT_CATALOGO = BANC.FTN_ORIGEN_APORTACION
+		  LEFT JOIN TCCRXGRAL_CAT_CATALOGO IDC ON IDC.FCN_ID_CAT_CATALOGO = BANC.FTN_ESTATUS_IDC
+		  LEFT JOIN TCCRXGRAL_CAT_CATALOGO SBC ON SBC.FCN_ID_CAT_CATALOGO = BANC.FTN_IND_SBC
+		  LEFT JOIN TCCRXGRAL_CAT_CATALOGO MOR ON MOR.FCN_ID_CAT_CATALOGO = BANC.FTN_MOTIVO_RECHAZO
+		  LEFT JOIN TTAFOGRAL_IND_CTA_INDV CTA ON BANC.FTN_NUM_CTA_INVDUAL = CTA.FTN_NUM_CTA_INVDUAl AND FFN_ID_CONFIG_INDI=2
+		  
+		  <where>
+			<if test="regConciliado != null">
+				AND BANC.FTN_REG_CONCILIADO in (0)
+			</if>
+
+			<if test="claveBanco != null and claveBanco.id != null">
+				AND BANC.FTN_CVE_BANCO = #{claveBanco.id}
+			</if>
+			<if test="fechaInicio != null and fechaFinal != null">
+				AND FOL.FTD_FEH_ARCHIVO BETWEEN trunc(#{fechaInicio,jdbcType=TIMESTAMP}) AND
+				trunc(#{fechaFinal,jdbcType=TIMESTAMP})+.99999
+			</if>
+			<if test="folio != null">
+				AND BANC.FTC_FOLIO = #{folio}
+			</if>
+			<if test="numCuentaIndividual != null">
+				AND BANC.FTN_NUM_CTA_INVDUAL = #{numCuentaIndividual}
+			</if>
+			<if test="origenAportaciones != null">
+				AND BANC.FTN_ORIGEN_APORTACION IN (758)
+			</if>
+			<if test="idBanco != null">
+				AND BANC.FTN_ID_BANCO = #{idBanco}
+			</if>
+			  AND BANC.FTN_IMPORTE>0
+		</where>
+		ORDER BY FTD_FEH_CARGA  
+		
+	</select>
+
+
+	<update id="actualizar" parameterType="mx.profuturo.nci.business.vo.BancosVO">
+		update TTAFOAVOL_BANCOS set FTD_FEH_ACT = SYSDATE
+<!-- 		<if test="folioRelacionado != null"> -->
+<!-- 			, FTC_FOLIO_REL = #{folioRelacionado} -->
+<!-- 		</if> -->
+		<if test="cuenta != null">
+			, FTN_REF_CUENTA = #{cuenta}
+		</if>
+		<if test="importe != null">
+			, FTN_IMPORTE = #{importe}
+		</if>
+		<if test="claveBanco != null and claveBanco.id != null">
+			, FTN_CVE_BANCO = #{claveBanco.id}
+		</if>
+		<if test="subctaApovol != null and subctaApovol.claveNCI != null">
+			, FTN_REF_SUBCTA_APOVOL = #{subctaApovol.claveNCI}
+		</if>
+		<if test="fechaCarga != null">
+			, FTD_FEH_CARGA = #{fechaCarga}
+		</if>
+		<if test="origenAportacion != null and origenAportacion.id != null">
+			, FTN_ORIGEN_APORTACION = #{origenAportacion.id}
+		</if>
+		<if test="indicadorSbc != null and indicadorSbc.id != null">
+			, FTN_IND_SBC = #{indicadorSbc.id}
+		</if>
+		<if test="numCuentaIndividual != null">
+			, FTN_NUM_CTA_INVDUAL = #{numCuentaIndividual}
+		</if>
+		<if test="curp != null">
+			, FTC_CURP = #{curp}
+		</if>
+		<if test="regConciliado != null">
+			, FTN_REG_CONCILIADO = #{regConciliado}
+		</if>
+		<if test="estatusIDC != null and estatusIDC.id != null">
+			, FTN_ESTATUS_IDC = #{estatusIDC.id}
+		</if>
+		<if test="estatusConvivencia != null and estatusConvivencia.id != null">
+			, FTN_ESTATUS_CONV = #{estatusConvivencia.id}
+		</if>
+		<if test="motivoNoConvivencia != null and motivoNoConvivencia.id != null">
+			, FTN_MOTIVO_RECHAZO = #{motivoNoConvivencia.id}
+		</if>
+		<if test="tipoIdentificacion != null">
+			, FTN_TIPO_ID = #{tipoIdentificacion}
+		</if>
+		<if test="usuarioActualizacion != null">
+			, FTC_USU_ACT = #{usuarioActualizacion}
+		</if>
+		<if test="empresa != null and empresa.id != null">
+			, FTN_ID_EMPRESA = #{empresa.id}
+		</if>
+		<where>
+			<if test="folio != null">
+				AND FTC_FOLIO = #{folio}
+			</if>
+			<if test="idBanco != null">
+				AND FTN_ID_BANCO = #{idBanco}
+			</if>
+			<if test="autBanco != null">
+				AND FTN_AUT_BANCO = #{autBanco}
+			</if>
+		</where>
+	</update>
+	
+	<select id="selectSumarizado" parameterType="mx.profuturo.nci.business.wrapped.BancosFilter"
+		resultMap="BaseResultMap">
+		select SUM(FTN_IMPORTE) as FTN_IMPORTE, FTC_FOLIO,
+		FTN_ORIGEN_APORTACION, FTN_ID_EMPRESA
+		from TTAFOAVOL_BANCOS
+		<where>
+			<if test="regConciliado != null">
+				AND FTN_REG_CONCILIADO = #{regConciliado}
+			</if>
+			<if test="regConciliado != null">
+				AND FTN_REG_CONCILIADO = #{regConciliado}
+			</if>
+		</where>
+		GROUP BY FTC_FOLIO, FTN_ORIGEN_APORTACION, FTN_ID_EMPRESA
+	</select>
+	
+	<update id="actualizarConciliado" parameterType="mx.profuturo.nci.business.vo.BancosVO">
+		UPDATE TTAFOAVOL_BANCOS SET FTD_FEH_ACT = SYSDATE
+		<if test="regConciliado != null">
+			,FTN_REG_CONCILIADO = #{regConciliado}
+		</if>
+		<if test="usuarioActualizacion != null">
+			, FTC_USU_ACT = #{usuarioActualizacion}
+		</if>
+<!-- 		<if test="folioRelacionado != null"> -->
+<!-- 			, FTC_FOLIO_REL = #{folioRelacionado} -->
+<!-- 		</if> -->
+		<if test="estatusConvivencia != null and estatusConvivencia.id != null">
+			, FTN_ESTATUS_CONV = #{estatusConvivencia.id}
+		</if>
+		<if test="motivoNoConvivencia != null and motivoNoConvivencia.id != null">
+			, FTN_MOTIVO_RECHAZO = #{motivoNoConvivencia.id}
+		</if>
+		<where>
+			<if test="folio != null">
+				and FTC_FOLIO = #{folio}
+			</if>
+			<if test="origenAportacion != null and origenAportacion.id != null">
+				and FTN_ORIGEN_APORTACION = #{origenAportacion.id}
+			</if>
+			<if test="empresa != null and empresa.id != null">
+				AND FTN_ID_EMPRESA = #{empresa.id}
+			</if>
+			<if test="idBanco != null">
+				AND FTN_ID_BANCO = #{idBanco}
+			</if>
+		</where>
+	</update>
+		
+	<insert id="insertAllFolioBanco"  parameterType="mx.profuturo.nci.business.vo.BancosVO">
+		<if test="folioRelacionado != null and folioRelacionado.size() > 0" >
+		  	INSERT ALL
+			<foreach item="folioRel" collection="folioRelacionado">
+			  	INTO TRAFOAVOL_FOLIO_BANCO
+		  		<trim prefix="(" suffix=")" suffixOverrides="," >
+		  			<if test="idBanco != null">
+		  				FTN_ID_BANCO,
+		  			</if>
+		  			<if test="folioRel.folio != null">
+		  				FTC_FOLIO,
+		  			</if>
+		  			<if test="usuarioActualizacion != null">
+		  				FTC_USU_CRE,
+		  			</if>	  			
+		  			FTD_FEH_CRE,
+		  		</trim> 
+		  		<trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+		  			<if test="idBanco != null">
+		  				#{idBanco,jdbcType=DECIMAL},
+		  			</if>
+		  			<if test="folioRel.folio != null">
+		  				#{folioRel.folio,jdbcType=DECIMAL},
+		  			</if>
+		  			<if test="usuarioActualizacion != null">
+		  				#{usuarioActualizacion,jdbcType=VARCHAR},
+		  			</if>	  			
+		  			SYSTIMESTAMP
+		  		</trim>
+		  	</foreach>
+		  	SELECT 1 FROM DUAL
+		</if>
+	</insert>
+	
+</mapper>

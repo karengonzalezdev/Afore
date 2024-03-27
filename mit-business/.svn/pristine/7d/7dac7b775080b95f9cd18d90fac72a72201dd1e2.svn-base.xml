@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
+<!-- 2021-04-20T19:43:48 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="devoluciones-report" pageWidth="2900" pageHeight="600" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="2860" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="189c4517-5f7a-482a-99bd-5a4790e567d3">
+	<property name="ireport.zoom" value="2.4157650000000053"/>
+	<property name="ireport.x" value="3465"/>
+	<property name="ireport.y" value="0"/>
+	<property name="net.sf.jasperreports.export.html.remove.empty.space.between.rows" value="true"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#E0E0E0"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#E0E0E0"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#E0E0E0"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#E0E0E0"/>
+		</box>
+	</style>
+	<parameter name="encabezado" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<field name="itemDevolucion" class="java.lang.String"/>
+	<field name="folio" class="java.lang.String"/>
+	<field name="unidadNegocio" class="java.lang.String"/>
+	<field name="origen" class="java.lang.String"/>
+	<field name="nombreBeneficiario" class="java.lang.String"/>
+	<field name="ctaBeneficiario" class="java.lang.String"/>
+	<field name="numCtaIndividual" class="java.lang.String"/>
+	<field name="fechaPago" class="java.util.Date"/>
+	<field name="monto" class="java.lang.Double"/>
+	<field name="fechaContable" class="java.util.Date"/>
+	<field name="fechaCreacion" class="java.util.Date"/>
+	<field name="idBcoDestino" class="java.lang.String"/>
+	<field name="digitoVerificador" class="java.lang.String"/>
+	<title>
+		<band height="129" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="0" width="400" height="95" uuid="97b92b18-d4f3-4493-bd26-a46a9ded1010"/>
+				<image>
+					<reportElement x="0" y="0" width="400" height="95" uuid="4be976b3-fca4-42ed-a3a1-965b833b2f42"/>
+					<imageExpression><![CDATA["reports/imagenes/logo-profuruto-afore.png"]]></imageExpression>
+				</image>
+			</frame>
+			<textField isBlankWhenNull="false">
+				<reportElement x="400" y="0" width="1077" height="95" uuid="d77f4513-dfbb-4606-92fd-aa7c5efe2691"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{encabezado}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="109" width="400" height="20" uuid="5ecb6302-e1d1-435e-b122-10bec69a17a0"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="220" height="30" forecolor="#FEFEFE" backcolor="#244162" uuid="154df200-fe10-4f33-ba22-7accdc04efa8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[FOLIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="220" y="0" width="170" height="30" forecolor="#FEFEFE" backcolor="#244162" uuid="5b32efde-1c66-4fae-83ac-49b22e42412e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID DEVOLUCION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="390" y="0" width="139" height="30" forecolor="#FEFEFE" backcolor="#244162" uuid="12db18c2-14dd-4e1f-86ee-fec7785353e1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[UNIDAD DE NEGOCIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="529" y="0" width="101" height="30" forecolor="#FEFEFE" backcolor="#244162" uuid="71b148e3-290e-4a21-b4d3-cba97900620a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ORIGEN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="630" y="0" width="350" height="30" forecolor="#FEFEFE" backcolor="#244162" uuid="b1beb7c8-eac3-451d-ac3a-db26d9a6f3b5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOMBRE DEL BENEFICIARIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="980" y="0" width="220" height="30" forecolor="#FEFEFE" backcolor="#244162" uuid="84be295c-dc27-408d-a0d9-9abb72e928f8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[CUENTA DEL BENEFICIARIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1300" y="0" width="160" height="30" forecolor="#FEFEFE" backcolor="#244162" uuid="856a3cf1-9934-4d6c-80e1-f353c114297d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[CUENTA INDIVIDUAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1460" y="0" width="120" height="30" forecolor="#FEFEFE" backcolor="#244162" uuid="1648ad9c-1692-4087-8f67-eb4ca3db53ca"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA DE PAGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1580" y="0" width="100" height="30" forecolor="#FEFEFE" backcolor="#244162" uuid="0c0c4e82-b285-4c10-8fe9-e82177c4dac4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[IMPORTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1680" y="0" width="120" height="30" forecolor="#FEFEFE" backcolor="#244162" uuid="7ce3e41b-6e2f-4f41-9576-2e6a83cd7c4d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA CONTABLE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1800" y="0" width="120" height="30" forecolor="#FEFEFE" backcolor="#244162" uuid="74c7c070-2379-4a94-b4a8-60a6731db40c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA CREACION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1920" y="0" width="100" height="30" forecolor="#FEFEFE" backcolor="#244162" uuid="4cfd4897-4a14-4aa2-8e96-000940a52bac"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[BANCO DESTINO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1200" y="0" width="100" height="30" forecolor="#FEFEFE" backcolor="#244162" uuid="ecfa8c28-6d48-4b52-a57a-ebc4dfbeb762"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DIG. VERIFICADOR]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<elementGroup>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="220" height="17" isPrintWhenDetailOverflows="true" uuid="0a8509e2-c2ba-4984-a5c9-c69b4ea9c4ea"/>
+					<textFieldExpression><![CDATA[$F{folio}]]></textFieldExpression>
+				</textField>
+			</elementGroup>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="220" y="0" width="170" height="17" isPrintWhenDetailOverflows="true" uuid="6c019b95-02d5-4d42-b542-ec5e0a0b7565">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{itemDevolucion}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="390" y="0" width="139" height="17" isPrintWhenDetailOverflows="true" uuid="bb808bcd-65ea-4c2a-bee9-6fe72f853503">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{unidadNegocio}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="529" y="0" width="101" height="17" isPrintWhenDetailOverflows="true" uuid="93a228eb-6a1d-4419-a782-7a9426ede297">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{origen}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="630" y="0" width="350" height="17" isPrintWhenDetailOverflows="true" uuid="1cade492-72ba-4ffd-965e-3da9843b9676">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{nombreBeneficiario}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="980" y="0" width="220" height="17" isPrintWhenDetailOverflows="true" uuid="7c2895da-fe7b-49f4-98d6-a8bac8cf6ad5">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{ctaBeneficiario}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="1300" y="0" width="160" height="17" isPrintWhenDetailOverflows="true" uuid="5fc0497e-9acf-422a-9d98-5f1f3bbda119">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{numCtaIndividual}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="1460" y="0" width="120" height="17" isPrintWhenDetailOverflows="true" uuid="fb1b864c-41be-47be-899b-c7c60d6b233b">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{fechaPago}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="1580" y="0" width="100" height="17" isPrintWhenDetailOverflows="true" uuid="98b4eb8f-b2d3-49f4-9159-f6969274108b">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{monto}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="1680" y="0" width="120" height="17" isPrintWhenDetailOverflows="true" uuid="0c779e41-0d4c-4991-ab2e-0b4e4fc06369">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{fechaContable}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="1800" y="0" width="120" height="17" isPrintWhenDetailOverflows="true" uuid="b914c18e-6bbc-4ebc-af31-b94988a98919">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{fechaCreacion}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="1920" y="0" width="100" height="17" isPrintWhenDetailOverflows="true" uuid="1a34de8b-4a10-46cd-b03d-94fe3483166e">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{idBcoDestino}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="1200" y="0" width="100" height="17" isPrintWhenDetailOverflows="true" uuid="be9ee687-0abf-4c04-b707-600961540d0c">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{digitoVerificador}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

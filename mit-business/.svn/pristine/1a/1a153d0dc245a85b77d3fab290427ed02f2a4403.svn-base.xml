@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mx.profuturo.nci.persistence.CargoPersistence">
+
+	<resultMap id="BaseResultMap" type="mx.profuturo.nci.business.vo.CargoVO">
+		<id 	property="idCargo"				javaType="integer"		column="FTN_ID_CARGO"			jdbcType="NUMERIC" />
+		<result property="claveSolicitud"		javaType="string"		column="FTC_CVE_SOLICITUD"		jdbcType="VARCHAR" />
+		<result property="numCuentaIndividual"	javaType="long"			column="FTN_NUM_CTA_INVDUAL"	jdbcType="NUMERIC" />
+		<result property="importe"				javaType="BigDecimal"	column="FTN_IMPORTE"			jdbcType="DECIMAL" />
+		<result property="importeRecaudado"		javaType="BigDecimal"	column="FTN_IMPORTE_REC"		jdbcType="DECIMAL" />
+		  
+		<result property="idArchivoDomi"		javaType="long"			column="FLN_ID_ARCHIVO_DOMI"	jdbcType="NUMERIC" />
+		<result property="fechaCargoBanco"		javaType="date"			column="FTD_FEH_CARGO_BANCO"	jdbcType="TIMESTAMP" />
+		<result property="parcialidad"			javaType="short"		column="FTN_PARCIALIDAD"		jdbcType="NUMERIC" />
+		<result property="idArchivo"			javaType="long"			column="FTN_ID_ARCHIVO"			jdbcType="NUMERIC" />
+		<result property="fechaGeneracionCargo"	javaType="date"			column="FTD_FEH_GEN_CARGO"		jdbcType="TIMESTAMP" />
+		<result property="fechaCargo"			javaType="date"			column="FTD_FEH_CARGO"			jdbcType="TIMESTAMP" />
+		<result property="intentos"				javaType="short"		column="FTN_INTENTOS"			jdbcType="NUMERIC" />
+		<result property="fechaProximoCargo"	javaType="date"			column="FTD_FEH_PROX_CARGO"		jdbcType="TIMESTAMP" />
+		  
+		<result property="fechaCreacion"		javaType="date"			column="FTD_FEH_CRE"			jdbcType="TIMESTAMP" />
+		<result property="usuarioCreacion"		javaType="string"		column="FTC_USU_CRE"			jdbcType="VARCHAR" />
+		<result property="fechaActualizacion"	javaType="date"			column="FTD_FEH_ACT"			jdbcType="TIMESTAMP" />
+		<result property="usuarioActualizacion"	javaType="string"		column="FTC_USU_ACT"			jdbcType="VARCHAR" />
+		 
+		<result column="NUM_REGISTROS"	 		property="registros"	 			jdbcType="DECIMAL" /> 
+		 
+		<association property="estatusCargo" javaType="mx.profuturo.nci.business.vo.GenericCatalogoVO">
+			<result column="FTN_ESTATUS_CARGO" 			javaType="short" 	jdbcType="DECIMAL"	property="id" />
+			<result column="FTN_VALOR_ESTATUS_CARGO" 	javaType="string" 	jdbcType="VARCHAR"	property="valor" />
+		</association>	
+		
+		<association property="motivoRechazo" javaType="mx.profuturo.nci.business.vo.GenericCatalogoVO">
+			<result column="FTN_MOTIVO_RECHAZO" 		javaType="short" 	jdbcType="DECIMAL"	property="id" />
+			<result column="FTN_VALOR_MOTIVO_RECHAZO" 	javaType="string" 	jdbcType="VARCHAR"	property="valor" />
+		</association>	
+		
+		<collection property="detalles" javaType="ArrayList" ofType="mx.profuturo.nci.business.vo.DetalleCargoVO">
+			<id column="ROW_ID" />
+			<result property="claveSolicitud"		javaType="string"		column="FTC_CVE_SOLICITUD"		jdbcType="VARCHAR" 	/>
+			<result property="numCuentaIndividual"	javaType="long"			column="FTN_NUM_CTA_INVDUAL"	jdbcType="NUMERIC" />
+			<result property="importe"				javaType="BigDecimal"	column="FTN_IMPORTE"			jdbcType="DECIMAL" />
+			<result property="idArchivoDomi"		javaType="long"			column="FLN_ID_ARCHIVO_DOMI"	jdbcType="NUMERIC" />
+			<result property="fechaCargoBanco"		javaType="date"			column="FTD_FEH_CARGO_BANCO"	jdbcType="TIMESTAMP" />
+			<result property="parcialidad"			javaType="short"		column="FTN_PARCIALIDAD"		jdbcType="NUMERIC" />
+			<result property="noLinea"				javaType="short"		column="FTN_NO_LINEA"			jdbcType="NUMERIC" />
+			<result property="idArchivo"			javaType="long"			column="FTN_ID_ARCHIVO"			jdbcType="NUMERIC" />
+			<result property="fechaGeneracionCargo"	javaType="date"			column="FTD_FEH_GEN_CARGO"		jdbcType="TIMESTAMP" />
+			<result property="fechaCargo"			javaType="date"			column="FTD_FEH_CARGO"			jdbcType="TIMESTAMP" />
+		</collection>
+	</resultMap>
+
+	<resultMap id="ResultMapSumCargo" type="mx.profuturo.nci.business.vo.CargoVO">
+		<id 	column="ROW_NUM"/>
+		<result property="idArchivoDomi"		javaType="long"			column="FLN_ID_ARCHIVO_DOMI"	jdbcType="NUMERIC" />
+		<result property="importe"				javaType="BigDecimal"	column="FTN_IMPORTE"			jdbcType="DECIMAL" />
+		<result property="importeRecaudado"		javaType="BigDecimal"	column="FTN_IMPORTE_REC"		jdbcType="DECIMAL" />
+		<result property="registros"			javaType="integer"		column="NUM_REGISTROS"			jdbcType="NUMERIC" />
+		 
+		<association property="estatusCargo" javaType="mx.profuturo.nci.business.vo.GenericCatalogoVO">
+			<result column="FTN_ESTATUS_CARGO" 			javaType="short" 	jdbcType="DECIMAL"	property="id" />
+			<result column="FTN_VALOR_ESTATUS_CARGO" 	javaType="string" 	jdbcType="VARCHAR"	property="valor" />
+		</association>	
+		
+	</resultMap>
+
+  
+  <select id="selectCargoSumarizacion" resultMap="ResultMapSumCargo"
+		parameterType="mx.profuturo.nci.business.wrapped.CargoFilter">
+
+		SELECT 
+			row_number() over (order by c.FLN_ID_ARCHIVO_DOMI)  AS NUM_ROW,
+			c.FLN_ID_ARCHIVO_DOMI,
+			nvl(sum(c.ftn_importe),0) AS FTN_IMPORTE,
+			nvl(sum(c.FTN_IMPORTE_REC),0) AS FTN_IMPORTE_REC,
+			nvl(count(c.FTN_ESTATUS_CARGO),0) NUM_REGISTROS,		
+			c.FTN_ESTATUS_CARGO
+		FROM ttafoavol_cargo c
+		<where>
+			<if test="idArchivoDomi != null">
+				AND c.FLN_ID_ARCHIVO_DOMI = #{idArchivoDomi,jdbcType=DECIMAL}
+			</if>
+			<if test="numCuentaIndividual != null">
+				AND c.FTN_NUM_CTA_INVDUAL = #{numCuentaIndividual,jdbcType=DECIMAL}
+			</if>
+			<if test="claveSolicitud != null">
+				AND c.FTC_CVE_SOLICITUD = #{claveSolicitud,jdbcType=VARCHAR}
+			</if>
+		</where>
+		group by c.FLN_ID_ARCHIVO_DOMI,c.FTN_ESTATUS_CARGO
+
+
+	</select> 
+ 
+	<insert id="insertCargo" parameterType="mx.profuturo.nci.business.vo.CargoVO" 
+			keyProperty="mx.profuturo.nci.business.vo.CargoVO.idCargo"  >
+		
+		INSERT INTO TTCRXGRAL_CARGOS
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			FTC_ID_CARGO, 
+			<if test="claveSolicitud != null">
+				FTC_CVE_SOLICITUD,		<!-- NOT NULL --> 
+			</if>
+			<if test="numCuentaIndividual != null">
+				FTN_NUM_CTA_INVDUAL, 
+			</if>
+			<if test="importe != null">
+				FTN_IMPORTE_SOLICITUD, 
+			</if>
+			<if test="importeRecaudado != null">
+				FTN_IMPORTE_REC, 
+			</if>
+			<if test="folioArchivo != null">
+				FTC_FOLIO_ARCHIVO, 	<!-- NOT NULL -->
+			</if>
+			<if test="estatusCargo != null and estatusCargo.id != null">
+				FTN_ESTATUS_CARGO, 
+			</if>
+			<if test="fechaCargoBanco != null">
+				FTD_FEH_CARGO_BANCO, 
+			</if>
+			<if test="motivoRechazo != null and motivoRechazo.id != null">
+				FCN_ID_RECHAZO_BANCO, 
+			</if>
+			<if test="parcialidad != null">
+				FTN_PARCIALIDAD, 		<!-- NOT NULL -->
+			</if>
+			<if test="idArchivoDomi != null">
+				FLN_ID_ARCHIVO_DOMI, 		
+			</if>
+			<if test="fechaGeneracionCargo != null">
+				FTD_FEH_GEN_CARGO, 
+			</if>
+			<if test="reIntentos != null">
+				FTN_REINTENTO, 
+			</if>
+			<if test="fechaProximoCargo != null">
+				FTD_FEH_PROX_CARGO, 
+			</if>
+			FTD_FEH_CRE, 		<!-- NOT NULL -->
+			FTC_USU_CRE,			<!-- NOT NULL -->
+			<if test="fechaActualizacion != null">
+				FTD_FEH_ACT, 
+			</if>
+			<if test="usuarioActualizacion != null">
+				FTC_USU_ACT 
+			</if>
+			
+		</trim>
+		<trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+			#{idCargo},
+			<if test="claveSolicitud != null">
+				#{claveSolicitud},
+			</if>
+			<if test="numCuentaIndividual != null">
+				#{numCuentaIndividual}, 
+			</if>
+			<if test="importe != null">
+				#{importe}, 
+			</if>
+			<if test="importeRecaudado != null">
+				#{importeRecaudado}, 
+			</if>
+			<if test="folioArchivo != null">
+				#{idArchivoDomi},
+			</if>
+			<if test="estatusCargo != null and estatusCargo.id != null">
+				#{estatusCargo.id},
+			</if>
+			<if test="fechaCargoBanco != null">
+				#{fechaCargoBanco}, 
+			</if>
+			<if test="motivoRechazo != null and motivoRechazo.id != null">
+				#{motivoRechazo.id}, 
+			</if>
+			<if test="parcialidad != null">
+				#{parcialidad},
+			</if>
+			<if test="idArchivoDomi != null">
+				#{idArchivoDomi}, 		
+			</if>
+			<if test="fechaGeneracionCargo != null">
+				#{fechaGeneracionCargo}, 
+			</if>
+			<if test="reIntentos != null">
+				#{reIntentos}, 
+			</if>
+			<if test="fechaProximoCargo != null">
+				#{fechaProximoCargo}, 
+			</if>
+			SYSTIMESTAMP,
+			<if test="usuarioCreacion != null">
+				#{usuarioCreacion,jdbcType=VARCHAR},
+			</if>
+			<if test="fechaActualizacion != null">
+				SYSTIMESTAMP,
+			</if>
+			<if test="usuarioActualizacion != null">
+				#{usuarioActualizacion,jdbcType=VARCHAR}
+			</if>
+		</trim>
+	</insert>
+	
+
+	<insert id="insertDetalleCargo" parameterType="mx.profuturo.nci.business.vo.CargoVO" 
+			keyProperty="mx.profuturo.nci.business.vo.CargoVO.idCargo"  >
+		
+		INSERT INTO TTCRXGRAL_DETALLE_CARGO
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			FTC_ID_CARGO, 
+			<if test="claveSolicitud != null">
+				FTC_CVE_SOLICITUD,		<!-- NOT NULL --> 
+			</if>
+			<if test="numCuentaIndividual != null">
+				FTN_NUM_CTA_INVDUAL, 
+			</if>
+			<if test="importe != null">
+				FTN_IMPORTE_CARGO, 
+			</if>
+			<if test="idArchivoDomi != null">
+				FLN_ID_ARCHIVO_DOMI, 	<!-- NOT NULL -->
+			</if>
+
+			<if test="estatusCargo != null and estatusCargo.id != null">
+				FTN_ESTATUS_CARGO, 
+			</if>
+			<if test="folioArchivo != null">
+				FTC_FOLIO_ARCHIVO, 	<!-- NOT NULL -->
+			</if>
+			<if test="fechaCargoBanco != null">
+				FTD_FEH_CARGO_BANCO, 
+			</if>
+			<if test="motivoRechazo != null and motivoRechazo.id != null">
+				FCN_ID_RECHAZO_BANCO, 
+			</if>
+			<if test="parcialidad != null">
+				FTN_NUM_PARCIALIDAD, 		
+			</if>
+			<if test="nLinea != null">
+				FTN_NO_LINEA, 		
+			</if>
+			<if test="idArchivo != null">
+				FTN_ID_ARCHIVO, 		
+			</if>
+			<if test="fechaGeneracionCargo != null">
+				FTD_FEH_GEN_CARGO, 
+			</if>
+			<if test="fechaCargo != null">
+				FTD_FEH_CARGO, 
+			</if>
+			FTD_FEH_CRE, 		<!-- NOT NULL -->
+			FTC_USU_CRE,			<!-- NOT NULL -->
+			<if test="fechaActualizacion != null">
+				FTD_FEH_ACT, 
+			</if>
+			<if test="usuarioActualizacion != null">
+				FTC_USU_ACT 
+			</if>
+		</trim>
+		<trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+			#{idCargo},
+			<if test="claveSolicitud != null">
+				#{claveSolicitud},
+			</if>
+			<if test="numCuentaIndividual != null">
+				#{numCuentaIndividual}, 
+			</if>
+			<if test="importe != null">
+				#{importe}, 
+			</if>
+			<if test="idArchivoDomi != null">
+				#{idArchivoDomi}, 
+			</if>
+			<if test="estatusCargo != null and estatusCargo.id != null">
+				#{estatusCargo.id},
+			</if>
+			<if test="folioArchivo != null">
+				#{folioArchivo}, 
+			</if>
+			<if test="fechaCargoBanco != null">
+				#{fechaCargoBanco}, 
+			</if>
+			<if test="motivoRechazo != null and motivoRechazo.id != null">
+				#{motivoRechazo.id}, 
+			</if>
+			<if test="parcialidad != null">
+				#{parcialidad},
+			</if>
+			<if test="nLinea != null">
+				#{nLinea},
+			</if>
+			<if test="idArchivo != null">
+				#{idArchivo}, 		
+			</if>
+			<if test="fechaGeneracionCargo != null">
+				#{fechaGeneracionCargo}, 
+			</if>
+			<if test="fechaCargo != null">
+				#{fechaCargo}, 
+			</if>
+			SYSTIMESTAMP,
+			<if test="usuarioCreacion != null">
+				#{usuarioCreacion,jdbcType=VARCHAR},
+			</if>
+			<if test="fechaActualizacion != null">
+				SYSTIMESTAMP,
+			</if>
+			<if test="usuarioActualizacion != null">
+				#{usuarioActualizacion,jdbcType=VARCHAR}
+			</if>
+		</trim>
+	</insert>
+
+	<insert id="insertDetalle" parameterType="mx.profuturo.nci.business.vo.DetalleCargoVO" >
+		INSERT INTO TTAFOAVOL_DETALLE_CARGO
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			FTN_ID_CARGO, 				<!-- FK		NOT NULL -->
+			<if test="claveSolicitud != null">
+				FTC_CVE_SOLICITUD,		<!-- NOT NULL --> 
+			</if>
+			<if test="numCuentaIndividual != null">
+				FTN_NUM_CTA_INVDUAL, 
+			</if>
+			<if test="importe != null">
+				FTN_IMPORTE, 
+			</if>
+			<if test="idArchivoDomi != null">
+				FLN_ID_ARCHIVO_DOMI, 	<!-- NOT NULL -->
+			</if>
+			<if test="estatusCargo != null and estatusCargo.id != null">
+				FTN_ESTATUS_CARGO, 
+			</if>
+			<if test="fechaCargoBanco != null">
+				FTD_FEH_CARGO_BANCO, 
+			</if>
+			<if test="motivoRechazo != null">
+				FTN_MOTIVO_RECHAZO, 
+			</if>
+			<if test="parcialidad != null">
+				FTN_PARCIALIDAD, 		<!-- NOT NULL -->
+			</if>
+			<if test="noLinea != null">
+				FTN_NO_LINEA,			<!-- NOT NULL -->
+			</if>
+			<if test="idArchivo != null">
+				FTN_ID_ARCHIVO, 		
+			</if>
+			<if test="fechaGeneracionCargo != null">
+				FTD_FEH_GEN_CARGO, 
+			</if>
+			<if test="fechaCargo != null">
+				FTD_FEH_CARGO, 
+			</if>
+			FTD_FEH_CRE,
+			FTC_USU_CRE
+		</trim>
+		<trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+			#{idCargo},
+			<if test="claveSolicitud != null">
+				#{claveSolicitud},		<!-- NOT NULL --> 
+			</if>
+			<if test="numCuentaIndividual != null">
+				#{numCuentaIndividual}, 
+			</if>
+			<if test="importe != null">
+				#{importe}, 
+			</if>
+			<if test="idArchivoDomi != null">
+				#{idArchivoDomi}, 	<!-- NOT NULL -->
+			</if>
+			<if test="estatusCargo != null and estatusCargo.id != null">
+				#{estatusCargo.id}, 
+			</if>
+			<if test="fechaCargoBanco != null">
+				#{fechaCargoBanco}, 
+			</if>
+			<if test="motivoRechazo != null">
+				#{motivoRechazo}, 
+			</if>
+			<if test="parcialidad != null">
+				#{parcialidad}, 		<!-- NOT NULL -->
+			</if>
+			<if test="noLinea != null">
+				#{noLinea},			<!-- NOT NULL -->
+			</if>
+			<if test="idArchivo != null">
+				#{idArchivo}, 		
+			</if>
+			<if test="fechaGeneracionCargo != null">
+				#{fechaGeneracionCargo}, 
+			</if>
+			<if test="fechaCargo != null">
+				#{fechaCargo}, 
+			</if>
+			SYSTIMESTAMP,
+			#{usuarioCreacion,jdbcType=VARCHAR}
+		</trim>
+	
+	</insert>
+  
+  	<insert id="insertDiversificacion" parameterType="mx.profuturo.nci.business.vo.DiversificacionCargoVO">
+  		INSERT INTO TTAFOAVOL_REPLICA_DIVERSIF_SOL
+  		<trim prefix="(" suffix=")" suffixOverrides=",">
+  			<if test="claveSolicitud != null">
+		  		FTC_CVE_SOLICITUD,
+  			</if>
+  			<if test="fondoAportacionVoluntaria != null and fondoAportacionVoluntaria.id != null">
+				FTN_FONDO_APOVOL,
+  			</if>
+			<if test="monto != null">
+				FTN_MONTO_DIV,
+			</if>
+			<if test="porcentaje != null">
+				FTN_PORCENTAJE,
+			</if>
+			<if test="montoRecibido != null">
+				FTN_MONTO_REC,
+			</if>
+			<if test="idArchivo != null">
+				FTN_ID_ARCHIVO,
+			</if>
+			<if test="idCargo != null">
+				FTN_ID_CARGO,
+			</if>
+			<if test="prioridad != null">
+				FTN_ID_PRIORIDAD,
+			</if>
+			FTD_FEH_CRE,
+			FTC_USU_CRE,
+			FTN_VIGENCIA
+		</trim>
+		<trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+  			<if test="claveSolicitud != null">
+		  		#{claveSolicitud},
+  			</if>
+  			<if test="fondoAportacionVoluntaria != null and fondoAportacionVoluntaria.id != null">
+				#{fondoAportacionVoluntaria.id},
+  			</if>
+			<if test="monto != null">
+				#{monto},
+			</if>
+			<if test="porcentaje != null">
+				#{porcentaje},
+			</if>
+			<if test="montoRecibido != null">
+				#{montoRecibido},
+			</if>
+			<if test="idArchivo != null">
+				#{idArchivo},
+			</if>
+			<if test="idCargo != null">
+				#{idCargo},
+			</if>
+			<if test="prioridad != null">
+				#{prioridad},
+			</if>
+			SYSTIMESTAMP,
+			#{usuarioCreacion,jdbcType=VARCHAR},
+			1
+		</trim>
+  	</insert>
+  	
+  	
+  	<update id="actualizarCargo" parameterType="mx.profuturo.nci.business.wrapped.ApoVolFilter">
+	UPDATE TTAFOAVOL_CARGO
+	<set>
+<!-- 		<if test="idEstatus != null"> -->
+<!-- 			FTN_ESTATUS_SOLICITUD = #{idEstatus,jdbcType=DECIMAL}, -->
+<!-- 		</if> -->
+
+		<if test="fechaProximoCargo != null">
+			FTD_FEH_PROX_CARGO = #{fechaProximoCargo,jdbcType=TIMESTAMP},
+		</if>
+<!-- 					SYSTIMESTAMP		 		-->
+			FTD_FEH_ACT=SYSDATE
+    </set>
+	WHERE FTC_CVE_SOLICITUD  = #{cveSol,jdbcType=VARCHAR}
+  </update>	
+	
+</mapper>
+

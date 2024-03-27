@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+    xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    
+  <modelVersion>4.0.0</modelVersion>
+  
+  <groupId>mx.secure</groupId>
+  <artifactId>mit-av</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  
+  <name>MIT - Proyecto NCI-AV</name>
+  <description>Proyecto de compilación MIT (NCI-AV)</description>
+  
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.build.jdk.source>1.7</project.build.jdk.source>
+    <project.build.jdk.target>1.7</project.build.jdk.target>
+    
+    <project.build.ut.skip>false</project.build.ut.skip>
+
+    <lifecycle.mapping.version>1.0.0</lifecycle.mapping.version>
+    <properties.maven.plugin.version>1.0-alpha-2</properties.maven.plugin.version>
+    <maven.compiler.plugin.version>3.1</maven.compiler.plugin.version>
+    <maven.surefire.plugin.version>2.19.1</maven.surefire.plugin.version>
+    <maven.failsafe.plugin.version>2.18.1</maven.failsafe.plugin.version>
+
+    <jasperreports.version>6.3.0</jasperreports.version>
+    <apache.poi.version>3.14</apache.poi.version>
+    <junit.version>4.11</junit.version>
+    <mockito.version>1.10.19</mockito.version>
+  </properties>
+  
+  <modules>
+    <module>../mit-av-business</module>
+    <module>../mit-av-web</module>
+  </modules>
+ 
+   <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>net.sf.jasperreports</groupId>
+        <artifactId>jasperreports</artifactId>
+        <version>${jasperreports.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>net.sf.jasperreports</groupId>
+        <artifactId>jasperreports-fonts</artifactId>
+        <version>6.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.poi</groupId>
+        <artifactId>poi</artifactId>
+        <version>${apache.poi.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.poi</groupId>
+        <artifactId>poi-ooxml</artifactId>
+        <version>${apache.poi.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${maven.surefire.plugin.version}</version>
+        <configuration>
+          <skip>${project.build.ut.skip}</skip>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <version>${maven.failsafe.plugin.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>integration-test</goal>
+              <goal>verify</goal>
+            </goals>
+            <configuration>
+              <encoding>${project.build.sourceEncoding}</encoding>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      
+    </plugins>
+    <pluginManagement>
+      <plugins>
+          <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-compiler-plugin</artifactId>
+              <version>${maven.compiler.plugin.version}</version>
+              <configuration>
+               	<source>${project.build.jdk.source}</source>
+    			      <target>${project.build.jdk.target}</target>
+              </configuration>
+          </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+  
+</project>

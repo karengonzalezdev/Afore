@@ -1,0 +1,833 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<ui:composition template="../../core/desktop/desktop.xhtml">
+	<ui:define name="body">
+
+<style>
+.cebraPanelGrid2 {
+	width: 100% !important;
+}
+.cebraPanelGrid2 thead tr {
+  background: #9d9d9d !important;
+}
+.cebraPanelGrid2 thead tr td {
+  border: 0 none !important;
+  background: #00427a !important
+  color: #ffffff !important;
+  font-size: 13px !important;
+  font-weight: bold !important;
+  text-align: center !important;
+  padding: 10px 0 !important;
+  text-shadow: none !important;
+}
+
+.cebraPanelGrid2 tbody tr:nth-child(even),
+.cebraPanelGrid2 tbody .fila-impar {
+  border-top: 1px solid #9d9d9d !important;
+  border-bottom: 1px solid #9d9d9d !important;
+}
+.cebraPanelGrid2 tbody tr:nth-child(odd),
+.cebraPanelGrid2 tbody .fila-impar {
+  border-top: 1px solid #9d9d9d !important;
+  border-bottom: 1px solid #9d9d9d !important;
+}
+
+.panelAlign td {
+    vertical-align: middle;
+    text-align:left !important;
+}
+
+.panelAlign2 td {
+    vertical-align: bottom;
+    text-align:left !important;
+}
+.ui-selectmanycheckbox.ui-widget td, .ui-selectoneradio.ui-widget td{
+	padding-top: 0 !important;
+}
+.ui-panel .ui-panel-content {
+    padding-top: 5 !important;
+}
+</style>
+		<h:form id="formMonitoreoSolicitudesSearch" styleClass="form-general"
+			enctype="multipart/form-data">
+	<p:panel id="idpanelPrincipal" header="#{msg['domiciliacion.traspasos.monSol.titulo']}" style="margin-top: 56px;">
+		<p:panelGrid id="encabezado" style="width: 100%;vertical-align:middle; !important;" >
+			<p:row  style="text-le-ft !important;">
+			</p:row>
+		</p:panelGrid>
+	</p:panel>		
+	
+	<p:panel id="idPanelBusqueda">
+		<p:panelGrid id="encabezadoBusq" columns="2" rendered="#{!monitoreoSolicitudesView.muestraTablaDos}"
+		style="margin-bottom:10px; padding: 0px 0px !important; margin-left:-1%" styleClass="panelAlign">
+	        <p:row>
+	        	<p:column>
+			        <p:selectOneRadio id="radioBusq" value="#{monitoreoSolicitudesView.tipoBusqueda}">
+			        <p:ajax event="change" update="formMonitoreoSolicitudesSearch" listener="#{monitoreoSolicitudesView.seleccionMenu}" />
+			            <f:selectItem itemLabel="#{msg['domiciliacion.traspasos.monSol.cuentaIndividual']}" itemValue="#{msg['domiciliacion.traspasos.monSol.cuentaIndividual']}"/>
+			            <f:selectItem itemLabel="#{msg['domiciliacion.traspasos.monSol.nss']}" itemValue="#{msg['domiciliacion.traspasos.monSol.nss']}"/>
+			            <f:selectItem itemLabel="#{msg['domiciliacion.traspasos.monSol.curp']}" itemValue="#{msg['domiciliacion.traspasos.monSol.curp']}"/>
+			        </p:selectOneRadio>
+		        </p:column>
+			</p:row>
+			<p:row>
+	        	<p:column style="padding-bottom:0px !important;">
+	        		<p:outputLabel value="#{msg['domiciliacion.traspasos.monSol.combo.seleccionar']}"/>
+	        	</p:column>
+	        </p:row>	
+			<p:row>
+	        	<p:column>
+					<p:inputText id="idTextCuentaVacio" maxlength="10" value="" styleClass="input-style" 
+						rendered="#{(!monitoreoSolicitudesView.searchCuenta) and (!monitoreoSolicitudesView.searchNss) and (!monitoreoSolicitudesView.searchCurp)}" disabled="true">
+							<f:validateRegex pattern="#{msg['formato.validacion.cuenta']}"/>
+			        </p:inputText>		
+					<p:inputText id="idTextCuenta" value="#{monitoreoSolicitudesView.txtBusquedaCuenta}"  styleClass="input-style" 
+							maxlength="10" rendered="#{monitoreoSolicitudesView.searchCuenta}" validatorMessage="#{msg['validacion.validacion.cuenta']}">
+			                <f:validateRegex pattern="#{msg['formato.validacion.cuenta']}"/>
+			        </p:inputText>
+					<p:inputText id="idTextNss" value="#{monitoreoSolicitudesView.txtBusquedaNss}"  styleClass="input-style" 
+							maxlength="11" rendered="#{monitoreoSolicitudesView.searchNss}" validatorMessage="#{msg['validacion.validacion.nss']}">
+							<f:validateRegex pattern="#{msg['formato.validacion.nss']}"/>
+					</p:inputText>
+					<p:inputText id="idTextCurp" value="#{monitoreoSolicitudesView.txtBusquedaCurp}" styleClass="input-style" 
+							maxlength="18" rendered="#{monitoreoSolicitudesView.searchCurp}" validatorMessage="#{msg['validacion.validacion.curp']}">
+							<f:validateRegex pattern="#{msg['formato.validacion.curp']}"/>
+					</p:inputText>
+					
+			        
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column style="text-align:left !important;" >
+					<p:selectOneMenu id="selecOrigen" value="#{monitoreoSolicitudesView.origenBusqueda}" 
+					                 style="padding-left:0px;font-size: 35px; height: 20px; width: 325px;"
+					disabled="#{!monitoreoSolicitudesView.muestraBoton and (monitoreoSolicitudesView.listDomis != null)}">
+						<f:selectItems value="#{monitoreoSolicitudesView.listDomis}"/>
+					</p:selectOneMenu>
+				</p:column>
+			</p:row>	
+			<p:row id="encabezadoBusqBot" columns="2" rendered="#{!monitoreoSolicitudesView.muestraTablaDos}">
+				<p:column>
+					<p:commandButton id="idbuscarDatos" value="#{msg['domiciliacion.traspasos.monSol.btnBuscar']}"
+						action="#{monitoreoSolicitudesView.busquedaFiltro}" update="formMonitoreoSolicitudesData, idDialogIdentificadorCiError"
+						styleClass="blue-button" disabled="#{!monitoreoSolicitudesView.muestraBoton}" 
+						onclick="PF('cargandoDialog').show();"
+						oncomplete="if (args &amp;&amp; args.validationFailed) PF('dialogIdentificadorCiError').show(); else PF('cargandoDialog').hide();"/>
+					<p:spacer width="10" height="1"/>
+					<p:commandButton id="idlimpiarBusq" value="#{msg['domiciliacion.traspasos.monSol.btnLimpiar']}"
+						action="#{monitoreoSolicitudesView.limpiarBusqueda}" update="formMonitoreoSolicitudesSearch,formMonitoreoSolicitudesData"
+						styleClass="gray-button" disabled="#{!monitoreoSolicitudesView.muestraBoton}"/>
+				</p:column>
+			</p:row>
+		</p:panelGrid>
+			
+	</p:panel>
+	</h:form>
+	<div rendered="#{monitoreoSolicitudesView.muestraTblBusqueda}">
+	<h:form  id="formMonitoreoSolicitudesData" >
+	<p:panel id="panelDatos" rendered="#{not empty monitoreoSolicitudesView.lstSolicitudes}" >
+		<p:panel id="panelTblDatos" rendered="#{!monitoreoSolicitudesView.muestraTablaDos}"> 
+			<p:panelGrid id="datosPendTabla" 
+				style="width: 100%;vertical-align:middle; !important;" styleClass="cebraPanelGrid2" >
+				<p:dataTable id="registrosTabla"
+					value="#{monitoreoSolicitudesView.lstSolicitudes}" var="_lstSolicitudes"
+					rowIndexVar="_rowIndexSol" 
+					paginatorPosition="bottom" 
+					tableStyleClass="table-style" styleClass="tabla-indicadores"
+					paginator="true"  
+					selection="#{monitoreoSolicitudesView.selectedEstatusSol}" rowKey="#{_lstSolicitudes.claveSolicitud}"
+					emptyMessage="#{msg['general.table.rows.empty']}">
+					<p:ajax event="rowSelectRadio"	update="formMonitoreoSolicitudesData:btnReactivarSol,formMonitoreoSolicitudesData:btnCancelarSol"/>
+					<p:column selectionMode="single" style="width:16px;text-align:center" />
+					<p:column style="width:150px;text-align:center" headerText="#{msg['domiciliacion.traspasos.monSol.claveSolicitud']}">
+						<h:outputText value="#{_lstSolicitudes.claveSolicitud}" />
+					</p:column>
+					<p:column style="width:150px;text-align:center" headerText="#{msg['domiciliacion.traspasos.monSol.cuentaIndividual']}">
+						<h:outputText value="#{_lstSolicitudes.cuentaIndividual}" />
+					</p:column>
+					<p:column style="width:100px;text-align:center" headerText="#{msg['domiciliacion.traspasos.monSol.cuentaBancaria']}">
+						<h:outputText value="#{_lstSolicitudes.cuentaBancaria}"/>
+					</p:column>
+					<p:column  style="width:80px;text-align:center" headerText="#{msg['domiciliacion.traspasos.monSol.nombre']}">
+						<h:outputText value="#{_lstSolicitudes.nombre}"/>
+					</p:column>
+					<p:column  style="width:150px;text-align:center" headerText="#{msg['domiciliacion.traspasos.monSol.nss']}">
+						<h:outputText value="#{_lstSolicitudes.nss}"/>
+					</p:column>
+					<p:column style="width:200px;text-align:center"  headerText="#{msg['domiciliacion.traspasos.monSol.curp']}">
+						<h:outputText value="#{_lstSolicitudes.curp}"/>
+					</p:column>
+					<p:column style="width:150px;text-align:center" headerText="#{msg['domiciliacion.traspasos.monSol.importe']}">
+						<h:outputText value="#{_lstSolicitudes.importe}">
+							<f:convertNumber pattern="$#,###,##0.00" locale="es_MX"/>
+						</h:outputText>
+					</p:column>
+					<p:column style="width:100px;text-align:center" headerText="#{msg['domiciliacion.traspasos.monSol.fechaCaptura']}">
+						<h:outputText value="#{_lstSolicitudes.fechaCaptura}">
+							<f:convertDateTime type="date" pattern="dd/MM/yyyy" timeZone="America/Mexico_City"/>
+						</h:outputText>
+					</p:column>
+					<p:column style="width:80px;text-align:center" headerText="#{msg['domiciliacion.traspasos.monSol.periodicidad']}">
+						<h:outputText value="#{_lstSolicitudes.periodicidadDesc}"/>
+					</p:column>
+					<p:column style="width:100px;text-align:center" headerText="#{msg['domiciliacion.traspasos.monSol.estatusSol']}">
+						<h:outputText value="#{_lstSolicitudes.estatusSol}"/>
+					</p:column>
+					<p:column headerText="#{msg['consulta.aforeMovil.detalle']}" style="width:7%;text-align:center">
+						<p:commandLink onclick="PF('cargandoDialog').show();" actionListener="#{monitoreoSolicitudesView.setSelectedSol}"
+							update="formMonitoreoSolicitudesSearch,formMonitoreoSolicitudesData,formMonitoreoSolicitudesDetalle" oncomplete="PF('cargandoDialog').hide();">
+							<f:param name="claveSol" value="#{_lstSolicitudes.claveSolicitud}"/>
+							<h:outputText value="#{msg['consulta.aforeMovil.detalle']}" />
+						</p:commandLink>
+					</p:column>
+				</p:dataTable>
+				<p:panel>
+					<p:commandButton id="btnReactivarSol"  styleClass="blue-button" rendered="#{monitoreoSolicitudesView.origenBusqueda == 845}"
+						value="#{msg['domiciliacion.traspasos.monSol.btnReactivar']}" 
+						disabled="#{empty monitoreoSolicitudesView.selectedEstatusSol or monitoreoSolicitudesView.selectedEstatusSol.estatusSol ne 'CANCELADO' or true}"
+						onclick="PF('varConfirmReactivar').show()"/>
+					<p:spacer width="10px" rendered="#{monitoreoSolicitudesView.origenBusqueda == 845}"/>
+					<p:commandButton id="btnCancelarSol"  styleClass="blue-button"  process="@this"
+						value="#{msg['domiciliacion.traspasos.monSol.btnCancelar']}" 
+						disabled="#{empty monitoreoSolicitudesView.selectedEstatusSol or monitoreoSolicitudesView.selectedEstatusSol.estatusSol eq 'CANCELADO'}"
+						onclick="PF('varConfirmCancel').show()"/>
+				</p:panel>
+				<p:spacer width="30" height="30"/>
+			</p:panelGrid>
+		</p:panel>
+	</p:panel>
+	
+	
+	<p:dialog id="idConfirmCancel" modal="true"
+		widgetVar="varConfirmCancel" draggable="false"
+		closable="false" resizable="false" appendTo="@(body)" header="#{msg['domiciliacion.traspasos.monSol.confirmaCancelSolDomiciliacion']}">
+		<p:panel id="idConfirmacionCancel" >
+			<div align="center">
+				<center>
+					<h:outputText value="#{msg['domiciliacion.traspasos.monSol.preguntaConfirmaCancelSolDomiciliacion']}" /><br></br>
+				</center>
+				<br/>
+				<p:commandButton onclick="PF('varConfirmCancel').hide()" process="@this" 
+					value="#{msg['domiciliacion.traspasos.monSol.btnAceptar']}" styleClass="blue-button"
+					rendered="#{monitoreoSolicitudesView.origenBusqueda == 845}"
+					update=":formMonitoreoSolicitudesSearch:idPanelBusqueda,
+							:formMonitoreoSolicitudesData:panelDatos,
+							:formMonitoreoSolicitudesDetalle:panelDetalleSol,
+							:formMonitoreoSolicitudesData:btnReactivarSol,
+							:formMonitoreoSolicitudesData:btnCancelarSol"
+ 					actionListener="#{monitoreoSolicitudesView.cancelarSolicitudTaaspaso}" />
+	<ui:remove><!--  	Las domiciliaciones traspaso y las otras domiciliaciones se cancelan de distinta manera --></ui:remove>
+ 				<p:commandButton onclick="PF('varConfirmCancel').hide()" process="@this" 
+					value="#{msg['domiciliacion.traspasos.monSol.btnAceptar']}" styleClass="blue-button"
+					rendered="#{monitoreoSolicitudesView.origenBusqueda != 845}"
+					update=":formMonitoreoSolicitudesSearch:idPanelBusqueda,
+							:formMonitoreoSolicitudesData:panelDatos,
+							:formMonitoreoSolicitudesDetalle:panelDetalleSol,
+							:formMonitoreoSolicitudesData:btnReactivarSol,
+							:formMonitoreoSolicitudesData:btnCancelarSol"
+ 					actionListener="#{monitoreoSolicitudesView.cancelarSolicitud}" />
+				<p:spacer width="10"/>
+				<p:commandButton onclick="PF('varConfirmCancel').hide()" process="@this" value="#{msg['domiciliacion.traspasos.monSol.btnCancelar']}"
+ 					styleClass="gray-button" />
+			</div>
+		</p:panel>
+	</p:dialog>
+	
+	<p:dialog id="idConfirmReactivar" modal="true"
+		widgetVar="varConfirmReactivar" draggable="false"
+		closable="false" resizable="false" appendTo="@(body)" header="#{msg['domiciliacion.traspasos.monSol.confirmaReactivarSolDomiciliacion']}">
+		<p:panel id="idConfirmacionReactivar" >
+			<div align="center">
+				<center>
+					<h:outputText value="#{msg['domiciliacion.traspasos.monSol.preguntaConfirmaReactivarSolDomiciliacion']}" /><br></br>
+				</center>
+				<br/>
+				<p:commandButton onclick="PF('varConfirmReactivar').hide()" process="@this" 
+					value="#{msg['domiciliacion.traspasos.monSol.btnAceptar']}" styleClass="blue-button"
+					update=":formMonitoreoSolicitudesSearch:idPanelBusqueda,
+							:formMonitoreoSolicitudesData:panelDatos,
+							:formMonitoreoSolicitudesDetalle:panelDetalleSol,
+							:formMonitoreoSolicitudesData:btnReactivarSol,
+							:formMonitoreoSolicitudesData:btnCancelarSol"
+ 					actionListener="#{monitoreoSolicitudesView.activarSolicitud}"/>
+				<p:spacer width="10"/>
+				<p:commandButton onclick="PF('varConfirmReactivar').hide()" process="@this" value="#{msg['domiciliacion.traspasos.monSol.btnCancelar']}"
+					styleClass="gray-button" />					
+			</div>
+		</p:panel>
+	</p:dialog>
+	
+	</h:form>
+	</div>
+	<h:form  id="formMonitoreoSolicitudesDetalle" >
+	<p:panel id="panelDetalleSol" style="margin-top:-50px; width:100%;">
+		<p:panelGrid columns="2" style="width:100%;margin-top:-10px;" rendered="#{monitoreoSolicitudesView.muestraTablaDos}">
+			 <p:panelGrid id="datosPorAcreditar" style="margin-top:15px; width:100%;vertical-align:left !important;" >
+				<p:row>
+					<p:column style="width:75px;vertical-align:middle;text-align:right;font-weight:bold">
+						<h:outputText value="#{msg['domiciliacion.traspasos.monSol.claveSolicitud']}"/>
+					</p:column>
+					<p:column style="width:300px;vertical-align:middle !important;text-align:left !important;">
+						<h:outputText value="#{monitoreoSolicitudesView.selectedSol.claveSolicitud}" disabled="true"/>
+					</p:column>
+					<p:column style="width:75px;vertical-align:middle;text-align:right;font-weight:bold">
+						<h:outputText value="#{msg['domiciliacion.traspasos.monSol.origenSolicitud']}"/>
+					</p:column>
+					<p:column style="width:300px;vertical-align:middle !important;text-align:left !important;">
+						<h:outputText value="#{monitoreoSolicitudesView.selectedSol.origenSolicitud}" disabled="true"/>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column style="vertical-align:middle;text-align:right;font-weight:bold">
+						<h:outputText value="#{msg['domiciliacion.traspasos.monSol.cuentaIndividual']}"/>
+					</p:column>
+					<p:column style="vertical-align:middle !important;text-align:left !important;">
+						<h:outputText value="#{monitoreoSolicitudesView.selectedSol.cuentaIndividual}" disabled="true"/>
+					</p:column>
+					<p:column style="vertical-align:middle;text-align:right;font-weight:bold;">
+						<h:outputText value="#{msg['domiciliacion.traspasos.monSol.cpDoceMeses']}"/>
+					</p:column>
+					<p:column style="vertical-align:middle !important;text-align:left !important;">
+						<h:inputText id="txtCpDosMeses" maxlength="18" value="#{monitoreoSolicitudesView.selectedSol.cpDosMeses}" disabled="#{!monitoreoSolicitudesView.habilitaEdicion}">
+							<f:convertNumber pattern="######0.00" locale="es_MX"/>
+						</h:inputText>
+					</p:column>
+				</p:row>
+				<p:row>	
+					<p:column style="vertical-align:middle;text-align:right;font-weight:bold">
+						<h:outputText value="#{msg['domiciliacion.traspasos.monSol.nombre']}"/>
+					</p:column>
+					<p:column style="vertical-align:middle !important;text-align:left !important;">
+						<h:outputText value="#{monitoreoSolicitudesView.selectedSol.nombre}" disabled="true"/>
+					</p:column>
+					<p:column style="vertical-align:middle;text-align:right;font-weight:bold">
+						<h:outputText value="#{msg['domiciliacion.traspasos.monSol.lpDoceMeses']}"/>
+					</p:column>
+					<p:column style="vertical-align:middle !important;text-align:left !important;">
+						<h:inputText id="txtLpDoceMeses" maxlength="18" value="#{monitoreoSolicitudesView.selectedSol.lpDoceMeses}" disabled="#{!monitoreoSolicitudesView.habilitaEdicion}">
+							<f:convertNumber pattern="######0.00" locale="es_MX"/>
+						</h:inputText>
+					</p:column>
+				</p:row>
+				<p:row>	
+					<p:column style="vertical-align:middle;text-align:right;font-weight:bold">
+						<h:outputText value="#{msg['domiciliacion.traspasos.monSol.nss']}"/>
+					</p:column>
+					<p:column style="vertical-align:middle !important;text-align:left !important;">
+						<h:outputText value="#{monitoreoSolicitudesView.selectedSol.nss}" disabled="true"/>
+					</p:column>
+					<p:column style="vertical-align:middle;text-align:right;font-weight:bold">
+						<h:outputText value="#{msg['domiciliacion.traspasos.monSol.avpilp']}"/>
+					</p:column>
+					<p:column style="vertical-align:middle !important;text-align:left !important;">
+						<h:inputText id="txtAvpilp" maxlength="18" value="#{monitoreoSolicitudesView.selectedSol.avpilp}" disabled="#{!monitoreoSolicitudesView.habilitaEdicion}">
+							<f:convertNumber pattern="######0.00" locale="es_MX"/>
+						</h:inputText>
+					</p:column>
+				</p:row>
+				<p:row>	
+					<p:column style="vertical-align:middle;text-align:right;font-weight:bold">
+						<h:outputText value="#{msg['domiciliacion.traspasos.monSol.curp']}"/>
+					</p:column>
+					<p:column style="vertical-align:middle !important;text-align:left !important;">
+						<h:outputText value="#{monitoreoSolicitudesView.selectedSol.curp}" disabled="true"/>
+					</p:column>
+					<p:column style="vertical-align:middle;text-align:right;font-weight:bold">
+						<h:outputText value="#{msg['domiciliacion.traspasos.monSol.acr']}"/>
+					</p:column>
+					<p:column style="vertical-align:middle !important;text-align:left !important;">
+						<h:inputText id="txtAcr" maxlength="18" value="#{monitoreoSolicitudesView.selectedSol.acr}" disabled="#{!monitoreoSolicitudesView.habilitaEdicion}">
+							<f:convertNumber pattern="######0.00" locale="es_MX"/>
+						</h:inputText>
+					</p:column>
+				</p:row>
+				<p:row>	
+					<p:column style="vertical-align:middle;text-align:right;font-weight:bold">
+						<h:outputText value="#{msg['domiciliacion.traspasos.monSol.fechaRecepcion']}"/>
+					</p:column>
+					<p:column style="vertical-align:middle !important;text-align:left !important;">
+						<h:outputText value="#{monitoreoSolicitudesView.selectedSol.fechaRecepcion}" disabled="true">
+							<f:convertDateTime type="date" pattern="dd/MM/yyyy" timeZone="America/Mexico_City"/>
+						</h:outputText>
+					</p:column>
+					<p:column style="vertical-align:middle;text-align:right;font-weight:bold">
+						<h:outputText value="#{msg['domiciliacion.traspasos.monSol.importe']}"/>
+					</p:column>
+					<p:column style="vertical-align:middle !important;text-align:left !important;">
+						<h:outputText value="#{monitoreoSolicitudesView.selectedSol.totalDiver}" disabled="true">
+							<f:convertNumber pattern="$#,###,##0.00" locale="es_MX"/>
+						</h:outputText>
+					</p:column>
+				</p:row>
+				<p:row>	
+					<p:column style="vertical-align:middle;text-align:right;font-weight:bold">
+ 						<h:outputText value="#{msg['domiciliacion.traspasos.monSol.estatusTraspaso']}"/>
+					</p:column>
+					<p:column style="vertical-align:middle !important;text-align:left !important;">
+						<h:outputText value="#{monitoreoSolicitudesView.selectedSol.idOrigenSolicitud eq 845 ? monitoreoSolicitudesView.selectedSol.estatusTraspaso : 'NO APLICA'}" disabled="true"/>
+					</p:column>
+					<p:column style="vertical-align:middle;text-align:right;font-weight:bold">
+						<h:outputText value="#{msg['domiciliacion.traspasos.monSol.tipoCuenta']}"/>
+					</p:column>
+					<p:column style="vertical-align:middle !important;text-align:left !important;">
+						<h:outputText value="#{monitoreoSolicitudesView.selectedSol.tipoCuenta}" disabled="true"/>
+					</p:column>
+				</p:row>
+				<p:row>	
+					<p:column style="vertical-align:middle;text-align:right;font-weight:bold">
+						<h:outputText value="#{msg['domiciliacion.traspasos.monSol.periodicidad']}"/>
+					</p:column>
+					<p:column style="vertical-align:middle !important;text-align:left !important; width:100%;">
+						<p:selectOneMenu id="selectPeriodicidad" style="vertical-align:middle; width:225px;"   
+							 disabled="#{!monitoreoSolicitudesView.editPeriodiUni}" 
+							 value="#{monitoreoSolicitudesView.selectedSol.periodicidad}">
+							 <p:ajax event="change" update="selectFreqInic,selectFreqFin" listener="#{monitoreoSolicitudesView.cambioPeriodicidad}" />
+							 <f:selectItems value="#{monitoreoSolicitudesView.lstPeriodicidad}"/>
+						</p:selectOneMenu>
+					</p:column>
+					<p:column style="vertical-align:middle;text-align:right;font-weight:bold">
+						<h:outputText value="#{msg['domiciliacion.traspasos.monSol.cuentaDeCargo']}"/>
+					</p:column>
+					<p:column style="vertical-align:middle !important;text-align:left !important;">
+						<h:outputText value="#{monitoreoSolicitudesView.selectedSol.cuentaCargo}" disabled="true"/>
+					</p:column>
+				</p:row>
+				<p:row >	
+					<p:column style="vertical-align:middle;text-align:right;font-weight:bold" rendered="#{monitoreoSolicitudesView.selectedSol.periodicidad ne 495}">
+						<h:outputText value="#{msg['domiciliacion.traspasos.monSol.diaUno']}"/>
+					</p:column>
+					
+					
+					<p:column style="vertical-align:middle;text-align:right;font-weight:bold; text-align:left !important;"  rendered="#{monitoreoSolicitudesView.selectedSol.periodicidad eq 495}">
+						<h:outputText value="#{msg['domiciliacion.traspasos.monSol.fechaCargo']}"/>
+					</p:column>
+					<p:column style="vertical-align:middle; text-align:left !important;">
+						<h:outputText value="#{monitoreoSolicitudesView.selectedSol.fechaCargo}" rendered="#{monitoreoSolicitudesView.selectedSol.periodicidad eq 495}">
+							<f:convertDateTime type="date" pattern="dd/MM/yyyy" timeZone="America/Mexico_City"/>
+						</h:outputText>
+						<p:panelGrid columns="4" style="width:80%; margin-left:-20px" rendered="#{monitoreoSolicitudesView.selectedSol.periodicidad ne 495}">
+				 			<p:panelGrid style="width:100%;vertical-align:left; !important;" >
+								<p:column style="vertical-align:middle !important;text-align:left !important;">
+									<p:selectOneMenu id="selectFreqInic" style="vertical-align:middle;"
+									 	disabled="#{!monitoreoSolicitudesView.editPeriodiUni}" value="#{monitoreoSolicitudesView.selectedSol.frecuenciaInicial}">
+										<p:ajax event="change" update="selectFreqFin" listener="#{monitoreoSolicitudesView.cambioFrecInicial}" />
+									 	<f:selectItems value="#{monitoreoSolicitudesView.listFrqInic}"/>
+									</p:selectOneMenu>
+								</p:column>	
+							
+								<p:column style="vertical-align:middle;text-align:right;font-weight:bold">
+									<h:outputText value="#{msg['domiciliacion.traspasos.monSol.diaDos']}"/>
+								</p:column>
+								<p:column style="vertical-align:middle !important;text-align:left !important; ">
+									<p:selectOneMenu id="selectFreqFin" style="vertical-align:middle;" 
+										disabled="#{!monitoreoSolicitudesView.editPeriodiUni}"
+										value="#{monitoreoSolicitudesView.selectedSol.frecuenciaFinal}">
+										<f:selectItems value="#{monitoreoSolicitudesView.listFrqFin}"/>
+									</p:selectOneMenu>
+								</p:column>
+							</p:panelGrid>
+						</p:panelGrid>
+					</p:column>
+					
+					<p:column style="vertical-align:middle;text-align:right;font-weight:bold">
+						<h:outputText value="#{msg['domiciliacion.traspasos.monSol.estatusSolicitud']}"/>
+					</p:column>
+					<p:column style="vertical-align:middle !important;text-align:left !important;">
+						<h:outputText value="#{monitoreoSolicitudesView.selectedSol.estatusSol}" disabled="true"/>
+					</p:column>
+				</p:row>
+				<p:row>	
+					<p:column style="vertical-align:middle;text-align:right;font-weight:bold">
+						<h:outputText value="#{msg['domiciliacion.traspasos.monSol.fechaProxCargo']}"/>
+					</p:column>
+					<p:column style="vertical-align:middle !important;text-align:left !important;">
+						<h:outputText value="#{monitoreoSolicitudesView.selectedSol.fechaProxCargo}" rendered="#{monitoreoSolicitudesView.selectedSol.periodicidad ne 495}">
+							<f:convertDateTime type="date" pattern="dd/MM/yyyy" timeZone="America/Mexico_City"/>
+						</h:outputText>
+					</p:column>
+					<p:column style="vertical-align:middle;text-align:right;font-weight:bold">
+						<h:outputText value="#{msg['domiciliacion.traspasos.monSol.motivoRechazo']}"/>
+					</p:column>
+					<p:column style="vertical-align:middle !important;text-align:left !important;">
+						<h:outputText value="#{monitoreoSolicitudesView.selectedSol.motivoRechazo}" disabled="true"/>
+					</p:column>
+				</p:row>
+				<p:row rendered="#{monitoreoSolicitudesView.selectedSol.idOrigenSolicitud eq 1610}">
+					<p:column style="vertical-align:middle;text-align:right;font-weight:bold">
+						<h:outputText value="#{msg['domiciliacion.traspasos.monSol.gerencia']}"/>
+					</p:column>
+					<p:column style="vertical-align:middle !important;text-align:left !important;">
+						<h:outputText value="#{monitoreoSolicitudesView.selectedSol.gerencia}" disabled="true"/>
+					</p:column>
+					<p:column style="vertical-align:middle;text-align:right;font-weight:bold">
+						<h:outputText value="#{msg['domiciliacion.traspasos.monSol.promotor']}"/>
+					</p:column>
+					<p:column style="vertical-align:middle !important;text-align:left !important;">
+						<h:outputText value="#{monitoreoSolicitudesView.selectedSol.promotor}" disabled="true"/>
+					</p:column>
+				</p:row>
+				<p:row rendered="#{monitoreoSolicitudesView.selectedSol.idOrigenSolicitud eq 1610}">
+					<p:column style="width:75px;vertical-align:middle;text-align:right;font-weight:bold">
+						<h:outputText value="#{msg['domiciliacion.traspasos.monSol.region']}"/>
+					</p:column>
+					<p:column style="width:300px;vertical-align:middle !important;text-align:left !important;">
+						<h:outputText value="#{monitoreoSolicitudesView.selectedSol.regional}" disabled="true"/>
+					</p:column>
+					<p:column style="width:75px;vertical-align:middle;text-align:right;font-weight:bold">
+						<h:outputText value="#{msg['domiciliacion.traspasos.monSol.tipoRegistro']}"/>
+					</p:column>
+					<p:column style="width:300px;vertical-align:middle !important;text-align:left !important;">
+						<h:outputText value="#{monitoreoSolicitudesView.selectedSol.tipoRegistro}" disabled="true"/>
+					</p:column>
+				</p:row>
+				<p:row rendered="#{monitoreoSolicitudesView.selectedSol.idOrigenSolicitud eq 1610}">
+					<p:column style="width:75px;vertical-align:middle;text-align:right;font-weight:bold">
+						<h:outputText value="#{msg['domiciliacion.traspasos.monSol.tutor']}"/>
+					</p:column>
+					<p:column style="width:300px;vertical-align:middle !important;text-align:left !important;">
+						<h:outputText value="#{monitoreoSolicitudesView.selectedSol.tutor}" disabled="true"/>
+					</p:column>
+					<p:column style="width:75px;vertical-align:middle;text-align:right;font-weight:bold">
+						<h:outputText value="#{msg['domiciliacion.traspasos.monSol.paternoTutor']}"/>
+					</p:column>
+					<p:column style="width:300px;vertical-align:middle !important;text-align:left !important;">
+						<h:outputText value="#{monitoreoSolicitudesView.selectedSol.paternoTutor}" disabled="true"/>
+					</p:column>
+				</p:row>
+				<p:row rendered="#{monitoreoSolicitudesView.selectedSol.idOrigenSolicitud eq 1610}">
+					<p:column style="width:75px;vertical-align:middle;text-align:right;font-weight:bold">
+						<h:outputText value="#{msg['domiciliacion.traspasos.monSol.maternoTutor']}"/>
+					</p:column>
+					<p:column style="width:300px;vertical-align:middle !important;text-align:left !important;">
+						<h:outputText value="#{monitoreoSolicitudesView.selectedSol.maternoTutor}" disabled="true"/>
+					</p:column>
+				</p:row>
+				
+			</p:panelGrid>
+			<p:panelGrid style="width:100%; margin-top:10px;" >
+				<p:row>
+					<p:column colspan="2" >
+						<p:spacer height="1px" width="0px"/>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column colspan="2" style="vertical-align:middle;font-weight:bold;background:#E6E6E6;">
+						<h:outputText value="#{msg['domiciliacion.traspasos.monSol.infoCuentaIndividual']}" style="center"/>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column colspan="2" style="background:#E6E6E6;">
+						<p:spacer height="2px" width="0px"/>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column style="vertical-align:middle;font-weight:bold; text-align:right !important;background:#E6E6E6;">
+						<h:outputText value="#{msg['domiciliacion.traspasos.monSol.cuentaIndividualDosPunto']}"/>
+					</p:column>
+					<p:column style="vertical-align:middle !important;text-align:left !important;background:#E6E6E6;">
+						<h:outputText  value="#{monitoreoSolicitudesView.selectedSol.cuentaBuc}" disabled="true"/>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column style="vertical-align:middle !important;font-weight:bold;text-align:right !important;background:#E6E6E6;">
+						<h:outputText value="#{msg['domiciliacion.traspasos.monSol.nombreDosPunto']}"/>
+					</p:column>
+					<p:column style="vertical-align:middle !important;text-align:left !important;background:#E6E6E6;">
+						<h:outputText  value="#{monitoreoSolicitudesView.selectedSol.nombreBuc}" disabled="true"/>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column style="vertical-align:middle !important;text-align:right !important;font-weight:bold;background:#E6E6E6;">
+						<h:outputText value="#{msg['domiciliacion.traspasos.monSol.indicadorVigenciaDosPuntos']}"/>
+					</p:column>
+					<p:column style="vertical-align:middle !important;text-align:left !important;background:#E6E6E6;">
+						<h:outputText  value="#{monitoreoSolicitudesView.selectedSol.vigenteBuc}" disabled="true"/>
+					</p:column>
+				</p:row>
+					<p:column colspan="2" >
+						<p:spacer height="10px" width="0px"/>
+					</p:column>
+				<p:row>
+				</p:row>
+				<p:row>
+					<p:column style="vertical-align:middle; text-align:center; padding-left:20px !important; padding-right:0px !important;">
+						<p:commandButton id="btnActualizar" value="#{msg['domiciliacion.traspasos.monSol.btnModificar']}" styleClass="blue-button" 
+							process="@this" update=":formMonitoreoSolicitudesDetalle:btnAceptar,:formMonitoreoSolicitudesDetalle:btnCancelar,:formMonitoreoSolicitudesDetalle:txtCpDosMeses,
+							:formMonitoreoSolicitudesDetalle:txtLpDoceMeses,:formMonitoreoSolicitudesDetalle:txtAvpilp,:formMonitoreoSolicitudesDetalle:txtAcr,
+							:formMonitoreoSolicitudesDetalle:selectPeriodicidad,:formMonitoreoSolicitudesDetalle:selectFreqInic,:formMonitoreoSolicitudesDetalle:selectFreqFin,
+							:formMonitoreoSolicitudesDetalle:btnActualizar"
+							actionListener="#{monitoreoSolicitudesView.habilitaEdicion}"
+ 							disabled="#{monitoreoSolicitudesView.selectedSol.estatusSol == 'CANCELADO' or monitoreoSolicitudesView.habilitaEdicion}"
+ 							style="width:110px !important;"/>
+					</p:column>
+					<p:column style="vertical-align:middle; text-align:center">
+						<p:commandButton value="#{msg['domiciliacion.traspasos.monSol.btnCerrar']}" styleClass="gray-button"
+							actionListener="#{monitoreoSolicitudesView.ocultarTablaDos}"
+							update=":formMonitoreoSolicitudesSearch,:formMonitoreoSolicitudesData,:formMonitoreoSolicitudesDetalle"
+							style="width:110px !important;"/> 
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column style="vertical-align:middle; text-align:center; padding-left:20px !important; padding-right:0px !important;">
+						<p:commandButton id="btnAceptar" value="#{msg['domiciliacion.traspasos.monSol.btnAceptar']}" styleClass="yellow-button"
+							disabled="#{!monitoreoSolicitudesView.habilitaEdicion}"
+							oncomplete="PF('dialogOperacionCorrecta').show()"
+							style="width:110px !important;"/>
+					</p:column>
+					<p:column style="vertical-align:middle; text-align:center">
+						<p:commandButton id="btnCancelar" value="#{msg['domiciliacion.traspasos.monSol.btnCancelar']}" styleClass="yellow-button"
+							actionListener="#{monitoreoSolicitudesView.cancelarEdicion()}" update="@this,btnAceptar,:formMonitoreoSolicitudesDetalle:btnAceptar,:formMonitoreoSolicitudesDetalle:btnCancelar,:formMonitoreoSolicitudesDetalle:txtCpDosMeses,
+							:formMonitoreoSolicitudesDetalle:txtLpDoceMeses,:formMonitoreoSolicitudesDetalle:txtAvpilp,:formMonitoreoSolicitudesDetalle:txtAcr,
+							:formMonitoreoSolicitudesDetalle:selectPeriodicidad,:formMonitoreoSolicitudesDetalle:selectFreqInic,:formMonitoreoSolicitudesDetalle:selectFreqFin,
+							:formMonitoreoSolicitudesDetalle:btnActualizar"
+							onclick="PF('cargandoDialog').show();"
+							oncomplete="PF('cargandoDialog').hide();"
+ 							disabled="#{!monitoreoSolicitudesView.habilitaEdicion}"
+ 							style="width:110px !important;"/>
+					</p:column>	
+				</p:row>
+					<p:column colspan="2" >
+						<p:spacer height="10px" width="0px"/>
+					</p:column>
+				<p:row>
+				</p:row>
+				<p:row>
+					<p:column style="vertical-align:middle;text-align:right;font-weight:bold">
+						<h:outputText value="#{msg['domiciliacion.traspasos.monSol.usuCre']}:"/>
+					</p:column>
+					<p:column style="vertical-align:middle;text-align:left;">
+						<h:outputText value="#{monitoreoSolicitudesView.selectedSol.usuCre}" />
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column style="vertical-align:middle;text-align:right;font-weight:bold">
+						<h:outputText value="#{msg['domiciliacion.traspasos.monSol.fehCre']}:"/>
+					</p:column>
+					<p:column style="vertical-align:middle;text-align:left;">
+						<h:outputText value="#{monitoreoSolicitudesView.selectedSol.fehCre}" >
+							<f:convertDateTime pattern="dd/MM/yyyy"/>
+						</h:outputText>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column style="vertical-align:middle;text-align:right;font-weight:bold">
+						<h:outputText value="#{msg['domiciliacion.traspasos.monSol.usuAct']}:"/>
+					</p:column>
+					<p:column style="vertical-align:middle;text-align:left;">
+						<h:outputText value="#{monitoreoSolicitudesView.selectedSol.usuAct}" />
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column style="vertical-align:middle;text-align:right;font-weight:bold">
+						<h:outputText value="#{msg['domiciliacion.traspasos.monSol.fehAct']}:" />
+					</p:column>
+					<p:column style="vertical-align:middle;text-align:left;">
+						<h:outputText value="#{monitoreoSolicitudesView.selectedSol.fehAct}" >
+							<f:convertDateTime pattern="dd/MM/yyyy"/>
+						</h:outputText>
+					</p:column>
+				</p:row>
+			</p:panelGrid>
+		</p:panelGrid>
+		<p:panelGrid rendered="#{monitoreoSolicitudesView.muestraTablaDos}">
+			<h:panelGrid columns="1" style="width:100%;">
+				<p:dataTable id="registrosHistTabla"
+					value="#{monitoreoSolicitudesView.lstSolicitudesHist}" var="_lstSolicitudesHist"
+					paginatorPosition="bottom" style="margin-top: 15px;"
+					tableStyleClass="table-style" styleClass="tabla-indicadores"
+					paginator="true" rows="5" rowsPerPageTemplate="5,10,20,50,100"
+					emptyMessage="#{msg['general.table.rows.empty']}">
+					<p:column headerText="#{msg['domiciliacion.traspasos.monSol.cuentaIndividual']}" style="font-size: 11px !important; width:9%;text-align:center">
+						<h:outputText value="#{_lstSolicitudesHist.cuentaIndividual}"/>
+					</p:column>
+					<p:column headerText="#{msg['domiciliacion.traspasos.monSol.cuentaBancaria']}" style="font-size: 11px !important; width:19%;text-align:center">
+						<h:outputText value="#{_lstSolicitudesHist.cuentaBancaria}"/>
+					</p:column>
+					<p:column headerText="#{msg['domiciliacion.traspasos.monSol.fechaCargo']}" style="font-size: 11px !important; width:7%;text-align:center">
+						<h:outputText value="#{_lstSolicitudesHist.fechaCargo}">
+							<f:convertDateTime pattern="dd/MM/yyyy"/>
+						</h:outputText>
+					</p:column>
+					<p:column headerText="#{msg['domiciliacion.traspasos.monSol.estatusCargo']}" style="font-size: 11px !important; width:10%;text-align:center">
+						<h:outputText value="#{_lstSolicitudesHist.estCargo}"/>
+					</p:column>
+					<p:column headerText="#{msg['domiciliacion.traspasos.monSol.motivoRechazo']}" style="font-size: 11px !important; width:12%;text-align:center">
+						<h:outputText value="#{_lstSolicitudesHist.motivoRechazo}"/>
+					</p:column>
+					<p:column headerText="#{msg['domiciliacion.traspasos.monSol.importe']}" style="font-size: 11px !important; width:12%;text-align:center">
+						<h:outputText value="#{_lstSolicitudesHist.importe}">
+							<f:convertNumber pattern="$#,###,##0.00" locale="es_MX"/>
+						</h:outputText>
+					</p:column>
+					<p:column headerText="#{msg['domiciliacion.traspasos.monSol.estatusConciliacion']}" style="font-size: 11px !important; width:11%;text-align:center">
+						<h:outputText value="#{_lstSolicitudesHist.estaConcil}"/>
+					</p:column>
+					<p:column headerText="#{msg['domiciliacion.traspasos.monSol.estatusMovimiento']}" style="font-size: 11px !important; width:11%;text-align:center">
+						<h:outputText value="#{_lstSolicitudesHist.estaMov}"/>
+					</p:column>
+					<p:column headerText="#{msg['domiciliacion.traspasos.monSol.fehAct']}" style="font-size: 11px !important; width:9%; text-align:center">
+						<h:outputText value="#{_lstSolicitudesHist.fehActCargo}">
+							<f:convertDateTime pattern="dd/MM/yyyy"/>
+						</h:outputText>
+					</p:column>
+				</p:dataTable>
+			</h:panelGrid>
+		</p:panelGrid>
+	</p:panel>
+	</h:form>
+
+
+   	<p:dialog id="idConfirm" modal="true"
+		widgetVar="dialogOperacionCorrecta" draggable="false"
+		closable="false" resizable="false" appendTo="@(body)" header="#{msg['domiciliacion.header.confirmacion']}">
+		<p:panel id="idConfirmacion" >
+			<div align="center">
+				<center>
+					<h:outputText value="#{msg['domiciliacion.mensaje.confirmacion']}" /><br></br>
+				</center>
+				<br/>
+				<p:commandButton onclick="PF('dialogOperacionCorrecta').hide()" process="@this" 
+					value="#{msg['domiciliacion.traspasos.monSol.btnAceptar']}" styleClass="blue-button"
+					update=":formMonitoreoSolicitudesSearch:idPanelBusqueda,:formMonitoreoSolicitudesData:panelDatos,:formMonitoreoSolicitudesDetalle:panelDetalleSol"
+ 					actionListener="#{monitoreoSolicitudesView.actualizarRegistros}"/>
+				<p:spacer width="10"/>
+				<p:commandButton onclick="PF('dialogOperacionCorrecta').hide()" process="@this" value="#{msg['domiciliacion.traspasos.monSol.btnCancelar']}"
+					styleClass="gray-button" />					
+			</div>
+		</p:panel>
+	</p:dialog>
+	
+	
+	
+	<p:dialog id="idDialogIdentificadorCiError" closable="false"
+			resizable="false" header="#{msg['domiciliacion.traspasos.monSol.titulo']}"
+			widgetVar="dialogIdentificadorCiError" modal="true" draggable="false" showEffect="puff" visible="#{facesContext.validationFailed}">
+			<p:panelGrid style="float:right; margin-top:-20px;">
+				<p:row>
+					<p:column style="text-align:right;">
+					<h:outputText id="idOutTexIdentificadorCiError1" value="No es un#{monitoreoSolicitudesView.tipoBusqueda.equals('Cuenta individual') ? 'a cuenta válida' : (monitoreoSolicitudesView.tipoBusqueda.equals('NSS') ? ' NSS válido': ' CURP válido')}" styleClass="outputTextGeneric" />
+					<p:message for="formMonitoreoSolicitudesSearch:idTextCuenta" rendered="false" display="false" />
+					<p:message for="formMonitoreoSolicitudesSearch:idTextNss" rendered="false" display="false"/>
+					<p:message for="formMonitoreoSolicitudesSearch:idTextCurp" rendered="false" display="false"/>
+					<p:message for="formMonitoreoSolicitudesSearch:idTextCuentaVacio" display="false"/>
+					<h:outputText id="idOutTexIdentificadorCiError2" value="#{monitoreoSolicitudesView.tipoBusqueda.equals('Cuenta individual') ? 'El valor capturado no es una cuenta válida' : (monitoreoSolicitudesView.tipoBusqueda.equals('NSS') ? 'El valor capturado no es un NSS válido': 'El valor capturado no es un CURP válido')}" styleClass="outputTextGeneric" />
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column style="text-align:right;">
+						<p:commandButton value="#{msg['general.button.cerrar']}"  
+							onclick="PF('dialogIdentificadorCiError').hide(); PF('cargandoDialog').hide();"
+							styleClass="gray-button" />
+					</p:column>
+				</p:row>
+			</p:panelGrid>
+	</p:dialog>
+
+	<p:dialog id="dialogCargando"
+			widgetVar="cargandoDialog"
+			modal="true" draggable="false" closable="false" resizable="false" 
+			appendTo="@(body)" showHeader="false" showEffect="fade">
+		<div align="center">
+			<h:outputText value="#{msg['consulta.aforeMovil.cargando']}" styleClass="outputTextGeneric" />
+			<br/>
+			<h:graphicImage value="/core/static/images/loading-bar.gif" width="150" />
+		</div>
+	</p:dialog>
+	
+	<p:dialog id="sinResultadoTablaDialog"
+	              widgetVar="sinResultadoTablaDialog"
+				  header="#{msg['domiciliacion.traspasos.monSol.titulo']}" 
+				  modal="true"
+				  draggable="false" 
+				  closable="false" 
+				  resizable="false"	
+				  appendTo="@(body)">
+			  <p:panelGrid id="sinResultadoTablaGrid" style="float:right; margin-top:-20px;"> 
+		    		<p:row>
+		    			<p:column>
+							<p:outputLabel id="sinResultadoTabla" value="#{msg['domiciliacion.traspasos.monSol.combo.busqueda']}"/>
+		    			</p:column>    			
+		    		</p:row>
+		    			<br/>
+						<br/>
+					<p:row>
+		    			<p:column style="text-align:right;">	
+							<p:commandButton id="sinResultadoTablaBtn" type="button" value="#{msg['general.button.cerrar']}" onclick="PF('sinResultadoTablaDialog').hide();" styleClass="gray-button"/>
+		                </p:column>
+		            </p:row>    		
+				</p:panelGrid>
+		</p:dialog>
+		
+		<p:dialog id="resResultadoTablaDialog"
+	              widgetVar="resResultadoTablaDialog"
+				  header="#{msg['domiciliacion.traspasos.monSol.titulo']}" 
+				  modal="true"
+				  draggable="false" 
+				  closable="false" 
+				  resizable="false"	
+				  appendTo="@(body)">
+			  <p:panelGrid id="genericResultadoTablaGrid" style="float:right; margin-top:-20px;"> 
+		    		<p:row>
+		    			<p:column>
+							<p:outputLabel id="genericResultadoTablaTxt" value="Se realizó correctamente la actualización"/>
+		    			</p:column>    			
+		    		</p:row>
+		    			<br/>
+						<br/>
+					<p:row>
+		    			<p:column style="text-align:right;">	
+							<p:commandButton id="genericResultadoTablaBtn" type="button" value="#{msg['general.button.cerrar']}" onclick="PF('resResultadoTablaDialog').hide();" styleClass="gray-button"/>
+		                </p:column>
+		            </p:row>    		
+				</p:panelGrid>
+		</p:dialog>
+
+		<p:dialog id="resResultadoErrorTablaDialog"
+	              widgetVar="resResultadoErrorTablaDialog"
+				  header="#{msg['domiciliacion.traspasos.monSol.titulo']}" 
+				  modal="true"
+				  draggable="false" 
+				  closable="false" 
+				  resizable="false"	
+				  appendTo="@(body)">
+			  <p:panelGrid id="genericErrorResultadoTablaGrid" style="float:right; margin-top:-20px;"> 
+		    		<p:row>
+		    			<p:column>
+							<p:outputLabel id="genericResultadoTablaErrorTxt" value="No es posible actualizar la solicitud a importe 0"/>
+		    			</p:column>    			
+		    		</p:row>
+		    			<br/>
+						<br/>
+					<p:row>
+		    			<p:column style="text-align:right;">	
+							<p:commandButton id="genericResultadoTablaErrorBtn" type="button" value="#{msg['general.button.cerrar']}" onclick="PF('resResultadoErrorTablaDialog').hide();" styleClass="gray-button"/>
+		                </p:column>
+		            </p:row>    		
+				</p:panelGrid>
+		</p:dialog>
+		
+		<p:dialog id="consultDataDialog"
+	              widgetVar="consultDataDialog"
+				  modal="true"
+				  draggable="false"
+				  resizable="false" 
+				  appendTo="@(body)" 
+				  closable="false"
+				  showHeader="false" 
+				  showEffect="fade">
+			<div align="center">
+				<h:outputText value="#{msg['general.progress.consultando']}" styleClass="outputTextGeneric" />
+				<br/>
+				<h:graphicImage value="/core/static/images/loading-bar.gif"	width="150" />
+			</div>
+		</p:dialog>
+			
+	</ui:define>
+</ui:composition>
+</html>

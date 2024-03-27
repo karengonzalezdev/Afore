@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
+<!-- 2019-03-10T14:44:25 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="cifrasControlReclasificacion" pageWidth="1090" pageHeight="842" columnWidth="1050" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c01b2103-11d9-4ead-a0c7-13713165b32d">
+	<property name="ireport.zoom" value="0.9090909090909111"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="folio" class="java.lang.String"/>
+	<parameter name="proceso" class="java.lang.String"/>
+	<parameter name="subproceso" class="java.lang.String"/>
+	<parameter name="fechaLiquidacion" class="java.lang.String"/>
+	<field name="abonosCargosDS" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<field name="reporteRegistrosDS" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<field name="totalesDS" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<field name="abonosDS" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="10" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="100">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" mode="Opaque" x="30" y="42" width="990" height="14" forecolor="#FFFFFF" backcolor="#244162" uuid="7d73aff7-8e16-4444-a073-2171b07ca040">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[  Cifras Control pendientes por acreditar]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="30" y="71" width="270" height="20" uuid="12680337-9c6d-45bb-a7cb-1a009ade9d5f"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#CCCCCC"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#CCCCCC"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#CCCCCC"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#CCCCCC"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{folio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="71" width="150" height="20" uuid="be53618d-1087-4eca-ae07-31344031126c"/>
+				<box>
+					<topPen lineWidth="1.0" lineColor="#CCCCCC"/>
+					<leftPen lineWidth="1.0" lineColor="#CCCCCC"/>
+					<bottomPen lineWidth="1.0" lineColor="#CCCCCC"/>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{proceso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="450" y="71" width="360" height="20" uuid="29e06ef1-9eae-45bf-9a03-888c3e1764b0"/>
+				<box>
+					<topPen lineWidth="1.0" lineColor="#CCCCCC"/>
+					<leftPen lineWidth="1.0" lineColor="#CCCCCC"/>
+					<bottomPen lineWidth="1.0" lineColor="#CCCCCC"/>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{subproceso}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" mode="Opaque" x="30" y="56" width="270" height="15" backcolor="#BCCCEC" uuid="7818cd4d-b13c-4ea4-8a1e-99d08ec87ad1">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[  FOLIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="300" y="56" width="150" height="15" backcolor="#BCCCEC" uuid="d92308e7-e1d7-446d-984d-869dc931bbae"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PROCESO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="ElementGroupBottom" mode="Opaque" x="450" y="56" width="360" height="15" backcolor="#BCCCEC" uuid="9c28cb9c-86f9-4f91-9f99-acea0701e330"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SUBPROCESO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="810" y="71" width="210" height="20" uuid="c11494c5-8cd5-4bb2-a30a-2b94803f2fc8"/>
+				<box>
+					<topPen lineWidth="1.0" lineColor="#CCCCCC"/>
+					<leftPen lineWidth="1.0" lineColor="#CCCCCC"/>
+					<bottomPen lineWidth="1.0" lineColor="#CCCCCC"/>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaLiquidacion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="810" y="56" width="210" height="15" backcolor="#BCCCEC" uuid="c9a3064b-51e6-4a64-9de1-467d01d03bdc"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA DE LIQUIDACION]]></text>
+			</staticText>
+			<image>
+				<reportElement x="30" y="3" width="230" height="37" uuid="aaa2acc0-b311-4e43-afa0-2d0b5eb4ddfd"/>
+				<imageExpression><![CDATA["reports/imagenes/logo-profuruto-afore.png"]]></imageExpression>
+			</image>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="362">
+			<subreport>
+				<reportElement positionType="Float" x="30" y="7" width="990" height="46" forecolor="#B8B8B8" uuid="5fc3b7c8-7abd-424a-87e6-f728286f5153"/>
+				<dataSourceExpression><![CDATA[$F{reporteRegistrosDS}]]></dataSourceExpression>
+				<subreportExpression><![CDATA["reports/reportesApoVol/reporteRegistro_subreport.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement positionType="Float" x="30" y="68" width="990" height="71" uuid="18cb7ad8-ea45-49a7-919e-fd63d6c85c06"/>
+				<dataSourceExpression><![CDATA[$F{abonosCargosDS}]]></dataSourceExpression>
+				<subreportExpression><![CDATA["reports/reportesApoVol/cargos_subreport.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+</jasperReport>

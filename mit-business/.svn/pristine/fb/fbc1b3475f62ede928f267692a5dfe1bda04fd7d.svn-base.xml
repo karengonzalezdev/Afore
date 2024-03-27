@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="MovimientosService"
+	targetNamespace="http://mx.profuturo/iib/nci/MatrizConvivencia/MatrizConvivenciaService/v1"
+	xmlns:tns="http://mx.profuturo/iib/nci/MatrizConvivencia/MatrizConvivenciaService/v1" 
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:sch="http://mx.profuturo/iib/nci/MatrizConvivencia/MatrizConvivenciaService/v1/types"
+	xmlns:iibe="http://mx.profuturo/iib/iibException/IIBException">
+
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="http://mx.profuturo/iib/nci/MatrizConvivencia/MatrizConvivenciaService/v1/types" schemaLocation="MatrizConvivenciaService/MatrizConvivenciaService.xsd">
+			</xsd:import>
+			<xsd:import namespace="http://mx.profuturo/iib/iibException/IIBException" schemaLocation="frameworkiib/iibException/IIBException.xsd">
+			</xsd:import>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="consultarCuentasNoConvivenRequest">
+		<wsdl:part element="sch:consultarCuentasNoConvivenRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="consultarCuentasNoConvivenResponse">
+		<wsdl:part element="sch:consultarCuentasNoConvivenResponse" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="consultarConvivenciaRequest">
+		<wsdl:part element="sch:consultarConvivenciaRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="consultarConvivenciaResponse">
+		<wsdl:part element="sch:consultarConvivenciaResponse" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="faultMsg">
+		<wsdl:part element="iibe:iibException" name="parameters"/>
+	</wsdl:message>
+
+	<wsdl:portType name="MatrizConvivenciaPortType">
+		<wsdl:operation name="consultarCuentasNoConviven">
+			<wsdl:input message="tns:consultarCuentasNoConvivenRequest"/>
+			<wsdl:output message="tns:consultarCuentasNoConvivenResponse"/>
+			<wsdl:fault message="tns:faultMsg" name="fault"/>
+		</wsdl:operation>
+		<wsdl:operation name="consultarConvivencia">
+			<wsdl:input message="tns:consultarConvivenciaRequest"></wsdl:input>
+			<wsdl:output message="tns:consultarConvivenciaResponse"></wsdl:output>
+			<wsdl:fault message="tns:faultMsg" name="fault"/>
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<wsdl:binding name="MatrizConvivenciaBinding" type="tns:MatrizConvivenciaPortType">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="consultarCuentasNoConviven">
+			<soap:operation soapAction="urn:consultarCuentasNoConviven" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarConvivencia">
+			<soap:operation soapAction="urn:consultarConvivencia" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:service name="MatrizConvivenciaService">
+		<wsdl:port binding="tns:MatrizConvivenciaBinding" name="MatrizConvivenciaPort">
+			<soap:address location="http://localhost/iib/nci/MatrizConvivencia/MatrizConvivenciaService/v1" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="mx.profuturo.nci.persistence.CifrasLiquidacionPersistence">
+	<resultMap id="ResultMapCifrasLiquidacion" type="mx.profuturo.nci.business.vo.CifrasLiquidacionSolVO">
+		<id column="FTN_ID_CIFRAS_LIQUIDACION"		property="idCifrasLiquidacion" 	jdbcType="NUMERIC" />
+		<result column="FTC_SIEFORE"				property="siefore" 				jdbcType="VARCHAR" />
+		<result column="FTN_IDFONDO"				property="idFondo" 				jdbcType="NUMERIC" />
+		<result column="FTC_FONDO"					property="descFondo" 			jdbcType="VARCHAR" />
+		<result column="FTN_ID_CONCILIACION"		property="idConciliacion" 		jdbcType="NUMERIC" />
+		<result column="FTD_FEH_CONCILIACION"		property="fechaCarga" 			jdbcType="TIMESTAMP" />
+		<result column="FTC_FOLIO"					property="folio"			 	jdbcType="VARCHAR" />
+		<result column="FTC_CVE_SOLICITUD"			property="cveSolicitud" 		jdbcType="VARCHAR" />
+		<result column="FTN_ORIGEN_APORTACION"		property="origenAportacion" 	jdbcType="VARCHAR" />
+		<result column="FTN_IMPORTE"				property="impote" 				jdbcType="DECIMAL" />
+		<result column="FTN_NUM_CTA_INVDUAL"		property="cuenta" 				jdbcType="DECIMAL" />
+		<result column="FTC_NSS"					property="nss" 					jdbcType="DECIMAL" />
+		<result column="FTC_CURP"					property="curp" 				jdbcType="VARCHAR" />
+		<result column="FTN_TIPO_APORTACION"		property="tipoAportacion" 		jdbcType="NUMERIC" />
+		<result column="FTC_RFC_CTE"				property="rfcCta" 				jdbcType="VARCHAR" />
+		<result column="FTN_REF_SUBCTA_APOVOL"		property="refSubApovol" 		jdbcType="NUMERIC" />
+		<result column="FTN_VIGENTE"				property="vigencia" 			jdbcType="NUMERIC" />
+		<result column="FTN_SALOD_SUB_RCV"			property="SaldoSubRcv" 			jdbcType="NUMERIC" />
+		<result column="FTN_ID_MOV"					property="idMov" 				jdbcType="NUMERIC" />
+		<result column="FTN_EXCLUIR"				property="excluir" 				jdbcType="NUMERIC" />
+		<result column="FTN_NO_CARGO"				property="noCargo" 				jdbcType="NUMERIC" />
+		<result column="FTD_FEH_CRE"				property="fehCre" 				jdbcType="TIMESTAMP" />
+		<result column="FTC_USU_CRE"				property="usuCre" 				jdbcType="VARCHAR" />
+		<result column="FTD_FEH_ACT"				property="fehAct" 				jdbcType="TIMESTAMP" />
+		<result column="FTC_USU_ACT"				property="usuAct" 				jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap id="ResultCifrasPorSiefore" type="mx.profuturo.nci.business.vo.DetalleSieforesVO">
+		<id column="FTN_SIEFORE"					property="idSiefore" 	jdbcType="NUMERIC" />
+		<result column="FTC_SIEFORE"				property="siefore" 		jdbcType="VARCHAR" />
+		<collection property="detalleFondosVO" javaType="ArrayList" ofType="mx.profuturo.nci.business.vo.DetalleFondosVO">
+			<result column="FTN_IDFONDO"				property="idFondo" 			jdbcType="NUMERIC" />
+			<result column="FTC_FONDO"					property="fondo" 			jdbcType="VARCHAR" />
+			<result column="FTN_NO_REGISTROS"			property="noRegistros" 		jdbcType="DECIMAL" />
+			<result column="FTN_IMPORTE"				property="importe" 			jdbcType="DECIMAL" />
+		</collection>
+	</resultMap>
+	
+
+		
+	<resultMap id="ResultCifrasPorFondos" type="mx.profuturo.nci.business.vo.DetalleFondosVO">
+		<id column="FTN_IDFONDO"					property="idFondo" 			jdbcType="NUMERIC" />
+		<result column="FTC_FONDO"					property="fondo" 			jdbcType="VARCHAR" />
+		<result column="FTN_NO_REGISTROS"			property="noRegistros" 		jdbcType="DECIMAL" />
+		<result column="FTN_IMPORTE"				property="importe" 			jdbcType="DECIMAL" />
+	</resultMap>
+	
+	
+	<insert id="registrarCifrasLiquidacion" parameterType="mx.profuturo.nci.business.wrapped.CifrasLiquidacionFilter">
+    INSERT INTO ttafoavol_cifras_liquidacion (
+        ftc_siefore,
+        ftn_idfondo,
+        ftc_fondo,
+        ftn_id_conciliacion,
+        ftd_feh_conciliacion,
+        ftc_folio,
+        ftc_cve_solicitud,
+        ftn_origen_aportacion,
+        ftn_importe,
+        ftn_num_cta_invdual,
+        ftc_nss,
+        ftc_curp,
+        ftn_tipo_aportacion,
+        ftc_rfc_cte,
+        ftn_ref_subcta_apovol,
+        ftn_vigente,
+        ftn_salod_sub_rcv,
+        ftn_id_mov,
+        ftn_excluir,
+        ftd_feh_cre,
+        ftc_usu_cre,
+        ftd_feh_act,
+        ftc_usu_act
+    )
+     WITH TAB_CONCILIADOS AS (
+		SELECT * FROM ttafoavol_conciliacion concilia
+		WHERE to_char(CONCILIA.FTD_FEH_CONCILIACION,'YYYYMMDD') between to_char(#{fechaInicio},'YYYYMMDD') and to_char(#{fechaFin},'YYYYMMDD')
+			and concilia.ftn_origen_aportacion = 845
+            and concilia.FTN_ESTATUS_TRAMITE = 968 
+            and concilia.FTN_REG_CONCILIADO = 1
+            and concilia.FTC_FOLIO_ARCH_CONT is null 
+            and concilia.FTN_MOV_GENERADO = 0
+	),
+	TAB_VIGENCIA AS (
+		SELECT * FROM ttafogral_ind_cta_indv cta_ind
+		WHERE cta_ind.ftc_vigencia = 1
+		AND cta_ind.ffn_id_config_indi = 2
+		AND cta_ind.fcc_valor_ind = 1
+		AND cta_ind.FTN_NUM_CTA_INVDUAL IN (SELECT FTN_NUM_CTA_INVDUAL FROM TAB_CONCILIADOS)
+	),
+	TAB_SALDOS AS (
+		SELECT 
+            *
+        FROM (
+            SELECT 
+                distinct FTC_NUM_CTA_INVDUAL,
+                SUM(FTN_DISP_ACCIONES) FTN_DISP_ACCIONES,
+                1 ftn_salod_sub_rcv
+            FROM TTAFOGRAL_BALANCE_MOVS
+            WHERE FCC_TABLA_NCI_MOV in( 'RCV', 'BONO' ,'VIV')
+                AND FTC_NUM_CTA_INVDUAL in (SELECT FTN_NUM_CTA_INVDUAL FROM TAB_VIGENCIA)
+            GROUP BY FTC_NUM_CTA_INVDUAL
+        )
+        WHERE 
+            FTN_DISP_ACCIONES > 0
+	)
+	SELECT
+		CASE divecon.ftn_fondo_apovol
+		WHEN 741 THEN
+			'CP'
+		ELSE
+			'LP'
+		END AS ftc_siefore,
+		divecon.ftn_fondo_apovol ftn_idfondo,
+		(
+		SELECT
+			fondo.fcc_valor
+		FROM
+			tccrxgral_cat_catalogo fondo
+		WHERE
+			fondo.fcn_id_cat_catalogo = divecon.ftn_fondo_apovol
+		) ftc_fondo,
+		concilia.ftn_id_conciliacion ftn_id_conciliacion,
+		concilia.ftd_feh_conciliacion ftd_feh_conciliacion,
+		concilia.ftc_folio ftc_folio,
+		concilia.ftn_cve_solicitud ftc_cve_solicitud,
+		concilia.ftn_origen_aportacion ftn_origen_aportacion,
+		divecon.ftn_monto ftn_importe,
+		concilia.ftn_num_cta_invdual ftn_num_cta_invdual,
+		concilia.ftn_nss ftc_nss,
+		concilia.ftc_curp ftc_curp,
+		concilia.ftn_tipo_aportacion ftn_tipo_aportacion,
+		concilia.ftc_rfc_cte ftc_rfc_cte,
+		divecon.ftn_fondo_apovol ftn_ref_subcta_apovol,
+		1 ftn_vigente,
+        1 ftn_salod_sub_rcv,
+		concilia.ftn_id_mov ftn_id_mov,
+		0 ftn_excluir,
+		sysdate ftd_feh_cre,
+		'usu' ftc_usu_cre,
+		NULL ftd_feh_act,
+		NULL ftc_usu_act
+	FROM TAB_VIGENCIA vigencia
+		INNER JOIN TAB_CONCILIADOS concilia ON ( vigencia.FTN_NUM_CTA_INVDUAL = concilia.FTN_NUM_CTA_INVDUAL )
+    	INNER JOIN TTAFOAVOL_DIVERSIF_CONC divecon ON ( divecon.ftn_id_conciliacion = concilia.ftn_id_conciliacion )
+		INNER JOIN TAB_SALDOS saldos ON ( saldos.ftc_num_cta_invdual = vigencia.FTN_NUM_CTA_INVDUAL)
+	</insert>
+	
+	<update id="excluirSolCifrasLiquidacion" parameterType="mx.profuturo.nci.business.wrapped.CifrasLiquidacionFilter">                      
+        UPDATE ttafoavol_cifras_liquidacion
+        SET FTN_EXCLUIR  = 1,
+            FTC_USU_ACT  = #{usuario,jdbcType=VARCHAR},
+            FTD_FEH_ACT  = SYSDATE,
+            FTN_NO_CARGO = #{noCargo,jdbcType=DECIMAL}
+        WHERE FTN_ID_CIFRAS_LIQUIDACION in(
+        With cifras --Nombre de la subconsulta
+            As(                                 
+                SELECT
+                    CIFLIQ.FTN_ID_CIFRAS_LIQUIDACION,
+                    CIFLIQ.FTN_NUM_CTA_INVDUAL FTN_NUM_CTA_INVDUAL,
+                    CIFLIQ.FTC_NSS FTC_NSS,
+                    CIFLIQ.FTN_IMPORTE FTN_IMPORTE,
+                    ROWNUM FTN_NO_CARGO,
+                    CIFLIQ.FTD_FEH_CONCILIACION FTD_FEH_CONCILIACION,
+                    CIFLIQ.FTN_EXCLUIR FTN_EXCLUIR
+                   FROM
+                        ttafoavol_cifras_liquidacion CIFLIQ
+                    WHERE 1=1
+                        AND FTN_NUM_CTA_INVDUAL = #{cuenta,jdbcType=DECIMAL}
+                        order by CIFLIQ.FTD_FEH_CONCILIACION, FTN_NO_CARGO)  
+                            select FTN_ID_CIFRAS_LIQUIDACION from cifras
+                                where FTN_NO_CARGO = #{noCargo,jdbcType=DECIMAL})
+    </update>
+    
+    <select id="consultaSolicitudes" resultMap="ResultMapCifrasLiquidacion"
+		parameterType="mx.profuturo.nci.business.wrapped.CifrasLiquidacionFilter">
+		SELECT
+	    		CIFLIQ.FTN_NUM_CTA_INVDUAL FTN_NUM_CTA_INVDUAL,
+	            CIFLIQ.FTC_NSS FTC_NSS,
+	            CIFLIQ.FTN_IMPORTE FTN_IMPORTE,
+	            ROWNUM FTN_NO_CARGO,
+	            CIFLIQ.FTD_FEH_CONCILIACION FTD_FEH_CONCILIACION,
+	            CIFLIQ.FTN_EXCLUIR FTN_EXCLUIR
+		FROM
+		ttafoavol_cifras_liquidacion CIFLIQ
+	
+		WHERE 1=1
+		        <if test="cuenta != null">
+		            AND FTN_NUM_CTA_INVDUAL = #{cuenta,jdbcType=DECIMAL}
+		        </if>
+		        <if test="nss != null">
+		            AND FTC_NSS = #{nss,jdbcType=VARCHAR}
+		        </if>
+		        <if test="curp != null">
+		            AND FTC_CURP = #{curp,jdbcType=VARCHAR}
+		        </if>
+		      order by CIFLIQ.FTD_FEH_CONCILIACION, FTN_NO_CARGO
+    </select>
+    
+    <select id="cifrasSolicitudes" resultMap="ResultCifrasPorSiefore"
+		parameterType="mx.profuturo.nci.business.wrapped.CifrasLiquidacionFilter">
+			SELECT
+			    83                            ftn_siefore,
+			    cifliq.ftc_siefore            ftc_siefore,
+			    cifliq.ftn_idfondo            ftn_idfondo,
+			    cifliq.ftc_fondo              ftc_fondo,
+			    COUNT(*)                      ftn_no_registros,
+			    SUM(cifliq.ftn_importe)       ftn_importe
+			FROM
+			    ttafoavol_cifras_liquidacion cifliq
+			WHERE
+			    ftn_idfondo IN ( 742, 744, 743 )
+			GROUP BY
+			    cifliq.ftc_siefore,
+			    cifliq.ftn_ref_subcta_apovol,
+			    cifliq.ftn_idfondo,
+			    cifliq.ftc_fondo
+			UNION
+			SELECT
+			    83                            ftn_siefore,
+			    cifliq.ftc_siefore,
+			    99999                         ftn_idfondo,
+			    'TOTAL:'                      ftc_fondo,
+			    COUNT(*)                      ftn_no_registros,
+			    SUM(cifliq.ftn_importe)       ftn_importe
+			FROM
+			    ttafoavol_cifras_liquidacion cifliq
+			WHERE
+			    ftn_idfondo IN ( 742, 744, 743 )
+			GROUP BY
+			    cifliq.ftc_siefore
+			UNION
+			SELECT
+			    82                            ftn_siefore,
+			    cifliq.ftc_siefore            ftc_siefore,
+			    cifliq.ftn_idfondo            ftn_idfondo,
+			    cifliq.ftc_fondo              ftc_fondo,
+			    COUNT(*)                      ftn_no_registros,
+			    SUM(cifliq.ftn_importe)       ftn_importe
+			FROM
+			    ttafoavol_cifras_liquidacion cifliq
+			WHERE
+			    ftn_idfondo = 741
+			GROUP BY
+			    cifliq.ftc_siefore,
+			    cifliq.ftn_ref_subcta_apovol,
+			    cifliq.ftn_idfondo,
+			    cifliq.ftc_fondo
+			UNION
+			SELECT
+			    82                            ftn_siefore,
+			    cifliq.ftc_siefore,
+			    99999                         ftn_idfondo,
+			    'TOTAL:'                      ftc_fondo,
+			    COUNT(*)                      ftn_no_registros,
+			    SUM(cifliq.ftn_importe)       ftn_importe
+			FROM
+			    ttafoavol_cifras_liquidacion cifliq
+			WHERE
+			    ftn_idfondo = 741
+			GROUP BY
+			    cifliq.ftc_siefore
+    </select>
+    
+    <select id="consultaSolicitudesExcuidas" resultMap="ResultMapCifrasLiquidacion">
+		SELECT
+	    		CIFLIQ.FTN_NUM_CTA_INVDUAL FTN_NUM_CTA_INVDUAL,
+	            CIFLIQ.FTC_NSS FTC_NSS,
+	            CIFLIQ.FTN_IMPORTE FTN_IMPORTE,
+	            ROWNUM FTN_NO_CARGO,
+	            CIFLIQ.FTD_FEH_CONCILIACION FTD_FEH_CONCILIACION,
+	            CIFLIQ.FTN_EXCLUIR FTN_EXCLUIR
+		FROM
+		ttafoavol_cifras_liquidacion CIFLIQ
+        where FTN_EXCLUIR = 1
+    </select>
+    
+    <delete id="eliminarRegistrosCifrasLiquidacion">
+		DELETE FROM ttafoavol_cifras_liquidacion 
+	</delete>
+</mapper>

@@ -1,0 +1,152 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns1="http://catalogo.webservice.ws.nci.profuturo.mx/" name="ICatalogoSoapWS" targetNamespace="http://catalogo.webservice.ws.nci.profuturo.mx/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://catalogo.webservice.ws.nci.profuturo.mx/" elementFormDefault="unqualified" targetNamespace="http://catalogo.webservice.ws.nci.profuturo.mx/" version="1.0">
+<xs:element name="consultar" type="tns:consultar"/>
+<xs:element name="consultarPorRoles" type="tns:consultarPorRoles"/>
+<xs:element name="consultarPorRolesResponse" type="tns:consultarPorRolesResponse"/>
+<xs:element name="consultarResponse" type="tns:consultarResponse"/>
+<xs:complexType name="consultar">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="request" type="tns:catalogoConsultarBeanRequest"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="catalogoConsultarBeanRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="idCatalogo" type="xs:short"/>
+      <xs:element minOccurs="0" name="idCatalogoPadre" type="xs:short"/>
+      <xs:element minOccurs="0" name="idLineaNegocio" type="xs:short"/>
+      <xs:element minOccurs="0" name="idTipoCatalogo" type="xs:short"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="consultarResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ConsultarResponse" type="tns:iCatalogoSoapWSConsultarResponse"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="iCatalogoSoapWSConsultarResponse">
+    <xs:complexContent>
+      <xs:extension base="tns:abstractWebServiceResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="response" type="tns:catalogoConsultarBeanResponse"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+<xs:complexType abstract="true" name="abstractWebServiceResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="errorCode" type="xs:string"/>
+      <xs:element minOccurs="0" name="errorMessage" type="xs:string"/>
+      <xs:element minOccurs="0" name="errorTrace" type="xs:string"/>
+      <xs:element name="success" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="catalogoConsultarBeanResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="catalogos">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="catalogo" type="tns:catalogoBean"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="catalogoBean">
+    <xs:complexContent>
+      <xs:extension base="tns:abstractAuditoriaBean">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="descripcion" type="xs:string"/>
+          <xs:element minOccurs="0" name="idCatCatalogo" type="xs:short"/>
+          <xs:element minOccurs="0" name="idCatalogoPadre" type="xs:short"/>
+          <xs:element minOccurs="0" name="idTipoCatalogo" type="xs:short"/>
+          <xs:element minOccurs="0" name="valor" type="xs:string"/>
+          <xs:element minOccurs="0" name="vigencia" type="xs:boolean"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+<xs:complexType abstract="true" name="abstractAuditoriaBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="fechaActualizacion" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="fechaCreacion" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="usuarioActualizacion" type="xs:string"/>
+      <xs:element minOccurs="0" name="usuarioCreacion" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="consultarPorRoles">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="request" type="tns:catalogoConsultarPorRolesBeanRequest"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="catalogoConsultarPorRolesBeanRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="idCatalogo" type="xs:short"/>
+      <xs:element minOccurs="0" name="idCatalogoPadre" type="xs:short"/>
+      <xs:element minOccurs="0" name="idLineaNegocio" type="xs:short"/>
+      <xs:element minOccurs="0" name="idTipoCatalogo" type="xs:short"/>
+      <xs:element minOccurs="0" name="roles">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="rol" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="consultarPorRolesResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ConsultarPorRolesResponse" type="tns:iCatalogoSoapWSConsultarPorRolesResponse"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="iCatalogoSoapWSConsultarPorRolesResponse">
+    <xs:complexContent>
+      <xs:extension base="tns:abstractWebServiceResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="response" type="tns:catalogoConsultarPorRolesBeanResponse"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+<xs:complexType name="catalogoConsultarPorRolesBeanResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="catalogos">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="catalogo" type="tns:catalogoBean"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>  </wsdl:types>
+  <wsdl:message name="consultarResponse">
+    <wsdl:part element="ns1:consultarResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="consultar">
+    <wsdl:part element="ns1:consultar" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="consultarPorRolesResponse">
+    <wsdl:part element="ns1:consultarPorRolesResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="consultarPorRoles">
+    <wsdl:part element="ns1:consultarPorRoles" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ICatalogoSoapWS">
+    <wsdl:operation name="consultar">
+      <wsdl:input message="ns1:consultar" name="consultar">
+    </wsdl:input>
+      <wsdl:output message="ns1:consultarResponse" name="consultarResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="consultarPorRoles">
+      <wsdl:input message="ns1:consultarPorRoles" name="consultarPorRoles">
+    </wsdl:input>
+      <wsdl:output message="ns1:consultarPorRolesResponse" name="consultarPorRolesResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

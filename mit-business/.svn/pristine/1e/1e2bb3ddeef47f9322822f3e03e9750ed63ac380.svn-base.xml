@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mx.profuturo.nci.alux.persistence.ProfuturoALUXPersistence">
+
+<resultMap id="BaseResultMap" type="mx.profuturo.nci.business.vo.LoteControlAluxVO">
+	<result column="ID_LOTE"					jdbcType="NUMERIC"		property="idLote"					javaType="integer"/>
+	<result column="ID_ARCHIVO"					jdbcType="NUMERIC"		property="idArchivo"				javaType="integer"/>
+	<result column="NOMBRE_ARCHIVO"				jdbcType="VARCHAR"		property="nombreArchivo"			javaType="string"/>
+	<result column="ID_LOTE_FUENTE"				jdbcType="NUMERIC"		property="idLoteFuente"				javaType="integer"/>
+	<result column="ID_ESTATUS_LOTE"			jdbcType="NUMERIC"		property="idEstatusLote"			javaType="integer"/>
+	<result column="FECHA_GENERACION"   		jdbcType="TIMESTAMP"	property="fechaGeneracion"			javaType="java.util.Date"/>
+	<result column="FECHA_PRESENTACION"   		jdbcType="TIMESTAMP"	property="fechaPresentacion"		javaType="java.util.Date"/>
+	<result column="FECHA_RECEPCION"	   		jdbcType="TIMESTAMP"	property="fechaRecepcion"			javaType="java.util.Date"/>
+	<result column="TOTAL_REGISTROS"			jdbcType="NUMERIC"		property="totalRegistros"			javaType="integer"/>
+	<result column="ACEPTADOS"					jdbcType="NUMERIC"		property="aceptados"				javaType="integer"/>
+	<result column="RECHAZADOS"					jdbcType="NUMERIC"		property="rechazados"				javaType="integer"/>
+	<result column="PENDIENTES"					jdbcType="NUMERIC"		property="pendientes"				javaType="integer"/>
+	<result column="ENCABEZADO"					jdbcType="VARCHAR"		property="encabezado"				javaType="string"/>
+	<result column="CONSECUTIVO_DIARIO"			jdbcType="NUMERIC"		property="consecutivoDiario"		javaType="integer"/>
+	<result column="ACLARACION"					jdbcType="NUMERIC"		property="aclaracion"				javaType="integer"/>
+	<result column="FECHA_FIN_VIGENCIA"	   	 	jdbcType="TIMESTAMP"	property="fechaFinVigencia"			javaType="java.util.Date"/>
+	<result column="TOTAL_REGISTROS_VALIDADOS"	jdbcType="NUMERIC"		property="totalRegistrosValidados"	javaType="integer"/>
+	<result column="TOTAL_REGISTROS_HISTORICO"	jdbcType="NUMERIC"		property="totalRegistrosHistorico"	javaType="integer"/>
+	<result column="CONTA	DOR_HISTORICO"			jdbcType="NUMERIC"		property="contadorHistorico"		javaType="integer"/>
+</resultMap>
+
+<select id="getListaLotes" resultMap="BaseResultMap" parameterType="mx.profuturo.nci.business.vo.LoteControlAluxVO">
+	SELECT ID_LOTE, ID_ARCHIVO, NOMBRE_ARCHIVO, ID_LOTE_FUENTE, ID_ESTATUS_LOTE, FECHA_GENERACION,
+			FECHA_PRESENTACION, FECHA_RECEPCION, TOTAL_REGISTROS, ACEPTADOS, RECHAZADOS, PENDIENTES,
+			ENCABEZADO, CONSECUTIVO_DIARIO, ACLARACION, FECHA_FIN_VIGENCIA, TOTAL_REGISTROS_VALIDADOS, 
+			TOTAL_REGISTROS_HISTORICO, CONTADOR_HISTORICO
+  	FROM TTAFCI_LOTE_CONTROL
+  	<where>
+  		<if test="idEstatusLote != null">
+  			AND ID_ESTATUS_LOTE = #{idEstatusLote,jdbcType=NUMERIC}
+  		</if>
+  		<if test="idArchivo != null">
+  			AND ID_ARCHIVO = #{idArchivo,jdbcType=NUMERIC}
+  		</if>
+  		<if test="fechaPresentacion != null">
+  			AND FECHA_PRESENTACION BETWEEN TRUNC(#{fechaPresentacion,jdbcType=TIMESTAMP}) AND TRUNC(#{fechaFinPresentacion,jdbcType=TIMESTAMP})+.99999 
+  		</if>
+  	</where>
+</select>
+
+</mapper>

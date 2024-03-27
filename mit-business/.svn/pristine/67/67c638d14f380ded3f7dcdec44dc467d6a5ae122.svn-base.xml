@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mx.profuturo.nci.persistence.DomisBitacoraPersistence">
+	
+	<!-- MAP'S -->
+	<resultMap id="ResultMapConsultarArchivosDomiBitacora" 
+			  type="mx.profuturo.nci.business.vo.ArchivoDomiVO">
+		
+			<result property="archivoCreado" 		column="FTN_ARCH_GENERADO" 		jdbcType="BOOLEAN" />
+			<result property="idArchivo" 			column="FTN_ID_ARCHIVO" 		jdbcType="VARCHAR" />
+			<result property="msg" 					column="FTC_MSG" 				jdbcType="VARCHAR" />
+			<result property="nombreArchivo" 		column="FTC_NOMBRE_ARCHIVO" 	jdbcType="VARCHAR" />
+			<result property="ruta" 				column="FTC_RUTA" 				jdbcType="VARCHAR" />
+			<result property="usuCre" 				column="FTC_USU_CRE" 			jdbcType="VARCHAR" />
+	
+	</resultMap>
+	
+	<!-- SQL INSTRUCTIONS -->
+	<select id="consultarArchivosDomiBitacora"
+			parameterType="mx.profuturo.nci.business.wrapped.ArchivosDomiBitacoraFilter"
+			resultMap="ResultMapConsultarArchivosDomiBitacora">
+			SELECT	  DOB.FTN_ARCH_GENERADO
+					, DOB.FTN_ID_ARCHIVO
+					, DOB.FTC_MSG
+					, DOB.FTC_NOMBRE_ARCHIVO
+					, DOB.FTC_RUTA
+					, DOB.FTC_USU_CRE
+			FROM TTAFOVOL_DOMIS_BITACORA DOB
+			WHERE DOB.FTC_FOLIO = #{folio, jdbcType=VARCHAR}
+	</select>
+	
+	<insert id="registrarArchivoDomiBitacora"
+			parameterType="mx.profuturo.nci.business.wrapped.OperacionDomiBitacoraFilter">
+			
+			INSERT INTO PROFAPOVOL.TTAFOVOL_DOMIS_BITACORA
+			(FTC_FOLIO
+			, FTN_ID_ARCHIVO
+			, FTN_ID_TIPO_CONTRATO
+			, FTN_ID_ESTATUS
+			, FTN_ID_TIPO_ARCHIVO
+			, FTN_ID_BANCO
+			, FTN_ID_ARCH_BANCO
+			, FTN_ID_TIPO_CTA
+			, FTC_NOMBRE_ARCHIVO
+			, FTC_MSG
+			, FTC_RUTA
+			, FTN_ARCH_GENERADO
+			, FTD_FEH_CRE
+			, FTC_USU_CRE
+			, FTD_FEH_ACT
+			, FTC_USU_ACT)
+			VALUES 
+			( #{folio ,jdbcType=VARCHAR}
+			, #{idArchivo, jdbcType = INTEGER}
+			, #{idTipoContrato, jdbcType = INTEGER}
+			, #{idEstatus, jdbcType = INTEGER}
+			, #{idTipoArchivo, jdbcType = INTEGER}
+			, #{idBanco, jdbcType = INTEGER}
+			, #{idArchBanco, jdbcType = INTEGER}
+			, #{idTipoCta, jdbcType = INTEGER}
+			, #{nombreArchivo ,jdbcType=VARCHAR}
+			, #{msg ,jdbcType=VARCHAR}
+			, #{ruta ,jdbcType=VARCHAR}
+			, #{archivoGenerado, jdbcType = INTEGER}
+			, SYSDATE
+			, #{usuario ,jdbcType=VARCHAR}
+			, NULL
+			, NULL)
+			
+	</insert>
+	
+</mapper>

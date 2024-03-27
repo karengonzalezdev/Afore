@@ -1,0 +1,3911 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="mx.profuturo.nci.persistence.SolicitudPersistence">
+
+	<resultMap id="ResultMapSolicitudDomiciliacionCorto" type="mx.profuturo.nci.business.vo.SolicitudVO">
+		<id column="FTC_CVE_SOLICITUD" 			property="claveSolicitud" 		jdbcType="VARCHAR" />
+		<result column="FTN_IMPORTE" 			property="importe" 				jdbcType="DECIMAL" />
+		<result column="FTC_CTA_BANCO" 			property="cuentaBanco" 			jdbcType="VARCHAR" />
+		<result column="FTN_NUM_CTA_INVDUAL" 	property="numCuentaIndividual" 	jdbcType="DECIMAL" />
+		<result column="FTC_NOMBRE_CTE" 		property="clienteNombre" 		jdbcType="VARCHAR" />
+		<result column="FTC_AP_PATERNO_CTE" 	property="clientePaterno" 		jdbcType="VARCHAR" />
+		<result column="FTC_AP_MATERNO_CTE" 	property="clienteMaterno"		jdbcType="VARCHAR" />	
+		<result column="FTN_NUM_CARGO"			property="numCargo" 			jdbcType="DECIMAL" />	
+		<association property="claveBanco"		resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericClaveBanco" />
+		<association property="tipoCuenta"		resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericCtTipoCuenta" />
+	</resultMap>
+
+	<resultMap id="ResultMapSolicitudDomiciliacion" type="mx.profuturo.nci.business.vo.SolicitudVO">
+
+		<id column="FTC_CVE_SOLICITUD" 		property="claveSolicitud" 	jdbcType="VARCHAR" />
+		<result column="FTC_FOLIO" 			property="folio" 			jdbcType="VARCHAR" />
+		<result column="FTN_NUM_CTA_INVDUAL" property="numCuentaIndividual" jdbcType="DECIMAL" />
+		<result column="FTC_CTA_BANCO" 		property="cuentaBanco" 		jdbcType="VARCHAR" />
+		<result column="FTC_NOMBRE_CTE" 	property="clienteNombre" 	jdbcType="VARCHAR" />
+		<result column="FTC_AP_PATERNO_CTE" property="clientePaterno" 	jdbcType="VARCHAR" />
+		<result column="FTC_AP_MATERNO_CTE" property="clienteMaterno"	jdbcType="VARCHAR" />
+		<result column="FTC_CORREO_ELEC" 	property="correoElectronico"	jdbcType="VARCHAR" />
+		<result column="FTC_CURP" 			property="curp" 			jdbcType="VARCHAR" />
+		<result column="FTN_NSS" 			property="nss" 				jdbcType="VARCHAR" />
+		<result column="FTC_RFC_CTE" 		property="clienteRfc" 		jdbcType="VARCHAR" />
+		<result column="FTD_FEH_CARGO" 		property="fechaCargo" 		jdbcType="TIMESTAMP" />
+		<result column="FTD_FEH_PROX_CARGO" property="fechaProximoCargo"	 jdbcType="TIMESTAMP" />
+		<result column="FTD_FEH_CARGA_RESP" property="fechaCargaResp" 	jdbcType="TIMESTAMP" />
+		<result column="FTD_FEH_REACTIVACION" property="fechaReactivacion"	jdbcType="TIMESTAMP" />
+		<result column="FTD_FEH_CAPTURA" 	property="fechaCaptura"		jdbcType="TIMESTAMP" />
+
+		<result column="FTN_IMPORTE" 		property="importe" 			jdbcType="DECIMAL" />
+		<result column="FTN_INCREMENTALIDAD" property="incrementabilidad" 	jdbcType="DECIMAL" />
+		<result column="FTN_OPCION_INCREMENTALIDAD" property="opcionIncrementabilidad" 	jdbcType="DECIMAL" />
+		<result column="FTN_MONTO_INCREMENTO" property="montoIncremento" 	jdbcType="DECIMAL" />
+		<result column="FTN_INTENTOS" 		property="intentos" 		jdbcType="DECIMAL" />
+
+		<result column="FTD_SOLI_FEH_CRE" 	property="fechaCreacion" 	jdbcType="TIMESTAMP" 	javaType="date" />
+		<result column="FTC_SOLI_USU_CRE" property="usuarioCreacion"	jdbcType="VARCHAR" 		javaType="string" />
+		<result column="FTD_SOLI_FEH_ACT" property="fechaActualizacion" jdbcType="TIMESTAMP" 	javaType="date" />
+		<result column="FTC_SOLI_USU_ACT" property="usuarioActualizacion"	jdbcType="VARCHAR" 	javaType="string" />
+
+		<result column="FTN_CELULAR"		property="celular" 			jdbcType="DECIMAL" />
+		<result column="FTD_FEH_ESTATUS_SOLICITUD" property="fechaEstatuSolicitud"		jdbcType="TIMESTAMP" />
+		<result column="FTN_NUM_CARGO"		property="numCargo" 			jdbcType="DECIMAL" />
+		<result column="FTD_FEH_SUSPENSION" property="fechaSuspension"		jdbcType="TIMESTAMP" />
+		
+		<result column="FTC_ORIGEN_SOL_AFOM"	property="origenSolAfom" 			jdbcType="VARCHAR" />
+		<result column="FTC_VIGENCIA_TC"		property="vigenciaTc" 				jdbcType="VARCHAR" />
+		<result column="FTC_FOLIO_PROCESAR"		property="folioProcesar"			jdbcType="VARCHAR" />
+		
+		<result column="FTC_CURP_TUTOR"				property="curpTutor"		jdbcType="VARCHAR" />
+		<result column="FTC_FOLIO_FAMILIA"			property="folioFamilia"		jdbcType="VARCHAR" />
+		<result column="FTC_GERENCIA"				property="gerencia"				jdbcType="VARCHAR" />
+		<result column="FTC_NOMBRE_PROMOTOR"		property="promotor"				jdbcType="VARCHAR" />
+		<result column="FTC_REGIONAL"				property="regional"				jdbcType="VARCHAR" />
+		<result column="FTN_ID_TIPO_REGISTRO" 		property="tipoRegistro"			jdbcType="DECIMAL" />
+		<result column="FTC_NOMBRE_TUTOR"			property="tutor"				jdbcType="VARCHAR" />
+		<result column="FTC_AP_PATERNO_TUTOR"		property="paternoTutor"			jdbcType="VARCHAR" />
+		<result column="FTC_AP_MATERNO_TUTOR"		property="maternoTutor"			jdbcType="VARCHAR" />
+		
+		<association property="companiaCelular"	javaType="mx.profuturo.nci.business.vo.GenericCatalogoVO">
+			<result column="FTN_COMPANIA_CELULAR" 			javaType="short" 	jdbcType="DECIMAL" 	property="id" />
+			<result column="FTN_VALOR_COMPANIA_CELULAR" 	javaType="string" 	jdbcType="VARCHAR"	 property="valor" />
+		</association>	
+			
+			
+		<association property="estatusTraspaso"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericEstatusTraspaso" />
+
+		<association property="lineaNegocio"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericCtLineaNegocio" />
+		<association property="origenSolicitud"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericCtOrigenSolicitud" />
+		<association property="tipoCuenta"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericCtTipoCuenta" />
+		<association property="periodo"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericCtPeriodo" />
+
+		<association property="frecuenciaInicial" javaType="mx.profuturo.nci.business.vo.FrecuenciaVO">
+			<result column="FTN_FREC_INICIAL_DIA" property="dia" jdbcType="DECIMAL" />
+			<association property="diaSemana" javaType="mx.profuturo.nci.business.vo.GenericCatalogoVO">
+				<result column="FTN_ID_SEM_FREC_INICIAL" javaType="short" jdbcType="DECIMAL" property="id" />
+				<result column="FCC_VALOR_SEM_FREC_INICIAL" javaType="string" jdbcType="VARCHAR" property="valor" />
+			</association>
+		</association>
+
+		<association property="frecuenciaFinal" javaType="mx.profuturo.nci.business.vo.FrecuenciaVO">
+			<result column="FTN_FREC_FINAL_DIA" property="dia" jdbcType="DECIMAL" />
+			<association property="diaSemana" javaType="mx.profuturo.nci.business.vo.GenericCatalogoVO">
+				<result column="FTN_ID_SEM_FREC_FINAL" javaType="short" jdbcType="DECIMAL" property="id" />
+				<result column="FCC_VALOR_SEM_FREC_FINAL" javaType="string" jdbcType="VARCHAR" property="valor" />
+			</association>
+		</association>
+
+		<association property="estatusSolicitud"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericCtEstatusSolicitud" />
+		<association property="estatusCargo"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericCtEstatusCargo" />
+		<association property="rechazoBanco"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericCtRechazoBanco" />
+		<association property="porcentajeIncremento"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericCtPorcentajeIncremento" />
+		<association property="periodoIncrementabilidad"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericCtPeriodoIncrementalidad" />
+		<association property="moneda"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericCtMoneda" />
+		<association property="claveBanco"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericClaveBanco" />
+		<association property="medioNotificacion"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericMedioNotificacion" />
+		<association property="origenAportacion"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericOrigenAportacion" />
+
+		<collection property="diversificaciones" javaType="ArrayList"
+			ofType="mx.profuturo.nci.business.vo.DiversificacionVO"
+			resultMap="mx.profuturo.nci.persistence.DiversificacionPersistence.ResultMapDiversificacion">
+		</collection>
+	</resultMap>
+	
+
+
+	<resultMap id="ResultMapResumeTotal" type="mx.profuturo.nci.business.vo.SolicitudSumTotalVO">
+		<id column="DESC_PERIODO" property="descripcion" jdbcType="VARCHAR" />
+		<result column="IMPORTE_POR_PERIODO" property="importe" jdbcType="DECIMAL" />
+		<result column="REGISTROS_POR_PERIODO" property="numRegistros" jdbcType="DECIMAL" javaType="long" />
+		<result column="TOTAL" property="total" jdbcType="DECIMAL" />
+	</resultMap>
+
+	<resultMap id="ResultMapResumeTotalPorBanco"
+		type="mx.profuturo.nci.business.vo.SolicitudSumTotalPorBancoVO">
+		<id column="NUM_ROW"/>
+		<result column="REGISTROS_POR_BANCO" property="numRegistros" jdbcType="DECIMAL" javaType="long" />
+		<result column="IMPORTE_POR_BANCO" property="total" jdbcType="DECIMAL" />
+		<association property="tipoCuenta" resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericCtTipoCuenta" />
+		<association property="claveBanco" resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericClaveBanco" />
+		<association property="tipoArchivo" resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericTipoArchivoDomi" />
+	</resultMap>
+	
+	<sql id="archivoDomiFilters">
+		<where>
+			s.FTN_ESTATUS_SOLICITUD = ${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ESTATUS_SOLICITUD_ACEPTADO}
+			AND s.FTN_ESTATUS_CARGO = ${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ESTATUS_CARGO_PENDIENTE}
+			AND s.FTC_CTA_BANCO IS NOT NULL
+			<if test="fechaInicio != null and fechaFin != null">
+				AND
+				s.FTD_FEH_PROX_CARGO BETWEEN
+				TRUNC(#{fechaInicio,jdbcType=TIMESTAMP}) AND
+				TRUNC(#{fechaFin,jdbcType=TIMESTAMP})+.99999
+			</if>
+
+			<if test="idsTiposCuenta!=null and idsTiposCuenta.size() > 0">
+				AND s.FTN_ID_TIPO_CTA IN
+				<foreach item="tipoC" index="index" collection="idsTiposCuenta"
+					open="(" separator="," close=")">
+					#{tipoC,jdbcType=DECIMAL}
+				</foreach>
+			</if>
+
+			<if test="idsBancos != null and idsBancos.size() > 0">
+				AND
+				<if test="flagOtrosBancos!=null and flagOtrosBancos">
+					(
+				</if>
+				s.FTN_CVE_BANCO IN
+				<foreach item="domi" index="index" collection="idsBancos"
+					open="(" separator="," close=")">
+					#{domi,jdbcType=DECIMAL}
+				</foreach>
+			</if>
+			<if test="flagOtrosBancos!=null and flagOtrosBancos">
+				<if test="idsBancos != null  and idsBancos.size() > 0">
+					OR
+				</if>
+				<if test="idsBancos == null or idsBancos.size() == 0">
+					AND
+				</if>
+				s.FTN_CVE_BANCO IN (
+				SELECT c.FCN_ID_CAT_CATALOGO
+				FROM TCCRXGRAL_CAT_CATALOGO c
+				WHERE c.FCN_ID_TIPO_CAT = ${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_TIPO_CATALOGO_BANCOS} 
+					AND c.FCN_ID_CAT_CATALOGO NOT IN(${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_BANAMEX_NCI},${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_BANCOMER_NCI}))
+				<if test="idsBancos != null  and idsBancos.size() > 0">
+					)
+				</if>
+			</if>
+			<if test="excludeNumCuentaIndividual.size() > 0">
+				AND s.FTN_NUM_CTA_INVDUAL NOT IN
+				<foreach item="numCtaIndi" index="index" collection="excludeNumCuentaIndividual"
+					open="(" separator="," close=")">
+					#{numCtaIndi,jdbcType=DECIMAL}
+				</foreach>
+			</if>
+			<if test="origenAportacion != null and origenAportacion.id == @mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ORIGEN_DOMICILIACION_TRASPASO">
+				AND s.FTN_ORIGEN_APORTACION = ${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ORIGEN_DOMICILIACION_TRASPASO}
+			</if>
+			<if test="origenAportacion != null and origenAportacion.id != @mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ORIGEN_DOMICILIACION_TRASPASO">
+				AND s.FTN_ORIGEN_APORTACION <![CDATA[ <> ]]> ${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ORIGEN_DOMICILIACION_TRASPASO}
+			</if>
+			AND s.FTN_ID_ORIGEN_SOLICITUD <![CDATA[ <> ]]> ${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ORIGEN_SOLICITUD_SWAP}
+		</where>
+	
+	</sql>
+
+	<!-- FTN_ESTATUS_SOLICITUD = 512 ACEPTADO -->
+	<!-- FTN_ESTATUS_CARGO = 498 PENDIENTE -->
+	<select id="selectDomiRecords2229" resultMap="ResultMapSolicitudDomiciliacion"
+		parameterType="mx.profuturo.nci.business.wrapped.SolicitudFilter">
+		SELECT s.FTC_CVE_SOLICITUD,
+				s.FTN_IMPORTE,
+				s.FTD_FEH_CARGO,
+				r_map.TMN_CVE_ITGY AS FTN_CVE_BANCO,
+				CASE s.FTN_ID_TIPO_CTA
+				WHEN ${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_CUENTA_CLABE} THEN 40
+				WHEN ${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_CUENTA_DEBITO} THEN 3
+				WHEN ${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_CUENTA_CHEQUERA} THEN 1
+				END AS FTN_ID_TIPO_CTA,
+				s.FTC_CTA_BANCO,
+				s.FTN_NUM_CTA_INVDUAL,
+				s.FTC_NOMBRE_CTE,
+				s.FTC_AP_PATERNO_CTE,
+				s.FTC_AP_MATERNO_CTE,
+				s.FTN_NUM_CARGO,
+				s.FTC_GERENCIA,
+				s.FTC_NOMBRE_PROMOTOR,
+				s.FTC_REGIONAL,
+				s.FTN_ID_TIPO_REGISTRO,
+				s.FTC_NOMBRE_TUTOR				
+		FROM TTAFOAVOL_SOLICITUD s
+		JOIN TCCRXGRAL_CAT_CATALOGO cbank ON cbank.FCN_ID_CAT_CATALOGO =s.FTN_CVE_BANCO 
+		JOIN TMSISGRAL_MAP_NCI_ITGY r_map ON r_map.TMN_CVE_NCI = s.FTN_CVE_BANCO AND TMC_USO = 'BANCOS' and r_map.TMC_VIGENCIA = 1 and cbank.FCB_VIGENCIA =1
+		<if test="origenAportacion != null and origenAportacion.id != @mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ORIGEN_DOMICILIACION_TRASPASO">
+		JOIN TTAFOGRAL_IND_CTA_INDV IND_CTA_INDI ON IND_CTA_INDI.FFN_ID_CONFIG_INDI=${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_CONFIG_INDI_VIGENCIA}
+		AND IND_CTA_INDI.FCC_VALOR_IND=${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_CONFIG_INDI_VIGENCIA_VALOR_VIGENTE}
+		AND IND_CTA_INDI.FTC_VIGENCIA=${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_CONFIG_INDI_VIGENCIA_VALOR_VIGENTE}
+		AND IND_CTA_INDI.FTN_NUM_CTA_INVDUAL=s.FTN_NUM_CTA_INVDUAL
+		</if>
+		
+		<include refid="archivoDomiFilters"/>
+		
+	</select>
+	
+	<!-- FTN_ESTATUS_SOLICITUD = 512 ACEPTADO -->
+	<!-- FTN_ESTATUS_CARGO = 498 PENDIENTE -->
+	<select id="selectDomiRecordsRespaldo" resultMap="ResultMapSolicitudDomiciliacion"
+		parameterType="mx.profuturo.nci.business.wrapped.SolicitudFilter">
+		SELECT s.FTC_CVE_SOLICITUD,
+				s.FTN_IMPORTE,
+				s.FTD_FEH_CARGO,
+				r_map.TMN_CVE_ITGY AS FTN_CVE_BANCO,
+				CASE s.FTN_ID_TIPO_CTA
+				WHEN ${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_CUENTA_CLABE} THEN 40
+				WHEN ${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_CUENTA_DEBITO} THEN 3
+				WHEN ${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_CUENTA_CHEQUERA} THEN 1
+				END AS FTN_ID_TIPO_CTA,
+				s.FTC_CTA_BANCO,
+				s.FTN_NUM_CTA_INVDUAL,
+				s.FTC_NOMBRE_CTE,
+				s.FTC_AP_PATERNO_CTE,
+				s.FTC_AP_MATERNO_CTE,
+				s.FTN_NUM_CARGO,
+				s.FTD_FEH_PROX_CARGO,
+				DIVER_SOL.FTC_CVE_SOLICITUD AS FTC_DIVER_CVE_SOLICITUD,
+				DIVER_SOL.FTC_FOLIO AS FTC_DIVER_FOLIO,
+				DIVER_SOL.FTN_FONDO_APOVOL AS FTN_DIVER_FONDO_APOVOL,
+				CT_FONDO_APOVOL.FCC_VALOR AS FCC_VALOR_DIVER_FONDO_APOVOL,
+				DIVER_SOL.FTN_MONTO AS FTN_DIVER_MONTO,
+				DIVER_SOL.FTN_PORCENTAJE AS FTN_DIVER_PORCENTAJE,
+				DIVER_SOL.FTD_FEH_CRE AS FTD_DIVER_FEH_CRE,
+				DIVER_SOL.FTC_USU_CRE AS FTC_DIVER_USU_CRE,
+				DIVER_SOL.FTD_FEH_ACT AS FTD_DIVER_FEH_ACT,
+				DIVER_SOL.FTC_USU_ACT AS FTC_DIVER_USU_ACT,
+				s.FTC_GERENCIA,
+				s.FTC_NOMBRE_PROMOTOR,
+				s.FTC_REGIONAL,
+				s.FTN_ID_TIPO_REGISTRO,
+				s.FTC_NOMBRE_TUTOR
+		FROM TTAFOAVOL_SOLICITUD s
+		LEFT JOIN TTAFOAVOL_DIVERSIF_SOLICITUD DIVER_SOL ON DIVER_SOL.FTC_CVE_SOLICITUD = S.FTC_CVE_SOLICITUD AND  DIVER_SOL.FTN_VIGENCIA = 1
+		LEFT JOIN TCCRXGRAL_CAT_CATALOGO CT_FONDO_APOVOL ON CT_FONDO_APOVOL.FCN_ID_CAT_CATALOGO = DIVER_SOL.FTN_FONDO_APOVOL
+		JOIN TCCRXGRAL_CAT_CATALOGO cbank ON cbank.FCN_ID_CAT_CATALOGO =s.FTN_CVE_BANCO 
+		JOIN TMSISGRAL_MAP_NCI_ITGY r_map ON r_map.TMN_CVE_NCI = s.FTN_CVE_BANCO AND TMC_USO = 'BANCOS' and r_map.TMC_VIGENCIA = 1 and cbank.FCB_VIGENCIA =1
+		<if test="origenAportacion != null and origenAportacion.id != @mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ORIGEN_DOMICILIACION_TRASPASO">
+		JOIN TTAFOGRAL_IND_CTA_INDV IND_CTA_INDI ON IND_CTA_INDI.FFN_ID_CONFIG_INDI=${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_CONFIG_INDI_VIGENCIA}
+			AND IND_CTA_INDI.FCC_VALOR_IND=${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_CONFIG_INDI_VIGENCIA_VALOR_VIGENTE}
+			AND IND_CTA_INDI.FTC_VIGENCIA=${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_CONFIG_INDI_VIGENCIA_VALOR_VIGENTE}
+			AND IND_CTA_INDI.FTN_NUM_CTA_INVDUAL=s.FTN_NUM_CTA_INVDUAL
+		</if>
+		
+		<include refid="archivoDomiFilters"/>
+		ORDER BY s.FTC_CVE_SOLICITUD
+	</select>
+	
+	<!-- FTN_ESTATUS_SOLICITUD = 512 ACEPTADO -->
+	<!-- FTN_ESTATUS_CARGO = 498 PENDIENTE -->
+	<select id="selectDomiRecords" resultMap="ResultMapSolicitudDomiciliacionCorto"
+		parameterType="mx.profuturo.nci.business.wrapped.SolicitudFilter">
+		SELECT s.FTC_CVE_SOLICITUD,
+				s.FTN_IMPORTE,
+				r_map.TMN_CVE_ITGY AS FTN_CVE_BANCO,
+				CASE s.FTN_ID_TIPO_CTA
+				WHEN ${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_CUENTA_CLABE} THEN 40
+				WHEN ${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_CUENTA_DEBITO} THEN 3
+				WHEN ${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_CUENTA_CHEQUERA} THEN 1
+				END AS FTN_ID_TIPO_CTA,
+				s.FTC_CTA_BANCO,
+				s.FTN_NUM_CTA_INVDUAL,
+				s.FTC_NOMBRE_CTE,
+				s.FTC_AP_PATERNO_CTE,
+				s.FTC_AP_MATERNO_CTE,
+				s.FTN_NUM_CARGO
+		FROM TTAFOAVOL_SOLICITUD s
+		JOIN TCCRXGRAL_CAT_CATALOGO cbank ON cbank.FCN_ID_CAT_CATALOGO =s.FTN_CVE_BANCO 
+		JOIN TMSISGRAL_MAP_NCI_ITGY r_map ON r_map.TMN_CVE_NCI = s.FTN_CVE_BANCO AND TMC_USO = 'BANCOS' and r_map.TMC_VIGENCIA = 1 and cbank.FCB_VIGENCIA =1
+		<if test="origenAportacion != null and origenAportacion.id != @mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ORIGEN_DOMICILIACION_TRASPASO">
+		JOIN TTAFOGRAL_IND_CTA_INDV IND_CTA_INDI ON IND_CTA_INDI.FFN_ID_CONFIG_INDI=${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_CONFIG_INDI_VIGENCIA}
+			AND IND_CTA_INDI.FCC_VALOR_IND=${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_CONFIG_INDI_VIGENCIA_VALOR_VIGENTE}
+			AND IND_CTA_INDI.FTC_VIGENCIA=${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_CONFIG_INDI_VIGENCIA_VALOR_VIGENTE}
+			AND IND_CTA_INDI.FTN_NUM_CTA_INVDUAL=s.FTN_NUM_CTA_INVDUAL
+		</if>
+		<include refid="archivoDomiFilters"/>
+	</select>
+	
+	<select id="selectIdsDomiRecords" resultMap="ResultMapSolicitudDomiciliacion"
+		parameterType="mx.profuturo.nci.business.wrapped.SolicitudFilter">
+		SELECT s.FTC_CVE_SOLICITUD,
+				s.FTN_IMPORTE,
+				s.FTN_NUM_CTA_INVDUAL
+		FROM TTAFOAVOL_SOLICITUD s
+		JOIN TCCRXGRAL_CAT_CATALOGO cbank ON cbank.FCN_ID_CAT_CATALOGO =s.FTN_CVE_BANCO 
+		JOIN TMSISGRAL_MAP_NCI_ITGY r_map ON r_map.TMN_CVE_NCI = s.FTN_CVE_BANCO AND TMC_USO = 'BANCOS' and r_map.TMC_VIGENCIA = 1 and cbank.FCB_VIGENCIA =1
+		<if test="origenAportacion != null and origenAportacion.id != @mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ORIGEN_DOMICILIACION_TRASPASO">
+		JOIN TTAFOGRAL_IND_CTA_INDV IND_CTA_INDI ON IND_CTA_INDI.FFN_ID_CONFIG_INDI=${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_CONFIG_INDI_VIGENCIA}
+		AND IND_CTA_INDI.FCC_VALOR_IND=${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_CONFIG_INDI_VIGENCIA_VALOR_VIGENTE}
+		AND IND_CTA_INDI.FTC_VIGENCIA=${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_CONFIG_INDI_VIGENCIA_VALOR_VIGENTE}
+		AND IND_CTA_INDI.FTN_NUM_CTA_INVDUAL=s.FTN_NUM_CTA_INVDUAL
+		</if>
+		
+		<include refid="archivoDomiFilters" />
+		
+	</select>
+
+	<select id="selectDomiResumenTotal" resultMap="ResultMapResumeTotal"
+		parameterType="mx.profuturo.nci.business.wrapped.SolicitudFilter">
+		SELECT row_number() over (order by p.FCC_VALOR) AS FTC_CVE_SOLICITUD,
+				p.FCC_VALOR AS DESC_PERIODO,
+				sum(s.FTN_IMPORTE) AS IMPORTE_POR_PERIODO,
+				count(s.FTN_IMPORTE) AS REGISTROS_POR_PERIODO,
+				(		SELECT sum(s1.FTN_IMPORTE) 
+						FROM TTAFOAVOL_SOLICITUD s1
+						JOIN TCCRXGRAL_CAT_CATALOGO cbank ON cbank.FCN_ID_CAT_CATALOGO =s1.FTN_CVE_BANCO
+						JOIN TMSISGRAL_MAP_NCI_ITGY r_map ON r_map.TMN_CVE_NCI = s1.FTN_CVE_BANCO AND TMC_USO = 'BANCOS' and r_map.TMC_VIGENCIA = 1 and cbank.FCB_VIGENCIA =1
+					<if test="origenAportacion != null and origenAportacion.id != @mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ORIGEN_DOMICILIACION_TRASPASO">
+						JOIN TTAFOGRAL_IND_CTA_INDV IND_CTA_INDI 
+								ON IND_CTA_INDI.FFN_ID_CONFIG_INDI=${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_CONFIG_INDI_VIGENCIA}
+								AND IND_CTA_INDI.FCC_VALOR_IND=${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_CONFIG_INDI_VIGENCIA_VALOR_VIGENTE}
+								AND IND_CTA_INDI.FTC_VIGENCIA=${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_CONFIG_INDI_VIGENCIA_VALOR_VIGENTE}
+								AND IND_CTA_INDI.FTN_NUM_CTA_INVDUAL=s1.FTN_NUM_CTA_INVDUAL
+					</if>		
+	<!-- 	Mismos filtros que en archivoDomiFilters pero al ser consulta interna el identificador s debe ser cambiado por s1 -->
+						<where>
+							s1.FTN_ESTATUS_SOLICITUD = ${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ESTATUS_SOLICITUD_ACEPTADO}
+							AND s1.FTN_ESTATUS_CARGO = ${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ESTATUS_CARGO_PENDIENTE}
+							AND s1.FTC_CTA_BANCO IS NOT NULL
+							<if test="fechaInicio != null and fechaFin != null">
+								AND s1.FTD_FEH_PROX_CARGO BETWEEN
+								TRUNC(#{fechaInicio,jdbcType=TIMESTAMP}) AND
+								TRUNC(#{fechaFin,jdbcType=TIMESTAMP})+.99999
+							</if>
+							<if test="idsTiposCuenta!=null and idsTiposCuenta.size() > 0">
+								AND s1.FTN_ID_TIPO_CTA IN
+								<foreach item="tipoC" index="index" collection="idsTiposCuenta"
+									open="(" separator="," close=")">
+									#{tipoC,jdbcType=DECIMAL}
+								</foreach>
+							</if>
+							<if test="idsBancos != null  and idsBancos.size() > 0">
+								AND
+								<if test="flagOtrosBancos!=null and flagOtrosBancos">
+									(
+								</if>
+								s1.FTN_CVE_BANCO IN
+								<foreach item="domi" index="index" collection="idsBancos"
+									open="(" separator="," close=")">
+									#{domi,jdbcType=DECIMAL}
+								</foreach>
+							</if>
+							<if test="flagOtrosBancos!=null and flagOtrosBancos">
+								<if test="idsBancos != null  and idsBancos.size() > 0">
+									OR
+								</if>
+								<if test="idsBancos == null or idsBancos.size() == 0">
+									AND
+								</if>
+								s1.FTN_CVE_BANCO IN (
+								SELECT c.FCN_ID_CAT_CATALOGO
+								FROM TCCRXGRAL_CAT_CATALOGO c
+								WHERE c.FCN_ID_TIPO_CAT = ${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_TIPO_CATALOGO_BANCOS} 
+										AND c.FCN_ID_CAT_CATALOGO NOT IN(${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_BANAMEX_NCI},${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_BANCOMER_NCI}))
+								<if test="idsBancos != null  and idsBancos.size() > 0">
+									)
+								</if>
+							</if>
+							<if test="excludeNumCuentaIndividual.size() > 0">
+								AND s1.FTN_NUM_CTA_INVDUAL NOT IN
+								<foreach item="numCtaIndi" index="index" collection="excludeNumCuentaIndividual"
+									open="(" separator="," close=")">
+									#{numCtaIndi,jdbcType=DECIMAL}
+								</foreach>
+							</if>
+							<if test="origenAportacion != null and origenAportacion.id == @mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ORIGEN_DOMICILIACION_TRASPASO">
+								AND s1.FTN_ORIGEN_APORTACION = ${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ORIGEN_DOMICILIACION_TRASPASO}
+							</if>
+							<if test="origenAportacion != null and origenAportacion.id != @mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ORIGEN_DOMICILIACION_TRASPASO">
+								AND s1.FTN_ORIGEN_APORTACION <![CDATA[ <> ]]> ${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ORIGEN_DOMICILIACION_TRASPASO}
+							</if>
+							AND s1.FTN_ID_ORIGEN_SOLICITUD <![CDATA[ <> ]]> ${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ORIGEN_SOLICITUD_SWAP}
+						</where>
+						) AS TOTAL
+		FROM TTAFOAVOL_SOLICITUD s
+		LEFT JOIN TCCRXGRAL_CAT_CATALOGO p ON p.FCN_ID_CAT_CATALOGO = s.FTN_ID_PERIODO
+		JOIN TCCRXGRAL_CAT_CATALOGO cbank ON cbank.FCN_ID_CAT_CATALOGO =s.FTN_CVE_BANCO 
+		JOIN TMSISGRAL_MAP_NCI_ITGY r_map ON r_map.TMN_CVE_NCI = s.FTN_CVE_BANCO AND TMC_USO = 'BANCOS'  and r_map.TMC_VIGENCIA = 1 and cbank.FCB_VIGENCIA =1
+		<if test="origenAportacion != null and origenAportacion.id != @mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ORIGEN_DOMICILIACION_TRASPASO">
+		JOIN TTAFOGRAL_IND_CTA_INDV IND_CTA_INDI 
+				ON IND_CTA_INDI.FFN_ID_CONFIG_INDI=${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_CONFIG_INDI_VIGENCIA}
+				AND IND_CTA_INDI.FCC_VALOR_IND=${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_CONFIG_INDI_VIGENCIA_VALOR_VIGENTE}
+				AND IND_CTA_INDI.FTC_VIGENCIA=${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_CONFIG_INDI_VIGENCIA_VALOR_VIGENTE}
+				AND IND_CTA_INDI.FTN_NUM_CTA_INVDUAL=s.FTN_NUM_CTA_INVDUAL
+		</if>
+		<include refid="archivoDomiFilters"/>
+		
+		GROUP BY p.FCC_VALOR
+	</select>
+
+
+	<select id="selectDomiResumenPorBanco" resultMap="ResultMapResumeTotalPorBanco"
+		parameterType="mx.profuturo.nci.business.wrapped.SolicitudFilter">
+		SELECT 	row_number() over (order by s.FTN_ID_TIPO_CTA)  AS NUM_ROW,
+				#{idTipoArchivo,jdbcType=DECIMAL} AS FTN_TIPO_ARCHIVO,
+				( 	SELECT incat.FCC_VALOR 
+					FROM TCCRXGRAL_CAT_CATALOGO incat
+					WHERE  incat.FCN_ID_CAT_CATALOGO = #{idTipoArchivo,jdbcType=DECIMAL}
+				) AS FTN_VALOR_TIPO_ARCHIVO,
+				s.FTN_ID_TIPO_CTA,
+				<if test="claveBanco != null and claveBanco.id != null">
+				#{claveBanco.id,jdbcType=DECIMAL} AS FTN_CVE_BANCO,
+				cv.FCC_VALOR AS FCC_VALOR_CLAVE_BANCO,
+				</if>
+				tc.FCC_VALOR AS FCC_VALOR_TIPO_CTA,
+				sum(s.FTN_IMPORTE) AS IMPORTE_POR_BANCO,
+				count(s.FTN_IMPORTE) AS REGISTROS_POR_BANCO
+		FROM TTAFOAVOL_SOLICITUD s
+		LEFT JOIN TCCRXGRAL_CAT_CATALOGO tc ON tc.FCN_ID_CAT_CATALOGO = s.FTN_ID_TIPO_CTA
+		JOIN TCCRXGRAL_CAT_CATALOGO cbank ON cbank.FCN_ID_CAT_CATALOGO =s.FTN_CVE_BANCO 
+		JOIN TMSISGRAL_MAP_NCI_ITGY r_map ON r_map.TMN_CVE_NCI = s.FTN_CVE_BANCO AND TMC_USO = 'BANCOS' and r_map.TMC_VIGENCIA = 1 and cbank.FCB_VIGENCIA =1
+		<if test="origenAportacion != null and origenAportacion.id != @mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ORIGEN_DOMICILIACION_TRASPASO">
+		JOIN TTAFOGRAL_IND_CTA_INDV IND_CTA_INDI 
+				ON IND_CTA_INDI.FFN_ID_CONFIG_INDI=${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_CONFIG_INDI_VIGENCIA}
+				AND IND_CTA_INDI.FCC_VALOR_IND=${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_CONFIG_INDI_VIGENCIA_VALOR_VIGENTE}
+				AND IND_CTA_INDI.FTC_VIGENCIA=${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_CONFIG_INDI_VIGENCIA_VALOR_VIGENTE}
+				AND IND_CTA_INDI.FTN_NUM_CTA_INVDUAL=s.FTN_NUM_CTA_INVDUAL
+		</if>
+		<if test="claveBanco != null and claveBanco.id != null">
+		LEFT JOIN TCCRXGRAL_CAT_CATALOGO cv ON cv.FCN_ID_CAT_CATALOGO = #{claveBanco.id,jdbcType=DECIMAL}
+		</if>
+		<include refid="archivoDomiFilters"/>
+		
+		GROUP BY s.FTN_ID_TIPO_CTA
+				,tc.FCC_VALOR
+				<if test="claveBanco != null and claveBanco.id != null">
+				,cv.FCC_VALOR
+				</if>
+	</select>
+
+
+	<select id="selectSolicitudDomiciliacion" resultMap="ResultMapSolicitudDomiciliacion"
+		parameterType="mx.profuturo.nci.business.wrapped.SolicitudFilter">
+
+		SELECT
+			SOL.FTC_CVE_SOLICITUD,
+			SOL.FTC_FOLIO,
+			SOL.FTN_NUM_CTA_INVDUAL,
+			SOL.FTN_ID_LINEA_NEG ,
+			CT_LINEG.FCC_VALOR AS FCC_VALOR_LINEA_NEG,
+			SOL.FTN_ID_ORIGEN_SOLICITUD,
+			SOL.FTD_FEH_PROX_CARGO,
+			CT_ORG_SOL.FCC_VALOR AS
+			FCC_VALOR_ORIGEN_SOLI,
+			SOL.FTC_CTA_BANCO,
+			SOL.FTN_ID_TIPO_CTA ,
+			CT_TP_CTA.FCC_VALOR AS FCC_VALOR_TIPO_CTA,
+			SOL.FTN_CVE_BANCO,
+			CT_CV_BANCO.FCC_VALOR AS FCC_VALOR_CLAVE_BANCO,
+			SOL.FTC_NOMBRE_CTE,
+			SOL.FTC_AP_PATERNO_CTE,
+			SOL.FTC_AP_MATERNO_CTE,
+			SOL.FTC_CORREO_ELEC,
+			SOL.FTC_CURP,
+			SOL.FTN_NSS,
+			SOL.FTC_RFC_CTE,
+			SOL.FTN_ID_PERIODO,
+			SOL.FTN_ORIGEN_APORTACION,
+			CT_OR_AP.FCC_VALOR AS FCC_VALOR_ORIGEN_APORTACION,
+			SOL.FTN_NUM_CARGO,
+			SOL.FTD_FEH_SUSPENSION,
+			CT_PERIODO.FCC_VALOR AS FCC_VALOR_PERIODO,
+			( CASE FTN_ID_PERIODO
+				WHEN 492 THEN FTN_FREC_INICIAL
+				ELSE NULL
+				END ) FTN_ID_SEM_FREC_INICIAL,
+			( CASE FTN_ID_PERIODO
+				WHEN ${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_PERIODO_SEMANAL} THEN
+					(SELECT FCC_VALOR FROM
+					TCCRXGRAL_CAT_CATALOGO WHERE FCN_ID_CAT_CATALOGO =
+					FTN_FREC_INICIAL)
+				ELSE NULL
+				END ) FCC_VALOR_SEM_FREC_INICIAL,
+			( CASE FTN_ID_PERIODO
+				WHEN ${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_PERIODO_SEMANAL} THEN NULL
+				ELSE FTN_FREC_INICIAL
+				END ) FTN_FREC_INICIAL_DIA,
+			( CASE FTN_ID_PERIODO
+				WHEN ${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_PERIODO_SEMANAL} THEN FTN_FREC_FINAL
+				ELSE NULL
+				END ) FTN_ID_SEM_FREC_FINAL,
+			( CASE FTN_ID_PERIODO
+				WHEN ${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_PERIODO_SEMANAL} THEN
+					(SELECT
+					FCC_VALOR FROM TCCRXGRAL_CAT_CATALOGO WHERE FCN_ID_CAT_CATALOGO =
+					FTN_FREC_FINAL)
+				ELSE NULL
+				END ) FCC_VALOR_SEM_FREC_FINAL,
+			( CASE FTN_ID_PERIODO
+				WHEN ${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_PERIODO_SEMANAL} THEN NULL
+				ELSE FTN_FREC_FINAL
+				END ) FTN_FREC_FINAL_DIA,
+			SOL.FTD_FEH_ESTATUS_SOLICITUD,
+			SOL.FTN_CELULAR,
+			SOL.FTN_ESTATUS_SOLICITUD, CT_EST_SOL.FCC_VALOR AS FCC_VALOR_ESTATUS_SOL,
+			SOL.FTD_FEH_CARGO,
+			SOL.FTN_ESTATUS_CARGO, CT_EST_CARGO.FCC_VALOR AS FCC_VALOR_ESTATUS_CARGO,
+			SOL.FTN_ID_RECHAZO_BANCO, CT_RECH_BAN.FCC_VALOR AS FCC_VALOR_RECHAZO_BANCO,
+			SOL.FTD_FEH_CARGA_RESP,
+			SOL.FTD_FEH_REACTIVACION,
+			SOL.FTD_FEH_CAPTURA,
+			SOL.FTN_COMPANIA_CELULAR, CT_COM_CEL.FCC_VALOR AS FTN_VALOR_COMPANIA_CELULAR,
+			SOL.FTN_ESTATUS_TRASPASO, CT_EST_TRAS.FCC_VALOR AS FTN_VALOR_ESTATUS_TRASPASO,
+			SOL.FTN_IMPORTE,
+			SOL.FTN_INCREMENTALIDAD ,
+			SOL.FTN_OPCION_INCREMENTALIDAD ,
+			SOL.FTN_ID_PORCENTAJE_INCREMENTO, CT_POR_INC.FCC_VALOR AS FCC_VALOR_PORCENTAJE_INCRE,
+			SOL.FTN_MONTO_INCREMENTO,
+			SOL.FTN_ID_PERIOD_INCREMENTALIDAD, CT_PER_INC.FCC_VALOR AS FCC_VALOR_PERIOD_INCREMENTA,
+			SOL.FTN_INTENTOS,
+			SOL.FTN_MONEDA, CT_MONEDA.FCC_VALOR AS FCC_VALOR_MONEDA,
+			SOL.FTD_FEH_CRE AS FTD_SOLI_FEH_CRE,
+			SOL.FTC_USU_CRE AS FTC_SOLI_USU_CRE,
+			SOL.FTD_FEH_ACT AS FTD_SOLI_FEH_ACT,
+			SOL.FTC_USU_ACT AS FTC_SOLI_USU_ACT,
+			DIVER_SOL.FTC_CVE_SOLICITUD AS FTC_DIVER_CVE_SOLICITUD,
+			DIVER_SOL.FTC_FOLIO AS FTC_DIVER_FOLIO,
+			DIVER_SOL.FTN_FONDO_APOVOL AS FTN_DIVER_FONDO_APOVOL,
+			CT_FONDO_APOVOL.FCC_VALOR AS FCC_VALOR_DIVER_FONDO_APOVOL,
+			DIVER_SOL.FTN_MONTO AS FTN_DIVER_MONTO,
+			DIVER_SOL.FTN_PORCENTAJE AS FTN_DIVER_PORCENTAJE,
+			DIVER_SOL.FTD_FEH_CRE AS FTD_DIVER_FEH_CRE,
+			DIVER_SOL.FTC_USU_CRE AS FTC_DIVER_USU_CRE,
+			DIVER_SOL.FTD_FEH_ACT AS FTD_DIVER_FEH_ACT,
+			DIVER_SOL.FTC_USU_ACT AS FTC_DIVER_USU_ACT,
+			SOL.FTN_MEDIO_NOTIFICACION, MOV.FCC_VALOR AS FCC_VALOR_MEDIO_NOTIFICACION,
+			SOL.FTC_ORIGEN_SOL_AFOM,
+			SOL.FTC_VIGENCIA_TC,
+			SOL.FTC_FOLIO_PROCESAR,
+			SOL.FTC_CURP_TUTOR,
+			SOL.FTC_FOLIO_FAMILIA,
+			SOL.FTC_GERENCIA,
+			SOL.FTC_NOMBRE_PROMOTOR,
+			SOL.FTC_REGIONAL,
+			SOL.FTN_ID_TIPO_REGISTRO,
+			SOL.FTC_NOMBRE_TUTOR,
+			SOL.FTC_AP_PATERNO_TUTOR,
+			SOL.FTC_AP_MATERNO_TUTOR			
+		FROM TTAFOAVOL_SOLICITUD SOL
+			LEFT JOIN TCCRXGRAL_CAT_CATALOGO CT_LINEG ON CT_LINEG.FCN_ID_CAT_CATALOGO = SOL.FTN_ID_LINEA_NEG
+			LEFT JOIN TCCRXGRAL_CAT_CATALOGO CT_ORG_SOL ON CT_ORG_SOL.FCN_ID_CAT_CATALOGO = SOL.FTN_ID_ORIGEN_SOLICITUD
+			LEFT JOIN TCCRXGRAL_CAT_CATALOGO CT_TP_CTA ON CT_TP_CTA.FCN_ID_CAT_CATALOGO = SOL.FTN_ID_TIPO_CTA
+			LEFT JOIN TCCRXGRAL_CAT_CATALOGO CT_PERIODO ON CT_PERIODO.FCN_ID_CAT_CATALOGO = SOL.FTN_ID_PERIODO
+			LEFT JOIN TCCRXGRAL_CAT_CATALOGO CT_COM_CEL ON CT_COM_CEL.FCN_ID_CAT_CATALOGO = SOL.FTN_COMPANIA_CELULAR
+			LEFT JOIN TCCRXGRAL_CAT_CATALOGO CT_EST_TRAS ON CT_EST_TRAS.FCN_ID_CAT_CATALOGO = SOL.FTN_ESTATUS_TRASPASO
+			LEFT JOIN TCCRXGRAL_CAT_CATALOGO CT_EST_SOL ON CT_EST_SOL.FCN_ID_CAT_CATALOGO = SOL.FTN_ESTATUS_SOLICITUD
+			LEFT JOIN TCCRXGRAL_CAT_CATALOGO CT_EST_CARGO ON CT_EST_CARGO.FCN_ID_CAT_CATALOGO = SOL.FTN_ESTATUS_CARGO
+			LEFT JOIN TCCRXGRAL_CAT_CATALOGO CT_RECH_BAN ON CT_RECH_BAN.FCN_ID_CAT_CATALOGO = SOL.FTN_ID_RECHAZO_BANCO
+			LEFT JOIN TCCRXGRAL_CAT_CATALOGO CT_POR_INC ON CT_POR_INC.FCN_ID_CAT_CATALOGO = SOL.FTN_ID_PORCENTAJE_INCREMENTO
+			LEFT JOIN TCCRXGRAL_CAT_CATALOGO CT_PER_INC ON CT_PER_INC.FCN_ID_CAT_CATALOGO = SOL.FTN_ID_PERIOD_INCREMENTALIDAD
+			LEFT JOIN TCCRXGRAL_CAT_CATALOGO CT_MONEDA ON CT_MONEDA.FCN_ID_CAT_CATALOGO = SOL.FTN_MONEDA
+			LEFT JOIN TTAFOAVOL_DIVERSIF_SOLICITUD DIVER_SOL ON DIVER_SOL.FTC_CVE_SOLICITUD = SOL.FTC_CVE_SOLICITUD AND  DIVER_SOL.FTN_VIGENCIA = 1
+			LEFT JOIN TCCRXGRAL_CAT_CATALOGO CT_FONDO_APOVOL ON CT_FONDO_APOVOL.FCN_ID_CAT_CATALOGO = DIVER_SOL.FTN_FONDO_APOVOL
+			LEFT JOIN TCCRXGRAL_CAT_CATALOGO CT_CV_BANCO 	ON CT_CV_BANCO.FCN_ID_CAT_CATALOGO = SOL.FTN_CVE_BANCO
+			LEFT JOIN TCCRXGRAL_CAT_CATALOGO MOV ON MOV.FCN_ID_CAT_CATALOGO = SOL.FTN_MEDIO_NOTIFICACION
+			LEFT JOIN TCCRXGRAL_CAT_CATALOGO CT_OR_AP ON CT_OR_AP.FCN_ID_CAT_CATALOGO = SOL.FTN_ORIGEN_APORTACION
+		<where>
+
+			<if test="numCuentaIndividual != null">
+				AND SOL.FTN_NUM_CTA_INVDUAL =
+				#{numCuentaIndividual,jdbcType=DECIMAL}
+			</if>
+
+			<if test="folio != null">
+				AND SOL.FTC_FOLIO = #{folio,jdbcType=VARCHAR}
+			</if>
+			
+			<if test="claveSolicitud != null">
+				AND SOL.FTC_CVE_SOLICITUD = #{claveSolicitud,jdbcType=VARCHAR}
+			</if>
+			<if test="folioProcesar != null">
+				AND SOL.FTC_FOLIO_PROCESAR = #{folioProcesar,jdbcType=VARCHAR}
+			</if>
+			<if test="curp != null">
+				AND SOL.FTC_CURP = #{curp,jdbcType=VARCHAR}
+			</if>
+			<if test="curpTutor != null">
+				AND SOL.FTC_CURP_TUTOR = #{curpTutor,jdbcType=VARCHAR}
+			</if>			
+			<if test="cuentaBanco != null">
+				AND SOL.FTC_CTA_BANCO = #{cuentaBanco,jdbcType=VARCHAR}
+			</if>	
+			<if test="estatusSolicitudes != null">
+
+				AND SOL.FTN_ESTATUS_SOLICITUD IN
+
+				<foreach item="solicitud" index="index" collection="estatusSolicitudes"
+					open="(" separator="," close=")">
+					#{solicitud,jdbcType=DECIMAL}
+				</foreach>
+
+			</if>
+
+		</where>
+
+
+
+	</select>
+
+<!-- 	MAMC -->
+	<select id="selectSolicitudSumDomiciliacion" resultMap="ResultMapSolicitudDomiciliacion"
+		parameterType="mx.profuturo.nci.business.wrapped.SolicitudFilter">
+
+		SELECT
+			SOL.FTN_NUM_CTA_INVDUAL,
+			sum(SOL.FTN_IMPORTE) FTN_IMPORTE
+		FROM TTAFOAVOL_CONCILIACION SOL
+		<where>
+			SOL.FTC_FOLIO_ARCH_CONT IS NOT NULL
+			AND SOL.FTN_ORIGEN_APORTACION IN(845,291)
+			<if test="numCuentaIndividual != null">
+				AND SOL.FTN_NUM_CTA_INVDUAL = #{numCuentaIndividual,jdbcType=DECIMAL}
+			</if>			
+			<if test="claveSolicitud != null">
+				AND SOL.FTN_CVE_SOLICITUD = #{claveSolicitud,jdbcType=VARCHAR}
+			</if>			
+			<if test="cuentaBanco != null">
+				AND SOL.FTC_CTA_BANCO = #{cuentaBanco,jdbcType=VARCHAR}
+			</if>					
+			<if test="folio != null">
+				AND SOL.FTC_FOLIO = #{folio,jdbcType=VARCHAR}
+			</if>			
+			AND SOL.FTD_FEH_CRE BETWEEN
+								TRUNC(SYSDATE)-90 AND
+								TRUNC(SYSDATE)
+		</where>
+		GROUP BY SOL.FTN_NUM_CTA_INVDUAL
+	</select>
+
+	<insert id="insertarSolicitudDomiciliacion" parameterType="mx.profuturo.nci.business.vo.SolicitudVO"
+		useGeneratedKeys="true"
+		keyProperty="mx.profuturo.nci.business.vo.SolicitudVO.claveSolicitud"
+		keyColumn="FTC_CVE_SOLICITUD">
+		insert into TTAFOAVOL_SOLICITUD
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="claveSolicitud != null">
+				FTC_CVE_SOLICITUD,
+			</if>
+			<if test="folio != null">
+				FTC_FOLIO,
+			</if>
+			<if test="numCuentaIndividual != null">
+				FTN_NUM_CTA_INVDUAL,
+			</if>
+			<if test="lineaNegocio != null and lineaNegocio.id != null">
+				FTN_ID_LINEA_NEG,
+			</if>
+			<if test="origenSolicitud != null and origenSolicitud.id != null">
+				FTN_ID_ORIGEN_SOLICITUD,
+			</if>
+			<if test="cuentaBanco != null">
+				FTC_CTA_BANCO,
+			</if>
+			<if test="tipoCuenta != null and tipoCuenta.id != null">
+				FTN_ID_TIPO_CTA,
+			</if>
+			<if test="claveBanco != null  and claveBanco.id != null">
+				FTN_CVE_BANCO,
+			</if>
+			<if test="clienteNombre != null">
+				FTC_NOMBRE_CTE,
+			</if>
+			<if test="clientePaterno != null">
+				FTC_AP_PATERNO_CTE,
+			</if>
+			<if test="clienteMaterno != null">
+				FTC_AP_MATERNO_CTE,
+			</if>
+			<if test="correoElectronico != null">
+				FTC_CORREO_ELEC,
+			</if>
+			<if test="curp != null">
+				FTC_CURP,
+			</if>
+			<if test="nss != null">
+				FTN_NSS,
+			</if>
+			<if test="clienteRfc != null">
+				FTC_RFC_CTE,
+			</if>
+			<if test="periodo != null and periodo.id != null">
+				FTN_ID_PERIODO,
+			</if>
+			<if test="periodo != null and periodo.id != null">
+
+				<!-- Frecuencia Inicial -->
+				<if test="frecuenciaInicial != null">
+					<choose>
+						<when
+							test="periodo.id == @mx.profuturo.nci.business.util.ConstantesCatalogos@ID_PERIODO_SEMANAL and frecuenciaInicial.diaSemana != null and frecuenciaInicial.diaSemana.id != null">
+							FTN_FREC_INICIAL,
+						</when>
+						<when test="periodo.id != @mx.profuturo.nci.business.util.ConstantesCatalogos@ID_PERIODO_SEMANAL and frecuenciaInicial.dia != null">
+							FTN_FREC_INICIAL,
+						</when>
+					</choose>
+				</if>
+
+				<!-- Frecuencia Final -->
+				<if test="frecuenciaFinal != null">
+					<choose>
+						<when
+							test="periodo.id == @mx.profuturo.nci.business.util.ConstantesCatalogos@ID_PERIODO_SEMANAL and frecuenciaFinal.diaSemana != null and frecuenciaFinal.diaSemana.id != null">
+							FTN_FREC_FINAL,
+						</when>
+						<when test="periodo.id != @mx.profuturo.nci.business.util.ConstantesCatalogos@ID_PERIODO_SEMANAL and frecuenciaFinal.dia != null">
+							FTN_FREC_FINAL,
+						</when>
+					</choose>
+				</if>
+
+			</if>
+
+			<if test="estatusSolicitud != null and estatusSolicitud.id != null">
+				FTN_ESTATUS_SOLICITUD,
+			</if>
+			<if test="fechaCargo != null">
+				FTD_FEH_CARGO,
+			</if>
+			<if test="estatusCargo != null and estatusCargo.id != null">
+				FTN_ESTATUS_CARGO,
+			</if>
+			<if test="rechazoBanco != null and rechazoBanco.id != null">
+				FTN_ID_RECHAZO_BANCO,
+			</if>
+			<if test="fechaCargaResp != null">
+				FTD_FEH_CARGA_RESP,
+			</if>
+			<if test="fechaReactivacion != null">
+				FTD_FEH_REACTIVACION,
+			</if>
+			<if test="fechaCaptura != null">
+				FTD_FEH_CAPTURA,
+			</if>
+			<if test="fechaProximoCargo !=null">
+				FTD_FEH_PROX_CARGO,
+			</if>
+			<if test="fechaEstatuSolicitud != null">
+				FTD_FEH_ESTATUS_SOLICITUD,
+			</if>
+			<if test="celular != null">
+				FTN_CELULAR,
+			</if>
+			<if test="companiaCelular != null and companiaCelular.id != null">
+				FTN_COMPANIA_CELULAR,
+			</if>
+			<if test="estatusTraspaso != null and estatusTraspaso.id != null">
+				FTN_ESTATUS_TRASPASO,
+			</if>
+			<if test="importe != null">
+				FTN_IMPORTE,
+			</if>
+			<if test="incrementabilidad != null">
+				FTN_INCREMENTALIDAD,
+			</if>
+			<if test="opcionIncrementabilidad != null">
+				FTN_OPCION_INCREMENTALIDAD,
+			</if>
+			<if
+				test="porcentajeIncremento != null and porcentajeIncremento.id != null">
+				FTN_ID_PORCENTAJE_INCREMENTO,
+			</if>
+			<if test="montoIncremento != null">
+				FTN_MONTO_INCREMENTO,
+			</if>
+			<if
+				test="periodoIncrementabilidad != null and periodoIncrementabilidad.id != null">
+				FTN_ID_PERIOD_INCREMENTALIDAD,
+			</if>
+			<if test="intentos != null">
+				FTN_INTENTOS,
+			</if>
+			<if test="moneda != null and moneda.id != null">
+				FTN_MONEDA,
+			</if>
+			<if test="medioNotificacion != null and medioNotificacion.id != null">
+				FTN_MEDIO_NOTIFICACION,
+			</if>
+			
+			<if test="origenAportacion != null and origenAportacion.id != null">
+				FTN_ORIGEN_APORTACION,
+			</if>
+			<if test="numCargo != null">
+				FTN_NUM_CARGO,
+			</if>
+			<if test="fechaSuspension != null">
+				FTD_FEH_SUSPENSION,
+			</if>
+			<if test="origenSolAfom != null">
+				FTC_ORIGEN_SOL_AFOM,
+			</if>
+			<if test="vigenciaTc != null">
+				FTC_VIGENCIA_TC,
+			</if>
+			<if test="folioProcesar != null">
+				FTC_FOLIO_PROCESAR,
+			</if>
+			<if test="curpTutor != null">
+				FTC_CURP_TUTOR,
+			</if>
+			<if test="folioFamilia != null">
+				FTC_FOLIO_FAMILIA,
+			</if>
+			<if test="gerencia != null">
+				FTC_GERENCIA,
+			</if>
+			<if test="promotor != null">
+				FTC_NOMBRE_PROMOTOR,
+			</if>
+			<if test="regional != null">
+				FTC_REGIONAL,
+			</if>
+			<if test="tipoRegistro != null">
+				FTN_ID_TIPO_REGISTRO,
+			</if>
+			<if test="tutor != null">
+				FTC_NOMBRE_TUTOR,
+			</if>			
+			<if test="paternoTutor != null">
+				FTC_AP_PATERNO_TUTOR,
+			</if>			
+			<if test="maternoTutor != null">
+				FTC_AP_MATERNO_TUTOR,
+			</if>			
+			FTC_USU_CRE,
+			FTD_FEH_CRE
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="">
+			<if test="claveSolicitud != null">
+				#{claveSolicitud,jdbcType=VARCHAR},
+			</if>
+			<if test="folio != null">
+				#{folio,jdbcType=VARCHAR},
+			</if>
+			<if test="numCuentaIndividual != null">
+				#{numCuentaIndividual,jdbcType=DECIMAL},
+			</if>
+			<if test="lineaNegocio != null and lineaNegocio.id != null">
+				#{lineaNegocio.id,jdbcType=DECIMAL},
+
+			</if>
+			<if test="origenSolicitud != null and origenSolicitud.id != null">
+				#{origenSolicitud.id,jdbcType=DECIMAL},
+			</if>
+			<if test="cuentaBanco != null">
+				#{cuentaBanco},
+			</if>
+			<if test="tipoCuenta!= null and tipoCuenta.id != null">
+				#{tipoCuenta.id,jdbcType=DECIMAL},
+			</if>
+			<if test="claveBanco != null  and claveBanco.id != null">
+				#{claveBanco.id,jdbcType=DECIMAL},
+			</if>
+			<if test="clienteNombre != null">
+				#{clienteNombre,jdbcType=VARCHAR},
+			</if>
+			<if test="clientePaterno != null">
+				#{clientePaterno,jdbcType=VARCHAR},
+			</if>
+			<if test="clienteMaterno != null">
+				#{clienteMaterno,jdbcType=VARCHAR},
+			</if>
+			<if test="correoElectronico != null">
+				#{correoElectronico,jdbcType=VARCHAR},
+			</if>
+			<if test="curp != null">
+				#{curp,jdbcType=VARCHAR},
+			</if>
+			<if test="nss != null">
+				#{nss,jdbcType=VARCHAR},
+			</if>
+			<if test="clienteRfc != null">
+				#{clienteRfc,jdbcType=VARCHAR},
+			</if>
+			<if test="periodo != null and periodo.id != null">
+				#{periodo.id,jdbcType=DECIMAL},
+			</if>
+			<if test="periodo != null and periodo.id != null">
+
+				<!-- Frecuencia Inicial -->
+				<if test="frecuenciaInicial != null">
+					<choose>
+						<when
+							test="periodo.id == @mx.profuturo.nci.business.util.ConstantesCatalogos@ID_PERIODO_SEMANAL and frecuenciaInicial.diaSemana != null and frecuenciaInicial.diaSemana.id != null">
+							#{frecuenciaInicial.diaSemana.id,jdbcType=DECIMAL},
+						</when>
+						<when test="periodo.id != @mx.profuturo.nci.business.util.ConstantesCatalogos@ID_PERIODO_SEMANAL and frecuenciaInicial.dia != null">
+							#{frecuenciaInicial.dia,jdbcType=DECIMAL},
+						</when>
+					</choose>
+				</if>
+
+				<!-- Frecuencia Final -->
+				<if test="frecuenciaFinal != null">
+					<choose>
+						<when
+							test="periodo.id == @mx.profuturo.nci.business.util.ConstantesCatalogos@ID_PERIODO_SEMANAL and frecuenciaFinal.diaSemana != null and frecuenciaFinal.diaSemana.id != null">
+							#{frecuenciaFinal.diaSemana.id,jdbcType=DECIMAL},
+						</when>
+						<when test="periodo.id != @mx.profuturo.nci.business.util.ConstantesCatalogos@ID_PERIODO_SEMANAL and frecuenciaFinal.dia != null">
+							#{frecuenciaFinal.dia,jdbcType=DECIMAL},
+						</when>
+					</choose>
+				</if>
+
+			</if>
+
+			<if test="estatusSolicitud != null and estatusSolicitud.id != null">
+				#{estatusSolicitud.id,jdbcType=DECIMAL},
+			</if>
+			<if test="fechaCargo != null">
+				#{fechaCargo,jdbcType=TIMESTAMP},
+			</if>
+			<if test="estatusCargo != null and estatusCargo.id != null">
+				#{estatusCargo.id,jdbcType=TIMESTAMP},
+			</if>
+			<if test="rechazoBanco != null and rechazoBanco.id != null">
+				#{rechazoBanco.id,jdbcType=TIMESTAMP},
+			</if>
+			<if test="fechaCargaResp != null">
+				#{fechaCargaResp,jdbcType=TIMESTAMP},
+			</if>
+			<if test="fechaReactivacion != null">
+				#{fechaReactivacion,jdbcType=TIMESTAMP},
+			</if>
+
+			<if test="fechaCaptura != null">
+				#{fechaCaptura,jdbcType=TIMESTAMP},
+			</if>
+			<if test="fechaProximoCargo != null">
+				#{fechaProximoCargo,jdbcType=TIMESTAMP},
+			</if>
+			<if test="fechaEstatuSolicitud != null">
+				#{fechaEstatuSolicitud,jdbcType=TIMESTAMP},
+			</if>
+			<if test="celular != null">
+				#{celular,jdbcType=DECIMAL},
+			</if>
+			<if test="companiaCelular != null and companiaCelular.id != null">
+				#{companiaCelular.id,jdbcType=DECIMAL},
+			</if>
+			<if test="estatusTraspaso != null and estatusTraspaso.id != null">
+				#{estatusTraspaso.id,jdbcType=DECIMAL},
+			</if>
+			<if test="importe != null">
+				#{importe,jdbcType=DECIMAL},
+			</if>
+			<if test="incrementabilidad != null">
+				#{incrementabilidad,jdbcType=DECIMAL},
+			</if>
+			<if test="opcionIncrementabilidad != null">
+				#{opcionIncrementabilidad,jdbcType=DECIMAL},
+			</if>
+			<if
+				test="porcentajeIncremento != null and porcentajeIncremento.id != null">
+				#{porcentajeIncremento.id,jdbcType=DECIMAL},
+			</if>
+			<if test="montoIncremento != null">
+				#{montoIncremento,jdbcType=DECIMAL},
+			</if>
+			<if
+				test="periodoIncrementabilidad != null and periodoIncrementabilidad.id != null">
+				#{periodoIncrementabilidad.id,jdbcType=DECIMAL},
+			</if>
+			<if test="intentos != null">
+				#{intentos,jdbcType=DECIMAL},
+			</if>
+			<if test="moneda != null and moneda.id != null">
+				#{moneda.id,jdbcType=DECIMAL},
+			</if>
+			<if test="medioNotificacion != null and medioNotificacion.id != null">
+				#{medioNotificacion.id,jdbcType=DECIMAL},
+			</if>
+			<if test="origenAportacion != null and origenAportacion.id != null">
+				#{origenAportacion.id,jdbcType=DECIMAL},
+			</if>
+			<if test="numCargo != null">
+				#{numCargo,jdbcType=DECIMAL},
+			</if>
+			<if test="fechaSuspension != null">
+				#{fechaSuspension,jdbcType=TIMESTAMP},
+			</if>
+			<if test="origenSolAfom != null">
+				#{origenSolAfom,jdbcType=VARCHAR},
+			</if>
+			<if test="vigenciaTc != null">
+				#{vigenciaTc,jdbcType=VARCHAR},
+			</if>
+			<if test="folioProcesar != null">
+				#{folioProcesar,jdbcType=VARCHAR},
+			</if>
+			<if test="curpTutor != null">
+				#{curpTutor,jdbcType=VARCHAR},
+			</if>
+			<if test="folioFamilia != null">
+				#{folioFamilia,jdbcType=VARCHAR},
+			</if>
+			<if test="gerencia != null">
+				#{gerencia,jdbcType=VARCHAR},
+			</if>
+			<if test="promotor != null">
+				#{promotor,jdbcType=VARCHAR},
+			</if>
+			<if test="regional != null">
+				#{regional,jdbcType=VARCHAR},
+			</if>
+			<if test="tipoRegistro != null">
+				#{tipoRegistro,jdbcType=DECIMAL},
+			</if>
+			<if test="tutor != null">
+				#{tutor,jdbcType=VARCHAR},
+			</if>			
+			<if test="paternoTutor != null">
+				#{paternoTutor,jdbcType=VARCHAR},
+			</if>
+			<if test="maternoTutor != null">
+				#{maternoTutor,jdbcType=VARCHAR},
+			</if>			
+			#{usuarioCreacion,jdbcType=VARCHAR},
+			SYSTIMESTAMP
+		</trim>
+	</insert>
+
+
+	<update id="actualizarSolicitudDomiciliacion" parameterType="mx.profuturo.nci.business.vo.SolicitudVO"
+		keyColumn="FTC_CVE_SOLICITUD">
+		update TTAFOAVOL_SOLICITUD set FTD_FEH_ACT= SYSTIMESTAMP
+
+		<if test="folio != null">
+			, FTC_FOLIO = #{folio}
+		</if>
+		<if test="numCuentaIndividual != null">
+			, FTN_NUM_CTA_INVDUAL = #{numCuentaIndividual}
+		</if>
+		<if test="lineaNegocio != null and lineaNegocio.id != null  and lineaNegocio.id gt 0">
+			, FTN_ID_LINEA_NEG = #{lineaNegocio.id}
+		</if>
+		<if test="origenSolicitud != null and origenSolicitud.id != null and origenSolicitud.id gt 0">
+			, FTN_ID_ORIGEN_SOLICITUD = #{origenSolicitud.id}
+		</if>
+		<if test="cuentaBanco != null">
+			, FTC_CTA_BANCO = #{cuentaBanco}
+		</if>
+		<if test="tipoCuenta != null and tipoCuenta.id != null  and tipoCuenta.id gt 0">
+			, FTN_ID_TIPO_CTA = #{tipoCuenta.id}
+		</if>
+		<if test="claveBanco != null and claveBanco.id != null and claveBanco.id gt 0">
+			, FTN_CVE_BANCO = #{claveBanco.id}
+		</if>
+		<if test="clienteNombre != null">
+			, FTC_NOMBRE_CTE = #{clienteNombre}
+		</if>
+		<if test="clientePaterno != null">
+			, FTC_AP_PATERNO_CTE = #{clientePaterno}
+		</if>
+		<if test="clienteMaterno != null">
+			, FTC_AP_MATERNO_CTE = #{clienteMaterno}
+		</if>
+		<if test="correoElectronico != null">
+			, FTC_CORREO_ELEC = #{correoElectronico}
+		</if>
+		<if test="curp != null">
+			, FTC_CURP = #{curp}
+		</if>
+		<if test="nss != null">
+			, FTN_NSS = #{nss}
+		</if>
+		<if test="clienteRfc != null">
+			, FTC_RFC_CTE = #{clienteRfc}
+		</if>
+		<if test="periodo != null and periodo.id != null">
+			, FTN_ID_PERIODO = #{periodo.id}
+		</if>
+		<if test="periodo != null and periodo.id != null">
+			<!-- Frecuencia Inicial -->
+			<if test="frecuenciaInicial != null">
+				<choose>
+					<when
+						test="periodo.id == @mx.profuturo.nci.business.util.ConstantesCatalogos@ID_PERIODO_SEMANAL and frecuenciaInicial.diaSemana != null and frecuenciaInicial.diaSemana.id != null">
+						,FTN_FREC_INICIAL = #{frecuenciaInicial.diaSemana.id}
+					</when>
+					<when test="periodo.id != @mx.profuturo.nci.business.util.ConstantesCatalogos@ID_PERIODO_SEMANAL and frecuenciaInicial.dia != null">
+						,FTN_FREC_INICIAL = #{frecuenciaInicial.dia}
+					</when>
+				</choose>
+			</if>
+
+			<!-- Frecuencia Final -->
+			<if test="periodo.id != null">
+				<choose>
+					<when test="periodo.id != 493 and frecuenciaFinal == null">
+						,FTN_FREC_FINAL = null
+					</when>
+					<when
+						test="periodo.id == @mx.profuturo.nci.business.util.ConstantesCatalogos@ID_PERIODO_SEMANAL and frecuenciaFinal != null and frecuenciaFinal.diaSemana != null and frecuenciaFinal.diaSemana.id != null">
+						,FTN_FREC_FINAL = #{frecuenciaFinal.diaSemana.id}
+					</when>
+
+					<when test="periodo.id != @mx.profuturo.nci.business.util.ConstantesCatalogos@ID_PERIODO_SEMANAL and frecuenciaFinal.dia != null">
+						,FTN_FREC_FINAL = #{frecuenciaFinal.dia}
+					</when>
+
+				</choose>
+			</if>
+		</if>
+
+		<if test="estatusSolicitud != null and estatusSolicitud.id != null">
+			, FTN_ESTATUS_SOLICITUD = #{estatusSolicitud.id}
+		</if>
+		<if test="fechaCargo != null">
+			, FTD_FEH_CARGO = #{fechaCargo}
+		</if>
+		<if test="estatusCargo != null and estatusCargo.id != null">
+			, FTN_ESTATUS_CARGO = #{estatusCargo.id}
+		</if>
+		<if test="rechazoBanco != null and rechazoBanco.id != null">
+			, FTN_ID_RECHAZO_BANCO = #{rechazoBanco.id}
+		</if>
+		<if test="fechaCargaResp != null">
+			, FTD_FEH_CARGA_RESP = #{fechaCargaResp}
+		</if>
+		<if test="fechaReactivacion != null">
+			, FTD_FEH_REACTIVACION = #{fechaReactivacion}
+		</if>
+
+		<if test="fechaCaptura != null">
+			, FTD_FEH_CAPTURA = #{fechaCaptura}
+		</if>
+		<if test="fechaEstatuSolicitud != null">
+			, FTD_FEH_ESTATUS_SOLICITUD = #{fechaEstatuSolicitud}
+		</if>
+		
+		<if test="fechaProximoCargo != null">
+			, FTD_FEH_PROX_CARGO = #{fechaProximoCargo}
+		</if>
+		<if test="celular != null">
+			, FTN_CELULAR = #{celular}
+		</if>
+		<if test="companiaCelular != null and companiaCelular.id != null">
+			,FTN_COMPANIA_CELULAR = #{companiaCelular.id}
+		</if>
+		<if test="estatusTraspaso != null and estatusTraspaso.id != null">
+			, FTN_ESTATUS_TRASPASO = #{estatusTraspaso.id}
+		</if>
+		<if test="importe != null">
+			, FTN_IMPORTE = #{importe}
+		</if>
+		<if test="incrementabilidad != null">
+			, FTN_INCREMENTALIDAD = #{incrementabilidad}
+		</if>
+		<if test="opcionIncrementabilidad != null">
+			, FTN_OPCION_INCREMENTALIDAD = #{opcionIncrementabilidad}
+		</if>
+		<if test="porcentajeIncremento != null and porcentajeIncremento.id != null">
+			, FTN_ID_PORCENTAJE_INCREMENTO = #{porcentajeIncremento.id}
+		</if>
+		<if test="montoIncremento != null">
+			, FTN_MONTO_INCREMENTO = #{montoIncremento}
+		</if>
+		<if
+			test="periodoIncrementabilidad != null and periodoIncrementabilidad.id != null">
+			, FTN_ID_PERIOD_INCREMENTALIDAD = #{periodoIncrementabilidad.id}
+		</if>
+		<if test="intentos != null">
+			, FTN_INTENTOS = #{intentos}
+		</if>
+		<if test="moneda != null and moneda.id != null">
+			, FTN_MONEDA = #{moneda.id}
+		</if>
+		<if test="medioNotificacion != null and medioNotificacion.id != null">
+			, FTN_MEDIO_NOTIFICACION = #{medioNotificacion.id}
+		</if>
+		<if test="origenAportacion != null and origenAportacion.id != null">
+			,FTN_ORIGEN_APORTACION = #{origenAportacion.id}
+		</if>
+		<if test="numCargo != null">
+			,FTN_NUM_CARGO = #{numCargo}
+		</if>
+		<if test="fechaSuspension != null">
+			,FTD_FEH_SUSPENSION = #{fechaSuspension}
+		</if>
+		<if test="origenSolAfom != null">
+			,FTC_ORIGEN_SOL_AFOM = #{origenSolAfom}
+		</if>
+		<if test="vigenciaTc != null">
+			,FTC_VIGENCIA_TC = #{vigenciaTc}
+		</if>
+		<if test="folioProcesar != null">
+			,FTC_FOLIO_PROCESAR = #{folioProcesar}
+		</if>
+		<if test="curpTutor != null">
+			,FTC_CURP_TUTOR = #{curpTutor}
+		</if>
+		<if test="folioFamilia != null">
+			,FTC_FOLIO_FAMILIA = #{folioFamilia}
+		</if>
+		<if test="gerencia != null">
+			,FTC_GERENCIA = #{gerencia}
+		</if>
+		<if test="promotor != null">
+			,FTC_NOMBRE_PROMOTOR = #{promotor}
+		</if>		
+		<if test="regional != null">
+			,FTC_REGIONAL = #{regional}
+		</if>		
+		<if test="tipoRegistro != null">
+			,FTN_ID_TIPO_REGISTRO = #{tipoRegistro}
+		</if>		
+		<if test="tutor != null">
+			,FTC_NOMBRE_TUTOR = #{tutor}
+		</if>		
+		<if test="paternoTutor != null">
+			,FTC_AP_PATERNO_TUTOR = #{paternoTutor}
+		</if>		
+		<if test="maternoTutor != null">
+			,FTC_AP_MATERNO_TUTOR = #{maternoTutor}
+		</if>		
+			, FTC_USU_ACT = #{usuarioActualizacion,jdbcType=VARCHAR}
+		<where>
+			FTC_CVE_SOLICITUD = #{claveSolicitud}
+		</where>
+	</update>
+
+
+
+	<resultMap id="ResultMapMonitorCargosDomiTraspaso" type="mx.profuturo.nci.business.vo.MonitorCargosDomiTraspasoVO">
+		<result column="MESANIO" 	property="mesLlave"		 		jdbcType="VARCHAR"/>
+		<result column="MESINGRESO" 	property="mesIngresoSol" 		jdbcType="VARCHAR"/>
+		<result column="RECU" 			property="recurencia" 			jdbcType="VARCHAR"/>
+		<result column="CARGOS" 		property="noSolicitudes" 		jdbcType="DECIMAL"/>
+		<result column="TRAS_LIQ" 		property="noTrasLiquidado" 		jdbcType="DECIMAL"/>
+		<result column="TRAS_PEND" 		property="noTrasPendientes" 	jdbcType="DECIMAL"/>
+		<result column="MON_ESPE" 		property="montoEsperado" 		jdbcType="DECIMAL"/>
+		<result column="CAR_ACEP"	 	property="cargosAceptados" 		jdbcType="DECIMAL"/>
+		<result column="CAR_RECH" 		property="cargosRechazados" 	jdbcType="DECIMAL"/>
+		<result column="MON_CONF" 		property="montoConfirmado" 		jdbcType="DECIMAL"/>
+		<result column="MON_RECH" 		property="montoRechazado" 		jdbcType="DECIMAL"/>
+	</resultMap>
+
+	<!-- FCN_ID_TIPO_CAT = 51 				RECURRECNIAS UNICA|SEMANAL|QUINCENAL|MENSUAL -->
+	<!-- FTN_ESTATUS_SOLICITUD = 500,501	APLICADO|RECHAZADO -->
+	<!-- FTN_ESTATUS_SOLICITUD = 512 		ACEPTADA -->
+	<!-- FTN_ORIGEN_APORTACION = 845 		DOMICILIACION TRAPASOS -->
+	<select id="monitorCargosDomiTraspaso" 
+ 		 parameterType="mx.profuturo.nci.business.wrapped.SolicitudFilter"
+ 		 resultMap="ResultMapMonitorCargosDomiTraspaso">
+ 		SELECT MESANIO,
+ 			   MESINGRESO,
+ 			   RECU,
+ 			   COUNT(1) AS CARGOS,COUNT(CASE WHEN ESTATUS_TRASPASO=${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ESTATUS_TRASPASO_ACEPTADO} THEN 1 END) AS TRAS_LIQ,
+ 			   COUNT(CASE WHEN ESTATUS_TRASPASO=${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ESTATUS_TRASPASO_PENDIENTE} THEN 1 END) AS TRAS_PEND,
+       		   SUM(IMPORTE) AS MON_ESPE, 
+       		   COUNT(CASE WHEN ESTATUS_CARGO=500 THEN 1 END) AS CAR_ACEP,
+       		   COUNT(CASE WHEN ESTATUS_CARGO=501 THEN 1 END) AS CAR_RECH,
+       		   SUM(CASE WHEN ESTATUS_CARGO=500 THEN IMPORTE ELSE 0 END) AS MON_CONF,
+       		   SUM(CASE WHEN ESTATUS_CARGO=501 THEN IMPORTE ELSE 0 END) AS MON_RECH
+		 FROM (
+			   SELECT TO_CHAR(FTD_FEH_CAPTURA,'YYYY')||TO_CHAR(FTD_FEH_CAPTURA,'MM') AS MESANIO, 
+			   		  TRIM(TO_CHAR(FTD_FEH_CAPTURA,'Month')) AS MESINGRESO,
+			   		  B.FCC_VALOR AS RECU,
+			   		  A.FTN_ESTATUS_TRASPASO AS ESTATUS_TRASPASO,
+			   		  FTN_ESTATUS_CARGO AS ESTATUS_CARGO,
+			   		  FTN_IMPORTE AS IMPORTE
+				 FROM TTAFOAVOL_SOLICITUD A, TCCRXGRAL_CAT_CATALOGO B
+				WHERE A.FTN_ID_PERIODO= B.FCN_ID_CAT_CATALOGO
+				AND B.FCN_ID_TIPO_CAT=51
+				AND A.FTN_ESTATUS_SOLICITUD=${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ESTATUS_SOLICITUD_ACEPTADO} 
+				AND A.FTN_ORIGEN_APORTACION=${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ORIGEN_DOMICILIACION_TRASPASO}
+				AND A.FTD_FEH_CAPTURA IS NOT NULL 
+				AND A.FTD_FEH_PROX_CARGO BETWEEN TRUNC(SYSDATE) AND TRUNC(SYSDATE)+.99999) SOLICI
+	  GROUP BY MESANIO,MESINGRESO,RECU
+	  ORDER BY 1,3 	
+	</select>
+
+	<resultMap id="ResultMapInvDomiTraspasosPorAcreditar" type="mx.profuturo.nci.business.vo.InversionDomiTraspasoVO">
+		<result column="PROF_CP" 		property="siefore"		 	jdbcType="VARCHAR"/>
+		<result column="TMC_DESC_NCI" 	property="subCuenta" 		jdbcType="VARCHAR"/>
+		<result column="FCC_VALOR" 		property="tipoMovimiento" 	jdbcType="VARCHAR"/>
+		<result column="IMPORTE" 		property="pesos" 			jdbcType="DECIMAL"/>
+		<result column="REGISTROS" 		property="registros" 		jdbcType="DECIMAL"/>
+	</resultMap>
+
+	<!-- FTN_ORIGEN_APORTACION=845  			DOMI TRASPASOS -->
+	<!-- C.TMC_USO='REFERENCIAS FONDO APOVOL' 	SUBCUENTAS APOVOL -->
+	<!-- FCN_ID_TIPO_CAT=31 -->
+	<!-- BB.FTN_ESTATUS_TRAMITE=969				APLICADO-->
+	<select id="inversionDomiTrasPorAcreditar" 
+ 		 parameterType="mx.profuturo.nci.business.wrapped.SolicitudFilter"
+ 		 resultMap="ResultMapInvDomiTraspasosPorAcreditar">
+ 		SELECT CONCIL.PROF_CP,CONCIL.TMC_DESC_NCI,CONCIL.FCC_VALOR,SUM(CONCIL.FTN_IMPORTE) AS IMPORTE,COUNT(1) AS REGISTROS
+		 FROM(SELECT CAT1.FCC_VALOR AS PROF_CP,DD.TMC_DESC_NCI AS TMC_DESC_NCI,HH.FCC_VALOR AS FCC_VALOR, CC.FTN_MONTO AS FTN_IMPORTE
+                FROM TTAFOAVOL_CONCILIACION AA, TTAFOAVOL_DIVERSIF_CONC CC, TMSISGRAL_MAP_NCI_ITGY DD, 
+                     TCCRXGRAL_TIPO_SUBCTA EE, TRAFOGRAL_MOV_SUBCTA FF, TFAFOGRAL_CONFIG_CONCEP_MOV GG, TCCRXGRAL_CAT_CATALOGO HH, 
+                     TCCRXGRAL_SIEFORE II, TCCRXGRAL_CAT_CATALOGO CAT1
+               WHERE AA.FTN_ID_CONCILIACION=CC.FTN_ID_CONCILIACION
+                 AND CC.FTN_FONDO_APOVOL=DD.TMN_CVE_ITGY
+                 AND DD.TMN_CVE_NCI=EE.FCN_ID_CAT_SUBCTA 
+		         AND EE.FCN_ID_TIPO_SUBCTA=FF.FCN_ID_TIPO_SUBCTA
+		         AND FF.FRN_ID_MOV_SUBCTA=GG.FRN_ID_MOV_SUBCTA AND GG.FFN_ID_CONCEPTO_MOV=HH.FCN_ID_CAT_CATALOGO
+		         AND FF.FCN_ID_GRUPO=II.FCN_ID_GRUPO AND II.FCN_ID_SIEFORE=CAT1.FCN_ID_CAT_CATALOGO
+                 AND AA.FTN_ORIGEN_APORTACION=${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ORIGEN_DOMICILIACION_TRASPASO}
+             AND AA.FTN_REG_CONCILIADO=1
+             AND AA.FTN_ESTATUS_TRAMITE=969
+             AND GG.FTN_ORIGEN=${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ORIGEN_DOMICILIACION_TRASPASO}
+                 AND DD.TMC_USO='REFERENCIAS FONDO APOVOL'
+             AND AA.FTN_ID_CONCILIACION NOT IN (SELECT FTN_ID_CONCILIACION FROM TTAFOAVOL_PRINCIPAL)
+             ) CONCIL
+        GROUP BY CONCIL.PROF_CP,CONCIL.TMC_DESC_NCI,CONCIL.FCC_VALOR
+ 		ORDER BY 1,2
+		</select>
+
+	<resultMap id="ResultMapInvDomiTraspasosPendTraspaso" type="mx.profuturo.nci.business.vo.InversionDomiTraspasoVO">
+		<result column="PROF_CP" 		property="siefore"		 	jdbcType="VARCHAR"/>
+		<result column="TMC_DESC_NCI" 	property="subCuenta" 		jdbcType="VARCHAR"/>
+		<result column="FCC_VALOR" 		property="tipoMovimiento" 	jdbcType="VARCHAR"/>
+		<result column="IMPORTE" 		property="pesos" 			jdbcType="DECIMAL"/>
+		<result column="REGISTROS" 		property="registros" 		jdbcType="DECIMAL"/>
+	</resultMap>
+
+	<!-- FTN_ORIGEN_APORTACION=845  			DOMI TRASPASOS -->
+	<!-- C.TMC_USO='REFERENCIAS FONDO APOVOL' 	SUBCUENTAS APOVOL -->
+	<!-- FCN_ID_TIPO_CAT=31 -->
+	<!-- BB.FTN_ESTATUS_TRAMITE=968    			PENDIENTE  -->
+	<select id="inversionDomiTrasPendientesTraspaso" 
+ 		 parameterType="mx.profuturo.nci.business.wrapped.SolicitudFilter"
+ 		 resultMap="ResultMapInvDomiTraspasosPendTraspaso">
+ 		SELECT CONCIL.PROF_CP,CONCIL.TMC_DESC_NCI,CONCIL.FCC_VALOR,SUM(CONCIL.FTN_IMPORTE) AS IMPORTE,COUNT(1) AS REGISTROS
+		 FROM(SELECT CAT1.FCC_VALOR AS PROF_CP,DD.TMC_DESC_NCI AS TMC_DESC_NCI,HH.FCC_VALOR AS FCC_VALOR, CC.FTN_MONTO AS FTN_IMPORTE
+                FROM TTAFOAVOL_CONCILIACION AA, TTAFOAVOL_DIVERSIF_CONC CC, TMSISGRAL_MAP_NCI_ITGY DD, 
+                     TCCRXGRAL_TIPO_SUBCTA EE, TRAFOGRAL_MOV_SUBCTA FF, TFAFOGRAL_CONFIG_CONCEP_MOV GG, TCCRXGRAL_CAT_CATALOGO HH, 
+                     TCCRXGRAL_SIEFORE II, TCCRXGRAL_CAT_CATALOGO CAT1
+               WHERE AA.FTN_ID_CONCILIACION=CC.FTN_ID_CONCILIACION
+                 AND CC.FTN_FONDO_APOVOL=DD.TMN_CVE_ITGY
+                 AND DD.TMN_CVE_NCI=EE.FCN_ID_CAT_SUBCTA 
+		         AND EE.FCN_ID_TIPO_SUBCTA=FF.FCN_ID_TIPO_SUBCTA
+		         AND FF.FRN_ID_MOV_SUBCTA=GG.FRN_ID_MOV_SUBCTA AND GG.FFN_ID_CONCEPTO_MOV=HH.FCN_ID_CAT_CATALOGO
+		         AND FF.FCN_ID_GRUPO=II.FCN_ID_GRUPO AND II.FCN_ID_SIEFORE=CAT1.FCN_ID_CAT_CATALOGO
+             AND AA.FTN_ORIGEN_APORTACION=${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ORIGEN_DOMICILIACION_TRASPASO}
+             AND AA.FTN_REG_CONCILIADO=1
+             AND AA.FTN_ESTATUS_TRAMITE=968
+             AND GG.FTN_ORIGEN=${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ORIGEN_DOMICILIACION_TRASPASO}
+             AND DD.TMC_USO='REFERENCIAS FONDO APOVOL'
+             ) CONCIL
+        GROUP BY CONCIL.PROF_CP,CONCIL.TMC_DESC_NCI,CONCIL.FCC_VALOR
+        ORDER BY 1,2
+	</select>
+	
+		<resultMap id="ResultMapInvDomiTraspasoDevolucion" type="mx.profuturo.nci.business.vo.InversionDomiTraspasoVO">
+		<result column="PROF_CP" 		property="siefore"		 	jdbcType="VARCHAR"/>
+		<result column="TMC_DESC_NCI" 	property="subCuenta" 		jdbcType="VARCHAR"/>
+		<result column="FCC_VALOR" 		property="tipoMovimiento" 	jdbcType="VARCHAR"/>
+		<result column="IMPORTE" 		property="pesos" 			jdbcType="DECIMAL"/>
+		<result column="REGISTROS" 		property="registros" 		jdbcType="DECIMAL"/>
+	</resultMap>
+
+	<!-- FTN_ORIGEN_APORTACION=845  			DOMI TRASPASOS -->
+	<!-- C.TMC_USO='REFERENCIAS FONDO APOVOL' 	SUBCUENTAS APOVOL -->
+	<!-- FCN_ID_TIPO_CAT=31 -->
+	<!-- BB.FTN_ESTATUS_TRAMITE=970    			POR DEVOLVER  -->
+	<select id="inversionDomiTrasDevolucion" 
+ 		 parameterType="mx.profuturo.nci.business.wrapped.SolicitudFilter"
+ 		 resultMap="ResultMapInvDomiTraspasoDevolucion">
+ 		SELECT CONCIL.PROF_CP,CONCIL.TMC_DESC_NCI,CONCIL.FCC_VALOR,SUM(CONCIL.FTN_IMPORTE) AS IMPORTE,COUNT(1) AS REGISTROS
+		 FROM(SELECT CAT1.FCC_VALOR AS PROF_CP,DD.TMC_DESC_NCI AS TMC_DESC_NCI,HH.FCC_VALOR AS FCC_VALOR, AA.FTN_IMPORTE
+                FROM TTAFOAVOL_CONCILIACION AA, TTAFOAVOL_DIVERSIF_CONC CC, TMSISGRAL_MAP_NCI_ITGY DD, 
+                     TCCRXGRAL_TIPO_SUBCTA EE, TRAFOGRAL_MOV_SUBCTA FF, TFAFOGRAL_CONFIG_CONCEP_MOV GG, TCCRXGRAL_CAT_CATALOGO HH, 
+                     TCCRXGRAL_SIEFORE II, TCCRXGRAL_CAT_CATALOGO CAT1
+               WHERE AA.FTN_ID_CONCILIACION=CC.FTN_ID_CONCILIACION
+                 AND CC.FTN_FONDO_APOVOL=DD.TMN_CVE_ITGY
+                 AND DD.TMN_CVE_NCI=EE.FCN_ID_CAT_SUBCTA 
+		         AND EE.FCN_ID_TIPO_SUBCTA=FF.FCN_ID_TIPO_SUBCTA
+		         AND FF.FRN_ID_MOV_SUBCTA=GG.FRN_ID_MOV_SUBCTA AND GG.FFN_ID_CONCEPTO_MOV=HH.FCN_ID_CAT_CATALOGO
+		         AND FF.FCN_ID_GRUPO=II.FCN_ID_GRUPO AND II.FCN_ID_SIEFORE=CAT1.FCN_ID_CAT_CATALOGO
+             AND AA.FTN_ORIGEN_APORTACION=${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ORIGEN_DOMICILIACION_TRASPASO}
+             AND AA.FTN_REG_CONCILIADO=1
+             AND AA.FTN_ESTATUS_TRAMITE IN (970,971)
+             AND GG.FTN_ORIGEN=${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ORIGEN_DOMICILIACION_TRASPASO}
+             AND DD.TMC_USO='REFERENCIAS FONDO APOVOL'
+             ) CONCIL
+        GROUP BY CONCIL.PROF_CP,CONCIL.TMC_DESC_NCI,CONCIL.FCC_VALOR
+		ORDER BY 1,2 	
+	</select>
+	
+	<resultMap id="ResultMapInvDomiTraspasosAcreditados" type="mx.profuturo.nci.business.vo.InversionDomiTraspasoVO">
+		<result column="PROF_CP" 		property="siefore"		 	jdbcType="VARCHAR"/>
+		<result column="TMC_DESC_NCI" 	property="subCuenta" 		jdbcType="VARCHAR"/>
+		<result column="FCC_VALOR" 		property="tipoMovimiento" 	jdbcType="VARCHAR"/>
+		<result column="IMPORTE" 		property="pesos" 			jdbcType="DECIMAL"/>
+		<result column="REGISTROS" 		property="registros" 		jdbcType="DECIMAL"/>
+	</resultMap>
+
+	<!-- FTN_ORIGEN_APORTACION=845  			DOMI TRASPASOS -->
+	<!-- C.TMC_USO='REFERENCIAS FONDO APOVOL' 	SUBCUENTAS APOVOL -->
+	<!-- FCN_ID_TIPO_CAT=31 -->
+	<select id="inversionDomiTrasAcreditados" 
+ 		 parameterType="mx.profuturo.nci.business.wrapped.SolicitudFilter"
+ 		 resultMap="ResultMapInvDomiTraspasosAcreditados">
+ 		SELECT PRINCI.PROF_CP,PRINCI.TMC_DESC_NCI,PRINCI.FCC_VALOR,SUM(PRINCI.FTN_IMPORTE) AS IMPORTE,COUNT(1) AS REGISTROS
+		 FROM(SELECT CAT1.FCC_VALOR AS PROF_CP,DD.TMC_DESC_NCI AS TMC_DESC_NCI,HH.FCC_VALOR AS FCC_VALOR, AA.FTN_IMPORTE
+                FROM TTAFOAVOL_PRINCIPAL AA, TTAFOAVOL_DIVERSIF_CONC CC, TMSISGRAL_MAP_NCI_ITGY DD, 
+                     TCCRXGRAL_TIPO_SUBCTA EE, TRAFOGRAL_MOV_SUBCTA FF, TFAFOGRAL_CONFIG_CONCEP_MOV GG, TCCRXGRAL_CAT_CATALOGO HH, 
+                     TCCRXGRAL_SIEFORE II, TCCRXGRAL_CAT_CATALOGO CAT1
+               WHERE AA.FTN_ID_CONCILIACION=CC.FTN_ID_CONCILIACION
+                 AND CC.FTN_FONDO_APOVOL=DD.TMN_CVE_ITGY
+                 AND DD.TMN_CVE_NCI=EE.FCN_ID_CAT_SUBCTA 
+		         AND EE.FCN_ID_TIPO_SUBCTA=FF.FCN_ID_TIPO_SUBCTA
+		         AND FF.FRN_ID_MOV_SUBCTA=GG.FRN_ID_MOV_SUBCTA AND GG.FFN_ID_CONCEPTO_MOV=HH.FCN_ID_CAT_CATALOGO
+		         AND FF.FCN_ID_GRUPO=II.FCN_ID_GRUPO AND II.FCN_ID_SIEFORE=CAT1.FCN_ID_CAT_CATALOGO
+                 AND AA.FTN_ORIGEN_APORTACION=${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ORIGEN_DOMICILIACION_TRASPASO} 
+                 AND AA.FTN_REG_ACREDITADO=1
+                 AND GG.FTN_ORIGEN=${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ORIGEN_DOMICILIACION_TRASPASO}
+                 AND DD.TMC_USO='REFERENCIAS FONDO APOVOL'
+             ) PRINCI
+        GROUP BY PRINCI.PROF_CP,PRINCI.TMC_DESC_NCI,PRINCI.FCC_VALOR
+ 		ORDER BY 1,2	
+	</select>
+
+
+	<resultMap id="ResultMapMesDetalleMesDomiTraspasos" type="mx.profuturo.nci.business.vo.GenericCatalogoIntegerVO">
+		<id column="MESANIO" 			property="id" 			jdbcType="DECIMAL" />
+		<result column="MESINGRESO" 	property="valor" 		jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="detalleMesDomiTraspaso" 
+ 		 parameterType="mx.profuturo.nci.business.wrapped.SolicitudFilter"
+ 		 resultMap="ResultMapMesDetalleMesDomiTraspasos">
+ 		SELECT TABLA.MESANIO, TABLA.MES AS MESINGRESO
+		  FROM(
+				SELECT TO_CHAR(FTD_FEH_CAPTURA,'YYYY')||TO_CHAR(FTD_FEH_CAPTURA,'MM') AS MESANIO, 
+					   TO_CHAR(TO_NUMBER(TO_CHAR(FTD_FEH_CAPTURA,'MM'))) AS MES
+				  FROM TTAFOAVOL_SOLICITUD A
+				 WHERE A.FTN_ORIGEN_APORTACION=${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ORIGEN_DOMICILIACION_TRASPASO}  
+				 		AND A.FTN_ESTATUS_SOLICITUD in (${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ESTATUS_SOLICITUD_ACEPTADO},513) 
+<!-- 				 		AND A.FTD_FEH_PROX_CARGO BETWEEN trunc(SYSDATE) AND trunc(SYSDATE)+.99999 -->
+				 		AND A.FTD_FEH_CAPTURA IS NOT NULL) TABLA
+		GROUP BY TABLA.MESANIO,TABLA.MES
+		ORDER BY 1
+ 	</select>
+ 	
+ 	
+ 	<resultMap id="ResultMapLstDetalleMesDomiTraspasos" type="mx.profuturo.nci.business.vo.DetalleMesDomiTraspasoVO">
+		<id column="RECU"			property="recurrencia"		jdbcType="VARCHAR" />
+		<id column="SOL"			property="solIngresadas"	jdbcType="DECIMAL" />
+		<id column="SOLACEP"		property="solAceptadas"		jdbcType="DECIMAL" />
+		<id column="SOLCANCEL"		property="solCancel"		jdbcType="DECIMAL" />
+		<id column="UNCARGOACEP"	property="solAcepUnCargo"	jdbcType="DECIMAL" />
+		<id column="UNCCARGORECH"	property="solRechUnCargo"	jdbcType="DECIMAL" />
+		<id column="RECUACRE"		property="recuAcre"			jdbcType="DECIMAL" />
+		<id column="RECUDEV"		property="recuDevo"			jdbcType="DECIMAL" />
+	</resultMap>
+	
+	<!-- FCN_ID_TIPO_CAT = 51				RECURRENCIAS UNICA|SEMANAL|QUINCENAL|MENSUAL -->
+	<!-- FTN_ESTATUS_SOLICITUD = 512|513	ACEPTADA|CANCELADA -->
+	<!-- FTN_ORIGEN_APORTACION = 845 		DOMICILIACION TRAPASOS -->
+ 	<select id="lstDetalleDomiTraspaso" 
+ 		 parameterType="mx.profuturo.nci.business.wrapped.DetalleMesDomiTraspasoFilter"
+ 		 resultMap="ResultMapLstDetalleMesDomiTraspasos">
+ 		 SELECT SOLICITU.RECU,COUNT(1) AS SOL,
+ 		 		COUNT(CASE WHEN ESTATUS_TRASPASO=${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ESTATUS_SOLICITUD_ACEPTADO} THEN 1 END) AS SOLACEP ,
+ 		 		COUNT(CASE WHEN ESTATUS_TRASPASO=513 THEN 1 END) AS SOLCANCEL,
+ 			   NVL(SUM(TABLA2.GENERADO),0) AS UNCARGOACEP,NVL(SUM(TABLA2.PENDIENTE),0) AS UNCCARGORECH,
+			   NVL(SUM(TTAFOAVOL_PRINCIPAL.FTN_IMPORTE),0) AS RECUACRE,NVL(SUM(TTAFOAVOL_CONCILIACION.FTN_IMPORTE),0) AS RECUDEV
+ 
+		FROM 
+		(SELECT A.FTC_CVE_SOLICITUD,B.FCC_VALOR AS RECU,A.FTN_ESTATUS_SOLICITUD AS ESTATUS_TRASPASO, FTN_IMPORTE AS IMPORTE
+		FROM TTAFOAVOL_SOLICITUD A, TCCRXGRAL_CAT_CATALOGO B
+		WHERE A.FTN_ID_PERIODO= B.FCN_ID_CAT_CATALOGO 
+		AND B.FCN_ID_TIPO_CAT=51
+		AND A.FTN_ESTATUS_SOLICITUD IN (${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ESTATUS_SOLICITUD_ACEPTADO},513) 
+<!-- 		AND A.FTN_ORIGEN_APORTACION=${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ORIGEN_DOMICILIACION_TRASPASO}  -->
+		AND A.FTN_ID_ORIGEN_SOLICITUD = ${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_OPERACIONES}
+		AND TO_CHAR(FTD_FEH_CAPTURA,'YYYY')= #{anio,jdbcType=VARCHAR}
+		AND TO_CHAR(FTD_FEH_CAPTURA,'MM')= #{mes,jdbcType=VARCHAR}
+		)SOLICITU 
+		LEFT JOIN TTAFOAVOL_PRINCIPAL ON SOLICITU.FTC_CVE_SOLICITUD=TTAFOAVOL_PRINCIPAL.FTN_CVE_SOLICITUD 
+		LEFT JOIN TTAFOAVOL_CONCILIACION ON SOLICITU.FTC_CVE_SOLICITUD=TTAFOAVOL_CONCILIACION.FTN_CVE_SOLICITUD AND TTAFOAVOL_CONCILIACION.FTN_ESTATUS_TRAMITE IN (970,971)
+    	LEFT JOIN (SELECT TABLA.FTC_CVE_SOLICITUD,COUNT(CASE WHEN TABLA.FTN_ESTATUS_CARGO=${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ESTATUS_CARGO_APLICADO} THEN 1 END) AS GENERADO, 
+               COUNT(CASE WHEN TABLA.FTN_ESTATUS_CARGO=${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ESTATUS_CARGO_RECHAZADO} THEN 1 END) AS PENDIENTE
+              FROM(
+                  SELECT AA.FTC_CVE_SOLICITUD,AA.FTN_ESTATUS_CARGO
+                  FROM THAFOAVOL_SOLICITUD AA, TTAFOAVOL_SOLICITUD BB
+                WHERE AA.FTC_CVE_SOLICITUD=BB.FTC_CVE_SOLICITUD
+                  AND BB.FTN_ESTATUS_SOLICITUD IN (${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ESTATUS_SOLICITUD_ACEPTADO},513) 
+<!--                   AND BB.FTN_ORIGEN_APORTACION=${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ORIGEN_DOMICILIACION_TRASPASO}  -->
+				  AND AA.FTN_ID_ORIGEN_SOLICITUD = ${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_OPERACIONES}
+                  AND TO_CHAR(BB.FTD_FEH_CAPTURA,'YYYY')= #{anio,jdbcType=VARCHAR} 
+                  AND TO_CHAR(BB.FTD_FEH_CAPTURA,'MM')= #{mes,jdbcType=VARCHAR}
+                  AND AA.FTN_ESTATUS_CARGO IN (500,501)
+                  UNION
+                  SELECT CC.FTC_CVE_SOLICITUD,CC.FTN_ESTATUS_CARGO
+                  FROM TTAFOAVOL_SOLICITUD CC
+                WHERE CC.FTN_ESTATUS_SOLICITUD IN (${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ESTATUS_SOLICITUD_ACEPTADO},513) 
+<!--                   AND CC.FTN_ORIGEN_APORTACION=${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ORIGEN_DOMICILIACION_TRASPASO} -->
+				  AND CC.FTN_ID_ORIGEN_SOLICITUD = ${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_OPERACIONES}
+                  AND TO_CHAR(CC.FTD_FEH_CAPTURA,'YYYY')= #{anio,jdbcType=VARCHAR}
+                  AND TO_CHAR(CC.FTD_FEH_CAPTURA,'MM')= #{mes,jdbcType=VARCHAR}
+                  AND CC.FTN_ESTATUS_CARGO IN (500,501)
+                ) TABLA GROUP BY TABLA.FTC_CVE_SOLICITUD) TABLA2
+  ON SOLICITU.FTC_CVE_SOLICITUD=TABLA2.FTC_CVE_SOLICITUD
+	GROUP BY SOLICITU.RECU
+ 	</select>
+ 	
+ 	<select id="lstDetalleDomiTraspasoCL" 
+ 		 parameterType="mx.profuturo.nci.business.wrapped.DetalleMesDomiTraspasoFilter"
+ 		 resultMap="ResultMapLstDetalleMesDomiTraspasos">
+ 		 SELECT SOLICITU.RECU,COUNT(1) AS SOL,
+ 		 		COUNT(CASE WHEN ESTATUS_TRASPASO=${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ESTATUS_SOLICITUD_ACEPTADO} THEN 1 END) AS SOLACEP ,
+ 		 		COUNT(CASE WHEN ESTATUS_TRASPASO=513 THEN 1 END) AS SOLCANCEL,
+ 			   NVL(SUM(TABLA2.GENERADO),0) AS UNCARGOACEP,NVL(SUM(TABLA2.PENDIENTE),0) AS UNCCARGORECH,
+			   NVL(SUM(TTAFOAVOL_PRINCIPAL.FTN_IMPORTE),0) AS RECUACRE,NVL(SUM(TTAFOAVOL_CONCILIACION.FTN_IMPORTE),0) AS RECUDEV
+ 
+		FROM 
+		(SELECT A.FTC_CVE_SOLICITUD,B.FCC_VALOR AS RECU,A.FTN_ESTATUS_SOLICITUD AS ESTATUS_TRASPASO, FTN_IMPORTE AS IMPORTE
+		FROM TTAFOAVOL_SOLICITUD A, TCCRXGRAL_CAT_CATALOGO B
+		WHERE A.FTN_ID_PERIODO= B.FCN_ID_CAT_CATALOGO 
+		AND B.FCN_ID_TIPO_CAT=51
+		AND A.FTN_ESTATUS_SOLICITUD IN (${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ESTATUS_SOLICITUD_ACEPTADO},513) 
+		AND A.FTN_ID_ORIGEN_SOLICITUD = ${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_APP_PRODUCE_REGISTRO}
+		AND A.FTN_ORIGEN_APORTACION = ${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ORIGEN_APORTACION_DOMICILIACION}
+		AND TO_CHAR(FTD_FEH_CAPTURA,'YYYY')= #{anio,jdbcType=VARCHAR}
+		AND TO_CHAR(FTD_FEH_CAPTURA,'MM')= #{mes,jdbcType=VARCHAR}
+		)SOLICITU 
+		LEFT JOIN TTAFOAVOL_PRINCIPAL ON SOLICITU.FTC_CVE_SOLICITUD=TTAFOAVOL_PRINCIPAL.FTN_CVE_SOLICITUD 
+		LEFT JOIN TTAFOAVOL_CONCILIACION ON SOLICITU.FTC_CVE_SOLICITUD=TTAFOAVOL_CONCILIACION.FTN_CVE_SOLICITUD AND TTAFOAVOL_CONCILIACION.FTN_ESTATUS_TRAMITE IN (970,971)
+    	LEFT JOIN (SELECT TABLA.FTC_CVE_SOLICITUD,COUNT(CASE WHEN TABLA.FTN_ESTATUS_CARGO=${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ESTATUS_CARGO_APLICADO} THEN 1 END) AS GENERADO, 
+               COUNT(CASE WHEN TABLA.FTN_ESTATUS_CARGO=${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ESTATUS_CARGO_RECHAZADO} THEN 1 END) AS PENDIENTE
+              FROM(
+                  SELECT AA.FTC_CVE_SOLICITUD,AA.FTN_ESTATUS_CARGO
+                  FROM THAFOAVOL_SOLICITUD AA, TTAFOAVOL_SOLICITUD BB
+                WHERE AA.FTC_CVE_SOLICITUD=BB.FTC_CVE_SOLICITUD
+                  AND BB.FTN_ESTATUS_SOLICITUD IN (${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ESTATUS_SOLICITUD_ACEPTADO},513) 
+				  AND AA.FTN_ID_ORIGEN_SOLICITUD = ${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_APP_PRODUCE_REGISTRO}
+				  AND AA.FTN_ORIGEN_APORTACION = ${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ORIGEN_APORTACION_DOMICILIACION}
+                  AND TO_CHAR(BB.FTD_FEH_CAPTURA,'YYYY')= #{anio,jdbcType=VARCHAR} 
+                  AND TO_CHAR(BB.FTD_FEH_CAPTURA,'MM')= #{mes,jdbcType=VARCHAR}
+                  AND AA.FTN_ESTATUS_CARGO IN (500,501)
+                  UNION
+                  SELECT CC.FTC_CVE_SOLICITUD,CC.FTN_ESTATUS_CARGO
+                  FROM TTAFOAVOL_SOLICITUD CC
+                WHERE CC.FTN_ESTATUS_SOLICITUD IN (${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ESTATUS_SOLICITUD_ACEPTADO},513) 
+				  AND CC.FTN_ID_ORIGEN_SOLICITUD = ${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_APP_PRODUCE_REGISTRO}
+				  AND CC.FTN_ORIGEN_APORTACION = ${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ORIGEN_APORTACION_DOMICILIACION}
+                  AND TO_CHAR(CC.FTD_FEH_CAPTURA,'YYYY')= #{anio,jdbcType=VARCHAR}
+                  AND TO_CHAR(CC.FTD_FEH_CAPTURA,'MM')= #{mes,jdbcType=VARCHAR}
+                  AND CC.FTN_ESTATUS_CARGO IN (500,501)
+                ) TABLA GROUP BY TABLA.FTC_CVE_SOLICITUD) TABLA2
+  ON SOLICITU.FTC_CVE_SOLICITUD=TABLA2.FTC_CVE_SOLICITUD
+	GROUP BY SOLICITU.RECU
+ 	</select>
+
+ 	<select id="lstDetalleDomiTraspasoSL" 
+ 		 parameterType="mx.profuturo.nci.business.wrapped.DetalleMesDomiTraspasoFilter"
+ 		 resultMap="ResultMapLstDetalleMesDomiTraspasos">
+ 		 SELECT SOLICITU.RECU,COUNT(1) AS SOL,
+ 		 		COUNT(CASE WHEN ESTATUS_TRASPASO=${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ESTATUS_SOLICITUD_ACEPTADO} THEN 1 END) AS SOLACEP ,
+ 		 		COUNT(CASE WHEN ESTATUS_TRASPASO=513 THEN 1 END) AS SOLCANCEL,
+ 			   NVL(SUM(TABLA2.GENERADO),0) AS UNCARGOACEP,NVL(SUM(TABLA2.PENDIENTE),0) AS UNCCARGORECH,
+			   NVL(SUM(TTAFOAVOL_PRINCIPAL.FTN_IMPORTE),0) AS RECUACRE,NVL(SUM(TTAFOAVOL_CONCILIACION.FTN_IMPORTE),0) AS RECUDEV
+ 
+		FROM 
+		(SELECT A.FTC_CVE_SOLICITUD,B.FCC_VALOR AS RECU,A.FTN_ESTATUS_SOLICITUD AS ESTATUS_TRASPASO, FTN_IMPORTE AS IMPORTE
+		FROM TTAFOAVOL_SOLICITUD A, TCCRXGRAL_CAT_CATALOGO B
+		WHERE A.FTN_ID_PERIODO= B.FCN_ID_CAT_CATALOGO 
+		AND B.FCN_ID_TIPO_CAT=51
+		AND A.FTN_ESTATUS_SOLICITUD IN (${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ESTATUS_SOLICITUD_ACEPTADO},513) 
+		AND A.FTN_ID_ORIGEN_SOLICITUD = ${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_APP_PRODUCE_REGISTRO}
+		AND A.FTN_ORIGEN_APORTACION = ${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ORIGEN_DOMICILIACION_TRASPASO}
+		AND TO_CHAR(FTD_FEH_CAPTURA,'YYYY')= #{anio,jdbcType=VARCHAR}
+		AND TO_CHAR(FTD_FEH_CAPTURA,'MM')= #{mes,jdbcType=VARCHAR}
+		)SOLICITU 
+		LEFT JOIN TTAFOAVOL_PRINCIPAL ON SOLICITU.FTC_CVE_SOLICITUD=TTAFOAVOL_PRINCIPAL.FTN_CVE_SOLICITUD 
+		LEFT JOIN TTAFOAVOL_CONCILIACION ON SOLICITU.FTC_CVE_SOLICITUD=TTAFOAVOL_CONCILIACION.FTN_CVE_SOLICITUD AND TTAFOAVOL_CONCILIACION.FTN_ESTATUS_TRAMITE IN (970,971)
+    	LEFT JOIN (SELECT TABLA.FTC_CVE_SOLICITUD,COUNT(CASE WHEN TABLA.FTN_ESTATUS_CARGO=${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ESTATUS_CARGO_APLICADO} THEN 1 END) AS GENERADO, 
+               COUNT(CASE WHEN TABLA.FTN_ESTATUS_CARGO=${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ESTATUS_CARGO_RECHAZADO} THEN 1 END) AS PENDIENTE
+              FROM(
+                  SELECT AA.FTC_CVE_SOLICITUD,AA.FTN_ESTATUS_CARGO
+                  FROM THAFOAVOL_SOLICITUD AA, TTAFOAVOL_SOLICITUD BB
+                WHERE AA.FTC_CVE_SOLICITUD=BB.FTC_CVE_SOLICITUD
+                  AND BB.FTN_ESTATUS_SOLICITUD IN (${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ESTATUS_SOLICITUD_ACEPTADO},513) 
+				  AND AA.FTN_ID_ORIGEN_SOLICITUD = ${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_APP_PRODUCE_REGISTRO}
+				  AND AA.FTN_ORIGEN_APORTACION = ${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ORIGEN_DOMICILIACION_TRASPASO}
+                  AND TO_CHAR(BB.FTD_FEH_CAPTURA,'YYYY')= #{anio,jdbcType=VARCHAR} 
+                  AND TO_CHAR(BB.FTD_FEH_CAPTURA,'MM')= #{mes,jdbcType=VARCHAR}
+                  AND AA.FTN_ESTATUS_CARGO IN (500,501)
+                  UNION
+                  SELECT CC.FTC_CVE_SOLICITUD,CC.FTN_ESTATUS_CARGO
+                  FROM TTAFOAVOL_SOLICITUD CC
+                WHERE CC.FTN_ESTATUS_SOLICITUD IN (${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ESTATUS_SOLICITUD_ACEPTADO},513) 
+				  AND CC.FTN_ID_ORIGEN_SOLICITUD = ${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_APP_PRODUCE_REGISTRO}
+				  AND CC.FTN_ORIGEN_APORTACION = ${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ORIGEN_DOMICILIACION_TRASPASO}
+                  AND TO_CHAR(CC.FTD_FEH_CAPTURA,'YYYY')= #{anio,jdbcType=VARCHAR}
+                  AND TO_CHAR(CC.FTD_FEH_CAPTURA,'MM')= #{mes,jdbcType=VARCHAR}
+                  AND CC.FTN_ESTATUS_CARGO IN (500,501)
+                ) TABLA GROUP BY TABLA.FTC_CVE_SOLICITUD) TABLA2
+  ON SOLICITU.FTC_CVE_SOLICITUD=TABLA2.FTC_CVE_SOLICITUD
+	GROUP BY SOLICITU.RECU
+ 	</select>
+ 	
+ 	<resultMap id="ResultMapLstMonitorDomiTraspaso" type="mx.profuturo.nci.business.vo.MonitorSolicitudesVO">
+		<id column="FTC_CVE_SOLICITUD"		property="claveSolicitud"		jdbcType="VARCHAR"/>
+		<id column="FTN_NUM_CTA_INVDUAL"	property="cuentaIndividual"		jdbcType="VARCHAR"/>
+		<id column="NOMBRE"					property="nombre"				jdbcType="VARCHAR"/>
+		<id column="FTN_NSS"				property="nss"					jdbcType="VARCHAR"/>
+		<id column="FTC_CURP"				property="curp"					jdbcType="VARCHAR"/>
+		<id column="FECRECEPCION"			property="fecRecepcion"			jdbcType="TIMESTAMP" 	javaType="date"/>
+		<id column="RECURENCIA"				property="recurrencia"			jdbcType="DECIMAL"/>
+		<id column="RECURENCIA_DESC"		property="recurrenciaDesc"		jdbcType="VARCHAR"/>
+		<id column="FREC_INICIAL"			property="frecInicial"			jdbcType="DECIMAL"/>
+		<id column="FREC_FINAL"				property="frecFinal"			jdbcType="DECIMAL"/>
+		<id column="FTN_ORIGEN_APORTACION"	property="origenAportacion"		jdbcType="DECIMAL"/>
+		<id column="ORIGEN_SOLICITUD"		property="origenDomicilio"		jdbcType="VARCHAR"/>
+		<id column="FTN_IMPORTE"			property="importe"				jdbcType="DECIMAL"/>
+		<id column="FTN_IMPORTE_REC"		property="importeRec"			jdbcType="DECIMAL"/>
+		<id column="TIPO_CTA"				property="tipoCta"				jdbcType="VARCHAR"/>
+		<id column="FTC_CTA_BANCO"			property="ctaBanco"				jdbcType="VARCHAR"/>
+		<id column="ESTATUS_SOLICITUD"		property="estatusSol"			jdbcType="VARCHAR"/>
+		<id column="RECHAZO_BANCO"			property="motRechazoBanco"		jdbcType="VARCHAR"/>
+		<id column="CTA_INVDUAL"			property="ctaIndividual"		jdbcType="VARCHAR"/>
+		<id column="CVE_BANCO"				property="cveBanco"				jdbcType="VARCHAR"/>
+		<id column="FTD_FEH_CARGO"			property="fecCargo"				jdbcType="TIMESTAMP" 	javaType="date"/>
+		<id column="FTD_FEH_PROX_CARGO"	    property="fecProxCargo"			jdbcType="TIMESTAMP" 	javaType="date"/>
+		<id column="ESTATUS_TRASPASO"		property="estatusTraspaso"		jdbcType="VARCHAR"/>
+		<id column="CTA_INVDUAL"			property="ctaInd"				jdbcType="VARCHAR"/>
+		<id column="CVE_BANCO"				property="ctaBan"				jdbcType="VARCHAR"/>
+		<id column="IMPORTE_II"				property="importeDos"			jdbcType="DECIMAL"/>
+		<id column="EST_CONCIL"				property="estConcil"			jdbcType="VARCHAR"/>
+		<id column="EST_MOV"				property="estMot"				jdbcType="VARCHAR"/>
+		<id column="SUM_CP"					property="cp"					jdbcType="DECIMAL"/>
+		<id column="SUM_LP"					property="lp"					jdbcType="DECIMAL"/>
+		<id column="AVPILP"					property="avpilp"				jdbcType="DECIMAL"/>
+		<id column="ACR"					property="acr"					jdbcType="DECIMAL"/>
+		<id column="ESTATUS_CARGO"			property="estCargo"				jdbcType="VARCHAR"/>
+		<id column="FTD_FEH_ACT"			property="fehAct"				jdbcType="TIMESTAMP" 	javaType="date"/>
+		<id column="FTC_USU_ACT"			property="usuAct"				jdbcType="VARCHAR"/>
+		<id column="FTD_FEH_CRE"			property="fehCre"				jdbcType="TIMESTAMP" 	javaType="date"/>
+		<id column="FTC_USU_CRE"			property="usuCre"				jdbcType="VARCHAR"/>
+		<id column="FTD_FEH_ACT_CARGO"		property="fehActCargo"				jdbcType="TIMESTAMP" 	javaType="date"/>
+		<id column="FTD_FEH_REACTIVACION"	property="fehReactivacion"		jdbcType="TIMESTAMP" 	javaType="date"/>
+		<id column="FTD_FEH_SUSPENSION"		property="fehSuspension"		jdbcType="TIMESTAMP" 	javaType="date"/>		
+		<id column="FTN_ID_ORIGEN_SOLICITUD"			property="idOrigenSolicitud"		jdbcType="DECIMAL"/>
+		<id column="ORIGEN_SOLICITUD_NO_APORTACION"		property="origenSolicitud"			jdbcType="VARCHAR"/>
+		<id column="FTC_GERENCIA"						property="gerencia"					jdbcType="VARCHAR"/>
+		<id column="FTC_NOMBRE_PROMOTOR"				property="promotor"					jdbcType="VARCHAR"/>
+		<id column="FTC_REGIONAL"						property="regional"					jdbcType="VARCHAR"/>
+		<id column="FTN_ID_TIPO_REGISTRO"				property="idTipoRegistro"			jdbcType="DECIMAL"/>
+		<id column="TIPO_REGISTRO"						property="tipoRegistro"				jdbcType="VARCHAR"/>
+		<id column="FTC_NOMBRE_TUTOR"					property="tutor"					jdbcType="VARCHAR"/>
+		<id column="FTC_AP_PATERNO_TUTOR"				property="paternoTutor"					jdbcType="VARCHAR"/>
+		<id column="FTC_AP_MATERNO_TUTOR"				property="maternoTutor"					jdbcType="VARCHAR"/>
+	</resultMap>
+ 	
+ 	<!-- FTN_ORIGEN_APORTACION = 845 		DOMICILIACION TRAPASOS -->
+ 	<select id="lstMonitorDomiTraspaso" 
+ 		 parameterType="mx.profuturo.nci.business.wrapped.MonitorDomiTraspasoFilter"
+ 		 resultMap="ResultMapLstMonitorDomiTraspaso">
+		SELECT FTC_CVE_SOLICITUD,FTN_NUM_CTA_INVDUAL,NOMBRE,FTN_NSS,FTC_CURP,FECRECEPCION,
+       	RECURENCIA,RECU AS RECURENCIA_DESC,NVL(FREC_INICIAL,0) AS FREC_INICIAL,NVL(FREC_FINAL,0) AS FREC_FINAL,
+       	FTN_ORIGEN_APORTACION,ORIGEN_SOLICITUD,FTN_IMPORTE,TIPO_CTA,FTC_CTA_BANCO,ESTATUS_SOLICITUD,RECHAZO_BANCO,
+       	CTA_INVDUAL,CVE_BANCO,FTD_FEH_CARGO,FTD_FEH_PROX_CARGO, IMPORTE_II,
+<!--        	DECODE(REG_CONCIL,1,'CONCILIADO','NO CONCILIADO') AS EST_CONCIL,
+       	DECODE(MOV_GENE,1,'GENERADO','NO GENERADO') AS EST_MOV, -->
+       	ID_ESTATUS_CARGO,ESTATUS_CARGO,
+       	FTN_ESTATUS_TRASPASO, ESTATUS_TRASPASO,
+       	SUM(CASE WHEN FTN_FONDO_APOVOL=741 THEN FTN_MONTO ELSE 0 END) AS SUM_CP,
+       	SUM(CASE WHEN FTN_FONDO_APOVOL=742 THEN FTN_MONTO ELSE 0 END) AS SUM_LP,
+       	SUM(CASE WHEN FTN_FONDO_APOVOL=743 THEN FTN_MONTO ELSE 0 END) AS AVPILP,
+       	SUM(CASE WHEN FTN_FONDO_APOVOL=744 THEN FTN_MONTO ELSE 0 END) AS ACR
+       	,FTD_FEH_ACT,FTC_USU_ACT,FTD_FEH_CRE,FTC_USU_CRE, FTD_FEH_REACTIVACION, FTD_FEH_SUSPENSION, FTN_ID_ORIGEN_SOLICITUD, ORIGEN_SOLICITUD_NO_APORTACION, 
+       	FTC_GERENCIA, FTC_NOMBRE_PROMOTOR, FTC_REGIONAL, FTN_ID_TIPO_REGISTRO, TIPO_REGISTRO, FTC_NOMBRE_TUTOR
+		FROM (
+			SELECT SOL.FTC_CVE_SOLICITUD,SOL.FTN_NUM_CTA_INVDUAL,SOL.NOMBRE,SOL.FTN_NSS,SOL.FTC_CURP,SOL.FECRECEPCION,
+       		SOL.RECURENCIA,NVL(HH.FCC_VALOR,'') AS RECU,SOL.FTN_FREC_INICIAL AS FREC_INICIAL,SOL.FTN_FREC_FINAL AS FREC_FINAL,
+       		SOL.FTN_ORIGEN_APORTACION,NVL(DD.FCC_VALOR,' ') AS ORIGEN_SOLICITUD,NVL(HH.FTN_FONDO_APOVOL,0) AS FTN_FONDO_APOVOL,NVL(HH.FTN_MONTO,0) AS FTN_MONTO,
+       		SOL.FTN_IMPORTE,NVL(EE.FCC_VALOR,' ')AS TIPO_CTA,SOL.FTC_CTA_BANCO,NVL(FF.FCC_VALOR,' ') AS ESTATUS_SOLICITUD,NVL(GG.FCC_VALOR,' ') AS RECHAZO_BANCO,
+       		SOL.FTD_FEH_CARGO AS FTD_FEH_CARGO, SOL.FTD_FEH_PROX_CARGO AS FTD_FEH_PROX_CARGO, SOL.FTN_NUM_CTA_INVDUAL AS CTA_INVDUAL,' ' AS CVE_BANCO, 0 AS IMPORTE_II,
+       		SOL.FTN_ESTATUS_CARGO AS ID_ESTATUS_CARGO, SOL.FCC_VALOR AS ESTATUS_CARGO,SOL.FTN_ESTATUS_TRASPASO, SOL.ESTATUS_TRASPASO
+       		,SOL.FTD_FEH_ACT,SOL.FTC_USU_ACT,SOL.FTD_FEH_CRE,SOL.FTC_USU_CRE, SOL.FTD_FEH_REACTIVACION, SOL.FTD_FEH_SUSPENSION, SOL.FTN_ID_ORIGEN_SOLICITUD, NVL(JJ.FCC_VALOR,' ') AS ORIGEN_SOLICITUD_NO_APORTACION,
+       		FTC_GERENCIA, FTC_NOMBRE_PROMOTOR, FTC_REGIONAL, SOL.FTN_ID_TIPO_REGISTRO, NVL(MM.FCC_VALOR,' ') AS TIPO_REGISTRO, FTC_NOMBRE_TUTOR
+<!--        		0 AS REG_CONCIL,0 AS MOV_GENE -->
+			<!-- ,SOL.FTN_REG_CONCILIADO AS REG_CONCIL,SOL.FTN_MOV_GENERADO AS MOV_GENE -->
+		FROM 
+		(SELECT A.FTC_CVE_SOLICITUD,A.FTN_NUM_CTA_INVDUAL,A.FTC_NOMBRE_CTE||' '||A.FTC_AP_PATERNO_CTE||' '||A.FTC_AP_MATERNO_CTE AS NOMBRE,
+                            A.FTN_NSS,A.FTC_CURP,A.FTD_FEH_CRE AS FECRECEPCION, A.FTN_ID_PERIODO AS RECURENCIA,A.FTN_FREC_INICIAL,A.FTN_FREC_FINAL,
+                        A.FTN_ORIGEN_APORTACION,A.FTN_IMPORTE,A.FTN_ID_TIPO_CTA,A.FTC_CTA_BANCO,A.FTN_ESTATUS_SOLICITUD,A.FTN_ID_RECHAZO_BANCO,
+                        A.FTD_FEH_CARGO, A.FTD_FEH_PROX_CARGO, A.FTN_ESTATUS_CARGO,D.FCC_VALOR
+                        <!-- ,C.FTN_REG_CONCILIADO,C.FTN_MOV_GENERADO -->
+                        , A.FTN_ESTATUS_TRASPASO, E.FCC_VALOR AS ESTATUS_TRASPASO
+                        ,A.FTD_FEH_ACT,A.FTC_USU_ACT,A.FTD_FEH_CRE,A.FTC_USU_CRE,A.FTD_FEH_SUSPENSION,
+			A.FTD_FEH_REACTIVACION, A.FTN_ID_ORIGEN_SOLICITUD, 
+                        A.FTC_GERENCIA, A.FTC_NOMBRE_PROMOTOR, A.FTC_REGIONAL, A.FTN_ID_TIPO_REGISTRO, A.FTC_NOMBRE_TUTOR
+                   FROM TTAFOAVOL_SOLICITUD A
+       LEFT JOIN TCCRXGRAL_CAT_CATALOGO D ON A.FTN_ESTATUS_CARGO=D.FCN_ID_CAT_CATALOGO
+       LEFT JOIN TCCRXGRAL_CAT_CATALOGO E ON A.FTN_ESTATUS_TRASPASO=E.FCN_ID_CAT_CATALOGO 
+<!--        LEFT JOIN TTAFOAVOL_CONCILIACION C ON A.FTC_CVE_SOLICITUD=C.FTN_CVE_SOLICITUD AND C.FTN_ORIGEN_APORTACION = A.FTN_ORIGEN_APORTACION -->
+		   WHERE A.FTN_ORIGEN_APORTACION IN 
+					   <foreach collection="origenSol"
+								item="soli"
+								open="("
+								separator=","
+								close=")">
+								#{soli,jdbcType=DECIMAL}
+						</foreach>	   
+		 	<if test="cuentaInd != null">
+		   		AND A.FTN_NUM_CTA_INVDUAL= #{cuentaInd,jdbcType=VARCHAR}
+		 	</if>
+		 	<if test="nss != null">
+		   		AND A.FTN_NSS= #{nss,jdbcType=VARCHAR}
+		 	</if>
+		 	<if test="curp != null">
+				AND A.FTC_CURP= #{curp,jdbcType=VARCHAR}
+		 	</if>
+			) SOL 
+       		LEFT JOIN TCCRXGRAL_CAT_CATALOGO DD ON SOL.FTN_ORIGEN_APORTACION=DD.FCN_ID_CAT_CATALOGO 
+       		LEFT JOIN TCCRXGRAL_CAT_CATALOGO EE ON SOL.FTN_ID_TIPO_CTA=EE.FCN_ID_CAT_CATALOGO 
+       		LEFT JOIN TCCRXGRAL_CAT_CATALOGO FF ON SOL.FTN_ESTATUS_SOLICITUD=FF.FCN_ID_CAT_CATALOGO 
+       		LEFT JOIN TCCRXGRAL_CAT_CATALOGO GG ON SOL.FTN_ID_RECHAZO_BANCO=GG.FCN_ID_CAT_CATALOGO
+       		LEFT JOIN TCCRXGRAL_CAT_CATALOGO HH ON SOL.RECURENCIA=HH.FCN_ID_CAT_CATALOGO
+       		LEFT JOIN TTAFOAVOL_DIVERSIF_SOLICITUD HH ON SOL.FTC_CVE_SOLICITUD=HH.FTC_CVE_SOLICITUD AND HH.FTN_VIGENCIA=1
+       		LEFT JOIN TCCRXGRAL_CAT_CATALOGO JJ ON SOL.FTN_ID_ORIGEN_SOLICITUD = JJ.FCN_ID_CAT_CATALOGO
+       		LEFT JOIN TCCRXGRAL_CAT_CATALOGO MM ON SOL.FTN_ID_TIPO_REGISTRO = MM.FCN_ID_CAT_CATALOGO
+		) SOL_DOS
+	   	GROUP BY FTC_CVE_SOLICITUD,FTN_NUM_CTA_INVDUAL,NOMBRE,FTN_NSS,FTC_CURP,FECRECEPCION,
+       	RECURENCIA,RECU,FREC_INICIAL,FREC_FINAL,FTN_ORIGEN_APORTACION,ORIGEN_SOLICITUD,FTN_IMPORTE,TIPO_CTA,FTC_CTA_BANCO,
+       	ESTATUS_SOLICITUD,RECHAZO_BANCO,FTD_FEH_CARGO, FTD_FEH_PROX_CARGO,CTA_INVDUAL,CVE_BANCO,IMPORTE_II,<!-- REG_CONCIL,MOV_GENE, -->ID_ESTATUS_CARGO,ESTATUS_CARGO,
+       	FTN_ESTATUS_TRASPASO, ESTATUS_TRASPASO,FTD_FEH_ACT,FTC_USU_ACT,FTD_FEH_CRE,FTC_USU_CRE, FTD_FEH_REACTIVACION, FTD_FEH_SUSPENSION, FTN_ID_ORIGEN_SOLICITUD, ORIGEN_SOLICITUD_NO_APORTACION,
+       	FTC_GERENCIA, FTC_NOMBRE_PROMOTOR, FTC_REGIONAL, FTN_ID_TIPO_REGISTRO, TIPO_REGISTRO, FTC_NOMBRE_TUTOR
+		ORDER BY FTD_FEH_CARGO DESC, FTC_CURP ASC, FTN_NUM_CTA_INVDUAL ASC
+ 	</select>
+ 	
+
+	<update id="actualizaDomiTraspasoApovol" parameterType="mx.profuturo.nci.business.wrapped.ApoVolFilter">
+	UPDATE TTAFOAVOL_DIVERSIF_SOLICITUD
+	<set>
+		FTD_FEH_ACT=SYSDATE,
+		<if test="usuario != null">
+			FTC_USU_ACT = #{usuario,jdbcType=VARCHAR},
+		</if>   
+		<if test="monto != null">
+			FTN_MONTO = #{monto,jdbcType=DECIMAL}
+		</if>   
+    </set>
+	WHERE FTC_CVE_SOLICITUD  = #{cveSol,jdbcType=VARCHAR}
+	AND FTN_FONDO_APOVOL = #{fondoApovol,jdbcType=DECIMAL}
+  </update>
+	
+
+	<update id="cancelaSolicitud" parameterType="mx.profuturo.nci.business.vo.SolicitudVO">
+	UPDATE TTAFOAVOL_SOLICITUD
+	<set>
+		FTN_ESTATUS_SOLICITUD=513, FTN_ID_RECHAZO_BANCO=575 
+    </set>
+	WHERE FTC_CVE_SOLICITUD  = #{claveSolicitud,jdbcType=VARCHAR}
+	
+  </update>
+  
+	<update id="reactivarDomicializacionUpdate" parameterType="mx.profuturo.nci.business.vo.SolicitudVO">
+		UPDATE TTAFOAVOL_SOLICITUD
+		<set>
+			FTN_ESTATUS_SOLICITUD=516 
+    	</set>
+		WHERE FTC_CVE_SOLICITUD  = #{claveSolicitud,jdbcType=VARCHAR}
+	</update>
+
+	<update id="updateEstatusTramiteAportaciones" parameterType="mx.profuturo.nci.business.vo.SolicitudVO">
+		UPDATE TTAFOAVOL_CONCILIACION
+		<set>
+			FTN_ESTATUS_TRAMITE = 968, FTC_USU_ACT = #{usuarioActualizacion,jdbcType=VARCHAR}, FTD_FEH_ACT = SYSDATE
+    	</set>
+		WHERE FTN_ESTATUS_TRAMITE = 970 AND FTN_CVE_SOLICITUD = #{claveSolicitud,jdbcType=VARCHAR}
+	</update>  
+  
+
+	<update id="actualizaDomiTraspaso" parameterType="mx.profuturo.nci.business.wrapped.ApoVolFilter">
+	UPDATE TTAFOAVOL_SOLICITUD
+	<set>
+		<if test="monto != null">
+			FTN_ID_PERIODO = #{periodicidad,jdbcType=DECIMAL},
+		</if>
+		<if test="frecIni != null">
+			FTN_FREC_INICIAL = #{frecIni,jdbcType=DECIMAL},
+		</if>
+		<if test="frecIni == null">
+			FTN_FREC_INICIAL = NULL,
+		</if>
+		<if test="frecFin != null">
+			FTN_FREC_FINAL = #{frecFin,jdbcType=DECIMAL},
+		</if>
+		<if test="frecFin == null">
+			FTN_FREC_FINAL = NULL,
+		</if>
+		<if test="monto != null">
+			FTN_IMPORTE = #{monto,jdbcType=DECIMAL},
+		</if>
+		<if test="idEstatus != null">
+			FTN_ESTATUS_SOLICITUD = #{idEstatus,jdbcType=DECIMAL},
+		</if>
+		<if test="fechaProximoCargo != null">
+			FTD_FEH_PROX_CARGO = #{fechaProximoCargo,jdbcType=TIMESTAMP},
+		</if>
+		<if test="usuario != null">
+			FTC_USU_ACT = #{usuario,jdbcType=VARCHAR},
+		</if>   
+			FTD_FEH_ACT=SYSDATE
+    </set>
+	WHERE FTC_CVE_SOLICITUD  = #{cveSol,jdbcType=VARCHAR}
+  </update>	
+  
+  	<update id="actualizaEstatusDomiTraspaso" parameterType="mx.profuturo.nci.business.wrapped.ApoVolFilter">
+	UPDATE TTAFOAVOL_SOLICITUD
+	<set>
+		<if test="idEstatus != null">
+			FTN_ESTATUS_SOLICITUD = #{idEstatus,jdbcType=DECIMAL},
+		</if>
+		<if test="usuario != null">
+			FTC_USU_ACT = #{usuario,jdbcType=VARCHAR},
+		</if>   
+			FTD_FEH_ACT=SYSDATE
+    </set>
+	WHERE FTC_CVE_SOLICITUD  = #{cveSol,jdbcType=VARCHAR}
+  </update>	
+ 	
+
+	<update id="actualizaDomiVigencia" parameterType="mx.profuturo.nci.business.wrapped.ApoVolFilter">
+	UPDATE TTAFOAVOL_DIVERSIF_SOLICITUD
+	<set>
+		<if test="vigencia != null">
+			FTN_VIGENCIA = #{vigencia,jdbcType=DECIMAL},
+		</if>
+		<if test="usuario != null">
+			FTC_USU_ACT = #{usuario,jdbcType=VARCHAR},
+		</if>   
+			FTD_FEH_ACT=SYSDATE
+    </set>
+	WHERE FTC_CVE_SOLICITUD  = #{cveSol,jdbcType=VARCHAR}
+  </update>	
+
+
+	<insert id="insertaDomiDiversificacion" parameterType="mx.profuturo.nci.business.wrapped.ApoVolFilter">
+		INSERT INTO TTAFOAVOL_DIVERSIF_SOLICITUD
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="cveSol != null">
+				FTC_CVE_SOLICITUD,
+			</if>
+			FTC_FOLIO,
+			<if test="fondo != null">
+				FTN_FONDO_APOVOL,
+			</if>
+			<if test="monto != null">
+				FTN_MONTO,
+			</if>
+			<if test="porcentaje != null">
+				FTN_PORCENTAJE,
+			</if>
+			FTD_FEH_CRE,
+			<if test="usuario != null">
+				FTC_USU_CRE,
+			</if>
+			FTD_FEH_ACT,
+			FTC_USU_ACT,
+			<if test="vigencia != null">
+				FTN_VIGENCIA
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="">
+			<if test="cveSol != null">
+				#{cveSol,jdbcType=VARCHAR},
+			</if>
+				NULL,
+			<if test="fondo != null">
+				#{fondo,jdbcType=DECIMAL},
+			</if>
+			<if test="monto != null">
+				#{monto,jdbcType=DECIMAL},
+			</if>
+			<if test="porcentaje != null">
+				#{porcentaje,jdbcType=DECIMAL},
+			</if>
+				SYSDATE,
+			<if test="usuario != null">
+				#{usuario,jdbcType=VARCHAR},
+			</if>
+				NULL,NULL,
+			<if test="vigencia != null">
+				#{vigencia,jdbcType=VARCHAR}
+			</if>
+		</trim>
+	</insert>
+
+ 
+
+<resultMap id="ResultMapSolicitud" type="mx.profuturo.nci.business.vo.SolicitudVO">
+		<result column="FTC_FOLIO" 			property="folio" 						jdbcType="VARCHAR"/>
+		<result column="FTN_NUM_CTA_INVDUAL" property="numCuentaIndividual" 		jdbcType="DECIMAL"/>
+		<result column="FTC_CTA_BANCO" 		property="cuentaBanco" 					jdbcType="VARCHAR"/>
+		<result column="FTC_NOMBRE_CTE" 	property="clienteNombre" 				jdbcType="VARCHAR"/>
+		<result column="FTC_AP_PATERNO_CTE" property="clientePaterno" 				jdbcType="VARCHAR"/>
+		<result column="FTC_AP_MATERNO_CTE" property="clienteMaterno"				jdbcType="VARCHAR"/>
+		<result column="FTD_FEH_CAPTURA" 	property="fechaCaptura" 				jdbcType="TIMESTAMP"/>
+		<result column="FTN_IMPORTE" 		property="importe" 						jdbcType="DECIMAL"/>
+		<result column="FTD_FEH_ACT" 		property="fechaActualizacion" 			jdbcType="TIMESTAMP" 	javaType="date"/>
+		<result column="FTC_USU_ACT" 		property="usuarioActualizacion"			jdbcType="VARCHAR" 		javaType="string"/>
+		<result column="FTD_FEH_ESTATUS_SOLICITUD" property="fechaEstatuSolicitud"	jdbcType="TIMESTAMP"/>
+		<result column="FTC_CVE_SOLICITUD" 	property="claveSolicitud"				jdbcType="VARCHAR"/>
+		<result column="FTC_USU_CRE" 		property="usuarioCreacion"				jdbcType="VARCHAR"/>
+		<result column="CTA_BANCO"			property="cuentaBanco" 					jdbcType="VARCHAR"/>
+	
+		<association property="origenSolicitud"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericCtOrigenSolicitud"/>
+		<association property="estatusSolicitud"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericCtEstatusSolicitud"/>
+		<association property="claveBanco"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericClaveBanco"/>
+		<association property="origenAportacion"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericOrigenAportacion"/>
+		<association property="fondoApovol" 
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericCtFondoApovol"/>
+		<association property="periodo" 
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericCtPeriodo"/>
+		<association property="tipoCuenta" 
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericCtTipoCuenta"/>
+		<association property="moneda" 
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericCtMoneda"/>
+	</resultMap>
+	
+	<select id="consultarSolicitudDomiciliacion" parameterType="mx.profuturo.nci.business.wrapped.SolicitudFilter" 
+	        resultMap="ResultMapSolicitud">
+		SELECT SOL.FTC_FOLIO,
+		    SOL.FTN_NUM_CTA_INVDUAL,
+		    SOL.FTC_CTA_BANCO,
+		    CCB.FCC_VALOR AS FCC_VALOR_CLAVE_BANCO,
+		    SOL.FTC_NOMBRE_CTE,
+		    SOL.FTC_AP_PATERNO_CTE,
+		    SOL.FTC_AP_MATERNO_CTE,
+		    SOL.FTD_FEH_CAPTURA,
+		    SOL.FTN_IMPORTE,
+		    SOL.FTD_FEH_ACT,
+		    SOL.FTC_USU_ACT,
+		    SOL.FTD_FEH_ESTATUS_SOLICITUD,
+		    SOL.FTN_ID_ORIGEN_SOLICITUD,
+		    COS.FCC_VALOR FCC_VALOR_ORIGEN_SOLI,
+		    SOL.FTN_ESTATUS_SOLICITUD,
+		    CES.FCC_VALOR AS FCC_VALOR_ESTATUS_SOL,
+		    SOL.FTN_CVE_BANCO,
+		    SOL.FTN_ORIGEN_APORTACION,
+		    COA.FCC_VALOR AS FCC_VALOR_ORIGEN_APORTACION,
+			SOL.FTC_CVE_SOLICITUD,
+			SOL.FTN_ID_PERIODO,
+			CP.FCC_VALOR AS FCC_VALOR_PERIODO,
+			SOL.FTN_ID_TIPO_CTA,
+			TC.FCC_VALOR AS FCC_VALOR_TIPO_CTA,
+			SOL.FTN_MONEDA, 
+			MON.FCC_VALOR as FCC_VALOR_MONEDA,
+			SOL.FTC_USU_CRE,
+			CDS.FCC_VALOR AS FCC_VALOR_FONDO_APOVOL,
+		    DS.FTN_FONDO_APOVOL AS FTN_ID_FONDO_APOVOL,
+		    SUBSTR(FTC_CTA_BANCO,LENGTH(FTC_CTA_BANCO)-3) AS CTA_BANCO,
+		    SOL.FTC_GERENCIA,
+		    SOL.FTC_NOMBRE_PROMOTOR,
+			SOL.FTC_REGIONAL,
+			SOL.FTN_ID_TIPO_REGISTRO,
+			SOL.FTC_NOMBRE_TUTOR,
+			SOL.FTC_AP_PATERNO_TUTOR,
+			SOL.FTC_AP_MATERNO_TUTOR					    
+		FROM TTAFOAVOL_SOLICITUD SOL
+		INNER JOIN TTAFOAVOL_DIVERSIF_SOLICITUD DS ON DS.FTC_CVE_SOLICITUD = SOL.FTC_CVE_SOLICITUD
+    	LEFT JOIN TCCRXGRAL_CAT_CATALOGO CDS ON CDS.FCN_ID_CAT_CATALOGO = DS.FTN_FONDO_APOVOL
+		LEFT JOIN TCCRXGRAL_CAT_CATALOGO COA ON COA.FCN_ID_CAT_CATALOGO = SOL.FTN_ORIGEN_APORTACION
+		LEFT JOIN TCCRXGRAL_CAT_CATALOGO COS ON COS.FCN_ID_CAT_CATALOGO = SOL.FTN_ID_ORIGEN_SOLICITUD
+		LEFT JOIN TCCRXGRAL_CAT_CATALOGO CES ON CES.FCN_ID_CAT_CATALOGO = SOL.FTN_ESTATUS_SOLICITUD
+		LEFT JOIN TCCRXGRAL_CAT_CATALOGO CEC ON CEC.FCN_ID_CAT_CATALOGO = SOL.FTN_ESTATUS_CARGO
+		LEFT JOIN TCCRXGRAL_CAT_CATALOGO CET ON CET.FCN_ID_CAT_CATALOGO = SOL.FTN_ESTATUS_TRASPASO
+		LEFT JOIN TCCRXGRAL_CAT_CATALOGO CCB ON CCB.FCN_ID_CAT_CATALOGO = SOL.FTN_CVE_BANCO
+		LEFT JOIN TCCRXGRAL_CAT_CATALOGO CP ON CP.FCN_ID_CAT_CATALOGO = SOL.FTN_ID_PERIODO
+		LEFT JOIN TCCRXGRAL_CAT_CATALOGO TC ON TC.FCN_ID_CAT_CATALOGO = SOL.FTN_ID_TIPO_CTA
+		LEFT JOIN TCCRXGRAL_CAT_CATALOGO MON ON MON.FCN_ID_CAT_CATALOGO = SOL.FTN_MONEDA  
+		<where>
+			<if test="numCuentaIndividual != null">
+				SOL.FTN_NUM_CTA_INVDUAL = #{numCuentaIndividual,jdbcType=DECIMAL}
+			</if>
+			<if test="nss != null">
+				AND SOL.FTN_NSS = #{nss,jdbcType=VARCHAR}
+			</if>
+			<if test="curp != null">
+				AND SOL.FTC_CURP = #{curp,jdbcType=VARCHAR}
+			</if>
+			<if test="origenAportacion != null and origenAportacion.id">
+				AND SOL.FTN_ID_ORIGEN_SOLICITUD = #{origenAportacion.id,jdbcType=DECIMAL}
+			</if>
+			<if test="estatusSolicitud != null and estatusSolicitud.id">
+				AND SOL.FTN_ESTATUS_SOLICITUD = #{estatusSolicitud.id,jdbcType=DECIMAL}
+			</if>
+			<if test="fechaInicio != null and fechaFin != null">
+				AND SOL.FTD_FEH_CAPTURA BETWEEN trunc(#{fechaInicio,jdbcType=TIMESTAMP}) AND
+				trunc(#{fechaFin,jdbcType=TIMESTAMP})+.99999
+			</if>
+		</where>
+	UNION
+		SELECT FTC_FOLIO, FTN_NUM_CTA_INVDUAL, FTC_CTA_BANCO, FCC_VALOR_CLAVE_BANCO, FTC_NOMBRE_CTE,
+               FTC_AP_PATERNO_CTE, FTC_AP_MATERNO_CTE, FTD_FEH_CAPTURA, SUM(FTN_IMPORTE) AS FTN_IMPORTE, FTD_FEH_ACT, FTC_USU_ACT,
+               FTD_FEH_ESTATUS_SOLICITUD, FTN_ID_ORIGEN_SOLICITUD, FCC_VALOR_ORIGEN_SOLI, FTN_ESTATUS_SOLICITUD,
+               FCC_VALOR_ESTATUS_SOL, FTN_CVE_BANCO, FTN_ORIGEN_APORTACION, FCC_VALOR_ORIGEN_APORTACION,
+               FTC_CVE_SOLICITUD, FTN_ID_PERIODO, FCC_VALOR_PERIODO, FTN_ID_TIPO_CTA, FCC_VALOR_TIPO_CTA,
+               FTN_MONEDA, FCC_VALOR_MONEDA, FTC_USU_CRE, FCC_VALOR_FONDO_APOVOL,
+               FTN_ID_FONDO_APOVOL, CTA_BANCO
+          FROM(
+               SELECT CON.FTC_FOLIO, 
+                      CON.FTN_NUM_CTA_INVDUAL, 
+                      CON.FTC_CTA_BANCO, 
+                      CCB.FCC_VALOR AS FCC_VALOR_CLAVE_BANCO, 
+                      FTC_NOMBRE_CTE,
+       				  CON.FTC_AP_PATERNO_CTE, 
+       				  CON.FTC_AP_MATERNO_CTE, 
+       				  CON.FTD_FEH_CRE AS FTD_FEH_CAPTURA, 
+       				  CON.FTN_IMPORTE AS FTN_IMPORTE, 
+       				  CON.FTD_FEH_ACT, 
+       				  CON.FTC_USU_ACT,
+       				  NULL AS FTD_FEH_ESTATUS_SOLICITUD, 
+       				  CON.FTN_ORIGEN_APORTACION AS FTN_ID_ORIGEN_SOLICITUD, 
+       				  COS.FCC_VALOR AS FCC_VALOR_ORIGEN_SOLI, 
+       				  CON.FTN_ESTATUS_TRAMITE AS FTN_ESTATUS_SOLICITUD,
+       				  CES.FCC_VALOR AS FCC_VALOR_ESTATUS_SOL, 
+       				  CON.FTN_CVE_BANCO, 
+       				  CON.FTN_ORIGEN_APORTACION, 
+       				  COA.FCC_VALOR AS FCC_VALOR_ORIGEN_APORTACION,
+       				  CON.FTC_FOLIO AS FTC_CVE_SOLICITUD, 
+       				  NULL AS FTN_ID_PERIODO, 
+       				  '' AS FCC_VALOR_PERIODO, 
+       				  NULL AS FTN_ID_TIPO_CTA, 
+       				  '' AS FCC_VALOR_TIPO_CTA,
+       				  NULL AS FTN_MONEDA, '' AS FCC_VALOR_MONEDA, 
+       				  CON.FTC_USU_CRE,
+       				  'DIVERSIFICADO' AS FCC_VALOR_FONDO_APOVOL,
+       				  NULL AS FTN_ID_FONDO_APOVOL, 
+       				  SUBSTR(CON.FTC_CTA_BANCO,LENGTH(CON.FTC_CTA_BANCO)-3) AS CTA_BANCO
+  				 FROM TTAFOAVOL_CONCILIACION CON
+  			LEFT JOIN TCCRXGRAL_CAT_CATALOGO CCB ON CCB.FCN_ID_CAT_CATALOGO = CON.FTN_CVE_BANCO
+  			LEFT JOIN TCCRXGRAL_CAT_CATALOGO COS ON COS.FCN_ID_CAT_CATALOGO = CON.FTN_ORIGEN_APORTACION
+  			LEFT JOIN TCCRXGRAL_CAT_CATALOGO CES ON CES.FCN_ID_CAT_CATALOGO = CON.FTN_ESTATUS_TRAMITE
+  			LEFT JOIN TCCRXGRAL_CAT_CATALOGO COA ON COA.FCN_ID_CAT_CATALOGO = CON.FTN_ORIGEN_APORTACION
+  			<where>
+				<if test="numCuentaIndividual != null">
+					CON.FTN_NUM_CTA_INVDUAL = #{numCuentaIndividual,jdbcType=DECIMAL}
+				</if>
+				<if test="nss != null">
+					AND CON.FTN_NSS = #{nss,jdbcType=VARCHAR}
+					</if>
+				<if test="curp != null">
+					AND CON.FTC_CURP = #{curp,jdbcType=VARCHAR}
+				</if>
+				<if test="origenAportacion != null and origenAportacion.id">
+					AND CON.FTN_ORIGEN_APORTACION = #{origenAportacion.id,jdbcType=DECIMAL}
+				</if>
+				<if test="estatusSolicitud != null and estatusSolicitud.id">
+					AND CON.FTN_ESTATUS_TRAMITE = #{estatusSolicitud.id,jdbcType=DECIMAL}
+				</if>
+				<if test="fechaInicio != null and fechaFin != null">
+					AND CON.FTD_FEH_CRE BETWEEN trunc(#{fechaInicio,jdbcType=TIMESTAMP}) AND
+					trunc(#{fechaFin,jdbcType=TIMESTAMP})+.99999
+				</if>
+			</where>
+			)GROUP BY FTC_FOLIO, FTN_NUM_CTA_INVDUAL, FTC_CTA_BANCO, FCC_VALOR_CLAVE_BANCO, FTC_NOMBRE_CTE,
+       		 		  FTC_AP_PATERNO_CTE, FTC_AP_MATERNO_CTE, FTD_FEH_CAPTURA, FTD_FEH_ACT, FTC_USU_ACT,
+       				  FTD_FEH_ESTATUS_SOLICITUD, FTN_ID_ORIGEN_SOLICITUD, FCC_VALOR_ORIGEN_SOLI, FTN_ESTATUS_SOLICITUD,
+       				  FCC_VALOR_ESTATUS_SOL, FTN_CVE_BANCO, FTN_ORIGEN_APORTACION, FCC_VALOR_ORIGEN_APORTACION,
+       				  FTC_CVE_SOLICITUD, FTN_ID_PERIODO, FCC_VALOR_PERIODO, FTN_ID_TIPO_CTA, FCC_VALOR_TIPO_CTA,
+       				  FTN_MONEDA, FCC_VALOR_MONEDA, FTC_USU_CRE, FCC_VALOR_FONDO_APOVOL,
+       				  FTN_ID_FONDO_APOVOL, CTA_BANCO       				 
+	</select>		
+		
+	<resultMap id="ResultMapSolicitudCorta" type="mx.profuturo.nci.business.vo.SolicitudVO">
+		<id column="ROW_ID" 						property="rowId" />
+		<result column="FTC_CVE_SOLICITUD" 	property="claveSolicitud"				jdbcType="VARCHAR"/>
+		<result column="FTN_NUM_CTA_INVDUAL" 		property="numCuentaIndividual"	 	jdbcType="DECIMAL"/>
+		<result column="FTC_NOMBRE_CTE" 			property="clienteNombre" 			jdbcType="VARCHAR"/>
+		<result column="FTC_AP_PATERNO_CTE" 		property="clientePaterno" 			jdbcType="VARCHAR"/>
+		<result column="FTC_AP_MATERNO_CTE" 		property="clienteMaterno"			jdbcType="VARCHAR"/>
+		<result column="FTD_FEH_ESTATUS_SOLICITUD" 	property="fechaEstatuSolicitud"		jdbcType="TIMESTAMP"/>
+		<result column="FTC_FOLIO" 					property="folio" 					jdbcType="VARCHAR"/>
+		<result column="FTN_IMPORTE" 				property="importe" 					jdbcType="DECIMAL"/>
+		<result column="FTC_CTA_BANCO" 				property="cuentaBanco" 				jdbcType="VARCHAR"/>
+		<result column="FTD_FEH_ACT"				property="fechaActualizacion" 		jdbcType="TIMESTAMP" 	javaType="date"/>
+		<result column="FTC_USU_ACT" 				property="usuarioActualizacion"		jdbcType="VARCHAR" 		javaType="string"/>
+		<result column="LLAVE" 						property="llave"					jdbcType="DECIMAL"/>
+		
+		<association property="origenSolicitud"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericCtOrigenSolicitud" />
+		<association property="claveBanco"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericClaveBanco" />		
+		<association property="estatusSolicitud"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericCtEstatusSolicitud" />
+		<association property="periodo"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericCtPeriodo" />			
+	</resultMap>	
+		
+	<select id="consultarSolicitudDomiciliacionCorta" parameterType="mx.profuturo.nci.business.wrapped.SolicitudFilter" 
+	        resultMap="ResultMapSolicitudCorta">
+	   SELECT ROWNUM AS ROW_ID,CON.FTN_NUM_CTA_INVDUAL, CON.FTC_NOMBRE_CTE, CON.FTC_AP_PATERNO_CTE, CON.FTC_AP_MATERNO_CTE,
+       CON.FTD_FEH_ESTATUS_SOLICITUD, CON.FTN_ID_ORIGEN_SOLICITUD, CON.FCC_VALOR_ORIGEN_SOLI,
+       CON.FTC_FOLIO, CON.FTN_IMPORTE, CON.FTN_CVE_BANCO, CON.FCC_VALOR_CLAVE_BANCO, CON.FTC_CTA_BANCO,
+       CON.FTN_ESTATUS_SOLICITUD,CON.FCC_VALOR_ESTATUS_SOL, CON.FTC_CVE_SOLICITUD,
+       CON.FTN_ID_PERIODO,CON.FCC_VALOR_PERIODO,CON.FTD_FEH_ACT,CON.FTC_USU_ACT
+	   FROM(    
+	 	SELECT CON.FTN_NUM_CTA_INVDUAL, CON.FTC_NOMBRE_CTE, CON.FTC_AP_PATERNO_CTE, CON.FTC_AP_MATERNO_CTE,
+       		   CON.FTD_FEH_CRE AS FTD_FEH_ESTATUS_SOLICITUD ,CON.FTN_ORIGEN_APORTACION AS FTN_ID_ORIGEN_SOLICITUD,
+               COA.FCC_VALOR AS FCC_VALOR_ORIGEN_SOLI,
+               CON.FTC_FOLIO AS FTC_FOLIO, CON.FTN_IMPORTE, TB.FTN_CVE_BANCO, CB.FCC_VALOR AS FCC_VALOR_CLAVE_BANCO,CON.FTC_CTA_BANCO,
+               CON.FTN_REG_CONCILIADO AS FTN_ESTATUS_SOLICITUD,DECODE(CON.FTN_REG_CONCILIADO,0,'NO CONCILIADO',1,'CONCILIADO',2,'RECHAZADO','DESCONOCIDO') AS FCC_VALOR_ESTATUS_SOL, NVL(CON.FTN_CVE_SOLICITUD,CON.FTC_FOLIO) AS FTC_CVE_SOLICITUD,
+               NULL AS FTN_ID_PERIODO,NULL AS FCC_VALOR_PERIODO,CON.FTD_FEH_ACT,CON.FTC_USU_ACT
+          FROM TTAFOAVOL_CONCILIACION CON
+          LEFT JOIN TCCRXGRAL_CAT_CATALOGO COA ON COA.FCN_ID_CAT_CATALOGO = CON.FTN_ORIGEN_APORTACION
+          LEFT JOIN TCCRXGRAL_CAT_CATALOGO CES ON CES.FCN_ID_CAT_CATALOGO = CON.FTN_ESTATUS_TRAMITE
+          LEFT JOIN TRAFOAVOL_FOLIO_BANCO  TFB ON TFB.FTC_FOLIO = CON.FTC_FOLIO
+          LEFT JOIN TTAFOAVOL_BANCOS TB ON TFB.FTN_ID_BANCO = TB.FTN_ID_BANCO
+          LEFT JOIN TCCRXGRAL_CAT_CATALOGO CB ON CB.FCN_ID_CAT_CATALOGO = TB.FTN_CVE_BANCO
+         <where>
+			<if test="numCuentaIndividual != null">
+				CON.FTN_NUM_CTA_INVDUAL = #{numCuentaIndividual,jdbcType=DECIMAL}
+			</if>
+			<if test="nss != null">
+				AND CON.FTN_NSS = #{nss,jdbcType=VARCHAR}
+			</if>
+			<if test="curp != null">
+				AND CON.FTC_CURP = #{curp,jdbcType=VARCHAR}
+			</if>
+			<if test="origenAportacion != null and origenAportacion.id">
+				AND CON.FTN_ORIGEN_APORTACION = #{origenAportacion.id,jdbcType=DECIMAL}
+			</if>
+			<if test="estatusSolicitud != null and estatusSolicitud.id">
+				AND CON.FTN_ESTATUS_TRAMITE = #{estatusSolicitud.id,jdbcType=DECIMAL}
+			</if>
+			<if test="fechaInicio != null and fechaFin != null">
+				AND CON.FTD_FEH_CRE BETWEEN trunc(#{fechaInicio,jdbcType=TIMESTAMP}) AND
+				trunc(#{fechaFin,jdbcType=TIMESTAMP})+.99999
+			</if>
+		</where>        
+	UNION        
+		SELECT SOL.FTN_NUM_CTA_INVDUAL, SOL.FTC_NOMBRE_CTE, SOL.FTC_AP_PATERNO_CTE, SOL.FTC_AP_MATERNO_CTE,
+		       SOL.FTD_FEH_CAPTURA AS FTD_FEH_ESTATUS_SOLICITUD, SOL.FTN_ID_ORIGEN_SOLICITUD,
+		       DECODE(SOL.FTN_ID_ORIGEN_SOLICITUD,463,'DOMI INTERNET',COA.FCC_VALOR) AS FCC_VALOR_ORIGEN_SOLI,
+		       SOL.FTC_FOLIO, SOL.FTN_IMPORTE, SOL.FTN_CVE_BANCO, CB.FCC_VALOR AS FCC_VALOR_CLAVE_BANCO, SOL.FTC_CTA_BANCO,
+		       SOL.FTN_ESTATUS_SOLICITUD, CES.FCC_VALOR AS FCC_VALOR_ESTATUS_SOL, SOL.FTC_CVE_SOLICITUD,
+		       SOL.FTN_ID_PERIODO, CP.FCC_VALOR AS FCC_VALOR_PERIODO, SOL.FTD_FEH_ACT, SOL.FTC_USU_ACT
+		  FROM TTAFOAVOL_SOLICITUD SOL
+		  LEFT JOIN TCCRXGRAL_CAT_CATALOGO COA ON COA.FCN_ID_CAT_CATALOGO = SOL.FTN_ID_ORIGEN_SOLICITUD
+		  LEFT JOIN TCCRXGRAL_CAT_CATALOGO CES ON CES.FCN_ID_CAT_CATALOGO = SOL.FTN_ESTATUS_SOLICITUD
+		  LEFT JOIN TCCRXGRAL_CAT_CATALOGO CP ON CP.FCN_ID_CAT_CATALOGO = SOL.FTN_ID_PERIODO  
+		  LEFT JOIN TRAFOAVOL_FOLIO_BANCO  TFB ON TFB.FTC_FOLIO = SOL.FTC_FOLIO
+          LEFT JOIN TTAFOAVOL_BANCOS TB ON TFB.FTN_ID_BANCO = TB.FTN_ID_BANCO
+          LEFT JOIN TCCRXGRAL_CAT_CATALOGO CB ON CB.FCN_ID_CAT_CATALOGO = SOL.FTN_CVE_BANCO
+		  
+		<where>
+			<if test="numCuentaIndividual != null">
+				SOL.FTN_NUM_CTA_INVDUAL = #{numCuentaIndividual,jdbcType=DECIMAL}
+			</if>
+			<if test="nss != null">
+				AND SOL.FTN_NSS = #{nss,jdbcType=VARCHAR}
+			</if>
+			<if test="curp != null">
+				AND SOL.FTC_CURP = #{curp,jdbcType=VARCHAR}
+			</if>
+			<if test="origenAportacion != null and origenAportacion.id">
+				AND SOL.FTN_ID_ORIGEN_SOLICITUD = #{origenAportacion.id,jdbcType=DECIMAL}
+			</if>
+			<if test="estatusSolicitud != null">
+				<if test="estatusSolicitud.id == 509 or estatusSolicitud.id == 512 or estatusSolicitud.id == 513">
+					<if test="estatusSolicitud.id == 509">
+						AND SOL.FTN_ESTATUS_SOLICITUD IN (509,940)
+					</if>
+					<if test="estatusSolicitud.id == 512">
+						AND SOL.FTN_ESTATUS_SOLICITUD IN (512,941)
+					</if>
+					<if test="estatusSolicitud.id == 513">
+						AND SOL.FTN_ESTATUS_SOLICITUD IN (513,942)
+					</if>
+					
+				</if>
+				<if test="estatusSolicitud.id != 509 and estatusSolicitud.id != 512 and estatusSolicitud.id != 513">
+					AND SOL.FTN_ESTATUS_SOLICITUD = #{estatusSolicitud.id,jdbcType=DECIMAL}
+				</if>
+			</if>
+			<if test="fechaInicio != null and fechaFin != null">
+				AND SOL.FTD_FEH_CAPTURA BETWEEN trunc(#{fechaInicio,jdbcType=TIMESTAMP}) AND
+				trunc(#{fechaFin,jdbcType=TIMESTAMP})+.99999
+			</if>
+		</where>
+	UNION
+		SELECT SOL.FTN_NUM_CTA_INVDUAL, SOL.FTC_NOMBRE_CTE, SOL.FTC_AP_PATERNO_CTE, SOL.FTC_AP_MATERNO_CTE,
+		       SOL.FTD_FEH_CAPTURA AS FTD_FEH_ESTATUS_SOLICITUD, SOL.FTN_ID_ORIGEN_SOLICITUD,
+		       DECODE(SOL.FTN_ID_ORIGEN_SOLICITUD,463,'DOMI INTERNET',COA.FCC_VALOR) AS FCC_VALOR_ORIGEN_SOLI,
+		       SOL.FTC_FOLIO, SOL.FTN_IMPORTE, SOL.FTN_CVE_BANCO, CB.FCC_VALOR AS FCC_VALOR_CLAVE_BANCO, SOL.FTC_CTA_BANCO,
+		       SOL.FTN_ESTATUS_SOLICITUD, CES.FCC_VALOR AS FCC_VALOR_ESTATUS_SOL, SOL.FTC_CVE_SOLICITUD,
+		       SOL.FTN_ID_PERIODO, CP.FCC_VALOR AS FCC_VALOR_PERIODO, SOL.FTD_FEH_ACT, SOL.FTC_USU_ACT
+		  FROM TTAFOAVOL_PRE_SOLICITUD SOL
+		  LEFT JOIN TCCRXGRAL_CAT_CATALOGO COA ON COA.FCN_ID_CAT_CATALOGO = SOL.FTN_ID_ORIGEN_SOLICITUD
+		  LEFT JOIN TCCRXGRAL_CAT_CATALOGO CES ON CES.FCN_ID_CAT_CATALOGO = SOL.FTN_ESTATUS_SOLICITUD
+		  LEFT JOIN TCCRXGRAL_CAT_CATALOGO CP ON CP.FCN_ID_CAT_CATALOGO = SOL.FTN_ID_PERIODO
+		  LEFT JOIN TRAFOAVOL_FOLIO_BANCO  TFB ON TFB.FTC_FOLIO = SOL.FTC_FOLIO
+          LEFT JOIN TTAFOAVOL_BANCOS TB ON TFB.FTN_ID_BANCO = TB.FTN_ID_BANCO
+          LEFT JOIN TCCRXGRAL_CAT_CATALOGO CB ON CB.FCN_ID_CAT_CATALOGO = SOL.FTN_CVE_BANCO
+		  
+ 		 WHERE SOL.FTC_CVE_SOLICITUD NOT IN (SELECT FTC_CVE_SOLICITUD FROM TTAFOAVOL_SOLICITUD)
+		<if test="numCuentaIndividual != null">
+			AND SOL.FTN_NUM_CTA_INVDUAL = #{numCuentaIndividual,jdbcType=DECIMAL}
+		</if>
+		<if test="nss != null">
+			AND SOL.FTN_NSS = #{nss,jdbcType=VARCHAR}
+		</if>
+		<if test="curp != null">
+			AND SOL.FTC_CURP = #{curp,jdbcType=VARCHAR}
+		</if>
+		<if test="origenAportacion != null and origenAportacion.id">
+			AND SOL.FTN_ID_ORIGEN_SOLICITUD = #{origenAportacion.id,jdbcType=DECIMAL}
+		</if>
+		<if test="estatusSolicitud != null and estatusSolicitud.id">
+			AND SOL.FTN_ESTATUS_SOLICITUD = #{estatusSolicitud.id,jdbcType=DECIMAL}
+		</if>
+		<if test="fechaInicio != null and fechaFin != null">
+			AND SOL.FTD_FEH_CAPTURA BETWEEN trunc(#{fechaInicio,jdbcType=TIMESTAMP}) AND
+			trunc(#{fechaFin,jdbcType=TIMESTAMP})+.99999
+		</if>
+		)CON
+	</select>		
+		
+
+	
+	<resultMap id="ResultMapSolicitudDet" type="mx.profuturo.nci.business.vo.SolicitudVO">
+		<id column="ROW_ID" 						property="rowId" />
+		<result column="FTN_NUM_CTA_INVDUAL" 		property="numCuentaIndividual" jdbcType="DECIMAL"/>
+		<result column="FTN_IMPORTE" 				property="importe" 				jdbcType="DECIMAL"/>
+		<result column="FTD_FEH_ESTATUS_SOLICITUD" 	property="fechaEstatuSolicitud"	jdbcType="TIMESTAMP"/>
+		<result column="FTD_FEH_CARGO"				property="fechaCargo"			jdbcType="TIMESTAMP"/>
+		<association property="estatusCargo"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericCtEstatusCargo"/>
+		<association property="rechazoBanco"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericCtRechazoBanco"/>
+		<association property="periodo" 
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericCtPeriodo"/>
+		<association property="fondoApovol" 
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericCtFondoApovol"/>
+	</resultMap>
+	
+	<select id="consultarHistSolicitud" 
+			parameterType="mx.profuturo.nci.business.wrapped.SolicitudFilter" 
+			resultMap="ResultMapSolicitudDet" >
+	SELECT ROWNUM AS ROW_ID, CON.FTN_NUM_CTA_INVDUAL, CON.FTN_IMPORTE, CON.FTD_FEH_ESTATUS_SOLICITUD,
+		    CON.FCC_VALOR_ESTATUS_CARGO, CON.FTN_ESTATUS_CARGO, CON.FCC_VALOR_RECHAZO_BANCO,
+		    CON.FTN_ID_RECHAZO_BANCO, CON.FCC_VALOR_PERIODO, CON.FTN_ID_PERIODO, CON.FTD_FEH_CARGO
+	FROM(
+		SELECT SOL.FTN_NUM_CTA_INVDUAL, SOL.FTN_IMPORTE, SOL.FTD_FEH_ESTATUS_SOLICITUD,
+               CEC.FCC_VALOR AS FCC_VALOR_ESTATUS_CARGO, 
+               SOL.FTN_ESTATUS_CARGO, '' AS FCC_VALOR_RECHAZO_BANCO,
+		       SOL.FTN_ID_RECHAZO_BANCO, CP.FCC_VALOR AS FCC_VALOR_PERIODO, SOL.FTN_ID_PERIODO, 
+		       DECODE(SOL.FTN_ESTATUS_CARGO,498,SOL.FTD_FEH_PROX_CARGO,SOL.FTD_FEH_CARGA_RESP) AS FTD_FEH_CARGO
+		       ,SOL.FTD_FEH_ACT AS FTD_FEH_ACT_CARGO
+		  FROM TTAFOAVOL_SOLICITUD SOL
+		  LEFT JOIN TCCRXGRAL_CAT_CATALOGO CEC ON CEC.FCN_ID_CAT_CATALOGO = SOL.FTN_ESTATUS_CARGO
+		  LEFT JOIN TCCRXGRAL_CAT_CATALOGO CRB ON CRB.FCN_ID_CAT_CATALOGO = SOL.FTN_ID_RECHAZO_BANCO
+		  LEFT JOIN TCCRXGRAL_CAT_CATALOGO CP ON CP.FCN_ID_CAT_CATALOGO = SOL.FTN_ID_PERIODO
+         <where>
+			<if test="claveSolicitud != null and folio!=null">
+				AND (SOL.FTC_CVE_SOLICITUD = #{claveSolicitud,jdbcType=VARCHAR} OR SOL.FTC_CVE_SOLICITUD = #{folio,jdbcType=VARCHAR}) 
+			</if>
+			<if test="claveSolicitud != null and folio==null">
+				AND SOL.FTC_CVE_SOLICITUD = #{claveSolicitud,jdbcType=VARCHAR}
+			</if>
+			<if test="claveSolicitud == null and folio!=null">
+				AND SOL.FTC_CVE_SOLICITUD = #{folio,jdbcType=VARCHAR}
+			</if>
+			<if test="numCuentaIndividual != null">
+				AND SOL.FTN_NUM_CTA_INVDUAL = #{numCuentaIndividual,jdbcType=DECIMAL}
+			</if>
+			AND SOL.FTN_ESTATUS_CARGO IN (${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ESTATUS_CARGO_PENDIENTE},
+	                                      ${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ESTATUS_CARGO_GENERADO})
+		</where>
+	UNION ALL	
+		SELECT SOL.FTN_NUM_CTA_INVDUAL, SOL.FTN_IMPORTE, SOL.FTD_FEH_ESTATUS_SOLICITUD,
+               DECODE(C.FTN_REG_CONCILIADO,1,'APLICADO',0,'APLICADO',2,'CANCELADO','') AS FCC_VALOR_ESTATUS_CARGO,
+               SOL.FTN_ESTATUS_CARGO, '' AS FCC_VALOR_RECHAZO_BANCO,
+		       SOL.FTN_ID_RECHAZO_BANCO, CP.FCC_VALOR AS FCC_VALOR_PERIODO, SOL.FTN_ID_PERIODO, 
+		       C.FTD_FEH_ACT AS FTD_FEH_CARGO
+		       ,C.FTD_FEH_ACT AS FTD_FEH_ACT_CARGO
+		  FROM TTAFOAVOL_SOLICITUD SOL
+		  LEFT JOIN TCCRXGRAL_CAT_CATALOGO CEC ON CEC.FCN_ID_CAT_CATALOGO = SOL.FTN_ESTATUS_CARGO
+		  LEFT JOIN TCCRXGRAL_CAT_CATALOGO CRB ON CRB.FCN_ID_CAT_CATALOGO = SOL.FTN_ID_RECHAZO_BANCO
+		  LEFT JOIN TCCRXGRAL_CAT_CATALOGO CP ON CP.FCN_ID_CAT_CATALOGO = SOL.FTN_ID_PERIODO
+		  INNER JOIN TTAFOAVOL_CONCILIACION C ON SOL.FTC_CVE_SOLICITUD = C.FTN_CVE_SOLICITUD
+         <where>
+			<if test="claveSolicitud != null and folio!=null">
+				AND (SOL.FTC_CVE_SOLICITUD = #{claveSolicitud,jdbcType=VARCHAR} OR SOL.FTC_CVE_SOLICITUD = #{folio,jdbcType=VARCHAR}) 
+			</if>
+			<if test="claveSolicitud != null and folio==null">
+				AND SOL.FTC_CVE_SOLICITUD = #{claveSolicitud,jdbcType=VARCHAR}
+			</if>
+			<if test="claveSolicitud == null and folio!=null">
+				AND SOL.FTC_CVE_SOLICITUD = #{folio,jdbcType=VARCHAR}
+			</if>
+			<if test="numCuentaIndividual != null">
+				AND SOL.FTN_NUM_CTA_INVDUAL = #{numCuentaIndividual,jdbcType=DECIMAL}
+			</if>
+		</where>
+	UNION ALL
+		SELECT HS.FTN_NUM_CTA_INVDUAL, HS.FTN_IMPORTE, HS.FTD_FEH_ESTATUS_SOLICITUD,
+		    CEC.FCC_VALOR AS FCC_VALOR_ESTATUS_CARGO, HS.FTN_ESTATUS_CARGO, CRB.FCC_VALOR AS FCC_VALOR_RECHAZO_BANCO,
+		    HS.FTN_ID_RECHAZO_BANCO, CP.FCC_VALOR AS FCC_VALOR_PERIODO, HS.FTN_ID_PERIODO, HS.FTD_FEH_CARGO AS FTD_FEH_CARGO
+		    ,HS.FTD_FEH_ACT AS FTD_FEH_ACT_CARGO
+		FROM THAFOAVOL_SOLICITUD HS
+		LEFT JOIN TCCRXGRAL_CAT_CATALOGO CEC ON CEC.FCN_ID_CAT_CATALOGO = HS.FTN_ESTATUS_CARGO
+		LEFT JOIN TCCRXGRAL_CAT_CATALOGO CRB ON CRB.FCN_ID_CAT_CATALOGO = HS.FTN_ID_RECHAZO_BANCO
+		LEFT JOIN TCCRXGRAL_CAT_CATALOGO CP ON CP.FCN_ID_CAT_CATALOGO = HS.FTN_ID_PERIODO
+		<where>
+			<if test="claveSolicitud != null and folio!=null">
+				AND (HS.FTC_CVE_SOLICITUD = #{claveSolicitud,jdbcType=VARCHAR} OR HS.FTC_CVE_SOLICITUD = #{folio,jdbcType=VARCHAR}) 
+			</if>
+			<if test="claveSolicitud != null and folio==null">
+				AND HS.FTC_CVE_SOLICITUD = #{claveSolicitud,jdbcType=VARCHAR}
+			</if>
+			<if test="claveSolicitud == null and folio!=null">
+				AND HS.FTC_CVE_SOLICITUD = #{folio,jdbcType=VARCHAR}
+			</if>
+			<if test="numCuentaIndividual != null">
+				AND HS.FTN_NUM_CTA_INVDUAL = #{numCuentaIndividual,jdbcType=DECIMAL}
+			</if>
+			AND HS.FTN_ESTATUS_CARGO IN (${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ESTATUS_CARGO_RECHAZADO})
+			AND HS.FHN_ID_HIST_SOLICITUD NOT IN(
+			                SELECT
+			                    COR.FHN_ID_HIST_SOLICITUD
+			                FROM
+			                    (SELECT 
+			                        NVL(FTN_ESTATUS_CARGO,0) AS ESTATUS_CARGO,
+			                        FHN_ID_HIST_SOLICITUD
+			                    FROM THAFOAVOL_SOLICITUD 
+			                    <where> 
+			                    	<if test="claveSolicitud != null and folio!=null">
+										AND (FTC_CVE_SOLICITUD = #{claveSolicitud,jdbcType=VARCHAR} OR FTC_CVE_SOLICITUD = #{folio,jdbcType=VARCHAR}) 
+									</if>
+									<if test="claveSolicitud != null and folio==null">
+										AND FTC_CVE_SOLICITUD = #{claveSolicitud,jdbcType=VARCHAR}
+									</if>
+									<if test="claveSolicitud == null and folio!=null">
+										AND FTC_CVE_SOLICITUD = #{folio,jdbcType=VARCHAR}
+									</if>
+			                            AND FTN_ESTATUS_CARGO IN(${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ESTATUS_CARGO_RECHAZADO})
+			                    </where>) COR
+			                INNER JOIN
+			                    (SELECT 
+			                        NVL(LAG(FTN_ESTATUS_CARGO) OVER(ORDER BY FHN_ID_HIST_SOLICITUD),0) AS ESTATUS_CARGO,
+			                        FHN_ID_HIST_SOLICITUD
+			                    FROM THAFOAVOL_SOLICITUD 
+			                    <where> 
+			                    	<if test="claveSolicitud != null and folio!=null">
+										AND (FTC_CVE_SOLICITUD = #{claveSolicitud,jdbcType=VARCHAR} OR FTC_CVE_SOLICITUD = #{folio,jdbcType=VARCHAR}) 
+									</if>
+									<if test="claveSolicitud != null and folio==null">
+										AND FTC_CVE_SOLICITUD = #{claveSolicitud,jdbcType=VARCHAR}
+									</if>
+									<if test="claveSolicitud == null and folio!=null">
+										AND FTC_CVE_SOLICITUD = #{folio,jdbcType=VARCHAR}
+									</if>
+				                        AND FTN_ESTATUS_CARGO IN(${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ESTATUS_CARGO_PENDIENTE},
+		                                               		     ${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ESTATUS_CARGO_GENERADO},
+		                                                   		 ${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ESTATUS_CARGO_APLICADO},
+		                                                   		 ${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ESTATUS_CARGO_RECHAZADO})) POS
+			                    </where>          
+			                ON COR.ESTATUS_CARGO = POS.ESTATUS_CARGO AND COR.FHN_ID_HIST_SOLICITUD = POS.FHN_ID_HIST_SOLICITUD
+			                )
+		</where>
+		) CON
+		ORDER BY 11 DESC NULLS LAST
+	</select>
+	
+	
+		<select id="consultarCargosConciliacion" 
+			parameterType="mx.profuturo.nci.business.wrapped.SolicitudFilter" 
+			resultMap="ResultMapSolicitudDet" >
+	SELECT ROWNUM AS ROW_ID, CON.FTN_NUM_CTA_INVDUAL, CON.FTN_IMPORTE, CON.FTD_FEH_ESTATUS_SOLICITUD,
+		    CON.FCC_VALOR_ESTATUS_CARGO, CON.FTN_ESTATUS_CARGO, CON.FCC_VALOR_RECHAZO_BANCO,
+		    CON.FTN_ID_RECHAZO_BANCO, CON.FCC_VALOR_PERIODO, CON.FTN_ID_PERIODO, CON.FTD_FEH_CARGO
+	FROM(	
+			SELECT CON.FTN_NUM_CTA_INVDUAL,CON.FTN_IMPORTE,NULL AS FTD_FEH_ESTATUS_SOLICITUD,CEC.FCC_VALOR AS FCC_VALOR_ESTATUS_CARGO,
+			CON.FTN_ESTATUS_TRAMITE AS FTN_ESTATUS_CARGO, '' AS FCC_VALOR_RECHAZO_BANCO, NULL AS FTN_ID_RECHAZO_BANCO,
+  			NULL AS FCC_VALOR_PERIODO, NULL AS FTN_ID_PERIODO, FTD_FEH_PAGO_APOVOL AS FTD_FEH_CARGO
+			FROM TTAFOAVOL_CONCILIACION  CON
+			LEFT JOIN TCCRXGRAL_CAT_CATALOGO CEC ON CEC.FCN_ID_CAT_CATALOGO = CON.FTN_ESTATUS_TRAMITE 
+		<where>
+			<if test="claveSolicitud != null and folio!=null">
+				AND (CON.FTN_CVE_SOLICITUD = #{claveSolicitud,jdbcType=VARCHAR} OR CON.FTC_FOLIO = #{folio,jdbcType=VARCHAR}) 
+			</if>
+			<if test="claveSolicitud != null and folio==null">
+				AND CON.FTN_CVE_SOLICITUD = #{claveSolicitud,jdbcType=VARCHAR}
+			</if>
+			<if test="claveSolicitud == null and folio!=null">
+				AND CON.FTN_CVE_SOLICITUD = #{folio,jdbcType=VARCHAR}
+			</if>
+			<if test="numCuentaIndividual != null">
+				AND CON.FTN_NUM_CTA_INVDUAL = #{numCuentaIndividual,jdbcType=DECIMAL}
+			</if>
+		</where>
+		
+		
+		
+		) CON
+		ORDER BY 11 DESC
+	</select>
+	
+	<resultMap id="ResultMapSolicitudDetNoDomi" type="mx.profuturo.nci.business.vo.SolicitudVO">
+		<result column="FTC_FOLIO" 			property="folio" 				jdbcType="VARCHAR"/>
+		<result column="FTC_NOMBRE_CTE" 	property="clienteNombre" 				jdbcType="VARCHAR"/>
+		<result column="FTC_AP_PATERNO_CTE" property="clientePaterno" 				jdbcType="VARCHAR"/>
+		<result column="FTC_AP_MATERNO_CTE" property="clienteMaterno"				jdbcType="VARCHAR"/>
+		<result column="FTD_FEH_CAPTURA" 	property="fechaCaptura" 				jdbcType="TIMESTAMP"/>
+		<result column="FTC_USU_CRE" 		property="usuarioCreacion"				jdbcType="VARCHAR"/>
+		<result column="FTN_IMPORTE" 		property="importe" 						jdbcType="DECIMAL"/>
+		<result column="FECHAMODIFICACION"	property="fechaEstatuSolicitud"			jdbcType="TIMESTAMP"/>
+		<result column="FTC_CTA_BANCO"		property="cuentaBanco"					jdbcType="VARCHAR"/>
+		
+		<association property="origenAportacion"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericOrigenAportacion"/>
+		<association property="claveBanco"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericClaveBanco"/>
+		<association property="periodo" 
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericCtPeriodo"/>	
+		<association property="estatusCargo"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericCtEstatusCargo"/>
+	<association property="tipoCuenta"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericCtTipoCuenta"/>
+	<association property="periodoIncrementabilidad"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericCtPorcentajeIncremento"/>
+	</resultMap>
+	
+	<select id="consultarHistSolicitudNoDomi" 
+			parameterType="mx.profuturo.nci.business.wrapped.SolicitudFilter" 
+			resultMap="ResultMapSolicitudDetNoDomi" >
+		SELECT CON.FTC_FOLIO, 
+		       CON.FTC_NOMBRE_CTE, 
+		       CON.FTC_AP_PATERNO_CTE, 
+		       CON.FTC_AP_MATERNO_CTE, 
+		       CON.FTD_FEH_CRE AS FECHA_CAPTURA,
+               CON.FTC_USU_CRE, 
+               CON.FTN_ORIGEN_APORTACION, 
+               COA.FCC_VALOR AS FCC_VALOR_ORIGEN_APORTACION, 
+               CON.FTN_IMPORTE,
+               CON.FTN_CVE_BANCO,
+               CCB.FCC_VALOR AS FCC_VALOR_CLAVE_BANCO, 
+               NULL AS FTN_ID_PERIODO, 
+               '' AS FCC_VALOR_PERIODO, 
+               '' AS FCC_VALOR_PORCENTAJE_INCRENTO, 
+               CON.FTC_CTA_BANCO, 
+               NULL AS FTN_ID_TIPO_CTA, 
+               '' AS FCC_VALOR_TIPO_CTA,
+               NULL AS FECHAMODIFICACION, 
+               FTN_ESTATUS_TRAMITE AS FTN_ESTATUS_CARGO
+          FROM TTAFOAVOL_CONCILIACION CON
+          LEFT JOIN TCCRXGRAL_CAT_CATALOGO COA ON COA.FCN_ID_CAT_CATALOGO = CON.FTN_ORIGEN_APORTACION
+          LEFT JOIN TCCRXGRAL_CAT_CATALOGO CCB ON CCB.FCN_ID_CAT_CATALOGO = CON.FTN_CVE_BANCO
+		<where>
+			<if test="claveSolicitud != null">
+				CON.FTC_FOLIO = #{claveSolicitud,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+	
+	<resultMap id="ResultMapCuentasSolicitudDet" type="mx.profuturo.nci.business.vo.SolicitudVO">
+		<id column="ROW_ID"                     property="rowId" />
+		<result column="FTC_NOMBRE_CTE" 		property="clienteNombre" 		jdbcType="VARCHAR"/>
+		<result column="FTC_AP_PATERNO_CTE" 	property="clientePaterno" 		jdbcType="VARCHAR"/>
+		<result column="FTC_AP_MATERNO_CTE" 	property="clienteMaterno"		jdbcType="VARCHAR"/>
+		<result column="FTN_NUM_CTA_INVDUAL" 	property="numCuentaIndividual" 	jdbcType="DECIMAL" />
+		<result column="FTN_NSS" 				property="nss" 					jdbcType="VARCHAR" />
+		<result column="FTC_CURP" 				property="curp" 				jdbcType="VARCHAR" />
+		<result column="VIGENCIA"				property="clienteRfc"			jdbcType="TIMESTAMP"/>
+	</resultMap>
+	
+	<select id="consultarCuentasSolicitud" 
+			parameterType="mx.profuturo.nci.business.wrapped.SolicitudFilter" 
+			resultMap="ResultMapCuentasSolicitudDet" >
+		SELECT ROWNUM AS ROW_ID,CON.FTC_NOMBRE_CTE, CON.FTC_AP_PATERNO_CTE, CON.FTC_AP_MATERNO_CTE, CON.FTN_NUM_CTA_INVDUAL,
+		       CON.FTN_NSS, CON.FTC_CURP, CON.VIGENCIA
+		FROM (
+		SELECT TRIM(SOL.FTC_NOMBRE_CTE) AS FTC_NOMBRE_CTE,
+			   TRIM(SOL.FTC_AP_PATERNO_CTE) AS FTC_AP_PATERNO_CTE,
+			   TRIM(SOL.FTC_AP_MATERNO_CTE) AS FTC_AP_MATERNO_CTE,
+               SOL.FTN_NUM_CTA_INVDUAL,
+               SOL.FTN_NSS,
+               SOL.FTC_CURP,
+               DECODE(IND_CTA_INDI.FCC_VALOR_IND,1,'VIGENTE','NO VIGENTE') AS VIGENCIA
+  		  FROM TTAFOAVOL_SOLICITUD SOL
+		  JOIN TTAFOGRAL_IND_CTA_INDV IND_CTA_INDI ON IND_CTA_INDI.FTN_NUM_CTA_INVDUAL=SOL.FTN_NUM_CTA_INVDUAL
+		<where>
+			<if test="numCuentaIndividual != null">
+				SOL.FTN_NUM_CTA_INVDUAL = #{numCuentaIndividual,jdbcType=DECIMAL}
+			</if>
+			<if test="nss != null">
+				AND SOL.FTN_NSS = #{nss,jdbcType=VARCHAR}
+			</if>
+			<if test="curp != null">
+				AND SOL.FTC_CURP = #{curp,jdbcType=VARCHAR}
+			</if>
+			<if test="origenAportacion != null and origenAportacion.id">
+				AND SOL.FTN_ID_ORIGEN_SOLICITUD = #{origenAportacion.id,jdbcType=DECIMAL}
+			</if>
+			<if test="estatusSolicitud != null and estatusSolicitud.id">
+				AND SOL.FTN_ESTATUS_SOLICITUD = #{estatusSolicitud.id,jdbcType=DECIMAL}
+			</if>
+			<if test="fechaInicio != null and fechaFin != null">
+				AND SOL.FTD_FEH_CAPTURA BETWEEN trunc(#{fechaInicio,jdbcType=TIMESTAMP}) AND
+				trunc(#{fechaFin,jdbcType=TIMESTAMP})+.99999
+			</if>
+				AND IND_CTA_INDI.FFN_ID_CONFIG_INDI=2
+		</where>
+		UNION
+		SELECT TRIM(SOL.FTC_NOMBRE_CTE) AS FTC_NOMBRE_CTE,
+			   TRIM(SOL.FTC_AP_PATERNO_CTE) AS FTC_AP_PATERNO_CTE,
+			   TRIM(SOL.FTC_AP_MATERNO_CTE) AS FTC_AP_MATERNO_CTE,
+               SOL.FTN_NUM_CTA_INVDUAL,
+               SOL.FTN_NSS,
+               SOL.FTC_CURP,
+               DECODE(IND_CTA_INDI.FCC_VALOR_IND,1,'VIGENTE','NO VIGENTE') AS VIGENCIA
+  		  FROM TTAFOAVOL_PRE_SOLICITUD SOL
+		  JOIN TTAFOGRAL_IND_CTA_INDV IND_CTA_INDI ON IND_CTA_INDI.FTN_NUM_CTA_INVDUAL=SOL.FTN_NUM_CTA_INVDUAL
+		<where>
+			<if test="numCuentaIndividual != null">
+				SOL.FTN_NUM_CTA_INVDUAL = #{numCuentaIndividual,jdbcType=DECIMAL}
+			</if>
+			<if test="nss != null">
+				AND SOL.FTN_NSS = #{nss,jdbcType=VARCHAR}
+			</if>
+			<if test="curp != null">
+				AND SOL.FTC_CURP = #{curp,jdbcType=VARCHAR}
+			</if>
+			<if test="origenAportacion != null and origenAportacion.id">
+				AND SOL.FTN_ID_ORIGEN_SOLICITUD = #{origenAportacion.id,jdbcType=DECIMAL}
+			</if>
+			<if test="estatusSolicitud != null and estatusSolicitud.id">
+				AND SOL.FTN_ESTATUS_SOLICITUD = #{estatusSolicitud.id,jdbcType=DECIMAL}
+			</if>
+			<if test="fechaInicio != null and fechaFin != null">
+				AND SOL.FTD_FEH_CAPTURA BETWEEN trunc(#{fechaInicio,jdbcType=TIMESTAMP}) AND
+				trunc(#{fechaFin,jdbcType=TIMESTAMP})+.99999
+			</if>
+				AND IND_CTA_INDI.FFN_ID_CONFIG_INDI=2
+		</where>
+		) CON
+	</select>
+	
+	<resultMap id="ResultDiversifSolicitudDet" type="mx.profuturo.nci.business.vo.DiversificacionVO">
+		<id column="ROW_ID"                     property="rowId" />
+		<result column="FTN_MONTO" 				property="monto" 			jdbcType="DECIMAL"/>
+		<result column="FTN_PORCENTAJE" 		property="porcentaje" 		jdbcType="DECIMAL"/>
+		<result column="FTN_ID_FONDO_APOVOL" 	property="idFondo"	 		jdbcType="DECIMAL"/>
+		<result column="FCC_VALOR_FONDO_APOVOL" property="valor"	 		jdbcType="VARCHAR"/>
+		
+	</resultMap>
+	
+	<select id="consultarDiversificacionesSolicitud" parameterType="mx.profuturo.nci.business.wrapped.SolicitudFilter"
+			resultMap="ResultDiversifSolicitudDet" >
+		SELECT ROWNUM AS ROW_ID,TCC.FCC_VALOR AS FCC_VALOR_FONDO_APOVOL, TDS.FTN_FONDO_APOVOL as FTN_ID_FONDO_APOVOL, 
+		       TDS.FTN_MONTO, TDS.FTN_PORCENTAJE 
+          FROM TTAFOAVOL_DIVERSIF_SOLICITUD TDS
+         INNER JOIN TCCRXGRAL_CAT_CATALOGO TCC ON TDS.FTN_FONDO_APOVOL=TCC.FCN_ID_CAT_CATALOGO
+		<where>
+			<if test="claveSolicitud != null and folio!=null">
+				(TDS.FTC_CVE_SOLICITUD = #{claveSolicitud,jdbcType=VARCHAR} OR TDS.FTC_CVE_SOLICITUD =	#{folio,jdbcType=VARCHAR})		
+			</if>
+			<if test="claveSolicitud != null and folio==null">
+				TDS.FTC_CVE_SOLICITUD = #{claveSolicitud,jdbcType=VARCHAR}		
+			</if>
+			<if test="claveSolicitud == null and folio!=null">
+				TDS.FTC_CVE_SOLICITUD =	#{folio,jdbcType=VARCHAR}		
+			</if>
+			AND TDS.FTN_VIGENCIA=1
+		</where>
+	</select>
+	
+	<select id="consultarDiversificacionesPreSolicitud" parameterType="mx.profuturo.nci.business.wrapped.SolicitudFilter"
+			resultMap="ResultDiversifSolicitudDet" >
+		SELECT ROWNUM AS ROW_ID,TCC.FCC_VALOR AS FCC_VALOR_FONDO_APOVOL, TDS.FTN_FONDO_APOVOL as FTN_ID_FONDO_APOVOL, 
+		       TDS.FTN_MONTO, TDS.FTN_PORCENTAJE 
+          FROM TTAFOAVOL_DIVERSIF_PRE_SOLIC TDS
+         INNER JOIN TCCRXGRAL_CAT_CATALOGO TCC ON TDS.FTN_FONDO_APOVOL=TCC.FCN_ID_CAT_CATALOGO
+		 <where>
+			<if test="claveSolicitud != null and folio!=null">
+				(TDS.FTC_CVE_SOLICITUD = #{claveSolicitud,jdbcType=VARCHAR} OR TDS.FTC_CVE_SOLICITUD =	#{folio,jdbcType=VARCHAR})		
+			</if>
+			<if test="claveSolicitud != null and folio==null">
+				TDS.FTC_CVE_SOLICITUD = #{claveSolicitud,jdbcType=VARCHAR}		
+			</if>
+			<if test="claveSolicitud == null and folio!=null">
+				TDS.FTC_CVE_SOLICITUD =	#{folio,jdbcType=VARCHAR}		
+			</if>		
+		</where>
+		ORDER BY 2
+	</select>
+
+	<select id="consultarDiversificacionesConciliacion" parameterType="mx.profuturo.nci.business.wrapped.SolicitudFilter"
+			resultMap="ResultDiversifSolicitudDet" >
+		SELECT TCC.FCC_VALOR AS FCC_VALOR_FONDO_APOVOL, TDS.FTN_FONDO_APOVOL as FTN_ID_FONDO_APOVOL, 
+		       TDS.FTN_MONTO, TDS.FTN_PORCENTAJE 
+          FROM TTAFOAVOL_DIVERSIF_CONC TDS
+         INNER JOIN TCCRXGRAL_CAT_CATALOGO TCC ON TDS.FTN_FONDO_APOVOL=TCC.FCN_ID_CAT_CATALOGO
+		<where>
+			<if test="idConcil != null">
+				TDS.FTN_ID_CONCILIACION =	#{idConcil,jdbcType=DECIMAL}		
+			</if>
+		</where>
+		ORDER BY 2
+	</select>
+
+
+	<resultMap id="ResultValidacionSolicitudDet" type="mx.profuturo.nci.business.vo.ValidacionVO">
+		<result column="FTN_TIPO_VALIDACION" 	property="idValidacion"			jdbcType="DECIMAL"/>
+		<result column="TIPO_VALIDACION" 		property="tipoValidacion" 		jdbcType="VARCHAR"/>
+	
+		<association property="estatusValidacion"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericCtEstatusCargo"/>
+		<association property="rechazoBanco"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericCtRechazoBanco"/>
+	</resultMap>
+	
+	<select id="consultarValidacionesSolicitud" parameterType="mx.profuturo.nci.business.wrapped.SolicitudFilter"
+			resultMap="ResultValidacionSolicitudDet" >
+	  SELECT TVT.FTN_TIPO_VALIDACION, CV.FCC_VALOR AS TIPO_VALIDACION,
+	         TVT.FTN_ESTATUS_VALIDACION AS FTN_ESTATUS_CARGO, CE.FCC_VALOR AS FCC_VALOR_ESTATUS_CARGO, 
+	         TVT.FTN_RECHAZO_VALIDACION AS FTN_ID_RECHAZO_BANCO, CR.FCC_VALOR AS FCC_VALOR_RECHAZO_BANCO
+  		FROM TTAFOGRAL_VALIDACION_TRAMITE TVT
+        LEFT JOIN TCCRXGRAL_CAT_CATALOGO CV ON CV.FCN_ID_CAT_CATALOGO=TVT.FTN_TIPO_VALIDACION
+        LEFT JOIN TCCRXGRAL_CAT_CATALOGO CE ON CE.FCN_ID_CAT_CATALOGO=TVT.FTN_ESTATUS_VALIDACION
+        LEFT JOIN TCCRXGRAL_CAT_CATALOGO CR ON CR.FCN_ID_CAT_CATALOGO=TVT.FTN_RECHAZO_VALIDACION
+       <where>
+	   		<if test="claveSolicitud != null and folio!=null">
+				(TVT.FTC_FOLIO = #{folio,jdbcType=VARCHAR} OR TVT.FTC_FOLIO = #{claveSolicitud,jdbcType=VARCHAR}) 				
+			</if>
+			<if test="claveSolicitud != null and folio==null">
+				TVT.FTC_FOLIO = #{claveSolicitud,jdbcType=VARCHAR} 				
+			</if>
+			<if test="claveSolicitud == null and folio!=null">
+				 TVT.FTC_FOLIO = #{folio,jdbcType=VARCHAR} 				
+			</if>
+	   </where>
+</select>
+
+<select id="lstHistDomiTraspaso"
+		parameterType="mx.profuturo.nci.business.wrapped.MonitorDomiTraspasoFilter"
+		resultMap="ResultMapLstMonitorDomiTraspaso">
+	SELECT CON.FTC_CVE_SOLICITUD, CON.FTN_NUM_CTA_INVDUAL, CON.FTC_CTA_BANCO, CON.FECRECEPCION, CON.EST_TRASPASO,
+	       CON.RECURENCIA, CON.FTN_FREC_INICIAL, CON.FTN_FREC_FINAL, CON.FTN_IMPORTE, CON.FTN_ID_TIPO_CTA,
+	       CON.FTN_ESTATUS_SOLICITUD, CON.RECHAZO_BANCO, CON.FTD_FEH_CARGO, 
+           CON.FTN_ESTATUS_CARGO, CON.ESTATUS_CARGO, CON.FTD_FEH_ACT_CARGO,CON.EST_CONCIL, CON.EST_MOV
+	FROM (	
+	SELECT A.FTC_CVE_SOLICITUD,A.FTN_NUM_CTA_INVDUAL,A.FTC_CTA_BANCO,A.FTD_FEH_CRE AS FECRECEPCION,B.FCC_VALOR AS EST_TRASPASO,
+	       A.FTN_ID_PERIODO AS RECURENCIA,A.FTN_FREC_INICIAL,A.FTN_FREC_FINAL,A.FTN_IMPORTE,A.FTN_ID_TIPO_CTA,A.FTN_ESTATUS_SOLICITUD,
+           null AS FTN_ID_RECHAZO_BANCO, '' AS RECHAZO_BANCO, C.FTD_FEH_CARG_ARCHIVO AS FTD_FEH_CARGO, 
+           DECODE(C.FTN_REG_CONCILIADO,1,500,0,500,2,502,null) AS FTN_ESTATUS_CARGO,
+       	   DECODE(C.FTN_REG_CONCILIADO,1,'APLICADO',0,'APLICADO',2,'CANCELADO','') AS ESTATUS_CARGO,
+       	   C.FTD_FEH_ACT AS FTD_FEH_ACT_CARGO,
+       	   DECODE(C.FTN_REG_CONCILIADO,1,'CONCILIADO','NO CONCILIADO') AS EST_CONCIL,
+           DECODE(C.FTN_MOV_GENERADO,1,'GENERADO','NO GENERADO') AS EST_MOV
+      FROM TTAFOAVOL_SOLICITUD A
+	  LEFT JOIN TCCRXGRAL_CAT_CATALOGO B ON A.FTN_ESTATUS_TRASPASO = B.FCN_ID_CAT_CATALOGO 
+	  LEFT JOIN TCCRXGRAL_CAT_CATALOGO D ON A.FTN_ESTATUS_CARGO = D.FCN_ID_CAT_CATALOGO 
+	  LEFT JOIN TCCRXGRAL_CAT_CATALOGO E ON A.FTN_ID_RECHAZO_BANCO = E.FCN_ID_CAT_CATALOGO 
+      INNER JOIN TTAFOAVOL_CONCILIACION C ON A.FTC_CVE_SOLICITUD = C.FTN_CVE_SOLICITUD 
+	 WHERE A.FTN_ORIGEN_APORTACION = #{idOrigenSol,jdbcType=DECIMAL}
+	   AND A.FTC_CVE_SOLICITUD = #{cveSol,jdbcType=VARCHAR}
+
+	UNION
+
+	SELECT A.FTC_CVE_SOLICITUD,A.FTN_NUM_CTA_INVDUAL,A.FTC_CTA_BANCO,A.FTD_FEH_CRE AS FECRECEPCION,B.FCC_VALOR AS EST_TRASPASO,
+	       A.FTN_ID_PERIODO AS RECURENCIA, A.FTN_FREC_INICIAL,A.FTN_FREC_FINAL,A.FTN_IMPORTE,A.FTN_ID_TIPO_CTA,A.FTN_ESTATUS_SOLICITUD,
+	       null AS FTN_ID_RECHAZO_BANCO,
+		     '' AS RECHAZO_BANCO,
+	       A.FTD_FEH_PROX_CARGO AS FTD_FEH_CARGO,
+	       A.FTN_ESTATUS_CARGO AS FTN_ESTATUS_CARGO,
+	       D.FCC_VALOR AS ESTATUS_CARGO,
+	       A.FTD_FEH_ACT AS FTD_FEH_ACT_CARGO,
+	       '' AS EST_CONCIL,
+	       '' AS EST_MOV
+	   FROM TTAFOAVOL_SOLICITUD A
+	   LEFT JOIN TCCRXGRAL_CAT_CATALOGO B ON A.FTN_ESTATUS_TRASPASO = B.FCN_ID_CAT_CATALOGO 
+		 LEFT JOIN TCCRXGRAL_CAT_CATALOGO D ON A.FTN_ESTATUS_CARGO = D.FCN_ID_CAT_CATALOGO 
+		 LEFT JOIN TCCRXGRAL_CAT_CATALOGO E ON A.FTN_ID_RECHAZO_BANCO = E.FCN_ID_CAT_CATALOGO 
+		WHERE A.FTN_ORIGEN_APORTACION = #{idOrigenSol,jdbcType=DECIMAL} 
+		AND A.FTC_CVE_SOLICITUD = #{cveSol,jdbcType=VARCHAR}
+		AND A.FTN_ESTATUS_CARGO IN (498,499)
+	UNION
+	SELECT DISTINCT A.FTC_CVE_SOLICITUD,A.FTN_NUM_CTA_INVDUAL,A.FTC_CTA_BANCO,A.FTD_FEH_CRE AS FECRECEPCION,B.FCC_VALOR AS EST_TRASPASO,
+	       A.FTN_ID_PERIODO AS RECURENCIA, A.FTN_FREC_INICIAL,A.FTN_FREC_FINAL,A.FTN_IMPORTE,A.FTN_ID_TIPO_CTA,A.FTN_ESTATUS_SOLICITUD,
+	       CASE A.FTN_ESTATUS_CARGO WHEN 501 THEN A.FTN_ID_RECHAZO_BANCO END AS FTN_ID_RECHAZO_BANCO,
+		     CASE A.FTN_ESTATUS_CARGO WHEN 501 THEN E.FCC_VALOR END AS RECHAZO_BANCO,
+	       A.FTD_FEH_CARGA_RESP AS FTD_FEH_CARGO,
+	       A.FTN_ESTATUS_CARGO AS FTN_ESTATUS_CARGO,
+	       D.FCC_VALOR AS ESTATUS_CARGO,
+	       A.FTD_FEH_ACT AS FTD_FEH_ACT_CARGO,
+	       '' AS EST_CONCIL,
+	       '' AS EST_MOV
+	   FROM THAFOAVOL_SOLICITUD A
+	   LEFT JOIN TCCRXGRAL_CAT_CATALOGO B ON A.FTN_ESTATUS_TRASPASO = B.FCN_ID_CAT_CATALOGO 
+	  INNER JOIN TCCRXGRAL_CAT_CATALOGO D ON A.FTN_ESTATUS_CARGO = D.FCN_ID_CAT_CATALOGO 
+	  INNER JOIN TCCRXGRAL_CAT_CATALOGO E ON A.FTN_ID_RECHAZO_BANCO = E.FCN_ID_CAT_CATALOGO 
+		WHERE A.FTN_ORIGEN_APORTACION = #{idOrigenSol,jdbcType=DECIMAL} 
+		AND A.FTC_CVE_SOLICITUD = #{cveSol,jdbcType=VARCHAR}  
+		AND A.FTN_ESTATUS_CARGO = 501
+
+	) CON
+	ORDER BY CON.FTD_FEH_CARGO ASC
+
+
+</select>
+
+
+	<resultMap id="ResultMapSpeiDetalle" type="mx.profuturo.nci.business.vo.SpeiDetalleApoVolVO">
+		<id column="REFERENCIA" 				property="referencia" 		jdbcType="VARCHAR" />
+		<result column="FTD_FEH_PAGO_APOVOL" 	property="fechaDeposito" 	jdbcType="TIMESTAMP" />
+		<result column="FTN_NO_ORDEN" 			property="numeroOrden" 		jdbcType="DECIMAL" />
+		<result column="FTD_FEH_CRE" 			property="fechaCreacion" 	jdbcType="TIMESTAMP" />
+		<result column="FTC_USU_CRE" 			property="usuarioCreacion" 	jdbcType="VARCHAR" />
+	</resultMap>
+
+
+<select id="consultarDetalleSpei" 
+ 		 parameterType="mx.profuturo.nci.business.wrapped.SolicitudFilter"
+ 		 resultMap="ResultMapSpeiDetalle">
+ 		SELECT NVL(CA.FCC_VALOR,CON.FTN_REF_SUBCTA_APOVOL) AS REFERENCIA,CON.FTD_FEH_PAGO_APOVOL,
+ 		       CON.FTN_NO_ORDEN,TTO.FTD_FEH_CRE,TTO.FTC_USU_CRE
+          FROM TTAFOAVOL_CONCILIACION CON
+          LEFT JOIN TCCRXGRAL_CAT_CATALOGO CA ON CA.FCN_ID_CAT_CATALOGO = CON.FTN_REF_SUBCTA_APOVOL
+          LEFT JOIN TTAFOAVOL_ORDENES TTO ON TTO.FTC_NO_ORDEN = CON.FTN_NO_ORDEN AND TTO.FTN_NUM_CTA_INVDUAL = CON.FTN_NUM_CTA_INVDUAL
+         <where>
+	   		<if test="folio!=null">
+				CON.FTC_FOLIO = #{folio,jdbcType=VARCHAR} 				
+			</if>
+		</where>
+</select>
+
+
+	<resultMap id="ResultMapSpeiNominaDetalle" type="mx.profuturo.nci.business.vo.SpeiDetalleApoVolVO">
+		<result column="EMPRESA" 				property="empresa" 			jdbcType="VARCHAR"/>
+		<result column="NOEMPLEADO" 			property="noEmpleado" 		jdbcType="VARCHAR"/>
+		<result column="TIPONOMINA" 			property="tipoNomina" 		jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<select id="consultarDetalleNomina" 
+ 		 parameterType="mx.profuturo.nci.business.wrapped.SolicitudFilter"
+ 		 resultMap="ResultMapSpeiNominaDetalle">
+ 		 SELECT CE.FCC_VALOR AS EMPRESA,TC.FTN_NO_EMPLEADO AS NOEMPLEADO,CN.FCC_VALOR AS TIPONOMINA
+  		   FROM TTAFOAVOL_CONCILIACION TC
+           LEFT JOIN TCCRXGRAL_CAT_CATALOGO CE ON CE.FCN_ID_CAT_CATALOGO=TC.FTN_ID_EMPRESA
+           LEFT JOIN TCCRXGRAL_CAT_CATALOGO CN ON CN.FCN_ID_CAT_CATALOGO=TC.FTN_ID_TIPO_NOMINA
+         <where>
+	   		<if test="folio!=null">
+				AND TC.FTC_FOLIO = #{folio,jdbcType=VARCHAR} 				
+			</if>
+			<if test="numCuentaIndividual!=null">
+				AND TC.FTN_NUM_CTA_INVDUAL = #{numCuentaIndividual,jdbcType=DECIMAL}
+			</if>
+		</where>
+	</select>
+	
+	<select id="consultarCuentasSolicitudSolici" 
+			parameterType="mx.profuturo.nci.business.wrapped.SolicitudFilter" 
+			resultMap="ResultMapCuentasSolicitudDet" >
+		SELECT ROWNUM AS ROW_ID, FTC_NOMBRE_CTE, FTC_AP_PATERNO_CTE, FTC_AP_MATERNO_CTE, FTN_NUM_CTA_INVDUAL, 
+		       FTN_NSS, FTC_CURP, VIGENCIA
+		FROM (
+		SELECT DISTINCT TRIM(SOL.FTC_NOMBRE_CTE) AS FTC_NOMBRE_CTE,
+			   TRIM(SOL.FTC_AP_PATERNO_CTE) AS FTC_AP_PATERNO_CTE,
+			   TRIM(SOL.FTC_AP_MATERNO_CTE) AS FTC_AP_MATERNO_CTE,
+               SOL.FTN_NUM_CTA_INVDUAL,
+               SOL.FTN_NSS,
+               SOL.FTC_CURP,
+               DECODE(IND_CTA_INDI.FCC_VALOR_IND,1,'VIGENTE','NO VIGENTE') AS VIGENCIA
+  		  FROM TTAFOAVOL_SOLICITUD SOL
+		  JOIN TTAFOGRAL_IND_CTA_INDV IND_CTA_INDI ON IND_CTA_INDI.FTN_NUM_CTA_INVDUAL=SOL.FTN_NUM_CTA_INVDUAL
+		<where>
+			<if test="numCuentaIndividual != null">
+				SOL.FTN_NUM_CTA_INVDUAL = #{numCuentaIndividual,jdbcType=DECIMAL}
+			</if>
+			<if test="nss != null">
+				AND SOL.FTN_NSS = #{nss,jdbcType=VARCHAR}
+			</if>
+			<if test="curp != null">
+				AND SOL.FTC_CURP = #{curp,jdbcType=VARCHAR}
+			</if>
+			<if test="subOrigen != null and subOrigen.size() > 0">
+				AND SOL.FTN_ID_ORIGEN_SOLICITUD IN 
+				<foreach item="subOr" index="index" collection="subOrigen"
+					open="(" separator="," close=")">
+					#{subOr,jdbcType=DECIMAL}
+				</foreach>
+			</if>
+			<if test="estatusSolicitud != null and estatusSolicitud.id">
+				AND SOL.FTN_ESTATUS_SOLICITUD = #{estatusSolicitud.id,jdbcType=DECIMAL}
+			</if>
+			<if test="fechaInicio != null and fechaFin != null">
+				AND SOL.FTD_FEH_CAPTURA BETWEEN trunc(#{fechaInicio,jdbcType=TIMESTAMP}) AND
+				trunc(#{fechaFin,jdbcType=TIMESTAMP})+.99999
+			</if>
+				AND IND_CTA_INDI.FFN_ID_CONFIG_INDI=2
+		</where>
+		UNION
+		SELECT DISTINCT TRIM(PRE.FTC_NOMBRE_CTE) AS FTC_NOMBRE_CTE,
+			   TRIM(PRE.FTC_AP_PATERNO_CTE) AS FTC_AP_PATERNO_CTE,
+			   TRIM(PRE.FTC_AP_MATERNO_CTE) AS FTC_AP_MATERNO_CTE,
+               PRE.FTN_NUM_CTA_INVDUAL,
+               PRE.FTN_NSS,
+               PRE.FTC_CURP,
+               DECODE(IND_CTA_INDI.FCC_VALOR_IND,1,'VIGENTE','NO VIGENTE') AS VIGENCIA
+  		  FROM TTAFOAVOL_PRE_SOLICITUD PRE
+		  JOIN TTAFOGRAL_IND_CTA_INDV IND_CTA_INDI ON IND_CTA_INDI.FTN_NUM_CTA_INVDUAL=PRE.FTN_NUM_CTA_INVDUAL
+		<where>
+			<if test="numCuentaIndividual != null">
+				PRE.FTN_NUM_CTA_INVDUAL = #{numCuentaIndividual,jdbcType=DECIMAL}
+			</if>
+			<if test="nss != null">
+				AND PRE.FTN_NSS = #{nss,jdbcType=VARCHAR}
+			</if>
+			<if test="curp != null">
+				AND PRE.FTC_CURP = #{curp,jdbcType=VARCHAR}
+			</if>
+			<if test="subOrigen != null and subOrigen.size() > 0">
+				AND PRE.FTN_ID_ORIGEN_SOLICITUD IN 
+				<foreach item="subOr" index="index" collection="subOrigen"
+					open="(" separator="," close=")">
+					#{subOr,jdbcType=DECIMAL}
+				</foreach>
+			</if>
+			<if test="estatusSolicitud != null and estatusSolicitud.id">
+				AND PRE.FTN_ESTATUS_SOLICITUD = #{estatusSolicitud.id,jdbcType=DECIMAL}
+			</if>
+			<if test="fechaInicio != null and fechaFin != null">
+				AND PRE.FTD_FEH_CAPTURA BETWEEN trunc(#{fechaInicio,jdbcType=TIMESTAMP}) AND
+				trunc(#{fechaFin,jdbcType=TIMESTAMP})+.99999
+			</if>
+				AND PRE.FTC_CVE_SOLICITUD NOT IN (SELECT FTC_CVE_SOLICITUD FROM TTAFOAVOL_SOLICITUD) 
+				
+				AND IND_CTA_INDI.FFN_ID_CONFIG_INDI=2
+		</where>
+		) TABLA
+		ORDER BY 2,3,4,5 
+	</select>	
+	
+	<select id="consultarCuentasSolicitudConcil" 
+			parameterType="mx.profuturo.nci.business.wrapped.SolicitudFilter" 
+			resultMap="ResultMapCuentasSolicitudDet" >
+		SELECT ROWNUM AS ROW_ID, FTC_NOMBRE_CTE, FTC_AP_PATERNO_CTE, FTC_AP_MATERNO_CTE, FTN_NUM_CTA_INVDUAL, 
+		       FTN_NSS, FTC_CURP, VIGENCIA
+		FROM (
+		SELECT DISTINCT TRIM(CON.FTC_NOMBRE_CTE) AS FTC_NOMBRE_CTE, TRIM(CON.FTC_AP_PATERNO_CTE) AS FTC_AP_PATERNO_CTE,
+               TRIM(CON.FTC_AP_MATERNO_CTE) AS FTC_AP_MATERNO_CTE, CON.FTN_NUM_CTA_INVDUAL, CON.FTN_NSS, CON.FTC_CURP,
+               DECODE(IND_CTA_INDI.FCC_VALOR_IND,1,'VIGENTE','NO VIGENTE') AS VIGENCIA
+  		  FROM TTAFOAVOL_CONCILIACION CON
+		  JOIN TTAFOGRAL_IND_CTA_INDV IND_CTA_INDI ON IND_CTA_INDI.FTN_NUM_CTA_INVDUAL=CON.FTN_NUM_CTA_INVDUAL
+		<where>
+			<if test="numCuentaIndividual != null">
+				CON.FTN_NUM_CTA_INVDUAL = #{numCuentaIndividual,jdbcType=DECIMAL}
+			</if>
+			<if test="nss != null">
+				AND CON.FTN_NSS = #{nss,jdbcType=VARCHAR}
+			</if>
+			<if test="curp != null">
+				AND CON.FTC_CURP = #{curp,jdbcType=VARCHAR}
+			</if>
+			<if test="origenAportacion != null and origenAportacion.id">
+				AND CON.FTN_ORIGEN_APORTACION = #{origenAportacion.id,jdbcType=DECIMAL}
+			</if>
+			<if test="estatusSolicitud != null and estatusSolicitud.id">
+				AND CON.FTN_ESTATUS_TRAMITE = #{estatusSolicitud.id,jdbcType=DECIMAL}
+			</if>
+			<if test="fechaInicio != null and fechaFin != null">
+				AND CON.FTD_FEH_CRE BETWEEN trunc(#{fechaInicio,jdbcType=TIMESTAMP}) AND
+				trunc(#{fechaFin,jdbcType=TIMESTAMP})+.99999
+			</if>
+				AND IND_CTA_INDI.FFN_ID_CONFIG_INDI=2
+		</where>
+		) TABLA
+		ORDER BY 2,3,4,5 
+	</select>
+	
+	
+	<select id="consultarCuentasSolicitudBanco" 
+			parameterType="mx.profuturo.nci.business.wrapped.SolicitudFilter" 
+			resultMap="ResultMapCuentasSolicitudDet" >
+		SELECT ROWNUM AS ROW_ID, FTC_NOMBRE_CTE, FTC_AP_PATERNO_CTE, FTC_AP_MATERNO_CTE, FTN_NUM_CTA_INVDUAL, 
+		       FTN_NSS, FTC_CURP, VIGENCIA
+		FROM (
+			SELECT DISTINCT  '' AS FTC_NOMBRE_CTE, '' AS FTC_AP_PATERNO_CTE, '' AS FTC_AP_MATERNO_CTE, 
+               BAN.FTN_NUM_CTA_INVDUAL, '' FTN_NSS, BAN.FTC_CURP, '' AS VIGENCIA
+          FROM TTAFOAVOL_BANCOS BAN
+         <where>
+         	<if test="numCuentaIndividual != null">
+				BAN.FTN_NUM_CTA_INVDUAL = #{numCuentaIndividual,jdbcType=DECIMAL}
+			</if>
+			<if test="curp != null">
+				AND BAN.FTC_CURP = #{curp,jdbcType=VARCHAR}
+			</if>
+			<if test="origenAportacion != null and origenAportacion.id">
+				AND BAN.FTN_ORIGEN_APORTACION = #{origenAportacion.id,jdbcType=DECIMAL}
+			</if>
+			<if test="fechaInicio != null and fechaFin != null">
+				AND BAN.FTD_FEH_DEPOSITO BETWEEN trunc(#{fechaInicio,jdbcType=TIMESTAMP}) AND
+				trunc(#{fechaFin,jdbcType=TIMESTAMP})+.99999
+			</if>
+		</where>
+		) TABLA
+		ORDER BY 2,3,4,5 
+	</select>
+	
+	
+	<select id="consultarCuentasSolicitudSpei" 
+			parameterType="mx.profuturo.nci.business.wrapped.SolicitudFilter" 
+			resultMap="ResultMapCuentasSolicitudDet" >
+		SELECT ROWNUM AS ROW_ID, FTC_NOMBRE_CTE, FTC_AP_PATERNO_CTE, FTC_AP_MATERNO_CTE, FTN_NUM_CTA_INVDUAL, 
+		       FTN_NSS, FTC_CURP, VIGENCIA
+		 FROM(
+		
+		SELECT DISTINCT TRIM(CON.FTC_NOMBRE_CTE) AS FTC_NOMBRE_CTE, TRIM(CON.FTC_AP_PATERNO_CTE) AS FTC_AP_PATERNO_CTE,
+               TRIM(CON.FTC_AP_MATERNO_CTE) AS FTC_AP_MATERNO_CTE, ORD.FTN_NUM_CTA_INVDUAL, CON.FTN_NSS, CON.FTC_CURP,
+               DECODE(IND_CTA_INDI.FCC_VALOR_IND,1,'VIGENTE','NO VIGENTE') AS VIGENCIA
+          FROM TTAFOAVOL_ORDENES ORD
+          JOIN TTAFOAVOL_CONCILIACION CON ON ORD.FTC_NO_ORDEN = CON.FTN_NO_ORDEN
+          JOIN TTAFOGRAL_IND_CTA_INDV IND_CTA_INDI ON IND_CTA_INDI.FTN_NUM_CTA_INVDUAL=ORD.FTN_NUM_CTA_INVDUAL
+		<where>
+			<if test="numCuentaIndividual != null">
+				ORD.FTN_NUM_CTA_INVDUAL = #{numCuentaIndividual,jdbcType=DECIMAL}
+			</if>
+			<if test="nss != null">
+				AND CON.FTN_NSS = #{nss,jdbcType=VARCHAR}
+			</if>
+			<if test="curp != null">
+				AND CON.FTC_CURP = #{curp,jdbcType=VARCHAR}
+			</if>
+			<if test="estatusSolicitud != null and estatusSolicitud.id">
+				AND ORD.FTN_ESTATUS = #{estatusSolicitud.id,jdbcType=DECIMAL}
+			</if>
+			<if test="fechaInicio != null and fechaFin != null">
+				AND CON.FTD_FEH_CRE BETWEEN trunc(#{fechaInicio,jdbcType=TIMESTAMP}) AND
+				trunc(#{fechaFin,jdbcType=TIMESTAMP})+.99999
+			</if>
+				AND IND_CTA_INDI.FFN_ID_CONFIG_INDI=2
+		</where>
+			) TABLA
+		ORDER BY 2,3,4,5 
+	</select>
+	
+	<select id="consultarCuentasSolicitudTodos" 
+			parameterType="mx.profuturo.nci.business.wrapped.SolicitudFilter" 
+			resultMap="ResultMapCuentasSolicitudDet" >
+					SELECT ROWNUM AS ROW_ID, FTC_NOMBRE_CTE, FTC_AP_PATERNO_CTE, FTC_AP_MATERNO_CTE, FTN_NUM_CTA_INVDUAL, 
+		       FTN_NSS, FTC_CURP, VIGENCIA
+		 FROM(
+			
+			
+		SELECT DISTINCT TRIM(SOL.FTC_NOMBRE_CTE) AS FTC_NOMBRE_CTE,
+			   TRIM(SOL.FTC_AP_PATERNO_CTE) AS FTC_AP_PATERNO_CTE,
+			   TRIM(SOL.FTC_AP_MATERNO_CTE) AS FTC_AP_MATERNO_CTE,
+               SOL.FTN_NUM_CTA_INVDUAL,
+               SOL.FTN_NSS,
+               SOL.FTC_CURP,
+               DECODE(IND_CTA_INDI.FCC_VALOR_IND,1,'VIGENTE','NO VIGENTE') AS VIGENCIA
+  		  FROM TTAFOAVOL_SOLICITUD SOL
+		  JOIN TTAFOGRAL_IND_CTA_INDV IND_CTA_INDI ON IND_CTA_INDI.FTN_NUM_CTA_INVDUAL=SOL.FTN_NUM_CTA_INVDUAL
+		<where>
+			<if test="numCuentaIndividual != null">
+				SOL.FTN_NUM_CTA_INVDUAL = #{numCuentaIndividual,jdbcType=DECIMAL}
+			</if>
+			<if test="nss != null">
+				AND SOL.FTN_NSS = #{nss,jdbcType=VARCHAR}
+			</if>
+			<if test="curp != null">
+				AND SOL.FTC_CURP = #{curp,jdbcType=VARCHAR}
+			</if>
+				AND SOL.FTN_ID_ORIGEN_SOLICITUD IN (485,462,463,465,464,466,1043,1610,6428) 
+			<if test="estatusSolicitud != null and estatusSolicitud.id">
+				AND SOL.FTN_ESTATUS_SOLICITUD = #{estatusSolicitud.id,jdbcType=DECIMAL}
+			</if>
+			<if test="fechaInicio != null and fechaFin != null">
+				AND SOL.FTD_FEH_CAPTURA BETWEEN trunc(#{fechaInicio,jdbcType=TIMESTAMP}) AND
+				trunc(#{fechaFin,jdbcType=TIMESTAMP})+.99999
+			</if>
+				AND IND_CTA_INDI.FFN_ID_CONFIG_INDI=2
+		</where>
+		UNION
+			SELECT DISTINCT TRIM(PRE.FTC_NOMBRE_CTE) AS FTC_NOMBRE_CTE,
+			   TRIM(PRE.FTC_AP_PATERNO_CTE) AS FTC_AP_PATERNO_CTE,
+			   TRIM(PRE.FTC_AP_MATERNO_CTE) AS FTC_AP_MATERNO_CTE,
+               PRE.FTN_NUM_CTA_INVDUAL,
+               PRE.FTN_NSS,
+               PRE.FTC_CURP,
+               DECODE(IND_CTA_INDI.FCC_VALOR_IND,1,'VIGENTE','NO VIGENTE') AS VIGENCIA
+  		  FROM TTAFOAVOL_PRE_SOLICITUD PRE
+		  JOIN TTAFOGRAL_IND_CTA_INDV IND_CTA_INDI ON IND_CTA_INDI.FTN_NUM_CTA_INVDUAL=PRE.FTN_NUM_CTA_INVDUAL
+		<where>
+			<if test="numCuentaIndividual != null">
+				PRE.FTN_NUM_CTA_INVDUAL = #{numCuentaIndividual,jdbcType=DECIMAL}
+			</if>
+			<if test="nss != null">
+				AND PRE.FTN_NSS = #{nss,jdbcType=VARCHAR}
+			</if>
+			<if test="curp != null">
+				AND PRE.FTC_CURP = #{curp,jdbcType=VARCHAR}
+			</if>
+			<if test="subOrigen != null and subOrigen.size() > 0">
+				AND PRE.FTN_ID_ORIGEN_SOLICITUD IN 
+				<foreach item="subOr" index="index" collection="subOrigen"
+					open="(" separator="," close=")">
+					#{subOr,jdbcType=DECIMAL}
+				</foreach>
+			</if>
+			<if test="estatusSolicitud != null and estatusSolicitud.id">
+				AND PRE.FTN_ESTATUS_SOLICITUD = #{estatusSolicitud.id,jdbcType=DECIMAL}
+			</if>
+			<if test="fechaInicio != null and fechaFin != null">
+				AND PRE.FTD_FEH_CAPTURA BETWEEN trunc(#{fechaInicio,jdbcType=TIMESTAMP}) AND
+				trunc(#{fechaFin,jdbcType=TIMESTAMP})+.99999
+			</if>
+				AND PRE.FTC_CVE_SOLICITUD NOT IN (SELECT FTC_CVE_SOLICITUD FROM TTAFOAVOL_SOLICITUD) 
+				
+				AND IND_CTA_INDI.FFN_ID_CONFIG_INDI=2
+		</where>
+		UNION			
+		SELECT DISTINCT TRIM(CON.FTC_NOMBRE_CTE) AS FTC_NOMBRE_CTE, TRIM(CON.FTC_AP_PATERNO_CTE) AS FTC_AP_PATERNO_CTE,
+               TRIM(CON.FTC_AP_MATERNO_CTE) AS FTC_AP_MATERNO_CTE, CON.FTN_NUM_CTA_INVDUAL, CON.FTN_NSS, CON.FTC_CURP,
+               DECODE(IND_CTA_INDI.FCC_VALOR_IND,1,'VIGENTE','NO VIGENTE') AS VIGENCIA
+  		  FROM TTAFOAVOL_CONCILIACION CON
+		  JOIN TTAFOGRAL_IND_CTA_INDV IND_CTA_INDI ON IND_CTA_INDI.FTN_NUM_CTA_INVDUAL=CON.FTN_NUM_CTA_INVDUAL
+		<where>
+			<if test="numCuentaIndividual != null">
+				CON.FTN_NUM_CTA_INVDUAL = #{numCuentaIndividual,jdbcType=DECIMAL}
+			</if>
+			<if test="nss != null">
+				AND CON.FTN_NSS = #{nss,jdbcType=VARCHAR}
+			</if>
+			<if test="curp != null">
+				AND CON.FTC_CURP = #{curp,jdbcType=VARCHAR}
+			</if>
+				AND CON.FTN_ORIGEN_APORTACION IN (288,289,1115,290,287)
+			<if test="estatusSolicitud != null and estatusSolicitud.id">
+				AND CON.FTN_ESTATUS_TRAMITE = #{estatusSolicitud.id,jdbcType=DECIMAL}
+			</if>
+			<if test="fechaInicio != null and fechaFin != null">
+				AND CON.FTD_FEH_CRE BETWEEN trunc(#{fechaInicio,jdbcType=TIMESTAMP}) AND
+				trunc(#{fechaFin,jdbcType=TIMESTAMP})+.99999
+			</if>
+				AND IND_CTA_INDI.FFN_ID_CONFIG_INDI=2
+		</where>			
+ 		UNION
+ 		SELECT DISTINCT TRIM(CON.FTC_NOMBRE_CTE) AS FTC_NOMBRE_CTE, TRIM(CON.FTC_AP_PATERNO_CTE) AS FTC_AP_PATERNO_CTE,
+               TRIM(CON.FTC_AP_MATERNO_CTE) AS FTC_AP_MATERNO_CTE, ORD.FTN_NUM_CTA_INVDUAL, CON.FTN_NSS, CON.FTC_CURP,
+               DECODE(IND_CTA_INDI.FCC_VALOR_IND,1,'VIGENTE','NO VIGENTE') AS VIGENCIA
+          FROM TTAFOAVOL_ORDENES ORD
+          JOIN TTAFOAVOL_CONCILIACION CON ON ORD.FTC_NO_ORDEN = CON.FTN_NO_ORDEN
+          JOIN TTAFOGRAL_IND_CTA_INDV IND_CTA_INDI ON IND_CTA_INDI.FTN_NUM_CTA_INVDUAL=ORD.FTN_NUM_CTA_INVDUAL
+		<where>
+			<if test="numCuentaIndividual != null">
+				ORD.FTN_NUM_CTA_INVDUAL = #{numCuentaIndividual,jdbcType=DECIMAL}
+			</if>
+			<if test="nss != null">
+				AND CON.FTN_NSS = #{nss,jdbcType=VARCHAR}
+			</if>
+			<if test="curp != null">
+				AND CON.FTC_CURP = #{curp,jdbcType=VARCHAR}
+			</if>
+			<if test="estatusSolicitud != null and estatusSolicitud.id">
+				AND ORD.FTN_ESTATUS = #{estatusSolicitud.id,jdbcType=DECIMAL}
+			</if>
+			<if test="fechaInicio != null and fechaFin != null">
+				AND CON.FTD_FEH_CRE BETWEEN trunc(#{fechaInicio,jdbcType=TIMESTAMP}) AND
+				trunc(#{fechaFin,jdbcType=TIMESTAMP})+.99999
+			</if>
+				AND IND_CTA_INDI.FFN_ID_CONFIG_INDI=2
+		</where>
+ 		)TABLA
+ 		 ORDER BY 5,2,3,4
+	</select>
+	
+	<select id="consultarSolicitudesSolicitud" parameterType="mx.profuturo.nci.business.wrapped.SolicitudFilter" 
+	        resultMap="ResultMapSolicitudCorta">
+	  SELECT ROWNUM AS ROW_ID,CON.FTN_NUM_CTA_INVDUAL, CON.FTC_NOMBRE_CTE, CON.FTC_AP_PATERNO_CTE, CON.FTC_AP_MATERNO_CTE,
+		     CON.FTD_FEH_ESTATUS_SOLICITUD, CON.FTN_ID_ORIGEN_SOLICITUD,
+		     CON.FCC_VALOR_ORIGEN_SOLI,
+		     CON.FTC_FOLIO, CON.FTN_IMPORTE, CON.FTN_CVE_BANCO, CON.FCC_VALOR_CLAVE_BANCO, CON.FTC_CTA_BANCO,
+		     CON.FTN_ESTATUS_SOLICITUD, CON.FCC_VALOR_ESTATUS_SOL, CON.FTC_CVE_SOLICITUD,
+		     CON.FTN_ID_PERIODO, CON.FCC_VALOR_PERIODO, CON.FTD_FEH_ACT, CON.FTC_USU_ACT
+	  FROM ( 
+	   		SELECT SOL.FTN_NUM_CTA_INVDUAL, SOL.FTC_NOMBRE_CTE, SOL.FTC_AP_PATERNO_CTE, SOL.FTC_AP_MATERNO_CTE,
+		       SOL.FTD_FEH_CAPTURA AS FTD_FEH_ESTATUS_SOLICITUD, SOL.FTN_ID_ORIGEN_SOLICITUD,
+		       'SOLICITUD ' || DECODE(SOL.FTN_ID_ORIGEN_SOLICITUD,463,'DOMI INTERNET',COA.FCC_VALOR) AS FCC_VALOR_ORIGEN_SOLI,
+		       SOL.FTC_FOLIO, SOL.FTN_IMPORTE, SOL.FTN_CVE_BANCO, CB.FCC_VALOR AS FCC_VALOR_CLAVE_BANCO, SOL.FTC_CTA_BANCO,
+		       SOL.FTN_ESTATUS_SOLICITUD, CES.FCC_VALOR AS FCC_VALOR_ESTATUS_SOL, SOL.FTC_CVE_SOLICITUD,
+		       SOL.FTN_ID_PERIODO, CP.FCC_VALOR AS FCC_VALOR_PERIODO, SOL.FTD_FEH_ACT, SOL.FTC_USU_ACT
+		  FROM TTAFOAVOL_SOLICITUD SOL
+		  LEFT JOIN TCCRXGRAL_CAT_CATALOGO COA ON COA.FCN_ID_CAT_CATALOGO = SOL.FTN_ID_ORIGEN_SOLICITUD
+		  LEFT JOIN TCCRXGRAL_CAT_CATALOGO CES ON CES.FCN_ID_CAT_CATALOGO = SOL.FTN_ESTATUS_SOLICITUD
+		  LEFT JOIN TCCRXGRAL_CAT_CATALOGO CP ON CP.FCN_ID_CAT_CATALOGO = SOL.FTN_ID_PERIODO  
+		  LEFT JOIN TRAFOAVOL_FOLIO_BANCO  TFB ON TFB.FTC_FOLIO = SOL.FTC_FOLIO
+          LEFT JOIN TCCRXGRAL_CAT_CATALOGO CB ON CB.FCN_ID_CAT_CATALOGO = SOL.FTN_CVE_BANCO
+		<where>
+			<if test="numCuentaIndividual != null">
+				SOL.FTN_NUM_CTA_INVDUAL = #{numCuentaIndividual,jdbcType=DECIMAL}
+			</if>
+			<if test="nss != null">
+				AND SOL.FTN_NSS = #{nss,jdbcType=VARCHAR}
+			</if>
+			<if test="curp != null">
+				AND SOL.FTC_CURP = #{curp,jdbcType=VARCHAR}
+			</if>
+			<if test="subOrigen != null and subOrigen.size() > 0">
+				AND SOL.FTN_ID_ORIGEN_SOLICITUD IN 
+				<foreach item="subOr" index="index" collection="subOrigen"
+					open="(" separator="," close=")">
+					#{subOr,jdbcType=DECIMAL}
+				</foreach>
+			</if>
+			<if test="estatusSolicitud != null">
+				<if test="estatusSolicitud.id == 509 or estatusSolicitud.id == 512 or estatusSolicitud.id == 513">
+					<if test="estatusSolicitud.id == 509">
+						AND SOL.FTN_ESTATUS_SOLICITUD IN (509,940)
+					</if>
+					<if test="estatusSolicitud.id == 512">
+						AND SOL.FTN_ESTATUS_SOLICITUD IN (512,941)
+					</if>
+					<if test="estatusSolicitud.id == 513">
+						AND SOL.FTN_ESTATUS_SOLICITUD IN (513,942)
+					</if>
+					
+				</if>
+				<if test="estatusSolicitud.id != 509 and estatusSolicitud.id != 512 and estatusSolicitud.id != 513">
+					AND SOL.FTN_ESTATUS_SOLICITUD = #{estatusSolicitud.id,jdbcType=DECIMAL}
+				</if>
+			</if>
+			<if test="fechaInicio != null and fechaFin != null">
+				AND SOL.FTD_FEH_CAPTURA BETWEEN trunc(#{fechaInicio,jdbcType=TIMESTAMP}) AND
+				trunc(#{fechaFin,jdbcType=TIMESTAMP})+.99999
+			</if>
+		</where>
+		UNION
+	   		SELECT PRE.FTN_NUM_CTA_INVDUAL, PRE.FTC_NOMBRE_CTE, PRE.FTC_AP_PATERNO_CTE, PRE.FTC_AP_MATERNO_CTE,
+		       PRE.FTD_FEH_CAPTURA AS FTD_FEH_ESTATUS_SOLICITUD, PRE.FTN_ID_ORIGEN_SOLICITUD,
+		       'PRESOLICITUD ' || DECODE(PRE.FTN_ID_ORIGEN_SOLICITUD,463,'DOMI INTERNET',COA.FCC_VALOR) AS FCC_VALOR_ORIGEN_SOLI,
+		       PRE.FTC_FOLIO, PRE.FTN_IMPORTE, PRE.FTN_CVE_BANCO, CB.FCC_VALOR AS FCC_VALOR_CLAVE_BANCO, PRE.FTC_CTA_BANCO,
+		       PRE.FTN_ESTATUS_SOLICITUD, CES.FCC_VALOR AS FCC_VALOR_ESTATUS_SOL, PRE.FTC_CVE_SOLICITUD,
+		       PRE.FTN_ID_PERIODO, CP.FCC_VALOR AS FCC_VALOR_PERIODO, PRE.FTD_FEH_ACT, PRE.FTC_USU_ACT
+		  FROM TTAFOAVOL_PRE_SOLICITUD PRE
+		  LEFT JOIN TCCRXGRAL_CAT_CATALOGO COA ON COA.FCN_ID_CAT_CATALOGO = PRE.FTN_ID_ORIGEN_SOLICITUD
+		  LEFT JOIN TCCRXGRAL_CAT_CATALOGO CES ON CES.FCN_ID_CAT_CATALOGO = PRE.FTN_ESTATUS_SOLICITUD
+		  LEFT JOIN TCCRXGRAL_CAT_CATALOGO CP ON CP.FCN_ID_CAT_CATALOGO = PRE.FTN_ID_PERIODO  
+		  LEFT JOIN TRAFOAVOL_FOLIO_BANCO  TFB ON TFB.FTC_FOLIO = PRE.FTC_FOLIO
+          LEFT JOIN TCCRXGRAL_CAT_CATALOGO CB ON CB.FCN_ID_CAT_CATALOGO = PRE.FTN_CVE_BANCO
+		<where>
+			<if test="numCuentaIndividual != null">
+				PRE.FTN_NUM_CTA_INVDUAL = #{numCuentaIndividual,jdbcType=DECIMAL}
+			</if>
+			<if test="nss != null">
+				AND PRE.FTN_NSS = #{nss,jdbcType=VARCHAR}
+			</if>
+			<if test="curp != null">
+				AND PRE.FTC_CURP = #{curp,jdbcType=VARCHAR}
+			</if>
+			<if test="subOrigen != null and subOrigen.size() > 0">
+				AND PRE.FTN_ID_ORIGEN_SOLICITUD IN 
+				<foreach item="subOr" index="index" collection="subOrigen"
+					open="(" separator="," close=")">
+					#{subOr,jdbcType=DECIMAL}
+				</foreach>
+			</if>
+			<if test="estatusSolicitud != null">
+				<if test="estatusSolicitud.id == 509 or estatusSolicitud.id == 512 or estatusSolicitud.id == 513">
+					<if test="estatusSolicitud.id == 509">
+						AND PRE.FTN_ESTATUS_SOLICITUD IN (509,940)
+					</if>
+					<if test="estatusSolicitud.id == 512">
+						AND PRE.FTN_ESTATUS_SOLICITUD IN (512,941)
+					</if>
+					<if test="estatusSolicitud.id == 513">
+						AND PRE.FTN_ESTATUS_SOLICITUD IN (513,942)
+					</if>
+					
+				</if>
+				<if test="estatusSolicitud.id != 509 and estatusSolicitud.id != 512 and estatusSolicitud.id != 513">
+					AND PRE.FTN_ESTATUS_SOLICITUD = #{estatusSolicitud.id,jdbcType=DECIMAL}
+				</if>
+			</if>
+			<if test="fechaInicio != null and fechaFin != null">
+				AND PRE.FTD_FEH_CAPTURA BETWEEN trunc(#{fechaInicio,jdbcType=TIMESTAMP}) AND
+				trunc(#{fechaFin,jdbcType=TIMESTAMP})+.99999
+			</if>
+			AND PRE.FTC_CVE_SOLICITUD NOT IN (SELECT FTC_CVE_SOLICITUD FROM TTAFOAVOL_SOLICITUD)
+		</where>
+		) CON
+		ORDER BY 6 DESC ,2 DESC
+	</select>
+	
+	<select id="consultarSolicitudesConciliacion" parameterType="mx.profuturo.nci.business.wrapped.SolicitudFilter" 
+	        resultMap="ResultMapSolicitudCorta">
+	   SELECT ROWNUM AS ROW_ID,CON.FTN_NUM_CTA_INVDUAL, CON.FTC_NOMBRE_CTE, CON.FTC_AP_PATERNO_CTE, CON.FTC_AP_MATERNO_CTE,
+       CON.FTD_FEH_ESTATUS_SOLICITUD, CON.FTN_ID_ORIGEN_SOLICITUD, CON.FCC_VALOR_ORIGEN_SOLI,
+       CON.FTC_FOLIO, CON.FTN_IMPORTE, CON.FTN_CVE_BANCO, CON.FCC_VALOR_CLAVE_BANCO, CON.FTC_CTA_BANCO,
+       CON.FTN_ESTATUS_SOLICITUD,CON.FCC_VALOR_ESTATUS_SOL, CON.FTC_CVE_SOLICITUD,
+       CON.FTN_ID_PERIODO,CON.FCC_VALOR_PERIODO,CON.FTD_FEH_ACT,CON.FTC_USU_ACT, CON.LLAVE
+	   FROM(    
+	 	SELECT DISTINCT CON.FTN_ID_CONCILIACION AS LLAVE, CON.FTN_NUM_CTA_INVDUAL, CON.FTC_NOMBRE_CTE, CON.FTC_AP_PATERNO_CTE, CON.FTC_AP_MATERNO_CTE,
+       		   CON.FTD_FEH_CRE AS FTD_FEH_ESTATUS_SOLICITUD ,CON.FTN_ORIGEN_APORTACION AS FTN_ID_ORIGEN_SOLICITUD,
+               COA.FCC_VALOR AS FCC_VALOR_ORIGEN_SOLI,
+               CON.FTC_FOLIO AS FTC_FOLIO, CON.FTN_IMPORTE, CON.FTN_CVE_BANCO, CB.FCC_VALOR AS FCC_VALOR_CLAVE_BANCO,CON.FTC_CTA_BANCO,
+               CON.FTN_REG_CONCILIADO AS FTN_ESTATUS_SOLICITUD,DECODE(CON.FTN_REG_CONCILIADO,0,'NO CONCILIADO',1,'CONCILIADO',2,'RECHAZADO','DESCONOCIDO') AS FCC_VALOR_ESTATUS_SOL, NVL(CON.FTN_CVE_SOLICITUD,CON.FTC_FOLIO) AS FTC_CVE_SOLICITUD,
+               NULL AS FTN_ID_PERIODO,NULL AS FCC_VALOR_PERIODO,CON.FTD_FEH_ACT,CON.FTC_USU_ACT 
+          FROM TTAFOAVOL_CONCILIACION CON
+          LEFT JOIN TCCRXGRAL_CAT_CATALOGO COA ON COA.FCN_ID_CAT_CATALOGO = CON.FTN_ORIGEN_APORTACION
+          LEFT JOIN TCCRXGRAL_CAT_CATALOGO CES ON CES.FCN_ID_CAT_CATALOGO = CON.FTN_ESTATUS_TRAMITE
+          LEFT JOIN TRAFOAVOL_FOLIO_BANCO  TFB ON TFB.FTC_FOLIO = CON.FTC_FOLIO
+          LEFT JOIN TCCRXGRAL_CAT_CATALOGO CB ON CB.FCN_ID_CAT_CATALOGO = CON.FTN_CVE_BANCO
+         <where>
+			<if test="numCuentaIndividual != null">
+				CON.FTN_NUM_CTA_INVDUAL = #{numCuentaIndividual,jdbcType=DECIMAL}
+			</if>
+			<if test="nss != null">
+				AND CON.FTN_NSS = #{nss,jdbcType=VARCHAR}
+			</if>
+			<if test="curp != null">
+				AND CON.FTC_CURP = #{curp,jdbcType=VARCHAR}
+			</if>
+			<if test="origenAportacion != null and origenAportacion.id">
+				AND CON.FTN_ORIGEN_APORTACION = #{origenAportacion.id,jdbcType=DECIMAL}
+			</if>
+			<if test="estatusSolicitud != null and estatusSolicitud.id">
+				<if test="estatusSolicitud.id==520">
+					AND CON.FTN_REG_CONCILIADO=0
+				</if>
+				<if test="estatusSolicitud.id==521">
+					AND CON.FTN_REG_CONCILIADO=1
+				</if>
+				<if test="estatusSolicitud.id!=521 and estatusSolicitud.id!=520">
+					AND CON.FTN_ESTATUS_TRAMITE = #{estatusSolicitud.id,jdbcType=DECIMAL}
+				</if>
+			</if>
+			<if test="fechaInicio != null and fechaFin != null">
+				AND CON.FTD_FEH_CRE BETWEEN trunc(#{fechaInicio,jdbcType=TIMESTAMP}) AND
+				trunc(#{fechaFin,jdbcType=TIMESTAMP})+.99999
+			</if>
+		</where>   
+	    ) CON
+	    ORDER BY 6 DESC ,2 DESC
+	</select>
+	
+	<select id="consultarSolicitudesSpei" parameterType="mx.profuturo.nci.business.wrapped.SolicitudFilter" 
+	        resultMap="ResultMapSolicitudCorta">
+	SELECT ROWNUM AS ROW_ID,CON.FTN_NUM_CTA_INVDUAL, CON.FTC_NOMBRE_CTE, CON.FTC_AP_PATERNO_CTE, CON.FTC_AP_MATERNO_CTE,
+           CON.FTD_FEH_ESTATUS_SOLICITUD, CON.FTN_ID_ORIGEN_SOLICITUD, CON.FCC_VALOR_ORIGEN_SOLI,
+           CON.FTC_FOLIO, CON.FTN_IMPORTE, CON.FTN_CVE_BANCO, CON.FCC_VALOR_CLAVE_BANCO, CON.FTC_CTA_BANCO,
+           CON.FTN_ESTATUS_SOLICITUD,CON.FCC_VALOR_ESTATUS_SOL, CON.FTC_CVE_SOLICITUD,
+           CON.FTN_ID_PERIODO,CON.FCC_VALOR_PERIODO,CON.FTD_FEH_ACT,CON.FTC_USU_ACT, CON.LLAVE
+	  FROM(
+	 	   SELECT CON.FTN_ID_CONCILIACION AS LLAVE, ORD.FTN_NUM_CTA_INVDUAL, CON.FTC_NOMBRE_CTE, CON.FTC_AP_PATERNO_CTE, CON.FTC_AP_MATERNO_CTE,
+       		      CON.FTD_FEH_CRE AS FTD_FEH_ESTATUS_SOLICITUD ,CON.FTN_ORIGEN_APORTACION AS FTN_ID_ORIGEN_SOLICITUD,
+                  COA.FCC_VALOR AS FCC_VALOR_ORIGEN_SOLI, CON.FTC_FOLIO AS FTC_FOLIO, CON.FTN_IMPORTE, CON.FTN_CVE_BANCO,
+                  CB.FCC_VALOR AS FCC_VALOR_CLAVE_BANCO,CON.FTC_CTA_BANCO, CON.FTN_REG_CONCILIADO AS FTN_ESTATUS_SOLICITUD,
+                  DECODE(CON.FTN_REG_CONCILIADO,0,'NO CONCILIADO',1,'CONCILIADO',2,'RECHAZADO','DESCONOCIDO') AS FCC_VALOR_ESTATUS_SOL, NVL(CON.FTN_CVE_SOLICITUD,CON.FTC_FOLIO) AS FTC_CVE_SOLICITUD,
+                  NULL AS FTN_ID_PERIODO,NULL AS FCC_VALOR_PERIODO,CON.FTD_FEH_ACT,CON.FTC_USU_ACT
+             FROM TTAFOAVOL_ORDENES ORD
+             JOIN TTAFOAVOL_CONCILIACION CON ON ORD.FTC_NO_ORDEN = CON.FTN_NO_ORDEN
+             LEFT JOIN TCCRXGRAL_CAT_CATALOGO COA ON COA.FCN_ID_CAT_CATALOGO = CON.FTN_ORIGEN_APORTACION
+             LEFT JOIN TCCRXGRAL_CAT_CATALOGO CES ON CES.FCN_ID_CAT_CATALOGO = CON.FTN_ESTATUS_TRAMITE
+             LEFT JOIN TCCRXGRAL_CAT_CATALOGO CB ON CB.FCN_ID_CAT_CATALOGO = CON.FTN_CVE_BANCO
+         <where>
+			<if test="numCuentaIndividual != null">
+				ORD.FTN_NUM_CTA_INVDUAL = #{numCuentaIndividual,jdbcType=DECIMAL}
+			</if>
+			<if test="nss != null">
+				AND CON.FTN_NSS = #{nss,jdbcType=VARCHAR}
+			</if>
+			<if test="curp != null">
+				AND CON.FTC_CURP = #{curp,jdbcType=VARCHAR}
+			</if>
+			<if test="estatusSolicitud != null and estatusSolicitud.id">
+				<if test="estatusSolicitud.id==520">
+					AND CON.FTN_REG_CONCILIADO=0
+				</if>
+				<if test="estatusSolicitud.id==521">
+					AND CON.FTN_REG_CONCILIADO=1
+				</if>
+				<if test="estatusSolicitud.id!=521 and estatusSolicitud.id!=520">
+					AND ORD.FTN_ESTATUS = #{estatusSolicitud.id,jdbcType=DECIMAL}
+				</if>
+				
+			</if>
+			<if test="fechaInicio != null and fechaFin != null">
+				AND CON.FTD_FEH_CRE BETWEEN trunc(#{fechaInicio,jdbcType=TIMESTAMP}) AND
+				trunc(#{fechaFin,jdbcType=TIMESTAMP})+.99999
+			</if>
+		</where>
+		UNION
+	 	   SELECT CON.FTN_ID_CONCILIACION AS LLAVE, CON.FTN_NUM_CTA_INVDUAL, CON.FTC_NOMBRE_CTE, CON.FTC_AP_PATERNO_CTE, CON.FTC_AP_MATERNO_CTE,
+       		      CON.FTD_FEH_CRE AS FTD_FEH_ESTATUS_SOLICITUD ,CON.FTN_ORIGEN_APORTACION AS FTN_ID_ORIGEN_SOLICITUD,
+                  COA.FCC_VALOR AS FCC_VALOR_ORIGEN_SOLI, CON.FTC_FOLIO AS FTC_FOLIO, CON.FTN_IMPORTE, CON.FTN_CVE_BANCO,
+                  CB.FCC_VALOR AS FCC_VALOR_CLAVE_BANCO,CON.FTC_CTA_BANCO, CON.FTN_REG_CONCILIADO AS FTN_ESTATUS_SOLICITUD,
+                  DECODE(CON.FTN_REG_CONCILIADO,0,'NO CONCILIADO',1,'CONCILIADO',2,'RECHAZADO','DESCONOCIDO') AS FCC_VALOR_ESTATUS_SOL, NVL(CON.FTN_CVE_SOLICITUD,CON.FTC_FOLIO) AS FTC_CVE_SOLICITUD,
+                  NULL AS FTN_ID_PERIODO,NULL AS FCC_VALOR_PERIODO,CON.FTD_FEH_ACT,CON.FTC_USU_ACT
+			 FROM TTAFOAVOL_CONCILIACION CON
+             LEFT JOIN TCCRXGRAL_CAT_CATALOGO COA ON COA.FCN_ID_CAT_CATALOGO = CON.FTN_ORIGEN_APORTACION
+             LEFT JOIN TCCRXGRAL_CAT_CATALOGO CES ON CES.FCN_ID_CAT_CATALOGO = CON.FTN_ESTATUS_TRAMITE
+             LEFT JOIN TRAFOAVOL_FOLIO_BANCO  TFB ON TFB.FTC_FOLIO = CON.FTC_FOLIO
+             LEFT JOIN TCCRXGRAL_CAT_CATALOGO CB ON CB.FCN_ID_CAT_CATALOGO = CON.FTN_CVE_BANCO
+         <where>
+         		CON.FTN_ORIGEN_APORTACION = 292
+         		
+			<if test="numCuentaIndividual != null">
+				AND CON.FTN_NUM_CTA_INVDUAL = #{numCuentaIndividual,jdbcType=DECIMAL}
+			</if>
+			<if test="nss != null">
+				AND CON.FTN_NSS = #{nss,jdbcType=VARCHAR}
+			</if>
+			<if test="curp != null">
+				AND CON.FTC_CURP = #{curp,jdbcType=VARCHAR}
+			</if>
+			<if test="estatusSolicitud != null and estatusSolicitud.id">
+				<if test="estatusSolicitud.id==520">
+					AND CON.FTN_REG_CONCILIADO=0
+				</if>
+				<if test="estatusSolicitud.id==521">
+					AND CON.FTN_REG_CONCILIADO=1
+				</if>
+				<if test="estatusSolicitud.id!=521 and estatusSolicitud.id!=520">
+					AND CON.FTN_ESTATUS_TRAMITE = #{estatusSolicitud.id,jdbcType=DECIMAL}
+				</if>
+				
+			</if>
+			<if test="fechaInicio != null and fechaFin != null">
+				AND CON.FTD_FEH_CRE BETWEEN trunc(#{fechaInicio,jdbcType=TIMESTAMP}) AND
+				trunc(#{fechaFin,jdbcType=TIMESTAMP})+.99999
+			</if>
+			AND (CON.FTN_NO_ORDEN IS NULL OR CON.FTN_NO_ORDEN NOT IN (SELECT ORD.FTC_NO_ORDEN FROM TTAFOAVOL_ORDENES ORD) )
+		</where>
+	    ) CON
+	    ORDER BY 6 DESC ,2 DESC
+	</select>
+	
+		<select id="consultarSolicitudesTodos" parameterType="mx.profuturo.nci.business.wrapped.SolicitudFilter" 
+	        resultMap="ResultMapSolicitudCorta">
+	SELECT ROWNUM AS ROW_ID,CON.FTN_NUM_CTA_INVDUAL, CON.FTC_NOMBRE_CTE, CON.FTC_AP_PATERNO_CTE, CON.FTC_AP_MATERNO_CTE,
+           CON.FTD_FEH_ESTATUS_SOLICITUD, CON.FTN_ID_ORIGEN_SOLICITUD, CON.FCC_VALOR_ORIGEN_SOLI,
+           CON.FTC_FOLIO, CON.FTN_IMPORTE, CON.FTN_CVE_BANCO, CON.FCC_VALOR_CLAVE_BANCO, CON.FTC_CTA_BANCO,
+           CON.FTN_ESTATUS_SOLICITUD,CON.FCC_VALOR_ESTATUS_SOL, CON.FTC_CVE_SOLICITUD,
+           CON.FTN_ID_PERIODO,CON.FCC_VALOR_PERIODO,CON.FTD_FEH_ACT,CON.FTC_USU_ACT, CON.LLAVE
+	  FROM(
+	  
+	   		SELECT DISTINCT SOL.FTN_NUM_CTA_INVDUAL, SOL.FTC_NOMBRE_CTE, SOL.FTC_AP_PATERNO_CTE, SOL.FTC_AP_MATERNO_CTE,
+		       SOL.FTD_FEH_CAPTURA AS FTD_FEH_ESTATUS_SOLICITUD, SOL.FTN_ID_ORIGEN_SOLICITUD,
+		       'SOLICITUD ' || DECODE(SOL.FTN_ID_ORIGEN_SOLICITUD,463,'DOMI INTERNET',COA.FCC_VALOR) AS FCC_VALOR_ORIGEN_SOLI,
+		       SOL.FTC_FOLIO, SOL.FTN_IMPORTE, SOL.FTN_CVE_BANCO, CB.FCC_VALOR AS FCC_VALOR_CLAVE_BANCO, SOL.FTC_CTA_BANCO,
+		       SOL.FTN_ESTATUS_SOLICITUD, CES.FCC_VALOR AS FCC_VALOR_ESTATUS_SOL, SOL.FTC_CVE_SOLICITUD,
+		       SOL.FTN_ID_PERIODO, CP.FCC_VALOR AS FCC_VALOR_PERIODO, SOL.FTD_FEH_ACT, SOL.FTC_USU_ACT, NULL AS LLAVE
+		  FROM TTAFOAVOL_SOLICITUD SOL
+		  LEFT JOIN TCCRXGRAL_CAT_CATALOGO COA ON COA.FCN_ID_CAT_CATALOGO = SOL.FTN_ID_ORIGEN_SOLICITUD
+		  LEFT JOIN TCCRXGRAL_CAT_CATALOGO CES ON CES.FCN_ID_CAT_CATALOGO = SOL.FTN_ESTATUS_SOLICITUD
+		  LEFT JOIN TCCRXGRAL_CAT_CATALOGO CP ON CP.FCN_ID_CAT_CATALOGO = SOL.FTN_ID_PERIODO  
+		  LEFT JOIN TRAFOAVOL_FOLIO_BANCO  TFB ON TFB.FTC_FOLIO = SOL.FTC_FOLIO
+          LEFT JOIN TCCRXGRAL_CAT_CATALOGO CB ON CB.FCN_ID_CAT_CATALOGO = SOL.FTN_CVE_BANCO
+		<where>
+			<if test="numCuentaIndividual != null">
+				SOL.FTN_NUM_CTA_INVDUAL = #{numCuentaIndividual,jdbcType=DECIMAL}
+			</if>
+			<if test="nss != null">
+				AND SOL.FTN_NSS = #{nss,jdbcType=VARCHAR}
+			</if>
+			<if test="curp != null">
+				AND SOL.FTC_CURP = #{curp,jdbcType=VARCHAR}
+			</if>
+				AND SOL.FTN_ID_ORIGEN_SOLICITUD IN (485,462,463,465,464,466,1043,1610,6428) 
+			<if test="estatusSolicitud != null">
+				<if test="estatusSolicitud.id == 509 or estatusSolicitud.id == 512 or estatusSolicitud.id == 513">
+					<if test="estatusSolicitud.id == 509">
+						AND SOL.FTN_ESTATUS_SOLICITUD IN (509,940)
+					</if>
+					<if test="estatusSolicitud.id == 512">
+						AND SOL.FTN_ESTATUS_SOLICITUD IN (512,941)
+					</if>
+					<if test="estatusSolicitud.id == 513">
+						AND SOL.FTN_ESTATUS_SOLICITUD IN (513,942)
+					</if>
+					
+				</if>
+				<if test="estatusSolicitud.id != 509 and estatusSolicitud.id != 512 and estatusSolicitud.id != 513">
+					AND SOL.FTN_ESTATUS_SOLICITUD = #{estatusSolicitud.id,jdbcType=DECIMAL}
+				</if>
+			</if>
+			<if test="fechaInicio != null and fechaFin != null">
+				AND SOL.FTD_FEH_CAPTURA BETWEEN trunc(#{fechaInicio,jdbcType=TIMESTAMP}) AND
+				trunc(#{fechaFin,jdbcType=TIMESTAMP})+.99999
+			</if>
+		</where>    
+		UNION
+	   		SELECT DISTINCT PRE.FTN_NUM_CTA_INVDUAL, PRE.FTC_NOMBRE_CTE, PRE.FTC_AP_PATERNO_CTE, PRE.FTC_AP_MATERNO_CTE,
+		       PRE.FTD_FEH_CAPTURA AS FTD_FEH_ESTATUS_SOLICITUD, PRE.FTN_ID_ORIGEN_SOLICITUD,
+		       'PRESOLICITUD ' || DECODE(PRE.FTN_ID_ORIGEN_SOLICITUD,463,'DOMI INTERNET',COA.FCC_VALOR) AS FCC_VALOR_ORIGEN_SOLI,
+		       PRE.FTC_FOLIO, PRE.FTN_IMPORTE, PRE.FTN_CVE_BANCO, CB.FCC_VALOR AS FCC_VALOR_CLAVE_BANCO, PRE.FTC_CTA_BANCO,
+		       PRE.FTN_ESTATUS_SOLICITUD, CES.FCC_VALOR AS FCC_VALOR_ESTATUS_SOL, PRE.FTC_CVE_SOLICITUD,
+		       PRE.FTN_ID_PERIODO, CP.FCC_VALOR AS FCC_VALOR_PERIODO, PRE.FTD_FEH_ACT, PRE.FTC_USU_ACT, NULL AS LLAVE
+		  FROM TTAFOAVOL_PRE_SOLICITUD PRE
+		  LEFT JOIN TCCRXGRAL_CAT_CATALOGO COA ON COA.FCN_ID_CAT_CATALOGO = PRE.FTN_ID_ORIGEN_SOLICITUD
+		  LEFT JOIN TCCRXGRAL_CAT_CATALOGO CES ON CES.FCN_ID_CAT_CATALOGO = PRE.FTN_ESTATUS_SOLICITUD
+		  LEFT JOIN TCCRXGRAL_CAT_CATALOGO CP ON CP.FCN_ID_CAT_CATALOGO = PRE.FTN_ID_PERIODO  
+		  LEFT JOIN TRAFOAVOL_FOLIO_BANCO  TFB ON TFB.FTC_FOLIO = PRE.FTC_FOLIO
+          LEFT JOIN TCCRXGRAL_CAT_CATALOGO CB ON CB.FCN_ID_CAT_CATALOGO = PRE.FTN_CVE_BANCO
+		<where>
+			<if test="numCuentaIndividual != null">
+				PRE.FTN_NUM_CTA_INVDUAL = #{numCuentaIndividual,jdbcType=DECIMAL}
+			</if>
+			<if test="nss != null">
+				AND PRE.FTN_NSS = #{nss,jdbcType=VARCHAR}
+			</if>
+			<if test="curp != null">
+				AND PRE.FTC_CURP = #{curp,jdbcType=VARCHAR}
+			</if>
+			<if test="subOrigen != null and subOrigen.size() > 0">
+				AND PRE.FTN_ID_ORIGEN_SOLICITUD IN 
+				<foreach item="subOr" index="index" collection="subOrigen"
+					open="(" separator="," close=")">
+					#{subOr,jdbcType=DECIMAL}
+				</foreach>
+			</if>
+			<if test="estatusSolicitud != null">
+				<if test="estatusSolicitud.id == 509 or estatusSolicitud.id == 512 or estatusSolicitud.id == 513">
+					<if test="estatusSolicitud.id == 509">
+						AND PRE.FTN_ESTATUS_SOLICITUD IN (509,940)
+					</if>
+					<if test="estatusSolicitud.id == 512">
+						AND PRE.FTN_ESTATUS_SOLICITUD IN (512,941)
+					</if>
+					<if test="estatusSolicitud.id == 513">
+						AND PRE.FTN_ESTATUS_SOLICITUD IN (513,942)
+					</if>
+				</if>
+				<if test="estatusSolicitud.id != 509 and estatusSolicitud.id != 512 and estatusSolicitud.id != 513">
+					AND PRE.FTN_ESTATUS_SOLICITUD = #{estatusSolicitud.id,jdbcType=DECIMAL}
+				</if>
+			</if>
+			<if test="fechaInicio != null and fechaFin != null">
+				AND PRE.FTD_FEH_CAPTURA BETWEEN trunc(#{fechaInicio,jdbcType=TIMESTAMP}) AND
+				trunc(#{fechaFin,jdbcType=TIMESTAMP})+.99999
+			</if>
+			AND PRE.FTC_CVE_SOLICITUD NOT IN (SELECT FTC_CVE_SOLICITUD FROM TTAFOAVOL_SOLICITUD)
+		</where>
+		UNION
+	  	 	SELECT DISTINCT CON.FTN_NUM_CTA_INVDUAL, CON.FTC_NOMBRE_CTE, CON.FTC_AP_PATERNO_CTE, CON.FTC_AP_MATERNO_CTE,
+       		   CON.FTD_FEH_CRE AS FTD_FEH_ESTATUS_SOLICITUD ,CON.FTN_ORIGEN_APORTACION AS FTN_ID_ORIGEN_SOLICITUD,
+               COA.FCC_VALOR AS FCC_VALOR_ORIGEN_SOLI,
+               CON.FTC_FOLIO AS FTC_FOLIO, CON.FTN_IMPORTE, CON.FTN_CVE_BANCO, CB.FCC_VALOR AS FCC_VALOR_CLAVE_BANCO,CON.FTC_CTA_BANCO,
+               CON.FTN_REG_CONCILIADO AS FTN_ESTATUS_SOLICITUD,DECODE(CON.FTN_REG_CONCILIADO,0,'NO CONCILIADO',1,'CONCILIADO',2,'RECHAZADO','DESCONOCIDO') AS FCC_VALOR_ESTATUS_SOL, NVL(CON.FTN_CVE_SOLICITUD,CON.FTC_FOLIO) AS FTC_CVE_SOLICITUD,
+               NULL AS FTN_ID_PERIODO,NULL AS FCC_VALOR_PERIODO,CON.FTD_FEH_ACT,CON.FTC_USU_ACT, CON.FTN_ID_CONCILIACION AS LLAVE
+          FROM TTAFOAVOL_CONCILIACION CON
+          LEFT JOIN TCCRXGRAL_CAT_CATALOGO COA ON COA.FCN_ID_CAT_CATALOGO = CON.FTN_ORIGEN_APORTACION
+          LEFT JOIN TCCRXGRAL_CAT_CATALOGO CES ON CES.FCN_ID_CAT_CATALOGO = CON.FTN_ESTATUS_TRAMITE
+          LEFT JOIN TRAFOAVOL_FOLIO_BANCO  TFB ON TFB.FTC_FOLIO = CON.FTC_FOLIO
+          LEFT JOIN TCCRXGRAL_CAT_CATALOGO CB ON CB.FCN_ID_CAT_CATALOGO = CON.FTN_CVE_BANCO
+         <where>
+			<if test="numCuentaIndividual != null">
+				CON.FTN_NUM_CTA_INVDUAL = #{numCuentaIndividual,jdbcType=DECIMAL}
+			</if>
+			<if test="nss != null">
+				AND CON.FTN_NSS = #{nss,jdbcType=VARCHAR}
+			</if>
+			<if test="curp != null">
+				AND CON.FTC_CURP = #{curp,jdbcType=VARCHAR}
+			</if>
+				AND CON.FTN_ORIGEN_APORTACION IN (288,289,1115,290,287)
+			<if test="estatusSolicitud != null and estatusSolicitud.id">
+				<if test="estatusSolicitud.id==520">
+					AND CON.FTN_REG_CONCILIADO=0
+				</if>
+				<if test="estatusSolicitud.id==521">
+					AND CON.FTN_REG_CONCILIADO=1
+				</if>
+				<if test="estatusSolicitud.id!=521 and estatusSolicitud.id!=520">
+					AND CON.FTN_ESTATUS_TRAMITE = #{estatusSolicitud.id,jdbcType=DECIMAL}
+				</if>
+				
+			</if>
+			<if test="fechaInicio != null and fechaFin != null">
+				AND CON.FTD_FEH_CRE BETWEEN trunc(#{fechaInicio,jdbcType=TIMESTAMP}) AND
+				trunc(#{fechaFin,jdbcType=TIMESTAMP})+.99999
+			</if>
+		</where>   
+      UNION
+	  	 	SELECT DISTINCT CON.FTN_NUM_CTA_INVDUAL, CON.FTC_NOMBRE_CTE, CON.FTC_AP_PATERNO_CTE, CON.FTC_AP_MATERNO_CTE,
+       		   CON.FTD_FEH_CRE AS FTD_FEH_ESTATUS_SOLICITUD ,CON.FTN_ORIGEN_APORTACION AS FTN_ID_ORIGEN_SOLICITUD,
+               COA.FCC_VALOR AS FCC_VALOR_ORIGEN_SOLI,
+               CON.FTC_FOLIO AS FTC_FOLIO, CON.FTN_IMPORTE, CON.FTN_CVE_BANCO, CB.FCC_VALOR AS FCC_VALOR_CLAVE_BANCO,CON.FTC_CTA_BANCO,
+               CON.FTN_REG_CONCILIADO AS FTN_ESTATUS_SOLICITUD,DECODE(CON.FTN_REG_CONCILIADO,0,'NO CONCILIADO',1,'CONCILIADO',2,'RECHAZADO','DESCONOCIDO') AS FCC_VALOR_ESTATUS_SOL, NVL(CON.FTN_CVE_SOLICITUD,CON.FTC_FOLIO) AS FTC_CVE_SOLICITUD,
+               NULL AS FTN_ID_PERIODO,NULL AS FCC_VALOR_PERIODO,CON.FTD_FEH_ACT,CON.FTC_USU_ACT, CON.FTN_ID_CONCILIACION AS LLAVE
+          FROM TTAFOAVOL_CONCILIACION CON
+          LEFT JOIN TCCRXGRAL_CAT_CATALOGO COA ON COA.FCN_ID_CAT_CATALOGO = CON.FTN_ORIGEN_APORTACION
+          LEFT JOIN TCCRXGRAL_CAT_CATALOGO CES ON CES.FCN_ID_CAT_CATALOGO = CON.FTN_ESTATUS_TRAMITE
+          LEFT JOIN TRAFOAVOL_FOLIO_BANCO  TFB ON TFB.FTC_FOLIO = CON.FTC_FOLIO
+          LEFT JOIN TCCRXGRAL_CAT_CATALOGO CB ON CB.FCN_ID_CAT_CATALOGO = CON.FTN_CVE_BANCO
+         <where>
+			<if test="numCuentaIndividual != null">
+				CON.FTN_NUM_CTA_INVDUAL = #{numCuentaIndividual,jdbcType=DECIMAL}
+			</if>
+			<if test="nss != null">
+				AND CON.FTN_NSS = #{nss,jdbcType=VARCHAR}
+			</if>
+			<if test="curp != null">
+				AND CON.FTC_CURP = #{curp,jdbcType=VARCHAR}
+			</if>
+				AND CON.FTN_ORIGEN_APORTACION =292
+			<if test="estatusSolicitud != null and estatusSolicitud.id">
+				<if test="estatusSolicitud.id==520">
+					AND CON.FTN_REG_CONCILIADO=0
+				</if>
+				<if test="estatusSolicitud.id==521">
+					AND CON.FTN_REG_CONCILIADO=1
+				</if>
+				<if test="estatusSolicitud.id!=521 and estatusSolicitud.id!=520">
+					AND CON.FTN_ESTATUS_TRAMITE = #{estatusSolicitud.id,jdbcType=DECIMAL}
+				</if>
+			</if>
+			<if test="fechaInicio != null and fechaFin != null">
+				AND CON.FTD_FEH_CRE BETWEEN trunc(#{fechaInicio,jdbcType=TIMESTAMP}) AND
+				trunc(#{fechaFin,jdbcType=TIMESTAMP})+.99999
+			</if>
+		</where>   
+	  UNION
+	 	   SELECT ORD.FTN_NUM_CTA_INVDUAL, CON.FTC_NOMBRE_CTE, CON.FTC_AP_PATERNO_CTE, CON.FTC_AP_MATERNO_CTE,
+       		      CON.FTD_FEH_CRE AS FTD_FEH_ESTATUS_SOLICITUD ,CON.FTN_ORIGEN_APORTACION AS FTN_ID_ORIGEN_SOLICITUD,
+                  COA.FCC_VALOR AS FCC_VALOR_ORIGEN_SOLI, CON.FTC_FOLIO AS FTC_FOLIO, CON.FTN_IMPORTE, CON.FTN_CVE_BANCO,
+                  CB.FCC_VALOR AS FCC_VALOR_CLAVE_BANCO,CON.FTC_CTA_BANCO, CON.FTN_REG_CONCILIADO AS FTN_ESTATUS_SOLICITUD,
+                  DECODE(CON.FTN_REG_CONCILIADO,0,'NO CONCILIADO',1,'CONCILIADO',2,'RECHAZADO','DESCONOCIDO') AS FCC_VALOR_ESTATUS_SOL, NVL(CON.FTN_CVE_SOLICITUD,CON.FTC_FOLIO) AS FTC_CVE_SOLICITUD,
+                  NULL AS FTN_ID_PERIODO,NULL AS FCC_VALOR_PERIODO,CON.FTD_FEH_ACT,CON.FTC_USU_ACT, CON.FTN_ID_CONCILIACION AS LLAVE
+             FROM TTAFOAVOL_ORDENES ORD
+             JOIN TTAFOAVOL_CONCILIACION CON ON ORD.FTC_NO_ORDEN = CON.FTN_NO_ORDEN
+             LEFT JOIN TCCRXGRAL_CAT_CATALOGO COA ON COA.FCN_ID_CAT_CATALOGO = CON.FTN_ORIGEN_APORTACION
+             LEFT JOIN TCCRXGRAL_CAT_CATALOGO CES ON CES.FCN_ID_CAT_CATALOGO = CON.FTN_ESTATUS_TRAMITE
+             LEFT JOIN TRAFOAVOL_FOLIO_BANCO  TFB ON TFB.FTC_FOLIO = CON.FTC_FOLIO
+             LEFT JOIN TCCRXGRAL_CAT_CATALOGO CB ON CB.FCN_ID_CAT_CATALOGO = CON.FTN_CVE_BANCO
+         <where>
+			<if test="numCuentaIndividual != null">
+				ORD.FTN_NUM_CTA_INVDUAL = #{numCuentaIndividual,jdbcType=DECIMAL}
+			</if>
+			<if test="nss != null">
+				AND CON.FTN_NSS = #{nss,jdbcType=VARCHAR}
+			</if>
+			<if test="curp != null">
+				AND CON.FTC_CURP = #{curp,jdbcType=VARCHAR}
+			</if>
+			<if test="estatusSolicitud != null and estatusSolicitud.id">
+				<if test="estatusSolicitud.id==520">
+					AND CON.FTN_REG_CONCILIADO=0
+				</if>
+				<if test="estatusSolicitud.id==521">
+					AND CON.FTN_REG_CONCILIADO=1
+				</if>
+				<if test="estatusSolicitud.id!=521 and estatusSolicitud.id!=520">
+					AND ORD.FTN_ESTATUS = #{estatusSolicitud.id,jdbcType=DECIMAL}
+				</if>
+			</if>
+			<if test="fechaInicio != null and fechaFin != null">
+				AND CON.FTD_FEH_CRE BETWEEN trunc(#{fechaInicio,jdbcType=TIMESTAMP}) AND
+				trunc(#{fechaFin,jdbcType=TIMESTAMP})+.99999
+			</if>
+		</where>   
+	    ) CON
+	    ORDER BY 6 DESC ,2 DESC 
+	</select>
+	
+	<resultMap id="ResultMapCargoSolicitud" type="mx.profuturo.nci.business.vo.SolicitudCargoVO">
+		<id 	column="FTN_ID_CARGO"           property="cargoId" 				jdbcType="DECIMAL"/>
+		<result column="FTC_CVE_SOLICITUD" 		property="claveSolicitud" 		jdbcType="VARCHAR"/>
+		<result column="FTN_NUM_CTA_INVDUAL" 	property="numCtaIndividual" 	jdbcType="DECIMAL"/>
+		<result column="FTN_IMPORTE" 			property="importe"				jdbcType="DECIMAL"/>
+		<result column="FTN_IMPORTE_REC" 		property="importeRec" 			jdbcType="DECIMAL" />
+		<result column="FLN_ID_ARCHIVO_DOMI" 	property="archivoDomiId" 		jdbcType="DECIMAL" />
+		<result column="FTN_ESTATUS_CARGO" 		property="estatusCargo" 		jdbcType="DECIMAL" />
+		<result column="FTD_FEH_CARGO_BANCO"	property="fehCargoBanco"		jdbcType="TIMESTAMP"/>
+		<result column="FTN_MOTIVO_RECHAZO"		property="motivoRechazo" 		jdbcType="DECIMAL"/>
+		<result column="FTN_PARCIALIDAD" 		property="parcialidad" 			jdbcType="DECIMAL"/>
+		<result column="FTN_ID_ARCHIVO" 		property="archivoId" 			jdbcType="DECIMAL"/>
+		<result column="FTD_FEH_GEN_CARGO"		property="fehGenCargo"			jdbcType="TIMESTAMP"/>
+		<result column="FTD_FEH_CARGO"			property="fehCargo"				jdbcType="TIMESTAMP"/>
+		<result column="FTN_INTENTOS"	 		property="intentos" 			jdbcType="DECIMAL"/>
+		<result column="FTD_FEH_PROX_CARGO"		property="fehProxCargo"			jdbcType="TIMESTAMP"/>
+		<result column="FTD_FEH_CRE"			property="fehCre"				jdbcType="TIMESTAMP"/>
+		<result column="FTC_USU_CRE"			property="usuCre"				jdbcType="VARCHAR"/>
+		<result column="FTD_FEH_ACT"			property="fehAct"				jdbcType="TIMESTAMP"/>
+		<result column="FTC_USU_ACT"			property="usuAct"				jdbcType="VARCHAR"/>
+		<result column="FCC_VALOR"				property="valorEstatus"			jdbcType="VARCHAR"/>
+		<result column="FTN_ID_PERIODO" 		property="periodo" 				jdbcType="DECIMAL" />		
+		<result column="FTN_FREC_INICIAL" 		property="frecInicial" 			jdbcType="DECIMAL" />		
+		<result column="FTN_FREC_FINAL" 		property="frecFinal" 			jdbcType="DECIMAL" />		
+		<result column="FTC_USU_ACT" 			property="usuario" 				jdbcType="VARCHAR" />		
+	</resultMap>
+
+	<select id="consultarCargoSolicitudSolici" 
+			parameterType="mx.profuturo.nci.business.wrapped.SolicitudFilter" 
+			resultMap="ResultMapCargoSolicitud" >
+		SELECT 	C.FTN_ID_CARGO,
+				C.FTC_CVE_SOLICITUD, 
+				C.FTN_NUM_CTA_INVDUAL,
+				C.FTN_IMPORTE,
+				C.FTN_IMPORTE_REC,				
+				C.FLN_ID_ARCHIVO_DOMI,
+				C.FTN_ESTATUS_CARGO,
+				C.FTD_FEH_CARGO_BANCO,
+				C.FTN_MOTIVO_RECHAZO,
+				C.FTN_PARCIALIDAD,
+				C.FTN_ID_ARCHIVO,
+				C.FTD_FEH_GEN_CARGO,
+				C.FTD_FEH_CARGO,
+				C.FTN_INTENTOS,
+				C.FTD_FEH_PROX_CARGO,
+				C.FTD_FEH_CRE,
+				C.FTC_USU_CRE,
+				C.FTD_FEH_ACT,
+				C.FTC_USU_ACT,
+				CAT.FCC_VALOR,
+				S.FTN_NSS, 
+                S.FTC_CURP,
+                S.FTN_ID_PERIODO,
+                S.FTN_FREC_INICIAL,
+                S.FTN_FREC_FINAL,
+                S.FTC_USU_ACT 
+		FROM TTAFOAVOL_CARGO C
+		   LEFT JOIN TCCRXGRAL_CAT_CATALOGO CAT ON CAT.FCN_ID_CAT_CATALOGO = C.FTN_ESTATUS_CARGO
+	       LEFT JOIN TTAFOAVOL_SOLICITUD S ON S.FTC_CVE_SOLICITUD = C.FTC_CVE_SOLICITUD
+<!--          FTC_USU_ACT = #{usuario,jdbcType=VARCHAR}		 -->
+			<where>
+				<if test="numCuentaIndividual != null">
+					S.FTN_NUM_CTA_INVDUAL = #{numCuentaIndividual,jdbcType=DECIMAL}
+				</if>
+				<if test="curp != null">
+					 S.FTC_CURP  = #{curp,jdbcType=VARCHAR}  
+				</if>
+				<if test="nss != null">
+					 S.FTN_NSS =  #{nss,jdbcType=VARCHAR}  
+				</if>
+				
+				<if test="fechaInicio != null and fechaFin != null">
+					AND C.FTD_FEH_CRE BETWEEN trunc(#{fechaInicio,jdbcType=TIMESTAMP}) AND
+					trunc(#{fechaFin,jdbcType=TIMESTAMP})+.99999
+				</if>
+			</where>	
+	</select>	
+	
+	
+	
+	<update id="actualizarFechaProximoCargo" parameterType="mx.profuturo.nci.business.wrapped.ApoVolFilter">
+	UPDATE TTAFOAVOL_SOLICITUD
+	<set>
+		<if test="monto != null">
+			FTN_ID_PERIODO = #{periodicidad,jdbcType=DECIMAL},
+		</if>
+		<if test="frecIni != null">
+			FTN_FREC_INICIAL = #{frecIni,jdbcType=DECIMAL},
+		</if>
+		<if test="frecIni == null">
+			FTN_FREC_INICIAL = NULL,
+		</if>
+		<if test="frecFin != null">
+			FTN_FREC_FINAL = #{frecFin,jdbcType=DECIMAL},
+		</if>
+		<if test="frecFin == null">
+			FTN_FREC_FINAL = NULL,
+		</if>
+		<if test="monto != null">
+			FTN_IMPORTE = #{monto,jdbcType=DECIMAL},
+		</if>
+		<if test="idEstatus != null">
+			FTN_ESTATUS_SOLICITUD = #{idEstatus,jdbcType=DECIMAL},
+		</if>
+		<if test="fechaProximoCargo != null">
+			FTD_FEH_PROX_CARGO = #{fechaProximoCargo,jdbcType=TIMESTAMP},
+		</if>
+		<if test="usuario != null">
+			FTC_USU_ACT = #{usuario,jdbcType=VARCHAR},
+		</if>   
+			FTD_FEH_ACT=SYSDATE
+    </set>
+	WHERE FTC_CVE_SOLICITUD  = #{cveSol,jdbcType=VARCHAR}
+  </update>	
+	
+		
+<!-- 	INICIALIZA SELECT    -->
+	
+	<select id="consultarSolicitudCargo" 
+			parameterType="mx.profuturo.nci.business.wrapped.SolicitudFilter" 
+			resultMap="ResultMapSolicitudDet" >
+	SELECT ROWNUM AS ROW_ID, CON.FTN_NUM_CTA_INVDUAL, CON.FTN_IMPORTE, CON.FTD_FEH_ESTATUS_SOLICITUD,
+		    CON.FCC_VALOR_ESTATUS_CARGO, CON.FTN_ESTATUS_CARGO, CON.FCC_VALOR_RECHAZO_BANCO,
+		    CON.FTN_ID_RECHAZO_BANCO, CON.FCC_VALOR_PERIODO, CON.FTN_ID_PERIODO, CON.FTD_FEH_CARGO
+	FROM(
+		SELECT 	SOL.FTN_NUM_CTA_INVDUAL, 
+				SOL.FTN_IMPORTE, 
+				SOL.FTD_FEH_ESTATUS_SOLICITUD,
+               	CEC.FCC_VALOR AS FCC_VALOR_ESTATUS_CARGO, 
+               	SOL.FTN_ESTATUS_CARGO, '' AS FCC_VALOR_RECHAZO_BANCO,
+		       	SOL.FTN_ID_RECHAZO_BANCO, 
+		       	CP.FCC_VALOR AS FCC_VALOR_PERIODO, 
+		       	SOL.FTN_ID_PERIODO, 
+		       	SOL.FTD_FEH_CARGO
+		       ,SOL.FTD_FEH_ACT AS FTD_FEH_ACT_CARGO
+<!-- 	TABLA ANTERIOR 	   -->
+<!-- 		  FROM TTAFOAVOL_SOLICITUD SOL -->
+			FROM (
+			SELECT 
+				 E.FTN_NUM_CTA_INVDUAL,
+				 E.FTN_IMPORTE_REC AS FTN_IMPORTE,
+				 D.FTD_FEH_ESTATUS_SOLICITUD,
+				 E.FTN_ESTATUS_CARGO,
+				 E.FTN_MOTIVO_RECHAZO AS FTN_ID_RECHAZO_BANCO,
+				 D.FTN_ID_PERIODO,
+				 D.FTD_FEH_PROX_CARGO,
+				 E.FTD_FEH_CARGO_BANCO,
+				 E.FTD_FEH_ACT,
+				 E.FTD_FEH_CARGO,
+				 E.FTC_CVE_SOLICITUD
+				 				 								
+				FROM TTAFOAVOL_CARGO E INNER JOIN TTAFOAVOL_SOLICITUD D
+				ON E.FTC_CVE_SOLICITUD = D.FTC_CVE_SOLICITUD
+			) SOL
+		  
+		  LEFT JOIN TCCRXGRAL_CAT_CATALOGO CEC ON CEC.FCN_ID_CAT_CATALOGO = SOL.FTN_ESTATUS_CARGO
+		  LEFT JOIN TCCRXGRAL_CAT_CATALOGO CRB ON CRB.FCN_ID_CAT_CATALOGO = SOL.FTN_ID_RECHAZO_BANCO
+		  LEFT JOIN TCCRXGRAL_CAT_CATALOGO CP ON CP.FCN_ID_CAT_CATALOGO = SOL.FTN_ID_PERIODO
+         <where>
+			<if test="claveSolicitud != null and folio!=null">
+				AND (SOL.FTC_CVE_SOLICITUD = #{claveSolicitud,jdbcType=VARCHAR} OR SOL.FTC_CVE_SOLICITUD = #{folio,jdbcType=VARCHAR}) 
+			</if>
+			<if test="claveSolicitud != null and folio==null">
+				AND SOL.FTC_CVE_SOLICITUD = #{claveSolicitud,jdbcType=VARCHAR}
+			</if>
+			<if test="claveSolicitud == null and folio!=null">
+				AND SOL.FTC_CVE_SOLICITUD = #{folio,jdbcType=VARCHAR}
+			</if>
+			<if test="numCuentaIndividual != null">
+				AND SOL.FTN_NUM_CTA_INVDUAL = #{numCuentaIndividual,jdbcType=DECIMAL}
+			</if>
+			AND SOL.FTN_ESTATUS_CARGO IN (${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ESTATUS_CARGO_PENDIENTE},
+	                                      ${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ESTATUS_CARGO_GENERADO})
+		</where>
+	
+		) CON
+		ORDER BY 11 DESC NULLS LAST
+	</select>
+	
+	
+<!-- 	INICIALIZA  -->
+
+<select id="lstHistDomiTraspasoTablaCargos"
+		parameterType="mx.profuturo.nci.business.wrapped.MonitorDomiTraspasoFilter"
+		resultMap="ResultMapLstMonitorDomiTraspaso">
+	SELECT CON.FTC_CVE_SOLICITUD, CON.FTN_NUM_CTA_INVDUAL, CON.FTC_CTA_BANCO, CON.FECRECEPCION, CON.EST_TRASPASO,
+	       CON.RECURENCIA, CON.FTN_FREC_INICIAL, CON.FTN_FREC_FINAL, 
+	       CON.FTN_IMPORTE, 
+	       CON.FTN_IMPORTE_REC, 
+	       CON.FTN_ID_TIPO_CTA, CON.FTN_ESTATUS_SOLICITUD, CON.RECHAZO_BANCO, CON.FTD_FEH_CARGO, 
+           CON.FTN_ESTATUS_CARGO, CON.ESTATUS_CARGO, CON.FTD_FEH_ACT_CARGO,CON.EST_CONCIL, CON.EST_MOV
+	FROM (	
+	SELECT 	A.FTC_CVE_SOLICITUD,
+			A.FTN_NUM_CTA_INVDUAL,
+			A.FTC_CTA_BANCO,
+			A.FTD_FEH_CRE AS FECRECEPCION, 
+			B.FCC_VALOR AS EST_TRASPASO,
+	        A.FTN_ID_PERIODO AS RECURENCIA,
+	        A.FTN_FREC_INICIAL,
+	        A.FTN_FREC_FINAL,
+	        A.FTN_IMPORTE,
+	        A.FTN_IMPORTE_REC,
+<!-- 	        A.FTN_IMPORTE_REC AS FTN_IMPORTE, -->
+	        A.FTN_ID_TIPO_CTA,
+	        A.FTN_ESTATUS_SOLICITUD,
+           	A.FTN_MOTIVO_RECHAZO AS FTN_ID_RECHAZO_BANCO, 
+           	E.FCC_VALOR AS RECHAZO_BANCO, 
+           	C.FTD_FEH_CARG_ARCHIVO AS FTD_FEH_CARGO, 	
+
+           	A.FTN_ESTATUS_CARGO,
+
+       	   	D.FCC_VALOR AS ESTATUS_CARGO,
+
+       	   	A.FTD_FEH_ACT AS FTD_FEH_ACT_CARGO,
+       	   	DECODE(C.FTN_REG_CONCILIADO,1,'CONCILIADO','NO CONCILIADO') AS EST_CONCIL,
+           	DECODE(C.FTN_MOV_GENERADO,1,'GENERADO','NO GENERADO') AS EST_MOV
+
+	       FROM (SELECT 
+	       		 E.FTC_CVE_SOLICITUD,
+				 E.FTN_NUM_CTA_INVDUAL,
+				 D.FTC_CTA_BANCO,
+				 E.FTD_FEH_CRE,
+				 D.FTN_ID_PERIODO,
+				 D.FTN_FREC_INICIAL,
+				 D.FTN_FREC_FINAL,
+				 E.FTN_IMPORTE,
+				 E.FTN_IMPORTE_REC,
+<!-- 				 E.FTN_IMPORTE_REC, -->
+				 D.FTN_ID_TIPO_CTA,
+				 D.FTN_ESTATUS_SOLICITUD,
+				 D.FTN_ESTATUS_TRASPASO,
+				 D.FTN_ID_RECHAZO_BANCO,
+				 D.FTN_ORIGEN_APORTACION,
+				 E.FTN_ESTATUS_CARGO,
+				 E.FTD_FEH_ACT,
+				 E.FTN_MOTIVO_RECHAZO
+				 													
+				 FROM TTAFOAVOL_CARGO E INNER JOIN TTAFOAVOL_SOLICITUD D
+				 ON D.FTC_CVE_SOLICITUD = E.FTC_CVE_SOLICITUD
+	       ) A
+
+	  LEFT JOIN TCCRXGRAL_CAT_CATALOGO  B ON  A.FTN_ESTATUS_TRASPASO 	= B.FCN_ID_CAT_CATALOGO 
+	  LEFT JOIN TCCRXGRAL_CAT_CATALOGO  D ON  A.FTN_ESTATUS_CARGO 		= D.FCN_ID_CAT_CATALOGO 
+	  LEFT JOIN TCCRXGRAL_CAT_CATALOGO  E ON  A.FTN_MOTIVO_RECHAZO		= E.FCN_ID_CAT_CATALOGO 
+      INNER JOIN TTAFOAVOL_CONCILIACION C ON  A.FTC_CVE_SOLICITUD 		= C.FTN_CVE_SOLICITUD
+
+
+	 WHERE A.FTN_ORIGEN_APORTACION 	= #{idOrigenSol,jdbcType=DECIMAL}
+	   AND A.FTC_CVE_SOLICITUD 		= #{cveSol,jdbcType=VARCHAR}
+	) CON
+	ORDER BY CON.FTD_FEH_CARGO ASC
+</select>
+
+	<!-- 	OBTENER DOMICLIACIONES PARCIALIDADES  -->
+	<!-- FTN_ESTATUS_SOLICITUD = 512 ACEPTADO -->
+	<!-- FTN_ESTATUS_CARGO = 498 PENDIENTE -->
+	<select id="selectDomiRecordsParcialidades" resultMap="ResultMapSolicitudDomiciliacionCorto"
+		parameterType="mx.profuturo.nci.business.wrapped.SolicitudFilter">
+		WITH TAB AS(
+			SELECT s.FTC_CVE_SOLICITUD,
+					s.FTN_IMPORTE,
+					r_map.TMN_CVE_ITGY AS FTN_CVE_BANCO,
+					CASE s.FTN_ID_TIPO_CTA
+					WHEN ${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_CUENTA_CLABE} THEN 40
+					WHEN ${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_CUENTA_DEBITO} THEN 3
+					WHEN ${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_CUENTA_CHEQUERA} THEN 1
+					END AS FTN_ID_TIPO_CTA,
+					s.FTC_CTA_BANCO,
+					s.FTN_NUM_CTA_INVDUAL,
+					s.FTC_NOMBRE_CTE,
+					s.FTC_AP_PATERNO_CTE,
+					s.FTC_AP_MATERNO_CTE,
+					s.FTN_NUM_CARGO
+			FROM TTAFOAVOL_SOLICITUD s
+			JOIN TCCRXGRAL_CAT_CATALOGO cbank ON cbank.FCN_ID_CAT_CATALOGO =s.FTN_CVE_BANCO 
+			JOIN TMSISGRAL_MAP_NCI_ITGY r_map ON r_map.TMN_CVE_NCI = s.FTN_CVE_BANCO AND TMC_USO = 'BANCOS' and r_map.TMC_VIGENCIA = 1 and cbank.FCB_VIGENCIA =1
+			<if test="origenAportacion != null and origenAportacion.id != @mx.profuturo.nci.business.util.ConstantesCatalogos@ID_ORIGEN_DOMICILIACION_TRASPASO">
+			JOIN TTAFOGRAL_IND_CTA_INDV IND_CTA_INDI ON IND_CTA_INDI.FFN_ID_CONFIG_INDI=${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_CONFIG_INDI_VIGENCIA}
+				AND IND_CTA_INDI.FCC_VALOR_IND=${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_CONFIG_INDI_VIGENCIA_VALOR_VIGENTE}
+				AND IND_CTA_INDI.FTC_VIGENCIA=${@mx.profuturo.nci.business.util.ConstantesCatalogos@ID_CONFIG_INDI_VIGENCIA_VALOR_VIGENTE}
+				AND IND_CTA_INDI.FTN_NUM_CTA_INVDUAL=s.FTN_NUM_CTA_INVDUAL
+			</if>
+			<include refid="archivoDomiFilters"/>
+		)
+		SELECT TAB.*,
+		CASE WHEN (MOD(FTN_IMPORTE, 50000) > 0)
+			THEN
+				(TRUNC(FTN_IMPORTE / 50000) + 1 )
+			ELSE
+				TRUNC(FTN_IMPORTE / 50000)
+			END AS PARCIALIDADES
+		FROM TAB
+		ORDER BY PARCIALIDADES DESC	
+	</select>
+	
+	
+</mapper>

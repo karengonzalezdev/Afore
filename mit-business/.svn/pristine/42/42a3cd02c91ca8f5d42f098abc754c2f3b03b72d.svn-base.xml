@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:tns="http://www.profuturo-gnp.com.mx/ws/sso/controlacceso" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://www.profuturo-gnp.com.mx/ws/sso/controlacceso">
+
+  
+<xs:element name="autenticarUsuarioSSO" type="tns:autenticarUsuarioSSO"/>
+
+  
+<xs:element name="autenticarUsuarioSSOResponse" type="tns:autenticarUsuarioSSOResponse"/>
+
+  
+<xs:element name="autorizarUsuarioSSO" type="tns:autorizarUsuarioSSO"/>
+
+  
+<xs:element name="autorizarUsuarioSSOResponse" type="tns:autorizarUsuarioSSOResponse"/>
+
+  
+<xs:element name="confirmarAccesoUsuarioSSO" type="tns:confirmarAccesoUsuarioSSO"/>
+
+  
+<xs:element name="confirmarAccesoUsuarioSSOResponse" type="tns:confirmarAccesoUsuarioSSOResponse"/>
+
+  
+<xs:element name="excepcionMsgFault" type="tns:excepcionSSO"/>
+
+  
+<xs:complexType name="confirmarAccesoUsuarioSSO">
+    
+<xs:sequence>
+      
+<xs:element name="arg0" type="tns:confirmarAccesoRequest" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  
+<xs:complexType name="confirmarAccesoRequest">
+    
+<xs:sequence>
+      
+<xs:element name="usuario" type="xs:string"/>
+      
+<xs:element name="contrasena" type="xs:string"/>
+      
+<xs:element name="aplicacion" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  
+<xs:complexType name="confirmarAccesoUsuarioSSOResponse">
+    
+<xs:sequence>
+      
+<xs:element name="return" type="tns:confirmarAccesoResponse" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  
+<xs:complexType name="confirmarAccesoResponse">
+    
+<xs:sequence>
+      
+<xs:element name="confirmacion" type="xs:boolean"/>
+      
+<xs:element name="numeroEmpleado" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  
+<xs:complexType name="excepcionSSO">
+    
+<xs:sequence>
+      
+<xs:element name="codigoError" type="xs:string" minOccurs="0"/>
+      
+<xs:element name="descripcionError" type="xs:string" minOccurs="0"/>
+      
+<xs:element name="nombreServicio" type="xs:string" minOccurs="0"/>
+      
+<xs:element name="mensaje" type="xs:string" minOccurs="0"/>
+      
+<xs:element name="fecha" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  
+<xs:complexType name="autenticarUsuarioSSO">
+    
+<xs:sequence>
+      
+<xs:element name="arg0" type="tns:autenticacionRequest" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  
+<xs:complexType name="autenticacionRequest">
+    
+<xs:sequence>
+      
+<xs:element name="usuario" type="xs:string"/>
+      
+<xs:element name="contrasena" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  
+<xs:complexType name="autenticarUsuarioSSOResponse">
+    
+<xs:sequence>
+      
+<xs:element name="return" type="tns:autenticacionResponse" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  
+<xs:complexType name="autenticacionResponse">
+    
+<xs:sequence>
+      
+<xs:element name="confirmacion" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  
+<xs:complexType name="autorizarUsuarioSSO">
+    
+<xs:sequence>
+      
+<xs:element name="arg0" type="tns:autorizacionRequest" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  
+<xs:complexType name="autorizacionRequest">
+    
+<xs:sequence>
+      
+<xs:element name="usuario" type="xs:string"/>
+      
+<xs:element name="aplicacion" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  
+<xs:complexType name="autorizarUsuarioSSOResponse">
+    
+<xs:sequence>
+      
+<xs:element name="return" type="tns:autorizacionResponse" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  
+<xs:complexType name="autorizacionResponse">
+    
+<xs:sequence>
+      
+<xs:element name="confirmacion" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

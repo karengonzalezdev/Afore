@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mx.profuturo.nci.persistence.GeneraFolioPersistence">
+
+<select id="generaFolio" parameterType="mx.profuturo.nci.business.wrapped.GeneraFolioFilter" statementType="CALLABLE">
+ {CALL PAAFOGRAL_CONTROL_FOLIO.PSAFOGRAL_I_GENERA_FOLIO(#{folio,javaType=String,jdbcType=VARCHAR,mode=OUT},#{idCanal,javaType=Integer,jdbcType=DECIMAL,mode=IN},#{idProceso,javaType=Integer,jdbcType=DECIMAL,mode=IN},#{idSubproceso,javaType=Integer,jdbcType=DECIMAL,mode=IN})}
+</select>
+
+</mapper>

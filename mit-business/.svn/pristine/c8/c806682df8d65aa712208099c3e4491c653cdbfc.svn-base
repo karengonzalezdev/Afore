@@ -1,0 +1,22 @@
+###################################################################################################
+#
+#
+# sql stats and audit module configuration file:
+#
+#
+# pattern for classes to sql audit and collect stats 
+#
+#			Class Name					|		Pattern								| 	Match
+#
+#	com.everis.dao.IncidenciaDAOImpl		**.*DAOImpl									true
+#											**.IncidenciaDAO*							true
+#											**.IncidenciaDAOImpl						true
+#											**.*DAO*									true
+#											**.*DAO										false
+#											com.**										true
+#											implements(com.everis.dao.IncidenciaDAO)	true
+#											implements(**.*DAO)	true
+#
+###################################################################################################
+
+*.auditandstats.pattern=implements(com.jeveris.core.persistence.repository.*Repository)

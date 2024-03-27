@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="mx.profuturo.nci.persistence.ObtenerCifrasControlPersistence">
+
+	<resultMap id="BaseResultMapContracargos" 
+	type="mx.profuturo.nci.business.vo.ObtenerCifrasControlVO">
+	<result column="FTC_DESC_SIEFORE" jdbcType="VARCHAR" property="siefore" javaType="string" />
+	<result column="FTC_SUBPROCESO_CIF" jdbcType="VARCHAR" property="claveSubprcs" javaType="string" />
+	<result column="FTC_DESC_BANCO_ORIGEN" jdbcType="VARCHAR" property="bancoOrigen" javaType="string" />
+	<result column="FTC_CTA_BANCO_ORIGEN" jdbcType="NUMERIC" property="cuentaBancoOrigen" javaType="double" />
+	<result column="FTN_IMP_PESOS" jdbcType="NUMERIC" property="monto" javaType="long" />
+	</resultMap>
+	
+	<select id="getCifrasMovimientosCif" resultMap="BaseResultMapContracargos"
+		parameterType="mx.profuturo.nci.business.vo.ObtenerCifrasControlVO">
+
+		SELECT SIEF.FCC_VALOR AS FTC_DESC_SIEFORE, A.FTC_SUBPROCESO_CIF, BNCO.FCC_VALOR AS FTC_DESC_BANCO_ORIGEN, A.FTC_CTA_BANCO_ORIGEN
+		FROM TDAFOAVOL_CIF_DEV_APV_TOT A 
+		LEFT JOIN TCCRXGRAL_CAT_CATALOGO BNCO ON BNCO.FCN_ID_CAT_CATALOGO = A.FTN_ID_BANCO_ORIGEN
+		LEFT JOIN TCCRXGRAL_CAT_CATALOGO SIEF ON SIEF.FCN_ID_CAT_CATALOGO = A.FTN_ID_SIEFORE
+		<where>
+			<if test="folio != null">
+				AND A.FTC_FOLIO = #{folio,jdbcType=VARCHAR}
+			</if>
+		</where>
+		ORDER BY 1
+	</select>
+	
+	<select id="getCifrasTotales" resultMap="BaseResultMapContracargos"
+		parameterType="mx.profuturo.nci.business.vo.ObtenerCifrasControlVO">
+
+		SELECT A.FTN_IMP_PESOS, A.FTC_CTA_BANCO_ORIGEN, A.FTC_CTA_BANCO_DEST, A.FTC_SUBPROCESO_CIF, SIEF.FCC_VALOR AS FTC_DESC_SIEFORE
+		FROM TDAFOAVOL_CIF_DEV_APV_TOT A
+		LEFT JOIN TCCRXGRAL_CAT_CATALOGO SIEF ON SIEF.FCN_ID_CAT_CATALOGO = A.FTN_ID_SIEFORE
+		<where>
+			<if test="folio != null">
+				AND A.FTC_FOLIO = #{folio,jdbcType=VARCHAR}
+			</if>
+		</where>
+		ORDER BY 1
+	</select>
+	
+	<select id="getTotalDevolucionesApovol" resultMap="BaseResultMapContracargos"
+		parameterType="mx.profuturo.nci.business.vo.ObtenerCifrasControlVO">
+
+		SELECT A.FTN_IMP_PESOS, A.FTC_CTA_BANCO_ORIGEN, A.FTC_SUBPROCESO_CIF, SIEF.FCC_VALOR AS FTC_DESC_SIEFORE
+		FROM TDAFOAVOL_CIF_DEV_APV_TOT A
+		LEFT JOIN TCCRXGRAL_CAT_CATALOGO SIEF ON SIEF.FCN_ID_CAT_CATALOGO = A.FTN_ID_SIEFORE
+		<where>
+			<if test="folio != null">
+				AND A.FTC_FOLIO = #{folio,jdbcType=VARCHAR}
+			</if>
+		</where>
+		ORDER BY 1
+	</select>
+	
+	<select id="getLstBancosYCuentasDestino" resultMap="BaseResultMapContracargos"
+		parameterType="mx.profuturo.nci.business.vo.ObtenerCifrasControlVO">
+
+		SELECT A.FTC_CTA_BANCO_DEST, A.FTN_IMP_PESOS
+		FROM TDAFOAVOL_CIF_DEV_APV_TOT A
+		<where>
+			<if test="folio != null">
+				AND A.FTC_FOLIO = #{folio,jdbcType=VARCHAR}
+			</if>
+		</where>
+		ORDER BY 1
+	</select>
+
+</mapper>

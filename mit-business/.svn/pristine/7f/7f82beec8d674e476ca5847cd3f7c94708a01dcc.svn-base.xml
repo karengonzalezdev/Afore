@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mx.profuturo.nci.persistence.FolioPersistence">
+
+
+<insert id="insert" parameterType="mx.profuturo.nci.business.wrapped.FolioFilter">
+    INSERT INTO TTCRXGRAL_FOLIO 
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+       							<if test="folio != null">
+    							 FTC_FOLIO, 
+    							</if>
+    							<if test="idProceso != null">    						
+    							 FCN_ID_PROCESO,
+    							 </if>
+    							<if test="idSubproceso != null">  
+    							 FCN_ID_SUBPROCESO, 
+    							</if>
+    							<if test="instanciaBpm != null"> 
+      							 FTN_INSTANCIA_BPM, 
+      							</if> 
+      							<if test="idEstatusProceso != null">
+      							 FCN_ID_ESTATUS_PROCESO, 
+      							</if>
+      							<if test="idSnapshot != null">
+      							 FTC_ID_SNAPSHOT,       		
+      							</if> 					       	
+      							<if test="idCanal != null">						 
+      							 FCN_ID_CANAL,
+      							</if>
+      							<if test="usuarioCre != null"> 
+      							 FTC_USU_CRE, 
+      							</if>
+      							 FTD_FEH_CRE, 
+      </trim>							       							 
+	  <trim prefix="values (" suffix=")" suffixOverrides=",">
+	  							<if test="folio != null">
+							    #{folio},
+							    </if> 
+							    <if test="idProceso != null">
+							    #{idProceso},
+							    </if> 
+							    <if test="idSubproceso != null">
+							    #{idSubproceso}, 
+							    </if>
+							    <if test="instanciaBpm != null">
+							    #{instanciaBpm,jdbcType=VARCHAR},
+							    </if>
+							    <if test="idEstatusProceso != null"> 
+							    #{idEstatusProceso}, 
+							    </if>
+							    <if test="idSnapshot != null">
+							    #{idSnapshot,jdbcType=VARCHAR},
+							    </if>
+							    <if test="idCanal != null">
+							    #{idCanal},					
+							    </if>
+							    <if test="usuarioCre != null">
+							    #{usuarioCre,jdbcType=VARCHAR}, 
+							    </if>
+							    SYSTIMESTAMP,	    
+		</trim>
+  </insert>
+
+</mapper>

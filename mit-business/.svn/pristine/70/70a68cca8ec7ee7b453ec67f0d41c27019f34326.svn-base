@@ -1,0 +1,180 @@
+package mx.profuturo.nci.business.vo;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
+
+import mx.profuturo.nci.business.util.UtilValidate;
+
+public class ObtenerCifrasControlVO implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+	private static final String CURRENCY_PATTERN = "$###,###,##0.00";
+	
+	private String folio;
+	private String siefore;
+	private String claveSubprcs;
+	private String bancoOrigen;
+	private String cuentaBancoOrigen;
+	private String bancoDestino;
+	private String cuentaBancoDestino;
+	private BigDecimal importe;
+	private BigDecimal monto;
+	private BigDecimal total;
+	private BigDecimal totalApovol;
+	private BigDecimal totalDeTotales;
+	private String importeFormat;
+	private String montoFormat;
+	private String totalFormat;
+	private String totalApovolFormat;
+	private String totalDeTotalesFormat;
+	
+	public ObtenerCifrasControlVO() {
+	}
+
+	public ObtenerCifrasControlVO(String folio) {
+		this.folio = folio;
+	}
+	
+	public ObtenerCifrasControlVO(String bancoOrigen, String cuentaBancoOrigen, BigDecimal monto) {
+		this.bancoOrigen = bancoOrigen;
+		this.cuentaBancoOrigen = cuentaBancoOrigen;
+		this.monto = monto;
+	}
+
+	public String getFolio() {
+		return folio;
+	}
+
+	public void setFolio(String folio) {
+		this.folio = folio;
+	}
+
+	public String getSiefore() {
+		return siefore;
+	}
+
+	public void setSiefore(String siefore) {
+		this.siefore = siefore;
+	}
+
+	public String getClaveSubprcs() {
+		return claveSubprcs;
+	}
+
+	public void setClaveSubprcs(String claveSubprcs) {
+		this.claveSubprcs = claveSubprcs;
+	}
+
+	public String getBancoOrigen() {
+		return bancoOrigen;
+	}
+
+	public void setBancoOrigen(String bancoOrigen) {
+		this.bancoOrigen = bancoOrigen;
+	}
+
+	public String getCuentaBancoOrigen() {
+		return cuentaBancoOrigen;
+	}
+
+	public void setCuentaBancoOrigen(String cuentaBancoOrigen) {
+		this.cuentaBancoOrigen = cuentaBancoOrigen;
+	}
+	
+	public String getBancoDestino() {
+		return bancoDestino;
+	}
+
+	public void setBancoDestino(String bancoDestino) {
+		this.bancoDestino = bancoDestino;
+	}
+
+	public String getCuentaBancoDestino() {
+		return cuentaBancoDestino;
+	}
+
+	public void setCuentaBancoDestino(String cuentaBancoDestino) {
+		this.cuentaBancoDestino = cuentaBancoDestino;
+	}
+
+	public BigDecimal getImporte() {
+		return importe;
+	}
+
+	public void setImporte(BigDecimal importe) {
+		this.importe = importe;
+	}
+	
+	public BigDecimal getMonto() {
+		return monto;
+	}
+	
+	public void setMonto(BigDecimal monto) {
+		this.monto = monto;
+	}
+
+	public BigDecimal getTotal() {
+		return total;
+	}
+
+	public void setTotal(BigDecimal total) {
+		this.total = total;
+	}
+	
+	public BigDecimal getTotalApovol() {
+		return totalApovol;
+	}
+
+	public void setTotalApovol(BigDecimal totalApovol) {
+		this.totalApovol = totalApovol;
+	}
+	
+	public void setTotalDeTotales(BigDecimal totalDeTotales) {
+		this.totalDeTotales = totalDeTotales;
+	}
+
+	public BigDecimal getTotalDeTotales() {
+		return totalDeTotales;
+	}
+	
+	public String getImporteFormat() {
+		return UtilValidate.parseString(CURRENCY_PATTERN, this.importe);
+	}
+
+	public void setImporteFormat(String importeFormat) {
+		this.importeFormat = importeFormat;
+	}
+	
+	public String getMontoFormat() {
+		return UtilValidate.parseString(CURRENCY_PATTERN, this.monto);
+	}
+
+	public void setMontoFormat(String montoFormat) {
+		this.montoFormat = montoFormat;
+	}
+
+	public String getTotalFormat() {
+		return UtilValidate.parseString(CURRENCY_PATTERN, this.total);
+	}
+
+	public void setTotalFormat(String totalFormat) {
+		this.totalFormat = totalFormat;
+	}
+	
+	public String getTotalApovolFormat() {
+		return UtilValidate.parseString(CURRENCY_PATTERN, this.totalApovol);
+	}
+
+	public void setTotalApovolFormat(String totalApovolFormat) {
+		this.totalApovolFormat = totalApovolFormat;
+	}
+	
+	public String getTotalDeTotalesFormat() {
+		return UtilValidate.parseString(CURRENCY_PATTERN, this.totalDeTotales);
+	}
+
+	public void setTotalDeTotalesFormat(String totalDeTotalesFormat) {
+		this.totalDeTotalesFormat = totalDeTotalesFormat;
+	}
+	
+}

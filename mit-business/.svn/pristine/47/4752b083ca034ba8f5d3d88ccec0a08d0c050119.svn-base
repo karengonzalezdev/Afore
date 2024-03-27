@@ -1,0 +1,89 @@
+package mx.profuturo.nci.business.vo;
+
+import java.io.Serializable;
+import java.util.List;
+
+public class ObtenerCifrasControlVO implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+	
+	private String folio;
+	private String siefore;
+	private String claveSubprcs;
+	private String bancoOrigen;
+	private Double cuentaBancoOrigen;
+	private Long monto;
+	private Long total;
+	
+	public ObtenerCifrasControlVO() {
+	}
+
+	public ObtenerCifrasControlVO(String bancoOrigen, Double cuentaBancoOrigen, Long monto) {
+		super();
+		this.bancoOrigen = bancoOrigen;
+		this.cuentaBancoOrigen = cuentaBancoOrigen;
+		this.monto = monto;
+	}
+
+	public ObtenerCifrasControlVO(Long total) {
+		super();
+		this.total = total;
+	}
+
+	public String getFolio() {
+		return folio;
+	}
+
+	public void setFolio(String folio) {
+		this.folio = folio;
+	}
+
+	public String getSiefore() {
+		return siefore;
+	}
+
+	public void setSiefore(String siefore) {
+		this.siefore = siefore;
+	}
+
+	public String getClaveSubprcs() {
+		return claveSubprcs;
+	}
+
+	public void setClaveSubprcs(String claveSubprcs) {
+		this.claveSubprcs = claveSubprcs;
+	}
+
+	public String getBancoOrigen() {
+		return bancoOrigen;
+	}
+
+	public void setBancoOrigen(String bancoOrigen) {
+		this.bancoOrigen = bancoOrigen;
+	}
+
+	public Double getCuentaBancoOrigen() {
+		return cuentaBancoOrigen;
+	}
+
+	public void setCuentaBancoOrigen(Double cuentaBancoOrigen) {
+		this.cuentaBancoOrigen = cuentaBancoOrigen;
+	}
+
+	public Long getMonto() {
+		return monto;
+	}
+
+	public void setMonto(Long monto) {
+		this.monto = monto;
+	}
+
+	public Long getTotal() {
+		return total;
+	}
+
+	public void setTotal(Long total) {
+		this.total = total;
+	}
+	
+}

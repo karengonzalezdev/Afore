@@ -1,0 +1,581 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+  <ui:composition template="../../core/desktop/desktop.xhtml">
+	<ui:define name="body">
+		<style></style>
+		<!-- PANEL DE FILTROS -->
+		<h:form id="formBusquedaCargosCIF" styleClass="form-general">
+			<p:panel id="idpanelPrincipal" header="#{msg['envio.cif.consulta.principal.titulo']}" style="margin-top: 50px;">
+				<p:panelGrid id="encabezado" style="margin-top: 5px; width: 100%;vertical-align:middle; !important;" ></p:panelGrid>
+			</p:panel>
+			<p:panelGrid id="encabezadoBusq" style="padding: 0px 0px !important;" styleClass="panelAlign">
+	        	<p:row  style="text-align:left !important;">
+						<p:column style="text-align:left !important;">
+							<p:outputLabel value="#{msg['envio.cif.consulta.fecha.inicio']}" />
+						</p:column>
+						<p:column style="text-align:left !important;">
+							<p:outputLabel value="#{msg['envio.cif.consulta.fecha.final']}"/>
+						</p:column>
+						
+					</p:row>
+					<p:row>
+						<p:column style="text-align:left !important;">
+							<p:calendar id="idFechaIni" showOn="button" readonlyInput="true" navigator="true" 
+								disabled="#{		!(movimientosCifView.paramBean.filtros.idConciliacion == null or movimientosCifView.paramBean.filtros.idConciliacion == '') 
+												or	!(movimientosCifView.paramBean.filtros.referencia == null or movimientosCifView.paramBean.filtros.referencia == '')
+												or 	!(movimientosCifView.paramBean.filtros.referenciaAmpliada == null or movimientosCifView.paramBean.filtros.referenciaAmpliada == '')}"
+								pattern="dd/MM/yyyy" timeZone="America/Mexico_City" locale="es"
+								value="#{movimientosCifView.paramBean.filtros.fechaInicio}" 
+								maxdate="#{movimientosCifView.paramBean.filtros.fechaFin}">
+								<p:ajax event="dateSelect" update="idFechaFin" />
+							</p:calendar>
+						</p:column>
+						<p:column style="text-align:left !important;">
+							<p:calendar id="idFechaFin" showOn="button" readonlyInput="true" navigator="true" 
+								disabled="#{		!(movimientosCifView.paramBean.filtros.idConciliacion == null or movimientosCifView.paramBean.filtros.idConciliacion == '') 
+												or	!(movimientosCifView.paramBean.filtros.referencia == null or movimientosCifView.paramBean.filtros.referencia == '')
+												or 	!(movimientosCifView.paramBean.filtros.referenciaAmpliada == null or movimientosCifView.paramBean.filtros.referenciaAmpliada == '')}"
+								pattern="dd/MM/yyyy" timeZone="America/Mexico_City" locale="es"
+								value="#{movimientosCifView.paramBean.filtros.fechaFin}" 
+								mindate="#{movimientosCifView.paramBean.filtros.fechaInicio}"
+								maxdate="#{movimientosCifView.paramBean.maxDate}" >
+								<p:ajax event="dateSelect" update="idFechaIni" />
+							</p:calendar>
+						</p:column>
+					</p:row>
+					<p:row>
+			        	<p:column style="text-align:left !important;vertical-align:bottom !important;margin-top: 15px !important;">
+			        		<p:outputLabel value="#{msg['envio.cif.consulta.id.conciliacion']}" style="text-align:left !important;vertical-align:bottom !important;paddding-top: 15px !important;"/>
+			        	</p:column>
+			        	<p:column style="text-align:left !important;vertical-align:bottom !important;margin-top: 15px !important;">
+			        		<p:outputLabel value="#{msg['envio.cif.consulta.estatus']}" style="text-align:left !important;vertical-align:bottom !important;paddding-top: 15px !important;"/>
+			        	</p:column>
+			        </p:row>
+			        <p:row>	
+			        	<p:column>
+							<p:inputMask id="idIdConciliacion" value="#{movimientosCifView.paramBean.filtros.idConciliacion}" 
+									mask="#{msg['envio.cif.validacion.mask.id.conciliacion']}" slotChar="" 
+									validatorMessage="#{msg['envio.cif.consulta.mensaje.validacion.id.conciliacion']}" 
+									converter="convertNumberInput"
+									maxlength="22" 
+									style="text-align:left !important;paddding-top: 0px !important;margin-top: 0px !important;margin-left: -5px !important;width:300px !important;" styleClass="input-style" >
+					                <f:validateRegex pattern="#{msg['envio.cif.validacion.formato.id.conciliacion']}"/>
+					                <p:ajax event="keyup" update="estatusSelect,idFechaIni,idFechaFin"/>
+					        </p:inputMask>	
+			        	</p:column>
+			        	<p:column style="vertical-align:middle !important;">
+			        		<p:selectOneMenu id="estatusSelect" value="#{movimientosCifView.paramBean.filtros.seleccion}" 
+			        					disabled="#{		!(movimientosCifView.paramBean.filtros.idConciliacion == null or movimientosCifView.paramBean.filtros.idConciliacion == '') 
+														or	!(movimientosCifView.paramBean.filtros.referencia == null or movimientosCifView.paramBean.filtros.referencia == '')
+														or 	!(movimientosCifView.paramBean.filtros.referenciaAmpliada == null or movimientosCifView.paramBean.filtros.referenciaAmpliada == '')}"
+			        					style="text-align:left !important;vertical-align:middle !important;width:300px !important;margin-left: -25px !important;">
+									<f:selectItem itemLabel="Seleccion uno" itemValue="" />
+									<f:selectItem itemLabel="NO ENVIADO" itemValue="0" />
+									<f:selectItem itemLabel="ENVIADO" itemValue="1" />
+									<f:selectItem itemLabel="ELIMINADO" itemValue="2" />
+							</p:selectOneMenu>
+						</p:column>
+					</p:row>
+					<p:row>
+			        	<p:column style="text-align:left !important;vertical-align:bottom !important;margin-top: 15px !important;">
+			        		<p:outputLabel value="#{msg['envio.cif.resultado.referencia']}" style="text-align:left !important;vertical-align:bottom !important;paddding-top: 15px !important;"/>
+
+			        	</p:column>
+			        	<p:column style="text-align:left !important;vertical-align:bottom !important;margin-top: 15px !important;">
+			        		<p:outputLabel value="#{msg['envio.cif.resultado.referencia.ampliada']}" style="text-align:left !important;vertical-align:bottom !important;paddding-top: 15px !important;"/>
+
+			        	</p:column>
+			        </p:row>
+			        <p:row>	
+			        	<p:column>
+							<p:inputText id="idReferencia" value="#{movimientosCifView.paramBean.filtros.referencia}" 
+									style="text-align:left !important;paddding-top: 0px !important;margin-top: 0px !important;" styleClass="input-style" 
+									maxlength="40" validatorMessage="#{msg['envio.cif.consulta.mensaje.validacion.id.conciliacion']}">
+			        			<p:ajax event="keyup" update="estatusSelect,idFechaIni,idFechaFin"/>
+			        		</p:inputText>
+			        	</p:column>
+			        	<p:column>
+							<p:inputText id="idReferenciaAmpliada" value="#{movimientosCifView.paramBean.filtros.referenciaAmpliada}" 
+									style="text-align:left !important;paddding-top: 0px !important;margin-top: 0px !important;" styleClass="input-style" 
+									maxlength="40" validatorMessage="#{msg['envio.cif.consulta.mensaje.validacion.id.conciliacion']}">
+			        			<p:ajax event="keyup" update="estatusSelect,idFechaIni,idFechaFin"/>
+			        		</p:inputText>
+			        	</p:column>
+					</p:row>
+					<p:row id="encabezadoBusqBot" >
+						<p:column style="text-align:left !important;">
+							<p:commandButton id="idbuscarDatos" value="#{msg['envio.cif.consulta.boton.buscar']}" 
+								action="#{movimientosCifView.consultaCargos}" 
+								update="formResultadosCargosCIF,idDialogIdentificadorCiError"
+								oncomplete="if (args &amp;&amp; args.validationFailed) PF('dialogIdentificadorCiError').show(); else PF('cargandoDialog').hide();"
+								styleClass="blue-button" />
+							<p:spacer width="10" height="1"/>
+							<p:commandButton id="idlimpiarBusq" value="#{msg['domiciliacion.traspasos.monSol.btnLimpiar']}"
+								action="#{movimientosCifView.limpiarBusqueda}" 
+								update="formBusquedaCargosCIF,formResultadosCargosCIF"
+								styleClass="gray-button" />
+						</p:column>
+					</p:row>
+        	</p:panelGrid>
+		</h:form>
+			
+		<ui:remove>
+		<!-- PANEL DE RESULTADOS -->
+		</ui:remove>	
+		<h:form id="formResultadosCargosCIF" >
+			<p:panel id="idpanelPrincipal" header="#{msg['envio.cif.consulta.principal.titulo']}" style="margin-top: 30px;" 
+						rendered="#{movimientosCifView.paramBean.resultados != null}">
+				<p:panelGrid id="encabezado" style="margin-top: 5px; width: 100%;vertical-align:middle; !important;" >
+					<p:dataTable id="movimientosCifResult" 
+									value="#{movimientosCifView.paramBean.resultados}" var="mov" 
+									selection="#{movimientosCifView.paramBean.cuentasAenviar}" 
+									rowSelectMode="checkbox"  rowKey="#{mov.idItem}"
+									paginator="true" paginatorPosition="bottom" rows="20" rowsPerPageTemplate="20,50,100,200"
+									tableStyleClass="table-style" styleClass="tabla-indicadores"
+									disabledSelection="#{mov.seleccion==null?'false':'true'}"
+									emptyMessage="#{msg['general.table.rows.empty']}">
+								<p:ajax event="rowSelectCheckbox" 	update=":formResultadosCargosCIF:idBtnEnviarCif,:formResultadosCargosCIF:idComButExcelReportCifrasCtl,:formResultadosCargosCIF:idComBtnElimCif"/>
+								<p:ajax event="rowUnselectCheckbox" update=":formResultadosCargosCIF:idBtnEnviarCif,:formResultadosCargosCIF:idComButExcelReportCifrasCtl,:formResultadosCargosCIF:idComBtnElimCif"/>
+								<p:ajax event="toggleSelect" 		update=":formResultadosCargosCIF:idBtnEnviarCif,:formResultadosCargosCIF:idComButExcelReportCifrasCtl,:formResultadosCargosCIF:idComBtnElimCif"/>
+							
+							  <p:column selectionMode="multiple" style="width:3%;text-align:center" />
+							  <p:column headerText="#{msg['envio.cif.resultado.id.conciliacion']}" style="width:9%;text-align:center">
+				                  <h:outputText value="#{mov.folioConciliacion}" />
+					          </p:column>
+					          <p:column headerText="#{msg['envio.cif.resultado.id.item']}" style="width:19%;text-align:center">
+					          	 <h:outputText value="#{mov.idItemNew}" />
+					          </p:column>
+					          <p:column headerText="#{msg['envio.cif.resultado.importe']}" style="width:10%;text-align:center">
+					          	<h:outputText value="#{mov.importe}" style="text-align:right !important;">
+									<f:convertNumber pattern="$#,###,##0.00" locale="es_MX"/>
+								</h:outputText>
+					          </p:column>
+					          <p:column headerText="#{msg['envio.cif.resultado.cuenta']}" style="width:8%;text-align:center">
+					          	 <h:outputText value="#{mov.cuenta}" />
+					          </p:column>
+					          <p:column headerText="#{msg['envio.cif.resultado.fecha.deposito']}" style="width:8%;text-align:center">
+					          	<h:outputText value="#{mov.fechaDepositoBancario}" >
+									<f:convertDateTime type="date" pattern="dd/MM/yyyy" timeZone="America/Mexico_City"/>
+								</h:outputText>
+					          </p:column>
+					          <p:column headerText="#{msg['envio.cif.resultado.fecha.item']}" style="width:8%;text-align:center">
+					          	<h:outputText value="#{mov.fechaItem}" >
+									<f:convertDateTime type="date" pattern="dd/MM/yyyy" timeZone="America/Mexico_City"/>
+								</h:outputText>
+					          </p:column>
+					          <p:column headerText="#{msg['envio.cif.resultado.usuario.actualiza']}" style="width:8%;text-align:center">
+					          	 <h:outputText value="#{mov.usuarioActualizacion}" />
+					          </p:column>
+					          <p:column headerText="#{msg['envio.cif.resultado.fecha.actualiza']}" style="width:8%;text-align:center">
+					          	<h:outputText value="#{mov.fechaActualizacion}" >
+							     	<f:convertDateTime type="date" pattern="dd/MM/yyyy" timeZone="America/Mexico_City"/>
+								</h:outputText>
+					          </p:column>
+					         <p:column headerText="#{msg['envio.cif.resultado.estatus.envio']}" style="width:9%;text-align:center">
+					          	 <h:outputText value="#{mov.seleccion==null?'NO ENVIADO':''}#{mov.seleccion==1?'ENVIADO':''}#{mov.seleccion==2?'ELIMINADO':''}" />
+					          </p:column> 
+					          <p:column headerText="#{msg['envio.cif.resultado.edicion']}" style="width:10%;text-align:center">
+					          	 <p:commandLink onclick="PF('cargandoDialog').show();" actionListener="#{movimientosCifView.selectMov}"
+									oncomplete="PF('cargandoDialog').hide();PF('dialogDetallesCargosCIF').show();"
+									update="formDetallesCargosCIF">
+									<f:param name="idItem" value="#{mov.idItem}"/>
+									<h:outputText value="#{msg['envio.cif.resultado.detalle']}" />
+								</p:commandLink>
+					          </p:column>
+					</p:dataTable>
+					
+					<p:commandButton id="idBtnEnviarCif" value="#{msg['envio.cif.resultado.eviar.cif']}" 
+							disabled="#{empty movimientosCifView.paramBean.cuentasAenviar}"
+							onclick="PF('dialogConfirmSend').show();" 
+							styleClass="blue-button" />
+					<p:spacer height="10" />
+					<p:commandButton id="idComButExcelReportCifrasCtl" value="#{msg['envio.cif.resultado.exportar']}"
+							disabled="#{empty movimientosCifView.paramBean.cuentasAenviar}"
+							onclick="PF('dialogConfirmReportPrev').show();"
+                            styleClass="yellow-button" />
+	                <p:spacer height="10" />
+					<p:commandButton id="idComBtnElimCif"
+								     value="#{msg['envio.cif.resultado.eliminar']}"
+								     disabled="#{empty movimientosCifView.paramBean.cuentasAenviar}"
+								     onclick="PF('dialogConfirmDelete').show();"
+	                                 styleClass="gray-button" />
+				</p:panelGrid>
+			</p:panel>
+		</h:form>
+		
+		
+		<h:form id="formDetallesCargosCIF">
+			<p:dialog id="idDialogDetallesCargosCIF" widgetVar="dialogDetallesCargosCIF" header="#{msg['envio.cif.detalle.header']}"
+					closable="false" resizable="false" modal="true" draggable="false" showEffect="puff" visible="false" width="900">
+				<p:panelGrid id="idDetallesCIF" style="margin-top:5px; width:100%;vertical-align:left; !important;" >
+					<p:row>
+						<p:column style="width:75px;vertical-align:middle;text-align:right;font-weight:bold;padding-top:10px !important;">
+							<h:outputText value="#{msg['envio.cif.resultado.id.item']}"/>
+						</p:column>
+						<p:column style="width:500px;vertical-align:middle !important;text-align:left !important;padding-top:10px !important;" >
+							<h:outputText id="idItemMov" value="#{movimientosCifView.paramBean.movDetalle.idItemNew}" disabled="true" style="width:100% !important;"/>
+						</p:column>
+						<p:column style="width:75px;vertical-align:middle;text-align:right;font-weight:bold;padding-top:10px !important;">
+							<h:outputText value="#{msg['envio.cif.resultado.origen.aportacion']}"/>
+						</p:column>
+						<p:column style="width:300px;vertical-align:middle !important;text-align:left !important;padding-top:10px !important;">
+							<h:outputText value="#{movimientosCifView.paramBean.movDetalle.origenAportacionDesc}" disabled="true"/>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column style="width:75px;vertical-align:middle;text-align:right;font-weight:bold;padding-top:15px !important;">
+							<h:outputText value="#{msg['envio.cif.resultado.consecutivo']}"/>
+						</p:column>
+						<p:column style="width:300px;vertical-align:middle !important;text-align:left !important;padding-top:15px !important;">
+							<h:outputText value="#{movimientosCifView.paramBean.movDetalle.consecutivo}"  >
+									<f:convertNumber pattern="000" locale="es_MX"/>
+								</h:outputText>
+						</p:column>
+					
+						<p:column style="width:75px;vertical-align:middle;text-align:right;font-weight:bold;padding-top:10px !important;">
+							<h:outputText value="#{msg['envio.cif.resultado.importe']}"/>
+						</p:column>
+						<p:column style="width:300px;vertical-align:middle !important;text-align:left !important;padding-top:10px !important;">
+							<h:outputText value="#{movimientosCifView.paramBean.movDetalle.importe}" disabled="true">
+								<f:convertNumber pattern="$#,###,##0.00" locale="es_MX"/>
+							</h:outputText>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column style="width:75px;vertical-align:middle;text-align:right;font-weight:bold">
+							<h:outputText value="#{msg['envio.cif.resultado.fecha.deposito']}"/>
+						</p:column>
+						<p:column style="width:300px;vertical-align:middle !important;text-align:left !important;">
+							<p:calendar id="idFechaIni" showOn="button" readonlyInput="true" navigator="true" 
+								pattern="dd/MM/yyyy" timeZone="America/Mexico_City" locale="es"
+								value="#{movimientosCifView.paramBean.movDetalle.fechaDepositoBancario}" >
+								<p:ajax event="dateSelect" update="idItemMov,idfechaItem" listener="#{movimientosCifView.regeneraIdItem}" />
+							</p:calendar>
+						</p:column>
+						<p:column style="width:75px;vertical-align:middle;text-align:right;font-weight:bold">
+							<h:outputText value="#{msg['envio.cif.resultado.fecha.introduccion']}"/>
+						</p:column>
+						<p:column style="width:300px;vertical-align:middle !important;text-align:left !important;">
+							<h:outputText value="#{movimientosCifView.paramBean.movDetalle.fechaIntroduccion}" disabled="true">
+								<f:convertDateTime type="date" pattern="dd/MM/yyyy" timeZone="America/Mexico_City"/>
+							</h:outputText>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column style="width:75px;vertical-align:middle;text-align:right;font-weight:bold">
+							<h:outputText value="#{msg['envio.cif.resultado.referencia']}"/>
+						</p:column>
+						<p:column style="width:300px;vertical-align:middle !important;text-align:left !important;">
+							<h:inputText value="#{movimientosCifView.paramBean.movDetalle.referencia}" 
+									disabled="false" maxlength="40"
+									styleClass="input-style"  >
+								<p:ajax event="keyup" update="idItemMov" listener="#{movimientosCifView.regeneraIdItem}" />
+							</h:inputText>
+						</p:column>
+						<p:column style="width:75px;vertical-align:middle;text-align:right;font-weight:bold">
+							<h:outputText value="#{msg['envio.cif.resultado.condicion.cobro']}"/>
+						</p:column>
+						<p:column style="width:300px;vertical-align:middle !important;text-align:left !important;">
+							<h:outputText value="#{movimientosCifView.paramBean.movDetalle.condicionCobro}" disabled="true"/>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column style="width:75px;vertical-align:middle;text-align:right;font-weight:bold">
+							<h:outputText value="#{msg['envio.cif.resultado.referencia.ampliada']}" />
+						</p:column>
+						<p:column style="width:300px;vertical-align:middle !important;text-align:left !important;">
+							<h:inputText value="#{movimientosCifView.paramBean.movDetalle.referenciaAmpliada}" 
+										disabled="false" maxlength="40" 
+										styleClass="input-style"  >
+								<p:ajax event="keyup" update="idItemMov" listener="#{movimientosCifView.regeneraIdItem}" />
+							</h:inputText>
+						</p:column>
+						<p:column style="width:75px;vertical-align:middle;text-align:right;font-weight:bold">
+							<h:outputText value="#{msg['envio.cif.resultado.banco']}"/>
+						</p:column>
+						<p:column style="width:300px;vertical-align:middle !important;text-align:left !important;">
+							<h:outputText value="#{movimientosCifView.paramBean.movDetalle.banco}" disabled="true"/>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column style="width:75px;vertical-align:middle;text-align:right;font-weight:bold">
+							<h:outputText value="#{msg['envio.cif.resultado.fecha.item']}" />
+						</p:column>
+						
+						<p:column style="width:300px;vertical-align:middle !important;text-align:left !important;">
+							<h:outputText id="idfechaItem" value="#{movimientosCifView.paramBean.movDetalle.fechaItem}" disabled="true">
+								<f:convertDateTime type="date" pattern="dd/MM/yyyy" timeZone="America/Mexico_City"/>
+							</h:outputText>
+						</p:column>
+												
+
+					</p:row>					
+					
+					<p:row>
+						<p:column style="width:75px;vertical-align:middle;text-align:right;font-weight:bold">
+							<h:outputText value="#{msg['envio.cif.resultado.cuenta']}"/>
+						</p:column>
+						<p:column style="width:300px;vertical-align:middle !important;text-align:left !important;">
+							<h:outputText value="#{movimientosCifView.paramBean.movDetalle.cuenta}" disabled="true"/>
+						</p:column>
+						<p:column style="width:75px;vertical-align:middle;text-align:right;font-weight:bold">
+							<h:outputText value="#{msg['envio.cif.resultado.tipo.proceso']}"/>
+						</p:column>
+						<p:column style="width:300px;vertical-align:middle !important;text-align:left !important;">
+							<h:outputText value="#{movimientosCifView.paramBean.movDetalle.tipoProceso}" disabled="true"/>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column style="width:75px;vertical-align:middle;text-align:right;font-weight:bold">
+							<h:outputText value="#{msg['envio.cif.resultado.estatus']}"/>
+						</p:column>
+						<p:column style="width:300px;vertical-align:middle !important;text-align:left !important;">
+							<h:outputText value="#{movimientosCifView.paramBean.movDetalle.estatus}" disabled="true"/>
+						</p:column>
+						<p:column style="width:75px;vertical-align:middle;text-align:right;font-weight:bold">
+							<h:outputText value="#{msg['envio.cif.resultado.secuencia']}"/>
+						</p:column>
+						<p:column style="width:300px;vertical-align:middle !important;text-align:left !important;">
+							<h:outputText value="#{movimientosCifView.paramBean.movDetalle.secuencia}" disabled="true"/>
+						</p:column>
+					</p:row>
+					
+					<p:row>
+						<p:column  style="text-align:right !important;" colspan="4">
+							<p:commandButton value="#{msg['envio.cif.detalle.boton.aceptar']}" styleClass="blue-button"
+									onclick="PF('dialogConfirmEdit').show()"/>
+							<p:spacer width="10"/> 
+							<p:commandButton value="#{msg['envio.cif.detalle.boton.cerrar']}" styleClass="gray-button"
+									oncomplete="PF('dialogDetallesCargosCIF').hide();"
+									update=":formResultadosCargosCIF"/> 
+						</p:column>
+					</p:row>
+					
+				</p:panelGrid>
+			</p:dialog>
+		</h:form>
+		
+		
+		<!-- DIALOGOS -->
+		<h:form id="formActualizaCIF">
+			<p:dialog id="idConfirmEdit" modal="true"
+				widgetVar="dialogConfirmEdit" draggable="false"
+				closable="false" resizable="false" appendTo="@(body)" header="#{msg['envio.cif.mensaje.confirma.actualizacion.header']}">
+				<p:panel id="idConfirmacionEdit" >
+					<p:panelGrid style="float:right; margin-top:0px;">
+						<p:row>
+							<p:column style="text-align:left;">
+								<h:outputText value="#{msg['envio.cif.mensaje.confirma.actualizacion']}" />
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column style="text-align:right  !important;">
+								<p:commandButton value="#{msg['envio.cif.detalle.boton.aceptar']}" 
+									update="formResultadosCargosCIF formBusquedaCargosCIF idMensajesEstatusActualizacion"
+									action="#{movimientosCifView.editMov}"  process="@this"
+									onclick="PF('dialogConfirmEdit').hide();PF('dialogDetallesCargosCIF').hide();PF('cargandoDialog').show();" 
+									oncomplete="PF('dialogMensajesEstatus').show();PF('cargandoDialog').hide();"
+									styleClass="blue-button"/>
+								<p:spacer width="10"/>
+								<p:commandButton value="#{msg['envio.cif.detalle.boton.cerrar']}"
+									onclick="PF('dialogConfirmEdit').hide()" process="@this" 
+									styleClass="gray-button" />
+							</p:column>	
+						</p:row>		
+					</p:panelGrid>
+				</p:panel>
+			</p:dialog>
+			</h:form>
+			
+			<h:form id="formEnvioCIF">
+				<p:dialog id="idConfirmSend" modal="true"
+					widgetVar="dialogConfirmSend" draggable="false"
+					closable="false" resizable="false" appendTo="@(body)" header="#{msg['envio.cif.mensaje.envio.confirmacion.header']}">
+					<p:panel id="idConfirmacionSend" >
+						<p:panelGrid style="float:right; margin-top:0px;">
+							<p:row>
+								<p:column style="text-align:left;">
+									<h:outputText value="#{msg['envio.cif.mensaje.envio.confirmacion']}" />
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column style="text-align:right  !important;;">
+									<p:commandButton value="#{msg['envio.cif.detalle.boton.aceptar']}" 
+										update="formResultadosCargosCIF formReportCIF"
+										action="#{movimientosCifView.send2CIF}" process="@this"
+										onclick="PF('dialogConfirmSend').hide();PF('cargandoDialog').show();"  
+										oncomplete="PF('dialogMensajesEstatusEnvio').show();PF('cargandoDialog').hide();"
+										styleClass="blue-button"/>
+									<p:spacer width="10"/>
+									<p:commandButton  value="#{msg['envio.cif.detalle.boton.cerrar']}"
+											onclick="PF('dialogConfirmSend').hide()" process="@this" 
+											styleClass="gray-button" />		
+								</p:column>	
+							</p:row>		
+						</p:panelGrid>
+					</p:panel>
+				</p:dialog>
+			</h:form>
+			
+			<p:dialog id="dialogCargando" widgetVar="cargandoDialog" appendTo="@(body)" 
+				modal="true" draggable="false" closable="false" resizable="false" showHeader="false" showEffect="fade">
+				<div align="center">
+					<h:outputText value="#{msg['envio.cif.cargando']}" styleClass="outputTextGeneric" />
+					<br/>
+					<h:graphicImage value="/core/static/images/loading-bar.gif" width="150" />
+				</div>
+			</p:dialog>
+			
+			<p:dialog id="idDialogIdentificadorCiError" widgetVar="dialogIdentificadorCiError" header="#{msg['domiciliacion.traspasos.monSol.titulo']}"
+					closable="false" resizable="false" modal="true" draggable="false" showEffect="puff" 
+				 	visible="#{facesContext.validationFailed}">
+				<p:panelGrid style="float:right; margin-top:0px;">
+					<p:row>
+						<p:column style="text-align:right;">
+							<p:messages  rendered="false" display="false" />
+							<p:message for="formBusquedaCargosCIF:idIdConciliacion" rendered="false" display="false" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column style="text-align:left;">
+							<p:commandButton value="#{msg['general.button.cerrar']}"  
+								onclick="PF('dialogIdentificadorCiError').hide(); PF('cargandoDialog').hide();"
+								styleClass="gray-button" />
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+			</p:dialog>
+			
+			<p:dialog id="idMensajesEstatusActualizacion" widgetVar="dialogMensajesEstatus" 
+					header="#{msg['envio.cif.mensaje.estatus.header']}"
+					closable="false" resizable="false" modal="true" draggable="false" showEffect="puff" 
+				 	visible="false">
+				<p:panelGrid style="float:right; margin-top:0px;">
+					<p:row>
+						<p:column style="text-align:right;">
+							<p:messages  rendered="false" display="false" />
+							<h:outputText value="#{movimientosCifView.paramBean.mensaje}" disabled="true"/>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column style="text-align:right;">
+							<p:commandButton value="#{msg['envio.cif.detalle.boton.cerrar']}"  
+								onclick="PF('dialogMensajesEstatus').hide(); "
+								styleClass="gray-button" />
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+		</p:dialog>
+	
+		<h:form id="formReportCIF">
+			<p:dialog id="idMensajesEstatusEnvio" widgetVar="dialogMensajesEstatusEnvio" 
+					header="#{msg['envio.cif.mensaje.estatus.header']}"
+					closable="false" resizable="false" modal="true" draggable="false" showEffect="puff"  visible="false">
+				<p:panelGrid style="float:right; margin-top:0px;">
+					<p:row>
+						<p:column style="text-align:left;">
+							<p:messages  rendered="false" display="false" />
+							<h:outputText value="#{movimientosCifView.paramBean.mensaje}" disabled="true"/>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column style="text-align:right;">
+							<p:commandButton value="#{msg['envio.cif.detalle.boton.descarg.reporte']}"  
+								onclick="PF('dialogMensajesEstatusEnvio').hide(); " 
+								action="#{movimientosCifView.getReport}" ajax="false"
+								styleClass="yellow-button" />
+							<p:spacer width="10"/>
+							<p:commandButton value="#{msg['envio.cif.detalle.boton.cerrar']}"  
+								onclick="PF('dialogMensajesEstatusEnvio').hide(); "
+								styleClass="gray-button" />
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+			</p:dialog>
+		</h:form>
+		
+		<h:form id="formReportPrevCIF">
+			<p:dialog id="idMensajesEstatusEnvioPrev" widgetVar="dialogConfirmReportPrev" 
+					header="#{msg['envio.cif.detalle.boton.descarg.reporte']}"
+					closable="false" resizable="false" modal="true" draggable="false" showEffect="puff"  visible="false">
+				<p:panelGrid style="float:right; margin-top:0px;">
+					<p:row>
+						<p:column style="text-align:right;">
+							<p:commandButton value="#{msg['envio.cif.detalle.boton.aceptar']}"
+								update="formResultadosCargosCIF formBusquedaCargosCIF idMensajesEstatusActualizacion " 
+								action="#{movimientosCifView.getReportPrev}" ajax="false" 
+								onclick="PF('dialogConfirmEdit').hide();PF('dialogDetallesCargosCIF').hide();PF('dialogConfirmReportPrev').hide(); "
+								styleClass="yellow-button" />
+							<p:spacer width="10"/>
+							<p:commandButton value="#{msg['envio.cif.detalle.boton.cerrar']}"  
+								onclick="PF('dialogConfirmReportPrev').hide(); "
+								styleClass="gray-button" />
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+			</p:dialog>
+		</h:form>
+
+			<h:form id="formDeleteCIF">
+				<p:dialog id="idConfirmDelete" modal="true"
+					widgetVar="dialogConfirmDelete" draggable="false"
+					closable="false" resizable="false" appendTo="@(body)" header="#{msg['envio.cif.mensaje.borrar.confirmacion.header']}">
+					<p:panel id="idConfirmacionDelete" >
+						<p:panelGrid style="float:right; margin-top:0px;">
+							<p:row>
+								<p:column style="text-align:left;">
+									<h:outputText value="#{msg['envio.cif.mensaje.borrar.confirmacion']}" />
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column style="text-align:right !important;;">
+									<p:commandButton value="#{msg['envio.cif.detalle.boton.aceptar']}" 
+										update="formDetallesCargosCIF formResultadosCargosCIF formReportCIF"
+										action="#{movimientosCifView.delete2CIF}" process="@this"
+										onclick="PF('dialogConfirmDelete').hide();PF('cargandoDialog').show();"
+										oncomplete="PF('dialogMensajesEstatusDelete').show();PF('cargandoDialog').hide();"
+										styleClass="blue-button"/>
+									<p:spacer width="10"/>
+									<p:commandButton  value="#{msg['envio.cif.detalle.boton.cerrar']}"
+											onclick="PF('dialogConfirmDelete').hide()" process="@this" 
+											styleClass="gray-button" />		
+								</p:column>	
+							</p:row>		
+						</p:panelGrid>
+					</p:panel>
+				</p:dialog>
+			</h:form>
+
+		<h:form id="formReportDelCIF">
+			<p:dialog id="idMensajesEstatusDelete" widgetVar="dialogMensajesEstatusDelete" 
+					header="#{msg['envio.cif.mensaje.estatus.header']}"
+					closable="false" resizable="false" modal="true" draggable="false" showEffect="puff"  visible="false">
+				<p:panelGrid style="float:right; margin-top:0px;">
+					<p:row>
+						<p:column style="text-align:left;">
+							<p:messages  rendered="false" display="false" />
+							<h:outputText value="#{movimientosCifView.paramBean.mensaje}" disabled="true"/>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column style="text-align:right;">
+							<p:commandButton value="#{msg['envio.cif.detalle.boton.cerrar']}"
+								update="formDetallesCargosCIF formResultadosCargosCIF formReportCIF"
+								onclick="PF('dialogMensajesEstatusDelete').hide(); "
+								styleClass="gray-button" />
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+			</p:dialog>
+		</h:form>
+
+		
+	</ui:define>
+  </ui:composition>
+</html>

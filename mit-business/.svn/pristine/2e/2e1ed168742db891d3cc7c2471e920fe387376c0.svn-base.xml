@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?><!--File FolioService.wsdl, shared library Lib_NCI_MM--><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" name="FolioService" targetNamespace="http://mx.profuturo/iib/nci/BitacoraProcesos/FolioService/v1" xmlns:iibe="http://mx.profuturo/iib/iibException/IIBException" xmlns:sch="http://mx.profuturo/iib/nci/BitacoraProcesos/FolioService/v1/types" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://mx.profuturo/iib/nci/BitacoraProcesos/FolioService/v1" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:documentation>
+    <wsdl:appinfo source="WMQI_APPINFO">
+      <MRWSDLAppInfo imported="true">
+        <binding hasEncoding="false" imported="true" name="FolioBinding" originalBindingStyle="document"/>
+      </MRWSDLAppInfo>
+    </wsdl:appinfo>
+  </wsdl:documentation>
+
+	<wsdl:types>
+		<xsd:schema>
+<xsd:import namespace="http://mx.profuturo/iib/nci/BitacoraProcesos/FolioService/v1/types" schemaLocation="FolioService.0.xsd"/>
+<xsd:import namespace="http://mx.profuturo/iib/iibException/IIBException" schemaLocation="FolioService.1.xsd"/>
+</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="consultarFolioARelacionarRequest">
+		<wsdl:part element="sch:consultarFolioARelacionarRequest" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="consultarFolioARelacionarResponse">
+		<wsdl:part element="sch:consultarFolioARelacionarResponse" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="consultarFoliosRelacionadosRequest">
+		<wsdl:part element="sch:consultarFoliosRelacionadosRequest" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="consultarFoliosRelacionadosResponse">
+		<wsdl:part element="sch:consultarFoliosRelacionadosResponse" name="parameter"/>
+	</wsdl:message>
+
+	<wsdl:message name="generarFolioRequest">
+		<wsdl:part element="sch:generarFolioRequest" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="generarFolioResponse">
+		<wsdl:part element="sch:generarFolioResponse" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="guardarFolioRequest">
+		<wsdl:part element="sch:guardarFolioRequest" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="guardarFolioResponse">
+		<wsdl:part element="sch:guardarFolioResponse" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="actualizarFolioRequest">
+		<wsdl:part element="sch:actualizarFolioRequest" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="actualizarFolioResponse">
+		<wsdl:part element="sch:actualizarFolioResponse" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="faultMsg">
+    	<wsdl:part element="iibe:iibException" name="parameters"/>
+    </wsdl:message>
+	
+	<wsdl:portType name="FolioPortType">
+		<wsdl:operation name="generarFolio">
+			<wsdl:input message="tns:generarFolioRequest"/>
+			<wsdl:output message="tns:generarFolioResponse"/>
+			<wsdl:fault message="tns:faultMsg" name="fault"/>
+		</wsdl:operation>
+		<wsdl:operation name="guardarFolio">
+			<wsdl:input message="tns:guardarFolioRequest"/>
+			<wsdl:output message="tns:guardarFolioResponse"/>
+			<wsdl:fault message="tns:faultMsg" name="fault"/>
+		</wsdl:operation>
+		<wsdl:operation name="actualizarFolio">
+			<wsdl:input message="tns:actualizarFolioRequest"/>
+			<wsdl:output message="tns:actualizarFolioResponse"/>
+			<wsdl:fault message="tns:faultMsg" name="fault"/>
+		</wsdl:operation>
+
+		<wsdl:operation name="consultarFolioARelacionar">
+			<wsdl:input message="tns:consultarFolioARelacionarRequest"/>
+			<wsdl:output message="tns:consultarFolioARelacionarResponse"/>
+			<wsdl:fault message="tns:faultMsg" name="fault"/>
+		</wsdl:operation>
+		<wsdl:operation name="consultarFoliosRelacionados">
+			<wsdl:input message="tns:consultarFoliosRelacionadosRequest"/>
+			<wsdl:output message="tns:consultarFoliosRelacionadosResponse"/>
+			<wsdl:fault message="tns:faultMsg" name="fault"/>
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<wsdl:binding name="FolioBinding" type="tns:FolioPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="generarFolio">
+			<soap:operation soapAction="urn:generarFolio" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="guardarFolio">
+			<soap:operation soapAction="urn:guardarFolio" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="actualizarFolio">
+			<soap:operation soapAction="urn:actualizarFolio" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="consultarFolioARelacionar">
+			<soap:operation soapAction="urn:consultarFolioARelacionar" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarFoliosRelacionados">
+			<soap:operation soapAction="urn:consultarFoliosRelacionados" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:service name="FolioService">
+		<wsdl:port binding="tns:FolioBinding" name="FolioPort">
+			<soap:address location="http://iibnci.profuturo.mx:7800/iib/nci/BitacoraProcesos/FolioService/v1"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

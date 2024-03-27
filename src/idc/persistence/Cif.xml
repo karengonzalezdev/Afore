@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="mx.secure.nci.cif.persistence.PendientesTimbradoCifPersistence"> 
+
+
+<resultMap id="BaseResultMapCif" type="mx.secure.nci.business.vo.cif.PendientesTimbradoCifVO"> 
+	<result column="NUM_CONSECUTIVO"			jdbcType="NUMERIC"		property="numConsecutivo"	javaType="integer"/>
+	<result column="FTN_NSS"					jdbcType="VARCHAR"		property="nss"				javaType="string"/> 
+	<result column="FTC_CURP"					jdbcType="VARCHAR"		property="curp"				javaType="string"/> 
+	<result column="FTN_NUM_CTA_INDIVIDUAL"		jdbcType="VARCHAR"		property="cuenta"			javaType="string"/> 
+	<result column="NOMBRE_COMPLETO"			jdbcType="VARCHAR"		property="nombreCompleto"	javaType="string"/> 
+	<result column="FTC_DIAGNOSTICO"			jdbcType="VARCHAR"		property="diagn"			javaType="string"/> 
+	<result column="FTC_SUBP_NO_VIG"			jdbcType="VARCHAR"		property="subprcs"			javaType="string"/> 
+	<result column="FTD_FEH_CERT"				jdbcType="TIMESTAMP"	property="certif"			javaType="java.util.Date"/> 
+</resultMap> 
+
+ 
+
+<select id="getListaExcepcionesIdc" resultMap="BaseResultMapRDIdc" parameterType="mx.secure.nci.business.vo.DetalleExcepcionesIdcVO">
+	SELECT ROW_NUMBER() OVER (ORDER BY TEIV.FTD_FEH_CERT) AS NUM_CONSECUTIVO,
+			TO_CHAR(TEIV.FTN_NSS) AS FTN_NSS, TEIV.FTC_CURP, TO_CHAR(TEIV.FTN_NUM_CTA_INDIVIDUAL) AS FTN_NUM_CTA_INDIVIDUAL, 
+			UPPER(TRIM(TRIM(TEIV.FTC_NOMBRE)||' '||TRIM(TEIV.FTC_APELLIDO_PATERNO)||' '||TRIM(TEIV.FTC_APELLIDO_MATERNO))) AS NOMBRE_COMPLETO, 
+			DECODE(TEIV.FTC_ESTATUS_IDENT, '0','NO IDENTIFICADO', '1', DECODE(TEIV.FTC_VIGENCIA, '0', 'NO VIGENTE','1','VIGENTE') ) AS FTC_DIAGNOSTICO,  
+			UPPER(SNV.FCC_VALOR) AS FTC_SUBP_NO_VIG, TEIV.FTD_FEH_CERT
+		FROM CIERREN_ETL.TTAFOAVOL_ETL_IDC_VIGENCIA TEIV
+				LEFT JOIN TCCRXGRAL_CAT_CATALOGO SNV ON SNV.FCN_ID_CAT_CATALOGO = TEIV.FTN_ID_SUBPROCESO_INACTIVA
+  	<where>
+  		<if test="folio != null">
+  			AND TEIV.FTC_FOLIO = #{folio,jdbcType=VARCHAR}
+  		</if>
+  		
+  		
+  		
+  	</where>		 
+</select> 
+
+<select id="getDevolucionesCif" resultMap="BaseResultMapCif" parameterType="mx.secure.nci.business.vo.cif.PendientesTimbradoCifVO">
+	SELECT FTC_PF_TRAN_ID 
+		FROM BENEFICIOS.TTCRXGRAL_PS_PF_DEVD_HDRCIF		 
+</select>
+</mapper>

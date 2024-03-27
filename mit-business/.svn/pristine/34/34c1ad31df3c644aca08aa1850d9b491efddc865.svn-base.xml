@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mx.profuturo.nci.persistence.DiversificacionOrdenesPersistence">
+
+
+	<resultMap id="ResultMapDiversifOrdenesVO" type="mx.profuturo.nci.business.vo.DiversificacionOrdenesVO">
+
+		<id column="FTN_FONDO_APOVOL"			property="idFondoApovol"            jdbcType="DECIMAL"      javaType="Integer"/>
+	    <result column="FTC_NO_ORDEN" 				property="numeroOrden" 				jdbcType="VARCHAR" 		javaType="String" />	    
+	    <result column="FTN_MONTO" 					property="monto" 					jdbcType="DECIMAL" 		javaType="BigDecimal"/>	    
+	    <result column="FTN_PORCENTAJE" 			property="porcentaje" 				jdbcType="DECIMAL" 		javaType="Short"/>	    	    
+	    <result column="FTD_DIVORDEN_FEH_CRE"     	property="fechaCreacion" 			jdbcType="TIMESTAMP"	javaType="Date"  />
+	    <result column="FTC_DIVORDEN_USU_CRE"     	property="usuarioCreacion" 			jdbcType="VARCHAR" 		javaType="String" />
+	    <result column="FTD_DIVORDEN_FEH_ACT"     	property="fechaActualizacion" 		jdbcType="TIMESTAMP"	javaType="Date" />
+	    <result column="FTC_DIVORDEN_USU_ACT"     	property="usuarioActualizacion" 	jdbcType="VARCHAR" 		javaType="String" />
+	    	    
+	    <association property="fondoApovol" resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericCtFondoApovol"/>
+	    
+	
+	</resultMap>
+
+
+  <insert id="insertAll" parameterType="java.util.List">
+  
+  
+	  <if test="list != null and list.size() > 0" >
+	  
+	  	INSERT ALL
+
+		<foreach item="diverOrden" collection="list">
+
+		  		INTO TTAFOAVOL_DIVERSIF_ORDENES
+		  		
+		  		<trim prefix="(" suffix=")" suffixOverrides="," >
+		  		
+		  			<if test="diverOrden.numeroOrden != null">
+		  				FTC_NO_ORDEN,
+		  			</if>
+	
+		  			<if test="diverOrden.fondoApovol != null and diverOrden.fondoApovol.id != null">
+		  				FTN_FONDO_APOVOL,
+		  			</if>
+		  			
+		  			<if test="diverOrden.monto != null">
+		  				FTN_MONTO,
+		  			</if>	  			
+	
+		  			<if test="diverOrden.porcentaje != null">
+		  				FTN_PORCENTAJE,
+		  			</if>	  			
+	
+		  			<if test="diverOrden.usuarioCreacion != null">
+		  				FTC_USU_CRE,
+		  			</if>	  			
+		  			
+		  			FTD_FEH_CRE,
+		  			  		
+		  		</trim> 
+		  		
+		  		<trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+		  		
+		  			<if test="diverOrden.numeroOrden != null">
+		  				#{diverOrden.numeroOrden,jdbcType=VARCHAR},
+		  			</if>
+	
+		  			<if test="diverOrden.fondoApovol != null and diverOrden.fondoApovol.id != null">
+		  				#{diverOrden.fondoApovol.id,jdbcType=DECIMAL},
+		  			</if>
+		  			
+		  			<if test="diverOrden.monto != null">
+		  				#{diverOrden.monto,jdbcType=DECIMAL},
+		  			</if>	  			
+	
+		  			<if test="diverOrden.porcentaje != null">
+		  				#{diverOrden.porcentaje,jdbcType=DECIMAL},
+		  			</if>	  			
+	
+		  			<if test="diverOrden.usuarioCreacion != null">
+		  				#{diverOrden.usuarioCreacion,jdbcType=VARCHAR},
+		  			</if>	  			
+		  			
+		  			SYSTIMESTAMP,	  		
+		  		
+		  		</trim>
+	  	  
+	  	
+	  	</foreach>
+	  	
+	  	
+	  	SELECT 1 FROM DUAL
+	  
+	  
+	  </if>
+    
+  
+  </insert>
+
+
+  <update id="update" parameterType="mx.profuturo.nci.business.vo.DiversificacionOrdenesVO">
+  
+	UPDATE TTAFOAVOL_DIVERSIF_ORDENES
+	
+	<set>
+	
+		<if test="monto != null">
+			FTN_MONTO = #{monto,jdbcType=DECIMAL},
+		</if>
+		
+		<if test="porcentaje != null">
+			FTN_PORCENTAJE = #{porcentaje,jdbcType=DECIMAL},
+		</if>
+		
+	    <if test="usuarioActualizacion != null" >
+	       FTC_USU_ACT = #{usuarioActualizacion,jdbcType=VARCHAR},
+	    </if>
+	      
+		FTD_FEH_ACT = SYSTIMESTAMP,	      	      
+    
+    </set>
+	
+	WHERE FTC_NO_ORDEN  = #{numeroOrden,jdbcType=VARCHAR}
+	AND FTN_FONDO_APOVOL = #{fondoApovol.id,jdbcType=DECIMAL}
+	
+  </update>
+
+</mapper>

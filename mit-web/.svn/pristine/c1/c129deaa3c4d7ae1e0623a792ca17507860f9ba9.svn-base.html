@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+
+<ui:composition template="../../core/desktop/desktop.xhtml">
+	<ui:define name="body">
+		<p:panel id="idPanelCertificacioncuenta">
+			<h:form id="idFormCerCta">
+				<p:messages id="messages" showDetail="true" autoUpdate="true"
+					closable="true" />
+
+				<p:panel id="basic" header="Seleccionar una cuenta"
+					style="margin-bottom:20px">
+					<p:dataTable id="tblCliente" var="cliente"
+						value="#{identificarClienteView.lstClientes}"
+						rowKey="#{cliente.numeroCuenta}"
+						selection="#{identificarClienteView.clienteSelected}">
+						<f:facet name="header">
+            						RadioButton
+        						</f:facet>
+						<p:column selectionMode="single"
+							style="width:16px;text-align:center" />
+						<p:column headerText="Cuenta">
+							<h:outputText value="#{diversificacion.descripcion}" />
+						</p:column>
+						<p:column headerText="NSS">
+							<p:inputText value="#{diversificacion.valor}" />
+						</p:column>
+						<p:column headerText="Nombre">
+							<p:inputText value="#{diversificacion.valor}" />
+						</p:column>
+						<p:column headerText="Estado de Cuenta">
+							<p:inputText value="#{diversificacion.valor}" />
+						</p:column>
+					</p:dataTable>
+				</p:panel>
+			</h:form>
+		</p:panel>
+	</ui:define>
+</ui:composition>
+</html>

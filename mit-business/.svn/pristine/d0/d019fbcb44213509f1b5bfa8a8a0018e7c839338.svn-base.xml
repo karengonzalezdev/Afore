@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+           http://www.springframework.org/schema/tx 
+           http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.2.xsd
+           http://www.springframework.org/schema/aop 
+           http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
+
+	<context:component-scan base-package="com.jeveris.core.utils, com.jeveris.core.exception.aop" />
+	<aop:aspectj-autoproxy/>
+
+	<!-- Message Source bundles definition -->
+	<bean name="messageSource" id="messageSource"
+		class="com.jeveris.core.i18n.impl.CustomResourceBundleMessageSourceImpl">
+		<property name="basenames">
+			<list>
+				<value>com.jeveris.config.i18n.</value>
+				<value>config.i18n.</value>
+			</list>
+		</property>
+		<property name="defaultLocale" value="${application.defaultLanguage}" />
+	</bean>
+
+	<bean class="com.jeveris.core.utils.ApplicationContextProvider" />
+
+	<bean id="propertyPlaceholderConfigurer"
+		class="com.jeveris.core.properties.impl.CustomPropertyPlaceholderConfigurerImpl">
+		<description>
+			PlaceHolder of the properties of the App depending on the
+			environment
+			- *.propertyName = value (property global, for all
+			environments)
+			- local.propertyName = value (environment specific
+			property, overrides the local)
+		</description>
+		<property name="locations">
+			<list>
+				<value>classpath*:config/properties/*.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="propertiesConfiguration" class="com.jeveris.core.properties.PropertiesConfiguration">
+		<description>
+			Allow the applications to access to the config properties
+			loaded by the propertyPlaceholderConfigurer
+		</description>
+		</bean>
+	
+	<bean id="domConfiguration" class="com.jeveris.core.logging.CustomDOMConfigurator"
+		init-method="initialize">
+		<description>
+			Log 4j Configuration depending on the environment
+			log4j.xml -> default
+			log4j.{ENVIRONMENT}.xml -> Filename pattern
+			log4j.dev.xml -> Development configuration
+			log4j.int.xml ->
+			Integration configuration
+			log4j.pre.xml -> Preproduction
+			configuration
+			log4j.pro.xml -> Production configuration
+		</description>
+		<property name="fileName" value="classpath:log4j/log4j.xml" />
+	</bean>
+
+</beans>

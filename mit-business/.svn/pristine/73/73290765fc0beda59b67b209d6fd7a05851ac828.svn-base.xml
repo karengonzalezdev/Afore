@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="mx.profuturo.nci.persistence.ServiciosCifPersistence">
+
+	<resultMap id="BaseResultMapDMCif" type="mx.profuturo.nci.business.vo.DetalleMovimientosCifVO">
+		<result column="NOMBRE_PROCESO"				jdbcType="VARCHAR"		property="nombreProceso"			javaType="string"/>
+		<result column="CVE_SUB_PROCESO"			jdbcType="VARCHAR"		property="cveSubProceso"			javaType="string"/>
+		<result column="NOMBRE_SUB_PROCESO"			jdbcType="VARCHAR"		property="nombreSubProceso"			javaType="string"/>
+		<result column="CASOS_OPERADOS"				jdbcType="NUMERIC"		property="casosOperados"			javaType="integer"/>
+		<result column="IMPORTE_PESOS"				jdbcType="DECIMAL"		property="importePesos"				javaType="bigdecimal"/>
+	</resultMap>
+	
+	<resultMap id="BaseResultMapRDCif" type="mx.profuturo.nci.business.vo.ArchivoDetalleCifVO">
+		<result column="PORTAFOLIO" jdbcType="VARCHAR" property="portafolio" javaType="string" />
+		<result column="ENTRADAS" jdbcType="NUMERIC" property="entradas" javaType="integer" />
+		<result column="NUM_REG_ENT" jdbcType="NUMERIC" property="numRegEnt" javaType="integer" />
+		<result column="SALIDAS" jdbcType="NUMERIC" property="salidas" javaType="bigdecimal" />
+		<result column="NUM_REG_SAL" jdbcType="NUMERIC" property="numRegSal" javaType="integer" />
+		<result column="ESTATUS" jdbcType="NUMERIC" property="estatus" javaType="integer" />
+	</resultMap>
+	
+	<resultMap id="BaseResultMapCifResult" type="mx.profuturo.nci.business.vo.DevolucionesApovolCifVO">
+		<result column="TRANSACCION_ID"	    jdbcType="VARCHAR"		property="transaccionId"	javaType="string"/>
+		<result column="STATUS_CIF"			jdbcType="VARCHAR"		property="statusCif"		javaType="string"/>
+	</resultMap>
+
+	<update id="actualizaEstatusCif"
+		parameterType="mx.profuturo.nci.business.vo.ActualizaEstatusCifVO">
+		UPDATE CIERREN.TTCRXGRAL_DEVOLUCIONES
+		<set>
+			FTN_ESTATUS_SOLICITUD = '1',
+			<if test="usuario != null">
+				FTC_USU_ACT = #{usuario,jdbcType=VARCHAR},
+			</if>
+			FTD_FEH_ACT = SYSTIMESTAMP,
+		</set>
+		<where>
+			<if test="folio != null">
+				AND FTC_FOLIO = #{folio, jdbcType=VARCHAR}
+			</if>
+		</where>
+	</update>
+
+	<update id="actEstatCifData"
+		parameterType="mx.profuturo.nci.business.vo.ActualizaEstatusCifVO">
+		UPDATE DATAMARTS.TDAFOAVOL_CIF_DEV_APV_TOT
+		<set>
+			FTN_LIQUIDADO_CIF = '1',
+			<if test="usuario != null">
+				FTC_USU_ACT = #{usuario,jdbcType=VARCHAR},
+			</if>
+			FTD_FECHA_LIQUIDACION = to_timestamp(#{fechaLiquidacion,jdbcType=DATE},'YYYY/MM/DD hh24:mi:ss.FF9'),
+			FTD_FEH_ACT = SYSTIMESTAMP,
+		</set>
+		<where>
+			<if test="folio != null">
+				AND FTC_FOLIO = #{folio, jdbcType=VARCHAR}
+			</if>
+		</where>
+	</update>
+
+	<resultMap id="BaseResultMapCif"
+		type="mx.profuturo.nci.business.vo.PendientesTimbradoCifVO">
+		<result column="FTC_PF_TRAN_ID" jdbcType="VARCHAR" property="idTransaccionCif" javaType="string" />
+	</resultMap>
+
+	<select id="getDevolucionesCif" resultMap="BaseResultMapCif"
+		parameterType="mx.profuturo.nci.business.vo.PendientesTimbradoCifVO">
+
+		SELECT FTC_PF_TRAN_ID
+		FROM BENEFICIOS.TTCRXGRAL_PS_PF_DEVD_HDRCIF
+
+		<where>
+			<if test="folio != null">
+				AND FTC_FOLIO_REL = #{folio,jdbcType=VARCHAR}
+			</if>
+			AND
+			FTC_TIMBRADO_CIF = '0'
+		</where>
+
+	</select>
+
+	<select id="getDevolucionesProfuturo"
+		resultMap="BaseResultMapCif"
+		parameterType="mx.profuturo.nci.business.vo.PendientesTimbradoCifVO">
+
+		SELECT FTC_PF_TRAN_ID
+		FROM BENEFICIOS.TTCRXGRAL_PS_PF_APV_HDRCIF
+
+		<where>
+			<if test="folio != null">
+				AND FTC_FOLIO_REL = #{folio,jdbcType=VARCHAR}
+			</if>
+			AND
+			FTC_TIMBRADO_CIF = '0'
+		</where>
+
+	</select>
+
+
+
+	<select id="getListaDetalleCif" resultMap="BaseResultMapRDCif"
+		parameterType="mx.profuturo.nci.business.vo.ArchivoDetalleCifVO">
+		SELECT DECODE(FTN_ID_SIEFORE, 82, 'SCP', 83, 'SLP') AS PORTAFOLIO,
+		0 AS
+		ENTRADAS,
+		0 AS NUM_REG_ENT,
+		SUM(FTN_IMP_PESOS) AS SALIDAS,
+		SUM(FTN_CTAS_INDV_OPERA) AS NUM_REG_SAL,
+		3 AS ESTATUS
+		FROM
+		DATAMARTS.TDAFOAVOL_CIF_DEV_APV_TOT
+		<where>
+			<if test="folio != null">
+				AND FTC_FOLIO = #{folio,jdbcType=VARCHAR}
+			</if>
+			AND FTN_ID_SIEFORE IN (82,83)
+		</where>
+		GROUP BY FTN_ID_SIEFORE
+	</select>
+
+
+
+
+	<select id="getListaDetalleMovCif"
+		resultMap="BaseResultMapDMCif"
+		parameterType="mx.profuturo.nci.business.vo.DetalleMovimientosCifVO">
+		SELECT 'APORTACIONES VOLUNTARIAS' AS NOMBRE_PROCESO,
+		TCDAT.FTC_SUBPROCESO_CIF AS CVE_SUB_PROCESO,
+		(CASE WHEN TCDAT.FTC_SUBPROCESO_CIF='DEV-PROSPECTO' THEN
+		'DEVOLUCIONES DE PROSPECTOS'
+		WHEN TCDAT.FTC_SUBPROCESO_CIF='DEV-CLIENTE' THEN
+		'DEVOLUCIÓN DE CLIENTES'
+		WHEN TCDAT.FTC_SUBPROCESO_CIF='DEV-PROFU-PROSPEC' THEN
+		'DEVOLUCIONES DE CONTRACARGO PROSPECTOS'
+		WHEN TCDAT.FTC_SUBPROCESO_CIF='DEV-PROCESAR' THEN
+		'DEVOLUCIONES DE CONTRA CARGOS PROCESAR'
+		WHEN TCDAT.FTC_SUBPROCESO_CIF='DEV-PROFUTURO' THEN
+		'DEVOLUCIONES DE CONTRA CARGOS PROFUTURO'
+		END) AS NOMBRE_SUB_PROCESO,
+		SUM(TCDAT.FTN_CTAS_INDV_OPERA) AS CASOS_OPERADOS,
+		SUM(TCDAT.FTN_IMP_PESOS) AS IMPORTE_PESOS
+		FROM
+		TDAFOAVOL_CIF_DEV_APV_TOT TCDAT
+		<where>
+			<if test="folio != null">
+				AND FTC_FOLIO = #{folio,jdbcType=VARCHAR}
+			</if>
+		</where>
+		GROUP BY FTC_SUBPROCESO_CIF
+	</select>
+	
+	
+
+
+	<select id="getListaDevolucionesApovol" resultMap="BaseResultMapCifResult" parameterType="mx.profuturo.nci.business.vo.DevolucionesApovolCifVO">
+	SELECT FTC_PF_TRAN_ID AS TRANSACCION_ID,
+	       FTC_PF_STATUS_CIF AS STATUS_CIF
+	FROM BENEFICIOS.TTCRXGRAL_PS_PF_DEVD_HDRCIF	
+	    <where>
+			<if test="folio != null">
+	  			AND FTC_FOLIO_REL = #{folio,jdbcType=VARCHAR}
+	  		</if>
+	  	<if test="listaEstatusCIF != null and listaEstatusCIF.size()> 0">
+	  		AND FTC_PF_STATUS_CIF IN
+	  		<foreach item="estatusCif"  index="index" collection="listaEstatusCIF" open="(" separator="," close=")">
+	  		 #{estatusCif,jdbcType=VARCHAR}
+	  		 </foreach>  
+	  		 </if>		
+	    </where>	 
+	</select> 
+	
+	<select id="getListadoDevolucionesApovol" resultMap="BaseResultMapCifResult" parameterType="mx.profuturo.nci.business.vo.DevolucionesApovolCifVO">
+	SELECT FTC_PF_TRAN_ID AS TRANSACCION_ID,
+	       FTC_PF_STATUS_CIF AS STATUS_CIF 
+	FROM BENEFICIOS.TTCRXGRAL_PS_PF_APV_HDRCIF	
+	<where>
+			<if test="folio != null">
+	  			AND FTC_FOLIO_REL = #{folio,jdbcType=VARCHAR}
+	  		</if>
+	  		
+	  		<if test="listaEstatusCIF != null and listaEstatusCIF.size()> 0">
+	  			AND FTC_PF_STATUS_CIF IN
+	  			<foreach item="estatusCif"  index="index" collection="listaEstatusCIF" open="(" separator="," close=")">
+	  		 #{estatusCif,jdbcType=VARCHAR}
+	  		 </foreach>
+	  		</if>		
+	    </where> 
+	</select> 	
+</mapper>

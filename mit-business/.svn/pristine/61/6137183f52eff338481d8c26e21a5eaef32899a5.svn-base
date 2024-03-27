@@ -1,0 +1,8 @@
+package mx.profuturo.nci.business.wrapped;
+
+import mx.profuturo.nci.business.vo.CatalogoConfiguracionVO;
+
+public class CatalogoConfiguracionFilter extends CatalogoConfiguracionVO 
+{
+
+}

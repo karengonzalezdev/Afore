@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?><!--File FolioService/FolioService.xsd, shared library Lib_NCI_MM--><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://mx.profuturo/iib/nci/BitacoraProcesos/FolioService/v1/types" version="1.0" xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" xmlns:mod="http://mx.profuturo/nci/modelo" xmlns:tns="http://mx.profuturo/iib/nci/BitacoraProcesos/FolioService/v1/types">
+	
+	<xsd:import namespace="http://mx.profuturo/nci/modelo" schemaLocation="FolioService.2.xsd"/>
+
+	<xsd:element ibmSchExtn:docRoot="true" name="generarFolioRequest" type="tns:generarFolioReq"/>	
+	<xsd:element ibmSchExtn:docRoot="true" name="generarFolioResponse" type="tns:generarFolioResp"/>
+	<xsd:element ibmSchExtn:docRoot="true" name="guardarFolioRequest" type="tns:guardarFolioReq"/>
+	<xsd:element ibmSchExtn:docRoot="true" name="guardarFolioResponse" type="tns:guardarFolioResp"/>
+	<xsd:element ibmSchExtn:docRoot="true" name="actualizarFolioRequest" type="tns:actualizarFolioReq"/>
+	<xsd:element ibmSchExtn:docRoot="true" name="actualizarFolioResponse" type="tns:actualizarFolioResp"/>
+
+	<xsd:element ibmSchExtn:docRoot="true" name="consultarFolioARelacionarRequest" type="tns:consultarFolioARelacionarReq"/>
+	<xsd:element ibmSchExtn:docRoot="true" name="consultarFolioARelacionarResponse" type="tns:consultarFolioARelacionarResp"/>
+	<xsd:element ibmSchExtn:docRoot="true" name="consultarFoliosRelacionadosRequest" type="tns:consultarFoliosRelacionadosReq"/>
+	<xsd:element ibmSchExtn:docRoot="true" name="consultarFoliosRelacionadosResponse" type="tns:consultarFoliosRelacionadosResp"/>
+
+	<xsd:complexType name="consultarFolioARelacionarReq">
+		<xsd:sequence>
+			<xsd:element name="idProceso" type="xsd:int"/>
+			<xsd:element name="idSubproceso" type="xsd:int"/>
+			<xsd:element name="fechaValorAccion" type="xsd:dateTime"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="consultarFolioARelacionarResp">
+		<xsd:complexContent>
+			<xsd:extension base="mod:ResponseBase">
+				<xsd:sequence>
+					<xsd:element name="folio" type="xsd:string"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="consultarFoliosRelacionadosReq">
+		<xsd:sequence>
+			<xsd:element name="folio" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="consultarFoliosRelacionadosResp">
+		<xsd:complexContent>
+			<xsd:extension base="mod:ResponseBase">
+				<xsd:sequence>
+					<xsd:element minOccurs="0" name="folios" type="mod:ListaFoliosProceso"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+
+	<xsd:complexType name="generarFolioReq">
+		<xsd:sequence>
+			<xsd:element name="idProceso" type="xsd:int"/>
+			<xsd:element name="idSubproceso" type="xsd:int"/>
+			<xsd:element minOccurs="0" name="idArchivo" type="xsd:int"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="generarFolioResp">
+		<xsd:complexContent>
+			<xsd:extension base="mod:ResponseBase">
+				<xsd:sequence>
+					<xsd:element name="folio" type="xsd:string"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+	<xsd:complexType name="guardarFolioReq">
+		<xsd:sequence>
+			<xsd:element minOccurs="1" name="FolioProceso" type="mod:FolioProceso"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="guardarFolioResp">
+		<xsd:complexContent>
+			<xsd:extension base="mod:ResponseBase">
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+	<xsd:complexType name="actualizarFolioReq">
+		<xsd:sequence>
+			<xsd:element minOccurs="1" name="FolioProceso" type="mod:FolioProceso"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="actualizarFolioResp">
+		<xsd:complexContent>
+			<xsd:extension base="mod:ResponseBase">
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+</xsd:schema>

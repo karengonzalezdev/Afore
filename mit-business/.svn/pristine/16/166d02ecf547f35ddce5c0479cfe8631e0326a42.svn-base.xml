@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://impl.indicadores.webservice.ws.nci.profuturo.mx/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns2="http://schemas.xmlsoap.org/soap/http" xmlns:ns1="http://indicadores.webservice.ws.nci.profuturo.mx/" name="IIndicadoresSoapWSService" targetNamespace="http://impl.indicadores.webservice.ws.nci.profuturo.mx/">
+  <wsdl:import location="IIndicadoresSoapWSService.xsd" namespace="http://indicadores.webservice.ws.nci.profuturo.mx/">
+    </wsdl:import>
+  <wsdl:binding name="IIndicadoresSoapWSServiceSoapBinding" type="ns1:IIndicadoresSoapWS">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="consultaBasica">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="consultaBasica">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="consultaBasicaResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="IIndicadoresSoapWSService">
+    <wsdl:port binding="tns:IIndicadoresSoapWSServiceSoapBinding" name="IIndicadoresSoapWSPort">
+      <soap:address location="http://172.16.60.67:9083/mit-ws/services/IIndicadoresSoapWSService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

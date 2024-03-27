@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+  <ui:composition template="../../core/desktop/desktop.xhtml">
+	<ui:define name="body">
+		<style></style>
+		<h:form id="formBusquedaCIFSeg" styleClass="form-general">
+			<p:panel id="idpanelPrincipalSeg" header="#{msg['envio.dev.seg.cif.consulta.principal.titulo']}" style="margin-top: 50px;">
+				<p:panelGrid id="encabezadoSeg" style="margin-top: 5px; width: 100%;vertical-align:middle; !important;" ></p:panelGrid>
+			</p:panel>		
+			<p:panelGrid id="encabezadoBusqSeg" style="padding: 0px 0px !important;" styleClass="panelAlign">
+			
+				<p:row>
+			        <p:column style="text-align:left !important;vertical-align:bottom !important;margin-top: 15px !important;">
+			        		<p:outputLabel value="#{msg['envio.dev.seg.cif.consulta.id.pfTranId']}" style="text-align:left !important;vertical-align:bottom !important;paddding-top: 15px !important;"/>
+			        </p:column>
+			    </p:row>	
+			    
+			    <p:row>	
+			        	<p:column>
+							<p:inputText id="f_pfTranId" value="#{devolucionesSeguimientoCIFView.paramBeanSeg.data.pfTranId}" 
+									style="text-align:left !important;paddding-top: 0px !important;margin-top: 0px !important;" styleClass="input-style" 
+									maxlength="40">
+			        		</p:inputText>
+			        	</p:column>
+				</p:row>			
+			
+				<p:row >
+						<p:column style="text-align:left !important;">
+							<p:commandButton id="idbuscarDatosSeg" value="#{msg['envio.dev.seg.cif.resultado.estatus']}" 
+								action="#{devolucionesSeguimientoCIFView.buscaReporte}"
+								update="formBusquedaCIFSeg" 
+								onclick="PF('cargandoDialog').show();"
+								oncomplete="PF('cargandoDialog').hide();PF('dialogMensajesEstatusEnvio').show();"
+								styleClass="blue-button" />
+							<p:spacer width="10" height="1"/>
+							<p:commandButton id="idlimpiarBusqSeg" value="#{msg['envio.dev.cif.consulta.boton.limpiar']}"
+								action="#{devolucionesSeguimientoCIFView.limpiarBusqueda}"  update="f_pfTranId"
+								styleClass="gray-button" />
+						</p:column>
+				</p:row>			
+			</p:panelGrid>
+		</h:form>
+		
+		<h:form id="formReportCIF">
+			<p:dialog id="idMensajesEstatusEnvio" widgetVar="dialogMensajesEstatusEnvio" 
+					header="#{msg['envio.cif.mensaje.estatus.header']}"
+					closable="false" resizable="false" modal="true" draggable="false" showEffect="puff"  visible="false">
+				<p:panelGrid style="float:right; margin-top:0px;">
+					<p:row>
+						<p:column style="text-align:left;">
+							<p:messages  rendered="false" display="false" />
+							<h:outputText value="Se completo el reporte. ¿Deseas visualizarlo?" disabled="true"/>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column style="text-align:right;">
+							<p:commandButton value="#{msg['envio.cif.detalle.boton.descarg.reporte']}"  
+								onclick="PF('dialogMensajesEstatusEnvio').hide(); " 
+								action="#{devolucionesSeguimientoCIFView.generarReporte}" ajax="false"
+								styleClass="yellow-button" />
+							<p:spacer width="10"/>
+							<p:commandButton value="#{msg['envio.cif.detalle.boton.cerrar']}"  
+								onclick="PF('dialogMensajesEstatusEnvio').hide(); "
+								styleClass="gray-button" />
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+			</p:dialog>
+		</h:form>		
+		
+		<p:dialog id="idDialogIdentificadorCiError" widgetVar="dialogIdentificadorCiError" header="Aviso Importante"
+					closable="false" resizable="false" modal="true" draggable="false" showEffect="puff" 
+				 	visible="#{facesContext.validationFailed}">
+				<p:panelGrid style="float:right; margin-top:0px;">
+					<p:row>
+						<p:column style="text-align:right;">
+							<p:outputLabel value="#{devolucionesSeguimientoCIFView.paramBeanSeg.msgMsg}" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column style="text-align:left;">
+							<p:commandButton value="#{msg['general.button.cerrar']}"  
+								onclick="PF('dialogIdentificadorCiError').hide();"
+								styleClass="gray-button" />
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+		</p:dialog>
+				
+		<p:dialog id="dialogCargando" widgetVar="cargandoDialog" appendTo="@(body)" 
+				modal="true" draggable="false" closable="false" resizable="false" showHeader="false" showEffect="fade">
+			<div align="center">
+					<h:outputText value="#{msg['envio.cif.cargando']}" styleClass="outputTextGeneric" />
+					<br/>
+					<h:graphicImage value="/core/static/images/loading-bar.gif" width="150" />
+			</div>
+		</p:dialog>		
+		
+				
+	</ui:define>
+  </ui:composition>
+</html>

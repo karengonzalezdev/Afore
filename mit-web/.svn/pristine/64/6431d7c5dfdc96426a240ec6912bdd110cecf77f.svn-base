@@ -1,0 +1,14 @@
+#
+# Application configuration file
+# -------------------------------------------
+#
+#	Property						Required	Description
+#	---------------------------------------------------------------------------------
+#	application.Id	 	 	 	 	Yes	 		Application ID
+#	application.defaultLanguage	 	Yes	 		Application default language
+# 
+
+*.application.Id=mit-web
+*.application.version=1.0.0
+*.application.defaultLanguage=es_ES
+

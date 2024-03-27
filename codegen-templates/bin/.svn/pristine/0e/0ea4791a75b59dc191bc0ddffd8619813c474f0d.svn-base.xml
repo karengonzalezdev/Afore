@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.jeveris</groupId>
+	<artifactId>jeveris-codegen-templates</artifactId>
+	<version>3.2.0.RELEASE</version>
+	<packaging>jar</packaging>
+	<name>jeveris Codegen Templates</name>
+	<description>
+		Project with templates for code generation in j-everis project.
+		This project is automatically created when a new j-everis project is created, and
+		this project doesn't exist at the same level as the project.
+		Don't change the name of the project. All j-everis projects in the same workspace
+		need this project, and references it by this name. 
+		If this project name is changed, don't forget to change j-everis projects to 
+		reference the new project name (build-xxx.properties file).
+	</description>
+</project>

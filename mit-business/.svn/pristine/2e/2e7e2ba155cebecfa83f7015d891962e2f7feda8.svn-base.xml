@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-03-13T18:27:08 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Secciones" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Error" uuid="68bfbb04-ff48-41f3-aea6-9cda1384f697">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="nombreSeccion" class="java.lang.String"/>
+	<field name="nombreElemento" class="java.lang.String"/>
+	<field name="estatus" class="java.lang.String"/>
+	<field name="registros" class="java.lang.Integer"/>
+	<field name="importe" class="java.math.BigDecimal"/>
+	<field name="tipoReporte" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<columnHeader>
+		<band height="24">
+			<staticText>
+				<reportElement x="130" y="1" width="90" height="17" uuid="4bb8315e-d25b-4463-881d-93c044bcab52"/>
+				<text><![CDATA[Importe]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="430" y="0" width="100" height="20" uuid="cbdde390-6d7e-404c-aa33-18ef00027ce6"/>
+				<text><![CDATA[Estatus]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="90" height="20" uuid="e9992778-bc3c-4797-b395-c57d952ea27f"/>
+				<text><![CDATA[Tipo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="1" width="100" height="18" uuid="5c035e1f-4e86-4643-8f12-7cfa151e9a92"/>
+				<text><![CDATA[Registros]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="31" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="4" width="120" height="20" uuid="1ee46ab6-0b05-4218-8d27-9b0b0f28f4b7"/>
+				<textFieldExpression><![CDATA[$F{nombreElemento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="130" y="4" width="90" height="20" uuid="94bd5421-a18b-41b3-bbdc-c2759aa245a2"/>
+				<textFieldExpression><![CDATA[$F{importe} == null  ? "" :$F{importe}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="430" y="4" width="100" height="20" uuid="d20fbe9f-31cb-4ef2-b944-eee4e0d485fc"/>
+				<textFieldExpression><![CDATA[$F{estatus}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="4" width="90" height="20" uuid="2d56b0e2-9bf5-487e-ba60-7ff64794587c"/>
+				<textFieldExpression><![CDATA[$F{registros}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

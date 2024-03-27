@@ -1,0 +1,17 @@
+package mx.profuturo.nci.persistence;
+
+import java.util.List;
+
+import mx.profuturo.nci.business.vo.ActualizaEstatusIdcVO;
+import mx.profuturo.nci.business.vo.DetalleExcepcionesIdcVO;
+import mx.profuturo.nci.business.vo.ReporteDetalleIdcVO;
+import mx.profuturo.nci.business.vo.ResultadoIdcVO;
+import mx.profuturo.nci.stereotype.Mapper;
+
+@Mapper
+public interface ServiciosIdcPersistence {
+	Integer actualizaEstatusIdc(ActualizaEstatusIdcVO actualizaEstatusIdcVO) throws Exception;
+	ResultadoIdcVO getResultadoIdc (ResultadoIdcVO param);
+	List<ReporteDetalleIdcVO> getListaDetalleIdc(ReporteDetalleIdcVO param);
+	List<DetalleExcepcionesIdcVO> getListaExcepcionesIdc(DetalleExcepcionesIdcVO param);
+}

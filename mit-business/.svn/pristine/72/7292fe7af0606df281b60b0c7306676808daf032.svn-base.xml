@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><!--File FileNetService.wsdl, shared library Lib_NCI_MM--><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" name="FileNetService" targetNamespace="http://mx.profuturo/iib/apovol/FileNet/FileNetService/v1" xmlns:iibe="http://mx.profuturo/iib/iibException/IIBException" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://mx.profuturo/iib/apovol/FileNet/FileNetService/v1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsd2="http://mx.profuturo/iib/apovol/FileNet/FileNetService/v1/types">
+  <wsdl:documentation>
+    <wsdl:appinfo source="WMQI_APPINFO">
+      <MRWSDLAppInfo imported="true">
+        <binding hasEncoding="false" imported="true" name="FileNetBinding" originalBindingStyle="document"/>
+      </MRWSDLAppInfo>
+    </wsdl:appinfo>
+  </wsdl:documentation>
+
+	<wsdl:types>
+		<xsd:schema>
+<xsd:import namespace="http://mx.profuturo/iib/apovol/FileNet/FileNetService/v1/types" schemaLocation="http://172.16.60.69:7801/iib/apovol/FileNet/FileNetService/v1?xsd=xsd0">
+			</xsd:import>
+<xsd:import namespace="http://mx.profuturo/iib/iibException/IIBException" schemaLocation="http://172.16.60.69:7801/iib/apovol/FileNet/FileNetService/v1?xsd=xsd1">
+			</xsd:import>
+</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="subirArchivosRequest">
+		<wsdl:part element="xsd2:subirArchivosRequest" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="subirArchivosResponse">
+		<wsdl:part element="xsd2:subirArchivosResponse" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="faultMsg">
+    	<wsdl:part element="iibe:iibException" name="parameters"/>
+  	</wsdl:message>
+	
+	<wsdl:portType name="FileNetPortType">
+		<wsdl:operation name="subirArchivos">
+			<wsdl:input message="tns:subirArchivosRequest"/>
+			<wsdl:output message="tns:subirArchivosResponse"/>
+			<wsdl:fault message="tns:faultMsg" name="fault"/>
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<wsdl:binding name="FileNetBinding" type="tns:FileNetPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="subirArchivos">
+			<soap:operation soapAction="urn:subirArchivos" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:service name="FileNetService">
+		<wsdl:port binding="tns:FileNetBinding" name="FileNetPortType">
+			<soap:address location="http://172.16.60.69:7801/iib/apovol/FileNet/FileNetService/v1"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

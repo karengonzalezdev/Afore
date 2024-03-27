@@ -1,0 +1,44 @@
+package mx.profuturo.nci.business.service.impl;
+
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import mx.profuturo.nci.business.exception.ErrorCodeService;
+import mx.profuturo.nci.business.exception.GenerateExceptionDetails;
+import mx.profuturo.nci.business.exception.MitBusinessException;
+import mx.profuturo.nci.business.service.IObtenerCifrasControlService;
+import mx.profuturo.nci.business.vo.ObtenerCifrasControlVO;
+import mx.profuturo.nci.persistence.ObtenerCifrasControlPersistence;
+
+@Service("obtenerCifrasControlService")
+public class ObtenerCifrasControlServiceImpl implements IObtenerCifrasControlService {
+	private static final Logger LOGGER = LoggerFactory.getLogger(ObtenerCifrasControlServiceImpl.class);
+
+	@Autowired
+	ObtenerCifrasControlPersistence obtenerCifrasControlPersistence;
+	
+	public List<ObtenerCifrasControlVO> obtenerCifrasControl(ObtenerCifrasControlVO param) throws Exception {
+		return obtenerCifrasControlPersistence.getListaCifrasControl(param);
+		
+		
+	/*	try {
+			List<ObtenerCifrasControlVO> listadoDeCifras = this.obtenerCifrasControlPersistence.getCifrasMovimientosCif(param);
+			listadoDeCifras.addAll(this.obtenerCifrasControlPersistence.getCifrasTotales(param));
+			listadoDeCifras.addAll(this.obtenerCifrasControlPersistence.getLstBancosYCuentasDestino(param));
+			listadoDeCifras.add(this.obtenerCifrasControlPersistence.getTotalDevolucionesApovol(param));
+			
+			return listadoDeCifras;
+			
+		} catch (Exception ex) {
+			MitBusinessException mitBusinessException = new MitBusinessException(GenerateExceptionDetails.generate(
+			ErrorCodeService.EX_EXCEPTION, "El folio no contiene la informacion requerida",
+			new Object[] { getClass().getSimpleName(), "obtenerCifrasControl()" }, ex));
+			LOGGER.error(mitBusinessException.getMessage(), ex);
+			throw mitBusinessException;
+		}*/
+	}
+}

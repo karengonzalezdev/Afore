@@ -1,0 +1,876 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="mx.secure.nci.persistence.PreSolicitudPersistence">
+
+	<resultMap id="ResultMapSolicitudPreDomiciliacion" type="mx.secure.nci.business.vo.PreSolicitudVO">
+
+		<id column="FTC_CVE_SOLICITUD" 				property="claveSolicitud" 		jdbcType="VARCHAR" />
+		<result column="FTC_FOLIO" 					property="folio" 				jdbcType="VARCHAR" />
+		<result column="FTN_NUM_CTA_INVDUAL" 		property="numCuentaIndividual"	jdbcType="DECIMAL" />
+		<result column="FTC_CTA_BANCO" 				property="cuentaBanco" 			jdbcType="VARCHAR" />
+		<result column="FTC_NOMBRE_CTE" 			property="clienteNombre"		jdbcType="VARCHAR" />
+		<result column="FTC_AP_PATERNO_CTE" 		property="clientePaterno"		jdbcType="VARCHAR" />
+		<result column="FTC_AP_MATERNO_CTE" 		property="clienteMaterno"		jdbcType="VARCHAR" />
+		<result column="FTC_CORREO_ELEC" 			property="correoElectronico"	jdbcType="VARCHAR" />
+		<result column="FTC_CURP" 					property="curp" 				jdbcType="VARCHAR" />
+		<result column="FTN_NSS" 					property="nss" 					jdbcType="VARCHAR" />
+		<result column="FTC_RFC_CTE" 				property="clienteRfc" 			jdbcType="VARCHAR" />
+		<result column="FTD_FEH_CAPTURA" 			property="fechaCaptura"			jdbcType="TIMESTAMP" />
+		<result column="FTN_IMPORTE" 				property="importe" 				jdbcType="DECIMAL" />
+		<result column="FTN_INCREMENTALIDAD" 		property="incrementabilidad"	jdbcType="DECIMAL" />
+		<result column="FTN_OPCION_INCREMENTALIDAD" property="opcionIncrementabilidad"	jdbcType="DECIMAL" />
+		<result column="FTN_MONTO_INCREMENTO" 		property="montoIncremento"		jdbcType="DECIMAL" />
+		<result column="FTD_SOLI_FEH_CRE" 			property="fechaCreacion"		jdbcType="TIMESTAMP" javaType="date" />
+		<result column="FTC_SOLI_USU_CRE" 			property="usuarioCreacion"		jdbcType="VARCHAR" javaType="string" />
+		<result column="FTD_SOLI_FEH_ACT" 			property="fechaActualizacion"	jdbcType="TIMESTAMP" javaType="date" />
+		<result column="FTC_SOLI_USU_ACT" 			property="usuarioActualizacion"	jdbcType="VARCHAR" javaType="string" />
+		<result column="FTN_FLAG_DOCTOS" 			property="banderaDocumentos"	jdbcType="DECIMAL" />
+		<result column="FTN_CELULAR" 				property="celular" 				jdbcType="DECIMAL" />
+		<result column="FTD_FEH_CARGO" 				property="fechaCargo" 			jdbcType="TIMESTAMP" />
+		<result column="FTD_FEH_ESTATUS_SOLICITUD" 	property="fechaEstatuSolicitud" jdbcType="TIMESTAMP" />
+
+		<result column="FTC_ORIGEN_SOL_AFOM" 		property="origenSolAfom" 		jdbcType="VARCHAR" />
+		<result column="FTC_VIGENCIA_TC" 			property="vigenciaTc" 			jdbcType="VARCHAR" />
+		<result column="FTC_FOLIO_PROCESAR"			property="folioProcesar"		jdbcType="VARCHAR" />
+
+		<result column="FTC_CURP_TUTOR"				property="curpTutor"			jdbcType="VARCHAR" />
+		<result column="FTC_FOLIO_FAMILIA"			property="folioFamilia"			jdbcType="VARCHAR" />
+		<result column="FTC_GERENCIA"				property="gerencia"				jdbcType="VARCHAR" />
+		<result column="FTC_NOMBRE_PROMOTOR"		property="promotor"				jdbcType="VARCHAR" />
+		<result column="FTC_REGIONAL"				property="regional"				jdbcType="VARCHAR" />
+		<result column="FTN_ID_TIPO_REGISTRO" 		property="tipoRegistro"			jdbcType="DECIMAL" />
+		<result column="FTC_NOMBRE_TUTOR"			property="tutor"				jdbcType="VARCHAR" />
+		<result column="FTC_AP_PATERNO_TUTOR"		property="paternoTutor"			jdbcType="VARCHAR" />
+		<result column="FTC_AP_MATERNO_TUTOR"		property="maternoTutor"			jdbcType="VARCHAR" />
+
+		<association property="companiaCelular"
+			resultMap="mx.secure.nci.persistence.CatalogoPersistence.resMapGenericComCelular" />
+		<association property="lineaNegocio"
+			resultMap="mx.secure.nci.persistence.CatalogoPersistence.resMapGenericCtLineaNegocio" />
+		<association property="origenSolicitud"
+			resultMap="mx.secure.nci.persistence.CatalogoPersistence.resMapGenericCtOrigenSolicitud" />
+		<association property="tipoCuenta"
+			resultMap="mx.secure.nci.persistence.CatalogoPersistence.resMapGenericCtTipoCuenta" />
+		<association property="periodo"
+			resultMap="mx.secure.nci.persistence.CatalogoPersistence.resMapGenericCtPeriodo" />
+
+		<association property="frecuenciaInicial"
+			javaType="mx.secure.nci.business.vo.FrecuenciaVO">
+			<result column="FTN_FREC_INICIAL_DIA" property="dia" jdbcType="DECIMAL" />
+			<association property="diaSemana"
+				javaType="mx.secure.nci.business.vo.GenericCatalogoVO">
+				<result column="FTN_ID_SEM_FREC_INICIAL" javaType="short"
+					jdbcType="DECIMAL" property="id" />
+				<result column="FCC_VALOR_SEM_FREC_INICIAL" javaType="string"
+					jdbcType="VARCHAR" property="valor" />
+			</association>
+		</association>
+
+		<association property="frecuenciaFinal"
+			javaType="mx.secure.nci.business.vo.FrecuenciaVO">
+			<result column="FTN_FREC_FINAL_DIA" property="dia" jdbcType="DECIMAL" />
+			<association property="diaSemana"
+				javaType="mx.secure.nci.business.vo.GenericCatalogoVO">
+				<result column="FTN_ID_SEM_FREC_FINAL" javaType="short"
+					jdbcType="DECIMAL" property="id" />
+				<result column="FCC_VALOR_SEM_FREC_FINAL" javaType="string"
+					jdbcType="VARCHAR" property="valor" />
+			</association>
+		</association>
+
+		<association property="estatusSolicitud"
+			resultMap="mx.secure.nci.persistence.CatalogoPersistence.resMapGenericCtEstatusSolicitud" />
+		<association property="rechazoSolicitud"
+			resultMap="mx.secure.nci.persistence.CatalogoPersistence.resMapGenericCtRechazoSolicitud" />
+		<association property="porcentajeIncremento"
+			resultMap="mx.secure.nci.persistence.CatalogoPersistence.resMapGenericCtPorcentajeIncremento" />
+		<association property="periodoIncrementabilidad"
+			resultMap="mx.secure.nci.persistence.CatalogoPersistence.resMapGenericCtPeriodoIncrementalidad" />
+		<association property="moneda"
+			resultMap="mx.secure.nci.persistence.CatalogoPersistence.resMapGenericCtMoneda" />
+		<association property="claveBanco"       		   	   
+			resultMap="mx.secure.nci.persistence.CatalogoPersistence.resMapGenericClaveBanco" />
+	<association property="medioNotificacion"              resultMap="mx.secure.nci.persistence.CatalogoPersistence.resMapGenericMedioNotificacion" />
+	
+		<collection property="diversificaciones" javaType="ArrayList"
+			ofType="mx.secure.nci.business.vo.DiversificacionVO"
+			resultMap="mx.secure.nci.persistence.DiversificacionPersistence.ResultMapDiversificacion">
+
+		</collection>
+
+	</resultMap>
+	<insert id="insert" parameterType="mx.secure.nci.business.vo.PreSolicitudVO">
+
+		INSERT INTO TTAFOAVOL_PRE_SOLICITUD
+
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+
+			<if test="claveSolicitud != null">
+				FTC_CVE_SOLICITUD,
+			</if>
+
+			<if test="folio != null">
+				FTC_FOLIO,
+			</if>
+
+			<if test="numCuentaIndividual != null">
+				FTN_NUM_CTA_INVDUAL,
+			</if>
+
+			<if test="lineaNegocio != null and lineaNegocio.id != null">
+				FTN_ID_LINEA_NEG,
+			</if>
+
+			<if test="origenSolicitud != null and origenSolicitud.id != null">
+				FTN_ID_ORIGEN_SOLICITUD,
+			</if>
+
+			<if test="cuentaBanco != null">
+				FTC_CTA_BANCO,
+			</if>
+
+			<if test="tipoCuenta != null and tipoCuenta.id != null">
+				FTN_ID_TIPO_CTA,
+			</if>
+
+			<if test="claveBanco != null and claveBanco.id != null">
+				FTN_CVE_BANCO,
+			</if>
+
+			<if test="clienteNombre != null">
+				FTC_NOMBRE_CTE,
+			</if>
+
+			<if test="clientePaterno != null">
+				FTC_AP_PATERNO_CTE,
+			</if>
+
+			<if test="clienteMaterno != null">
+				FTC_AP_MATERNO_CTE,
+			</if>
+
+			<if test="correoElectronico != null">
+				FTC_CORREO_ELEC,
+			</if>
+
+			<if test="curp != null">
+				FTC_CURP,
+			</if>
+
+			<if test="nss != null">
+				FTN_NSS,
+			</if>
+
+			<if test="clienteRfc != null">
+				FTC_RFC_CTE,
+			</if>
+
+			<if test="periodo != null and periodo.id != null">
+				FTN_ID_PERIODO,
+			</if>
+
+
+			<!-- diaSemana: Si el valor del campo periodo es SEMANAL, se considera 
+				éste valor para guardar en el campo FTN_FREC_INICIAL o FTN_FREC_FINAL de 
+				la tabla TTAFOAVOL_SOLICITUD según aplique para el atributo frecuenciaInicial 
+				o frecuenciaFinal. dia: Si el valor del campo periodo NO es SEMANAL, se considera 
+				éste valor para guardar en el campo FTN_FREC_INICIAL o FTN_FREC_FINAL de 
+				la tabla TTAFOAVOL_SOLICITUD según aplique para el atributo frecuenciaInicial 
+				o frecuenciaFinal -->
+			<if test="periodo != null and periodo.id != null">
+
+				<!-- Frecuencia Inicial -->
+				<if test="frecuenciaInicial != null">
+					<choose>
+						<when
+							test="periodo.id == 492 and frecuenciaInicial.diaSemana != null and frecuenciaInicial.diaSemana.id != null">
+							FTN_FREC_INICIAL,
+						</when>
+						<when test="periodo.id != 492 and frecuenciaInicial.dia != null">
+							FTN_FREC_INICIAL,
+						</when>
+					</choose>
+				</if>
+
+				<!-- Frecuencia Final -->
+				<if test="frecuenciaFinal != null">
+					<choose>
+						<when
+							test="periodo.id == 492 and frecuenciaFinal.diaSemana != null and frecuenciaFinal.diaSemana.id != null">
+							FTN_FREC_FINAL,
+						</when>
+						<when test="periodo.id != 492 and frecuenciaFinal.dia != null">
+							FTN_FREC_FINAL,
+						</when>
+					</choose>
+				</if>
+
+			</if>
+
+			<if test="estatusSolicitud != null and estatusSolicitud.id != null">
+				FTN_ESTATUS_SOLICITUD,
+			</if>
+
+			<if test="rechazoSolicitud != null and rechazoSolicitud.id != null">
+				FTN_RECHAZO_SOLICITUD,
+			</if>
+
+			<if test="fechaCaptura != null">
+				FTD_FEH_CAPTURA,
+			</if>
+
+			<if test="importe != null">
+				FTN_IMPORTE,
+			</if>
+
+			<if test="incrementabilidad != null">
+				FTN_INCREMENTALIDAD,
+			</if>
+
+			<if test="opcionIncrementabilidad != null">
+				FTN_OPCION_INCREMENTALIDAD,
+			</if>
+
+			<if
+				test="porcentajeIncremento != null and porcentajeIncremento.id != null">
+				FTN_ID_PORCENTAJE_INCREMENTO,
+			</if>
+
+			<if test="montoIncremento != null">
+				FTN_MONTO_INCREMENTO,
+			</if>
+
+			<if
+				test="periodoIncrementabilidad != null and periodoIncrementabilidad.id != null">
+				FTN_ID_PERIOD_INCREMENTALIDAD,
+			</if>
+
+			<if test="banderaDocumentos != null">
+				FTN_FLAG_DOCTOS,
+			</if>
+
+			<if test="moneda != null and moneda.id != null">
+				FTN_MONEDA,
+			</if>
+            <if test="medioNotificacion != null and medioNotificacion.id != null">
+				FTN_MEDIO_NOTIFICACION,
+			</if>
+			<if test="celular != null">
+				FTN_CELULAR,
+			</if>
+			<if test="fechaCargo != null">
+				FTD_FEH_CARGO,
+			</if>
+			<if test="fechaEstatuSolicitud != null">
+				FTD_FEH_ESTATUS_SOLICITUD,
+			</if>
+			<if test="companiaCelular != null and companiaCelular.id != null">
+				FTN_COMPANIA_CELULAR,
+			</if>
+			
+			<if test="usuarioCreacion != null">
+				FTC_USU_CRE,
+			</if>
+
+			<if test="origenSolAfom != null">
+				FTC_ORIGEN_SOL_AFOM,
+			</if>
+
+			<if test="vigenciaTc != null">
+				FTC_VIGENCIA_TC,
+			</if>
+			<if test="folioProcesar != null">
+				FTC_FOLIO_PROCESAR,
+			</if>
+			<if test="curpTutor != null">
+				FTC_CURP_TUTOR,
+			</if>
+			<if test="folioFamilia != null">
+				FTC_FOLIO_FAMILIA,
+			</if>
+			<if test="gerencia != null">
+				FTC_GERENCIA,
+			</if>
+			<if test="promotor != null">
+				FTC_NOMBRE_PROMOTOR,
+			</if>
+			<if test="regional != null">
+				FTC_REGIONAL,
+			</if>
+			<if test="tipoRegistro != null">
+				FTN_ID_TIPO_REGISTRO,
+			</if>
+			<if test="tutor != null">
+				FTC_NOMBRE_TUTOR,
+			</if>			
+			<if test="paternoTutor != null">
+				FTC_AP_PATERNO_TUTOR,
+			</if>			
+			<if test="maternoTutor != null">
+				FTC_AP_MATERNO_TUTOR,
+			</if>			
+			FTD_FEH_CRE,
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+
+			<if test="claveSolicitud != null">
+				#{claveSolicitud,jdbcType=VARCHAR},
+			</if>
+
+			<if test="folio != null">
+				#{folio,jdbcType=VARCHAR},
+			</if>
+
+			<if test="numCuentaIndividual != null">
+				#{numCuentaIndividual,jdbcType=DECIMAL},
+			</if>
+
+			<if test="lineaNegocio != null and lineaNegocio.id != null">
+				#{lineaNegocio.id,jdbcType=DECIMAL},
+			</if>
+
+			<if test="origenSolicitud != null and origenSolicitud.id != null">
+				#{origenSolicitud.id,jdbcType=DECIMAL},
+			</if>
+
+			<if test="cuentaBanco != null">
+				#{cuentaBanco},
+			</if>
+
+			<if test="tipoCuenta != null and tipoCuenta.id != null">
+				#{tipoCuenta.id,jdbcType=DECIMAL},
+			</if>
+
+			<if test="claveBanco != null and claveBanco.id != null">
+				#{claveBanco.id,jdbcType=DECIMAL},
+			</if>
+
+			<if test="clienteNombre != null">
+				#{clienteNombre,jdbcType=VARCHAR},
+			</if>
+
+			<if test="clientePaterno != null">
+				#{clientePaterno,jdbcType=VARCHAR},
+			</if>
+
+			<if test="clienteMaterno != null">
+				#{clienteMaterno,jdbcType=VARCHAR},
+			</if>
+
+			<if test="correoElectronico != null">
+				#{correoElectronico,jdbcType=VARCHAR},
+			</if>
+
+			<if test="curp != null">
+				#{curp,jdbcType=VARCHAR},
+			</if>
+
+			<if test="nss != null">
+				#{nss,jdbcType=VARCHAR},
+			</if>
+
+			<if test="clienteRfc != null">
+				#{clienteRfc,jdbcType=VARCHAR},
+			</if>
+
+			<if test="periodo != null and periodo.id != null">
+				#{periodo.id,jdbcType=DECIMAL},
+			</if>
+
+
+			<!-- diaSemana: Si el valor del campo periodo es SEMANAL, se considera 
+				éste valor para guardar en el campo FTN_FREC_INICIAL o FTN_FREC_FINAL de 
+				la tabla TTAFOAVOL_SOLICITUD según aplique para el atributo frecuenciaInicial 
+				o frecuenciaFinal. dia: Si el valor del campo periodo NO es SEMANAL, se considera 
+				éste valor para guardar en el campo FTN_FREC_INICIAL o FTN_FREC_FINAL de 
+				la tabla TTAFOAVOL_SOLICITUD según aplique para el atributo frecuenciaInicial 
+				o frecuenciaFinal -->
+			<if test="periodo != null and periodo.id != null">
+
+				<!-- Frecuencia Inicial -->
+				<if test="frecuenciaInicial != null">
+					<choose>
+						<when
+							test="periodo.id == 492 and frecuenciaInicial.diaSemana != null and frecuenciaInicial.diaSemana.id != null">
+							#{frecuenciaInicial.diaSemana.id,jdbcType=DECIMAL},
+						</when>
+						<when test="periodo.id != 492 and frecuenciaInicial.dia != null">
+							#{frecuenciaInicial.dia,jdbcType=DECIMAL},
+						</when>
+					</choose>
+				</if>
+
+				<!-- Frecuencia Final -->
+				<if test="frecuenciaFinal != null">
+					<choose>
+						<when
+							test="periodo.id == 492 and frecuenciaFinal.diaSemana != null and frecuenciaFinal.diaSemana.id != null">
+							#{frecuenciaFinal.diaSemana.id,jdbcType=DECIMAL},
+						</when>
+						<when test="periodo.id != 492 and frecuenciaFinal.dia != null">
+							#{frecuenciaFinal.dia,jdbcType=DECIMAL},
+						</when>
+					</choose>
+				</if>
+
+			</if>
+
+			<if test="estatusSolicitud != null and estatusSolicitud.id != null">
+				#{estatusSolicitud.id,jdbcType=DECIMAL},
+			</if>
+
+			<if test="rechazoSolicitud != null and rechazoSolicitud.id != null">
+				#{rechazoSolicitud.id,jdbcType=DECIMAL},
+			</if>
+
+			<if test="fechaCaptura != null">
+				#{fechaCaptura,jdbcType=TIMESTAMP},
+			</if>
+
+			<if test="importe != null">
+				#{importe,jdbcType=DECIMAL},
+			</if>
+
+			<if test="incrementabilidad != null">
+				#{incrementabilidad,jdbcType=DECIMAL},
+			</if>
+
+			<if test="opcionIncrementabilidad != null">
+				#{opcionIncrementabilidad,jdbcType=DECIMAL},
+			</if>
+
+			<if
+				test="porcentajeIncremento != null and porcentajeIncremento.id != null">
+				#{porcentajeIncremento.id,jdbcType=DECIMAL},
+			</if>
+
+			<if test="montoIncremento != null">
+				#{montoIncremento,jdbcType=DECIMAL},
+			</if>
+
+			<if
+				test="periodoIncrementabilidad != null and periodoIncrementabilidad.id != null">
+				#{periodoIncrementabilidad.id,jdbcType=DECIMAL},
+			</if>
+
+			<if test="banderaDocumentos != null">
+				#{banderaDocumentos,jdbcType=DECIMAL},
+			</if>
+
+			<if test="moneda != null and moneda.id != null">
+				#{moneda.id,jdbcType=DECIMAL},
+			</if>
+			<if test="medioNotificacion != null and medioNotificacion.id != null">
+				#{medioNotificacion.id,jdbcType=DECIMAL},
+			</if>
+			<if test="celular != null">
+				#{celular,jdbcType=DECIMAL},
+			</if>
+			<if test="fechaCargo != null">
+				#{fechaCargo,jdbcType=TIMESTAMP},
+			</if>
+			<if test="fechaEstatuSolicitud != null">
+				#{fechaEstatuSolicitud,jdbcType=TIMESTAMP},
+			</if>
+			<if test="companiaCelular != null and companiaCelular.id != null">
+				#{companiaCelular.id,jdbcType=DECIMAL},
+			</if>
+			<if test="usuarioCreacion != null">
+				#{usuarioCreacion,jdbcType=VARCHAR},
+			</if>
+			<if test="origenSolAfom != null">
+				#{origenSolAfom,jdbcType=VARCHAR},
+			</if>
+			<if test="vigenciaTc != null">
+				#{vigenciaTc,jdbcType=VARCHAR},
+			</if>
+			<if test="folioProcesar != null">
+				#{folioProcesar,jdbcType=VARCHAR},
+			</if>
+			<if test="curpTutor != null">
+				#{curpTutor,jdbcType=VARCHAR},
+			</if>
+			<if test="folioFamilia != null">
+				#{folioFamilia,jdbcType=VARCHAR},
+			</if>
+			<if test="gerencia != null">
+				#{gerencia,jdbcType=VARCHAR},
+			</if>
+			<if test="promotor != null">
+				#{promotor,jdbcType=VARCHAR},
+			</if>
+			<if test="regional != null">
+				#{regional,jdbcType=VARCHAR},
+			</if>
+			<if test="tipoRegistro != null">
+				#{tipoRegistro,jdbcType=DECIMAL},
+			</if>
+			<if test="tutor != null">
+				#{tutor,jdbcType=VARCHAR},
+			</if>
+			<if test="paternoTutor != null">
+				#{paternoTutor,jdbcType=VARCHAR},
+			</if>
+			<if test="maternoTutor != null">
+				#{maternoTutor,jdbcType=VARCHAR},
+			</if>
+
+			SYSTIMESTAMP,
+
+
+		</trim>
+	</insert>
+	<select id="select" resultMap="ResultMapSolicitudPreDomiciliacion"
+		parameterType="mx.secure.nci.business.wrapped.PreSolicitudFilter">
+		SELECT
+			SOL.FTC_CVE_SOLICITUD,
+			SOL.FTC_FOLIO,
+			SOL.FTN_NUM_CTA_INVDUAL,
+			SOL.FTN_ID_LINEA_NEG , CT_LINEG.FCC_VALOR AS FCC_VALOR_LINEA_NEG,
+			SOL.FTN_ID_ORIGEN_SOLICITUD, CT_ORG_SOL.FCC_VALOR AS FCC_VALOR_ORIGEN_SOLI,
+			SOL.FTC_CTA_BANCO,
+			SOL.FTN_ID_TIPO_CTA , CT_TP_CTA.FCC_VALOR AS FCC_VALOR_TIPO_CTA,
+			SOL.FTN_CVE_BANCO, CT_CV_BANCO.FCC_VALOR AS FCC_VALOR_CLAVE_BANCO,
+			SOL.FTC_NOMBRE_CTE,
+			SOL.FTC_AP_PATERNO_CTE,
+			SOL.FTC_AP_MATERNO_CTE,
+			SOL.FTC_CORREO_ELEC,
+			SOL.FTC_CURP,
+			SOL.FTN_NSS,
+			SOL.FTC_RFC_CTE,
+			SOL.FTN_ID_PERIODO,
+			CT_PERIODO.FCC_VALOR AS FCC_VALOR_PERIODO,
+			( CASE FTN_ID_PERIODO
+				WHEN 492 THEN FTN_FREC_INICIAL
+				ELSE NULL
+				END ) FTN_ID_SEM_FREC_INICIAL,
+			( CASE FTN_ID_PERIODO
+				WHEN 492 THEN
+					(SELECT FCC_VALOR 
+					FROM TCCRXGRAL_CAT_CATALOGO 
+					WHERE FCN_ID_CAT_CATALOGO = FTN_FREC_INICIAL)
+				ELSE NULL
+				END ) FCC_VALOR_SEM_FREC_INICIAL,
+			( CASE FTN_ID_PERIODO
+				WHEN 492 THEN NULL
+				ELSE FTN_FREC_INICIAL
+				END ) FTN_FREC_INICIAL_DIA,
+			( CASE FTN_ID_PERIODO
+				WHEN 492 THEN FTN_FREC_FINAL
+				ELSE NULL
+				END ) FTN_ID_SEM_FREC_FINAL,
+			( CASE FTN_ID_PERIODO
+				WHEN 492 THEN
+				(SELECT FCC_VALOR 
+				FROM TCCRXGRAL_CAT_CATALOGO 
+				WHERE FCN_ID_CAT_CATALOGO = FTN_FREC_FINAL)
+				ELSE NULL
+				END ) FCC_VALOR_SEM_FREC_FINAL,
+			( CASE FTN_ID_PERIODO
+				WHEN 492 THEN NULL
+				ELSE FTN_FREC_FINAL
+				END ) FTN_FREC_FINAL_DIA,
+			SOL.FTN_ESTATUS_SOLICITUD, CT_EST_SOL.FCC_VALOR AS FCC_VALOR_ESTATUS_SOL,
+			SOL.FTD_FEH_CAPTURA,
+			SOL.FTN_RECHAZO_SOLICITUD, CT_RECH_SOL.FCC_VALOR AS FCC_VALOR_RECHAZO_SOLICITUD,
+			SOL.FTN_IMPORTE,
+			SOL.FTN_INCREMENTALIDAD ,
+			SOL.FTN_OPCION_INCREMENTALIDAD ,
+			SOL.FTN_ID_PORCENTAJE_INCREMENTO, CT_POR_INC.FCC_VALOR AS FCC_VALOR_PORCENTAJE_INCRE,
+			SOL.FTN_MONTO_INCREMENTO,
+			SOL.FTN_ID_PERIOD_INCREMENTALIDAD, CT_PER_INC.FCC_VALOR AS FCC_VALOR_PERIOD_INCREMENTA,
+			SOL.FTN_MONEDA, CT_MONEDA.FCC_VALOR AS FCC_VALOR_MONEDA,
+			SOL.FTN_CELULAR,
+			SOL.FTD_FEH_CARGO,
+			SOL.FTD_FEH_ESTATUS_SOLICITUD,
+			SOL.FTN_COMPANIA_CELULAR, CT_COM_CEL.FCC_VALOR AS FTN_VALOR_COMPANIA_CELULAR, 
+			SOL.FTD_FEH_CRE AS FTD_SOLI_FEH_CRE,
+			SOL.FTC_USU_CRE AS FTC_SOLI_USU_CRE,
+			SOL.FTD_FEH_ACT AS FTD_SOLI_FEH_ACT,
+			SOL.FTC_USU_ACT AS FTC_SOLI_USU_ACT,
+			DIVER_SOL.FTC_CVE_SOLICITUD AS FTC_DIVER_CVE_SOLICITUD,
+			DIVER_SOL.FTC_FOLIO AS FTC_DIVER_FOLIO,
+			DIVER_SOL.FTN_FONDO_secure AS FTN_DIVER_FONDO_secure,
+			CT_FONDO_secure.FCC_VALOR AS FCC_VALOR_DIVER_FONDO_secure,
+			DIVER_SOL.FTN_MONTO AS FTN_DIVER_MONTO,
+			DIVER_SOL.FTN_PORCENTAJE AS FTN_DIVER_PORCENTAJE,
+			DIVER_SOL.FTD_FEH_CRE AS FTD_DIVER_FEH_CRE,
+			DIVER_SOL.FTC_USU_CRE AS FTC_DIVER_USU_CRE,
+			DIVER_SOL.FTD_FEH_ACT AS FTD_DIVER_FEH_ACT,
+			DIVER_SOL.FTC_USU_ACT AS FTC_DIVER_USU_ACT,
+			SOL.FTN_MEDIO_NOTIFICACION, MOV.FCC_VALOR AS FCC_VALOR_MEDIO_NOTIFICACION,
+			SOL.FTC_ORIGEN_SOL_AFOM, SOL.FTC_VIGENCIA_TC,
+			SOL.FTC_ORIGEN_SOL_AFOM,
+			SOL.FTC_VIGENCIA_TC,
+			SOL.FTC_FOLIO_PROCESAR,
+			SOL.FTC_CURP_TUTOR,
+			SOL.FTC_FOLIO_FAMILIA,
+			SOL.FTC_GERENCIA,
+			SOL.FTC_NOMBRE_PROMOTOR,
+			SOL.FTC_REGIONAL,
+			SOL.FTN_ID_TIPO_REGISTRO,
+			SOL.FTC_NOMBRE_TUTOR,
+			SOL.FTC_AP_PATERNO_TUTOR,
+			SOL.FTC_AP_MATERNO_TUTOR
+		FROM TTAFOAVOL_PRE_SOLICITUD SOL
+			LEFT JOIN TCCRXGRAL_CAT_CATALOGO CT_LINEG ON CT_LINEG.FCN_ID_CAT_CATALOGO = SOL.FTN_ID_LINEA_NEG
+			LEFT JOIN TCCRXGRAL_CAT_CATALOGO CT_ORG_SOL ON CT_ORG_SOL.FCN_ID_CAT_CATALOGO = SOL.FTN_ID_ORIGEN_SOLICITUD
+			LEFT JOIN TCCRXGRAL_CAT_CATALOGO CT_TP_CTA ON CT_TP_CTA.FCN_ID_CAT_CATALOGO = SOL.FTN_ID_TIPO_CTA
+			LEFT JOIN TCCRXGRAL_CAT_CATALOGO CT_PERIODO ON CT_PERIODO.FCN_ID_CAT_CATALOGO = SOL.FTN_ID_PERIODO
+			LEFT JOIN TCCRXGRAL_CAT_CATALOGO CT_COM_CEL ON CT_COM_CEL.FCN_ID_CAT_CATALOGO = SOL.FTN_COMPANIA_CELULAR
+			LEFT JOIN TCCRXGRAL_CAT_CATALOGO CT_EST_SOL ON CT_EST_SOL.FCN_ID_CAT_CATALOGO = SOL.FTN_ESTATUS_SOLICITUD
+			LEFT JOIN TCCRXGRAL_CAT_CATALOGO CT_RECH_SOL ON CT_RECH_SOL.FCN_ID_CAT_CATALOGO = SOL.FTN_RECHAZO_SOLICITUD
+			LEFT JOIN TCCRXGRAL_CAT_CATALOGO CT_POR_INC ON CT_POR_INC.FCN_ID_CAT_CATALOGO = SOL.FTN_ID_PORCENTAJE_INCREMENTO
+			LEFT JOIN TCCRXGRAL_CAT_CATALOGO CT_PER_INC ON CT_PER_INC.FCN_ID_CAT_CATALOGO = SOL.FTN_ID_PERIOD_INCREMENTALIDAD
+			LEFT JOIN TCCRXGRAL_CAT_CATALOGO CT_MONEDA ON 	CT_MONEDA.FCN_ID_CAT_CATALOGO = SOL.FTN_MONEDA
+			LEFT JOIN TTAFOAVOL_DIVERSIF_PRE_SOLIC DIVER_SOL ON DIVER_SOL.FTC_CVE_SOLICITUD = SOL.FTC_CVE_SOLICITUD
+			LEFT JOIN TCCRXGRAL_CAT_CATALOGO CT_FONDO_secure ON CT_FONDO_secure.FCN_ID_CAT_CATALOGO = DIVER_SOL.FTN_FONDO_secure
+			LEFT JOIN TCCRXGRAL_CAT_CATALOGO CT_CV_BANCO ON CT_CV_BANCO.FCN_ID_CAT_CATALOGO = SOL.FTN_CVE_BANCO
+	     	LEFT JOIN TCCRXGRAL_CAT_CATALOGO MOV  ON MOV.FCN_ID_CAT_CATALOGO = SOL.FTN_MEDIO_NOTIFICACION 
+		<where>
+
+			<if test="numCuentaIndividual != null">
+				AND SOL.FTN_NUM_CTA_INVDUAL = #{numCuentaIndividual,jdbcType=DECIMAL}
+			</if>
+
+			<if test="folio != null">
+				AND SOL.FTC_FOLIO = #{folio,jdbcType=VARCHAR}
+			</if>
+	        <if test="claveSolicitud != null">
+	    	  AND SOL.FTC_CVE_SOLICITUD = #{claveSolicitud,jdbcType=VARCHAR}
+	    	</if>	
+	    	<if test="folioProcesar != null">
+				AND SOL.FTC_FOLIO_PROCESAR = #{folioProcesar,jdbcType=VARCHAR}
+			</if>	
+			<if test="curp != null">
+				AND SOL.FTC_CURP = #{curp,jdbcType=VARCHAR}
+			</if>
+			<if test="curpTutor != null">
+				AND SOL.FTC_CURP_TUTOR = #{curpTutor,jdbcType=VARCHAR}
+			</if>
+			<if test="cuentaBanco != null">
+				AND FTC_CTA_BANCO =#{cuentaBanco,jdbcType=VARCHAR}
+			</if>
+			
+			<if test="estatusSolicitudes != null">
+
+				AND SOL.FTN_ESTATUS_SOLICITUD IN
+
+				<foreach item="solicitud" index="index" collection="estatusSolicitudes"
+					open="(" separator="," close=")">
+					#{solicitud,jdbcType=DECIMAL}
+				</foreach>
+
+			</if>
+
+		</where>
+	</select>
+
+	<update id="actualizar" parameterType="mx.secure.nci.business.vo.PreSolicitudVO">
+		update TTAFOAVOL_PRE_SOLICITUD set FTD_FEH_ACT = SYSDATE
+		<if test="folio != null">
+			,FTC_FOLIO = #{folio}
+		</if>
+		<if test="numCuentaIndividual != null">
+			,FTN_NUM_CTA_INVDUAL = #{numCuentaIndividual}
+		</if>
+		<if test="lineaNegocio != null and lineaNegocio.id != null">
+			, FTN_ID_LINEA_NEG = #{lineaNegocio.id}
+		</if>
+		<if test="origenSolicitud != null and origenSolicitud.id != null">
+			, FTN_ID_ORIGEN_SOLICITUD = #{origenSolicitud.id}
+		</if>
+		<if test="cuentaBanco != null">
+			,FTC_CTA_BANCO = #{cuentaBanco}
+		</if>
+
+		<if test="tipoCuenta != null and tipoCuenta.id != null">
+			, FTN_ID_TIPO_CTA = #{tipoCuenta.id}
+		</if>
+
+		<if test="claveBanco != null and claveBanco.id != null">
+			, FTN_CVE_BANCO = #{claveBanco.id}
+		</if>
+
+		<if test="clienteNombre != null">
+			, FTC_NOMBRE_CTE = #{clienteNombre}
+		</if>
+
+		<if test="clientePaterno != null">
+			, FTC_AP_PATERNO_CTE = #{clientePaterno}
+		</if>
+
+		<if test="clienteMaterno != null">
+			, FTC_AP_MATERNO_CTE = #{clienteMaterno}
+		</if>
+
+		<if test="correoElectronico != null">
+			, FTC_CORREO_ELEC = #{correoElectronico}
+		</if>
+
+		<if test="curp != null">
+			, FTC_CURP = #{curp}
+		</if>
+
+		<if test="nss != null">
+			, FTN_NSS= #{nss}
+		</if>
+
+		<if test="clienteRfc != null">
+			, FTC_RFC_CTE = #{clienteRfc}
+		</if>
+
+		<if test="periodo != null and periodo.id != null">
+			, FTN_ID_PERIODO = #{periodo.id}
+		</if>
+
+		<if test="periodo != null and periodo.id != null">
+			<!-- Frecuencia Inicial -->
+			<if test="frecuenciaInicial != null">
+				<choose>
+					<when
+						test="periodo.id == 492 and frecuenciaInicial.diaSemana != null and frecuenciaInicial.diaSemana.id != null">
+						,FTN_FREC_INICIAL = #{frecuenciaInicial.diaSemana.id}
+					</when>
+					<when test="periodo.id != 492 and frecuenciaInicial.dia != null">
+						,FTN_FREC_INICIAL = #{frecuenciaInicial.dia}
+					</when>
+				</choose>
+			</if>
+
+			<!-- Frecuencia Final -->
+			<if test="frecuenciaFinal != null">
+				<choose>
+					<when
+						test="periodo.id == 492 and frecuenciaFinal.diaSemana != null and frecuenciaFinal.diaSemana.id != null">
+						,FTN_FREC_FINAL = #{frecuenciaFinal.diaSemana.id}
+					</when>
+					<when test="periodo.id != 492 and frecuenciaFinal.dia != null">
+						,FTN_FREC_FINAL = #{frecuenciaFinal.dia}
+					</when>
+				</choose>
+			</if>
+		</if>
+
+		<if test="estatusSolicitud != null and estatusSolicitud.id != null">
+			,FTN_ESTATUS_SOLICITUD = #{estatusSolicitud.id}
+		</if>
+
+		<if test="rechazoSolicitud != null and rechazoSolicitud.id != null">
+			,FTN_RECHAZO_SOLICITUD = #{rechazoSolicitud.id}
+		</if>
+
+		<if test="fechaCaptura != null">
+			,FTD_FEH_CAPTURA = #{fechaCaptura}
+		</if>
+
+		<if test="importe != null">
+			, FTN_IMPORTE = #{importe}
+		</if>
+
+		<if test="incrementabilidad != null">
+			,FTN_INCREMENTALIDAD = #{incrementabilidad}
+		</if>
+
+		<if test="opcionIncrementabilidad != null">
+			,FTN_OPCION_INCREMENTALIDAD = #{opcionIncrementabilidad}
+		</if>
+
+		<if test="porcentajeIncremento != null and porcentajeIncremento.id != null">
+			, FTN_ID_PORCENTAJE_INCREMENTO =
+			#{porcentajeIncremento.id}
+		</if>
+
+		<if test="montoIncremento != null">
+			, FTN_MONTO_INCREMENTO = #{montoIncremento}
+		</if>
+		<if test="periodoIncrementabilidad != null and periodoIncrementabilidad.id != null">
+			,FTN_ID_PERIOD_INCREMENTALIDAD = #{periodoIncrementabilidad.id}
+		</if>
+
+		<if test="banderaDocumentos != null">
+			,FTN_FLAG_DOCTOS = #{banderaDocumentos}
+		</if>
+		<if test="moneda != null and moneda.id != null">
+			,FTN_MONEDA =#{moneda.id}
+		</if>
+		<if test="medioNotificacion != null and medioNotificacion.id != null">
+			,FTN_MEDIO_NOTIFICACION =#{medioNotificacion.id}
+		</if>
+		<if test="celular != null">
+			,FTN_CELULAR=#{celular}
+		</if>
+		<if test="fechaCargo != null">
+			,FTD_FEH_CARGO = #{fechaCargo}
+		</if>
+		<if test="fechaEstatuSolicitud != null">
+			,FTD_FEH_ESTATUS_SOLICITUD = #{fechaEstatuSolicitud}
+		</if>
+		<if test="companiaCelular != null and companiaCelular.id != null">
+			,FTN_COMPANIA_CELULAR = #{companiaCelular.id},
+		</if>
+		<if test="origenSolAfom != null">
+			,FTC_ORIGEN_SOL_AFOM = #{origenSolAfom}
+		</if>
+		<if test="vigenciaTc != null">
+			,FTC_VIGENCIA_TC = #{vigenciaTc}
+		</if>
+		<if test="folioProcesar != null">
+			,FTC_FOLIO_PROCESAR = #{folioProcesar}
+		</if>
+		<if test="curpTutor != null">
+			,FTC_CURP_TUTOR = #{curpTutor}
+		</if>
+		<if test="folioFamilia != null">
+			,FTC_FOLIO_FAMILIA = #{folioFamilia}
+		</if>
+		<if test="usuarioActualizacion != null">
+			,FTC_USU_ACT = #{usuarioActualizacion}
+		</if>
+		<if test="gerencia != null">
+			,FTC_GERENCIA = #{gerencia}
+		</if>
+		<if test="promotor != null">
+			,FTC_NOMBRE_PROMOTOR = #{promotor}
+		</if>		
+		<if test="regional != null">
+			,FTC_REGIONAL = #{regional}
+		</if>		
+		<if test="tipoRegistro != null">
+			,FTN_ID_TIPO_REGISTRO = #{tipoRegistro}
+		</if>		
+		<if test="tutor != null">
+			,FTC_NOMBRE_TUTOR = #{tutor}
+		</if>		
+		<if test="paternoTutor != null">
+			,FTC_AP_PATERNO_TUTOR = #{paternoTutor}
+		</if>
+		<if test="maternoTutor != null">
+			,FTC_AP_MATERNO_TUTOR = #{maternoTutor}
+		</if>				
+		<where>
+			FTC_CVE_SOLICITUD = #{claveSolicitud}
+		</where>
+	</update>
+	
+	
+<!-- 	actualiza por por folio y FTN_ESTATUS_SOLICITUD -->
+		<update id="updateNewEstatusByFolioAndEstatus" parameterType="mx.secure.nci.business.wrapped.PreSolicitudFilter">
+			update TTAFOAVOL_PRE_SOLICITUD set FTD_FEH_ACT = SYSDATE
+			<if test="estatusSolicitud != null and estatusSolicitud.id != null">
+				,FTN_ESTATUS_SOLICITUD = #{estatusSolicitud.id}
+			</if>
+			<if test="usuarioActualizacion != null">
+				,FTC_USU_ACT = #{usuarioActualizacion}
+			</if>
+			<where>
+				<if test="folio != null">
+					AND FTC_FOLIO = #{folio}
+				</if>
+				<if test="idEstatusSolicitudOld != null">
+					AND FTN_ESTATUS_SOLICITUD = #{idEstatusSolicitudOld}
+				</if>
+			</where>
+		</update>
+</mapper>

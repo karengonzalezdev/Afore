@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mx.profuturo.nci.persistence.DetalleArchivoDomiPersistence">
+
+
+	<resultMap id="ResultMapDetalleArchivoDomi" type="mx.profuturo.nci.business.vo.DetalleArchivoDomiVO" >
+	    <result column="FLN_DETALLE_ID_ARCHIVO_DOMI" 	property="idArchivo" 			jdbcType="DECIMAL" />
+		<association property="tipoCuenta"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericCtTipoCuenta" />
+	    <association property="claveBanco"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericClaveBanco" />	
+	</resultMap>
+
+
+	<insert id="insertDetalle" parameterType="mx.profuturo.nci.business.vo.DetalleArchivoDomiVO">
+		INSERT INTO TLAFOAVOL_DETALLE_CTAS_BANCO
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			FLN_ID_ARCHIVO_DOMI,
+			FTN_ID_TIPO_CTA,
+			FTN_CVE_BANCO,
+			FTN_ORIGEN_APORTACION,
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="">
+			<if test="idArchivo">
+				#{idArchivo,jdbcType=DECIMAL},
+			</if>
+			<if test="tipoCuenta != null and tipoCuenta.id != null">
+				#{tipoCuenta.id,jdbcType=DECIMAL},
+			</if>
+			<if test="claveBanco != null and claveBanco.id != null">
+				#{claveBanco.id,jdbcType=DECIMAL},
+			</if>
+			<if test="idOrigen != null">
+				#{idOrigen,jdbcType=DECIMAL}
+			</if>
+		</trim>
+	</insert>
+
+	<insert id="insertDetallePar" parameterType="mx.profuturo.nci.business.vo.DetalleArchivoDomiVO">
+		INSERT INTO TLAFOAVOL_DETALLE_CTAS_BANCO
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			FLN_ID_ARCHIVO_DOMI,
+			FTN_ID_TIPO_CTA,
+			FTN_CVE_BANCO,
+			FTN_ORIGEN_APORTACION,
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="">
+			<if test="idArchivo">
+				#{idArchivo,jdbcType=DECIMAL},
+			</if>
+			<if test="tipoCuenta != null and tipoCuenta.id != null">
+				#{tipoCuenta.id,jdbcType=DECIMAL},
+			</if>
+			<if test="claveBanco != null and claveBanco.id != null">
+				#{claveBanco.id,jdbcType=DECIMAL},
+			</if>
+			<if test="idOrigen != null">
+				#{idOrigen,jdbcType=DECIMAL}
+			</if>
+		</trim>
+	</insert>
+
+</mapper>

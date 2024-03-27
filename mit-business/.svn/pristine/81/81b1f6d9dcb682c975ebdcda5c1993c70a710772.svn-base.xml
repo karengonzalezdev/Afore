@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="daily-summary-report" pageWidth="1361" pageHeight="6150" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="1321" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="11a9b0b5-9e70-4090-b65e-5d60c8afe80c">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="692"/>
+	<property name="ireport.y" value="0"/>
+	<property name="net.sf.jasperreports.export.xls.one.page.per.sheet" value="true"/>
+	<property name="net.sf.jasperreports.page.break.no.pagination" value="apply"/>
+	<style name="style-movimientos">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[!$F{movimiento}.toUpperCase().contains("CARGO")]]></conditionExpression>
+			<style forecolor="#000000" backcolor="#FFFFFF"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{movimiento}.toUpperCase().contains("CARGO")]]></conditionExpression>
+			<style forecolor="#FF0000" backcolor="#FFFFFF"/>
+		</conditionalStyle>
+	</style>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="reporteAforeMovil" uuid="ce8aa256-03f7-4afb-a782-a984f5d1eb29">
+		<field name="curp" class="java.lang.String"/>
+		<field name="nombre" class="java.lang.String"/>
+		<field name="cuenta" class="java.lang.String"/>
+		<field name="tipoCliente" class="java.lang.String"/>
+		<field name="importe" class="java.math.BigDecimal"/>
+		<field name="fechaAportacion" class="java.util.Date"/>
+		<field name="primerAportacion" class="java.util.Date"/>
+		<field name="diasPrimerAportacion" class="java.lang.Integer"/>
+		<field name="estatus" class="java.lang.String"/>
+		<field name="importeAcumulado" class="java.math.BigDecimal"/>
+		<field name="consecutivo" class="java.lang.Integer"/>
+		<field name="fechaConciliacion" class="java.util.Date"/>
+	</subDataset>
+	<parameter name="lstAforeMovil" class="java.util.List"/>
+	<title>
+		<band height="16"/>
+	</title>
+	<pageHeader>
+		<band height="85">
+			<staticText>
+				<reportElement x="0" y="0" width="16" height="85" uuid="29fdd292-369b-4edf-8b9c-0ac396d4d161"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<image>
+				<reportElement x="16" y="0" width="418" height="85" uuid="6a05736f-b14b-4793-a949-95384acdd4ef"/>
+				<imageExpression><![CDATA["reports/imagenes/logo-profuruto-afore.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="434" y="0" width="864" height="25" uuid="493d18a1-53fa-4ade-bfbb-b32b878d4b3e"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="540" y="25" width="758" height="35" uuid="47eb4c74-dc89-448c-a342-0db1f664d132"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MONITOREO DE DEPÓSITOS AFORE MÓVIL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="434" y="60" width="864" height="25" uuid="6392c34e-4188-4dca-9476-4b60efd7f121"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="434" y="25" width="106" height="35" uuid="460d3d2d-e32a-481d-861e-ae3ba2cb1267"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="25"/>
+	</columnHeader>
+	<summary>
+		<band height="157">
+			<frame>
+				<reportElement positionType="Float" x="0" y="0" width="1298" height="83" uuid="f7178ef6-4c7c-480f-b641-5c57f7abbc33"/>
+				<staticText>
+					<reportElement x="16" y="0" width="45" height="20" uuid="34636301-4ce7-4b28-b6a9-9ecc53419a61"/>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<componentElement>
+					<reportElement key="" positionType="Float" stretchType="RelativeToTallestObject" x="16" y="20" width="1212" height="20" isRemoveLineWhenBlank="true" backcolor="#004A8D" uuid="7c9b3004-3d2e-4a2c-85ce-a98bdc72e191"/>
+					<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+						<datasetRun subDataset="reporteAforeMovil" uuid="7a9025bb-3bb1-4029-8a6a-82f456ce6ae8">
+							<datasetParameter name="REPORT_DATA_SOURCE">
+								<datasetParameterExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{lstAforeMovil})]]></datasetParameterExpression>
+							</datasetParameter>
+						</datasetRun>
+						<jr:column width="45" uuid="0d887849-bcc6-42aa-a0f8-b350013c62e7">
+							<jr:columnHeader height="26" rowSpan="1">
+								<staticText>
+									<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="0" y="0" width="45" height="26" forecolor="#FFFFFF" backcolor="#004A8D" uuid="f3d2a265-fc24-4f62-a480-d933fa349946"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font isBold="true"/>
+									</textElement>
+									<text><![CDATA[No.]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell height="22" rowSpan="1">
+								<textField isBlankWhenNull="true">
+									<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="45" height="22" uuid="ee29de71-c030-441b-87dc-64fe58310872"/>
+									<textElement textAlignment="Right" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{consecutivo}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="163" uuid="f73ee144-3e08-4ebc-bcd1-7460a1abb379">
+							<jr:columnHeader height="26" rowSpan="1">
+								<staticText>
+									<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="0" y="0" width="163" height="26" forecolor="#FFFFFF" backcolor="#004A8D" uuid="457a78a8-4103-4140-b4fa-fc5808a2a7c4"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font isBold="true"/>
+									</textElement>
+									<text><![CDATA[CURP]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell height="22" rowSpan="1">
+								<textField isBlankWhenNull="true">
+									<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="163" height="22" uuid="bbf4e79e-384b-4758-8c47-dd24c0c82168"/>
+									<textElement verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{curp}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="210" uuid="aabbbe71-a211-46c8-90c3-920a068f8a0c">
+							<jr:columnHeader height="26" rowSpan="1">
+								<staticText>
+									<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="0" y="0" width="210" height="26" forecolor="#FFFFFF" backcolor="#004A8D" uuid="d5f04373-8007-4441-ac76-ecf09f1ab849"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font isBold="true"/>
+									</textElement>
+									<text><![CDATA[NOMBRE]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell height="22" rowSpan="1">
+								<textField pattern="" isBlankWhenNull="true">
+									<reportElement x="0" y="0" width="210" height="22" uuid="82c26f72-7261-4786-9992-285f9aebb75c"/>
+									<textElement verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="106" uuid="c4f9c561-c3a0-4b0f-a17d-2140b26c6403">
+							<jr:columnHeader height="26" rowSpan="1">
+								<staticText>
+									<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="0" y="0" width="106" height="26" forecolor="#FFFFFF" backcolor="#004A8D" uuid="0f070a2c-c32f-456b-a826-8ab54961aec5"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font isBold="true"/>
+									</textElement>
+									<text><![CDATA[TIPO CLIENTE]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell height="22" rowSpan="1">
+								<textField pattern="" isBlankWhenNull="true">
+									<reportElement x="0" y="0" width="106" height="22" uuid="f54869d9-3694-44ea-bfcb-3ebb6ada7012"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{tipoCliente}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="134" uuid="448afbc8-723b-46cc-9294-41ece8399eff">
+							<jr:columnHeader height="26" rowSpan="1">
+								<staticText>
+									<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="0" y="0" width="134" height="26" forecolor="#FFFFFF" backcolor="#004A8D" uuid="bb44c9e5-0f0c-4410-995a-3fc8d319f772"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font isBold="true"/>
+									</textElement>
+									<text><![CDATA[IMPORTE]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell height="22" rowSpan="1">
+								<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+									<reportElement x="0" y="0" width="134" height="22" uuid="ee929aaf-ac58-4aae-ab01-e829631d5b79"/>
+									<textElement textAlignment="Right" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{importe}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="101" uuid="85f84c5a-b0a3-4aad-b439-6813fb5ef3b1">
+							<jr:columnHeader height="26" rowSpan="1">
+								<staticText>
+									<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="0" y="0" width="101" height="26" forecolor="#FFFFFF" backcolor="#004A8D" uuid="b3005b8c-1ab7-40dd-a2bb-f9a5ff37b593"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font isBold="true"/>
+									</textElement>
+									<text><![CDATA[FECHA PRIMER APORTACIÓN]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell height="22" rowSpan="1">
+								<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+									<reportElement x="0" y="0" width="101" height="22" uuid="704de64a-145c-4372-9681-95d8419b4c38"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{primerAportacion}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="101" uuid="a4d4a320-32c5-4688-bcc9-56dc89aaf5a6">
+							<jr:columnHeader height="26" rowSpan="1">
+								<staticText>
+									<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="0" y="0" width="101" height="26" forecolor="#FFFFFF" backcolor="#004A8D" uuid="e38b0942-1851-46fc-88ad-1b2ca066d477"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font isBold="true"/>
+									</textElement>
+									<text><![CDATA[FECHA APORTACIÓN]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell height="22" rowSpan="1">
+								<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+									<reportElement x="0" y="0" width="101" height="22" uuid="b988653b-5163-42d9-8518-3f91aff99ecb"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{fechaAportacion}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="106" uuid="2ced30b7-aac4-4ba7-b876-d8e875b43a38">
+							<jr:columnHeader height="26" rowSpan="1">
+								<staticText>
+									<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="0" y="0" width="106" height="26" forecolor="#FFFFFF" backcolor="#004A8D" uuid="85b8748f-c230-4785-9442-5a4ea9774b2f"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font isBold="true"/>
+									</textElement>
+									<text><![CDATA[FECHA CONCILIACIÓN]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell height="22" rowSpan="1">
+								<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+									<reportElement x="0" y="0" width="106" height="22" uuid="9c11fc35-1fa1-4bbe-a501-efa11586c6c0"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{fechaConciliacion}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="134" uuid="047763e5-cd1e-4943-a667-d2c6f04210df">
+							<jr:columnHeader height="26" rowSpan="1">
+								<staticText>
+									<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="0" y="0" width="134" height="26" forecolor="#FFFFFF" backcolor="#004A8D" uuid="2053edd7-bdc4-45a4-8a99-70d10fe9ef18"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font isBold="true"/>
+									</textElement>
+									<text><![CDATA[DÍAS TRANSCURRIDOS]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell height="22" rowSpan="1">
+								<textField pattern="" isBlankWhenNull="true">
+									<reportElement x="0" y="0" width="134" height="22" uuid="4d6048f3-14be-4009-a6d2-ffb4188b6aee"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{diasPrimerAportacion}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="92" uuid="58a7b6e7-2b7b-465c-9c8b-f69b6a7af36c">
+							<jr:columnHeader height="26" rowSpan="1">
+								<staticText>
+									<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="0" y="0" width="92" height="26" forecolor="#FFFFFF" backcolor="#004A8D" uuid="b81770a7-2bbb-4906-90f9-4c85c5601be4"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font isBold="true"/>
+									</textElement>
+									<text><![CDATA[ESTATUS]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell height="22" rowSpan="1">
+								<textField pattern="" isBlankWhenNull="true">
+									<reportElement x="0" y="0" width="92" height="22" uuid="800f4bb7-e4ba-480b-8100-6a5355ba27d0"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{estatus}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="90" uuid="5991a187-ad6b-47b2-a468-20fe57af1073">
+							<jr:columnHeader height="26" rowSpan="1">
+								<staticText>
+									<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="0" y="0" width="90" height="26" forecolor="#FFFFFF" backcolor="#004A8D" uuid="2e525f53-21e7-420a-95fe-72199b414293"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font isBold="true"/>
+									</textElement>
+									<text><![CDATA[IMPORTE ACUMULADO]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell height="22" rowSpan="1">
+								<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+									<reportElement x="0" y="0" width="90" height="22" uuid="7c8668b0-ccd0-47b0-9b06-b1c5842d4540"/>
+									<textElement textAlignment="Right" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{importeAcumulado}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+					</jr:table>
+				</componentElement>
+			</frame>
+		</band>
+	</summary>
+</jasperReport>

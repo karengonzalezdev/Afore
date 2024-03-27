@@ -1,0 +1,21 @@
+package mx.profuturo.nci.business.service;
+
+import java.util.List;
+
+import mx.profuturo.nci.business.vo.ActualizaEstatusCifVO;
+import mx.profuturo.nci.business.vo.ArchivoDetalleCifVO;
+import mx.profuturo.nci.business.vo.DetalleMovimientosCifVO;
+import mx.profuturo.nci.business.vo.DevolucionesApovolCifVO;
+import mx.profuturo.nci.business.vo.PendientesTimbradoCifVO;
+
+
+public interface IServiciosCifService {
+
+	public Integer actualizaEstatusCif(ActualizaEstatusCifVO actualizaEstatusVO) throws Exception;
+	public Integer actualizaEstatusCifDatamarts(ActualizaEstatusCifVO actualizaEstatusVO) throws Exception;
+	public List<PendientesTimbradoCifVO> obtenerDevolucionesApovol(PendientesTimbradoCifVO param) throws Exception;
+	public List<ArchivoDetalleCifVO> obtenerListaDetalleCif(ArchivoDetalleCifVO param) throws Exception;
+	public List<DevolucionesApovolCifVO>obtenerListaDevolucionesApovolCif(DevolucionesApovolCifVO param) throws Exception;
+	public List<DetalleMovimientosCifVO> obtenerListaDetalleMovCif(DetalleMovimientosCifVO param) throws Exception;
+
+}

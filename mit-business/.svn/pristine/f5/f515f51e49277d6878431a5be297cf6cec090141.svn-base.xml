@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mx.profuturo.nci.persistence.OrdenesPersistence">
+
+
+	<resultMap id="ResultMapOrdenesVO" type="mx.profuturo.nci.business.vo.OrdenesVO">
+	
+	    <id 	column="FTC_NO_ORDEN" 			property="numeroOrden" 			jdbcType="VARCHAR" javaType="String" />
+	    <result column="FTN_NUM_CTA_INVDUAL" 	property="numCuentaIndividual" 	jdbcType="DECIMAL" javaType="Long"	/>    
+	    <result column="FTN_IMPORTE" 			property="importe" 				jdbcType="DECIMAL" javaType="BigDecimal" />	
+	    <result column="FTD_ORDEN_FEH_CRE"     	property="fechaCreacion" 			jdbcType="TIMESTAMP"	javaType="Date"  />
+	    <result column="FTC_ORDEN_USU_CRE"     	property="usuarioCreacion" 			jdbcType="VARCHAR" 		javaType="String" />
+	    <result column="FTD_ORDEN_FEH_ACT"     	property="fechaActualizacion" 		jdbcType="TIMESTAMP"	javaType="Date" />
+	    <result column="FTC_ORDEN_USU_ACT"     	property="usuarioActualizacion" 	jdbcType="VARCHAR" 		javaType="String" />		
+	    	    
+	    <association property="estatus" resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericCatEstatusOrdenes" /> 	    
+	    
+	    <collection property="diversificacionesOrdenes" 
+	    			javaType="ArrayList"
+					ofType="mx.profuturo.nci.business.vo.DiversificacionOrdenesVO"
+					resultMap="mx.profuturo.nci.persistence.DiversificacionOrdenesPersistence.ResultMapDiversifOrdenesVO"/>
+	</resultMap>
+	
+	<resultMap id="ComplementaCuenta" type="mx.profuturo.nci.business.vo.IndicadorVO">
+		<result column="FCC_VALOR_IND" property="valorIndicador" />
+		<result column="FCC_VALOR" property="descIndicador" />
+		<result column="FTD_FEH_REG" property="fechaVigencia" />
+		<result column="FCC_DETALLE" property="detalle" />
+	</resultMap>
+	
+	<insert id="insert" parameterType="mx.profuturo.nci.business.vo.OrdenesVO" useGeneratedKeys="true" 
+		keyProperty="mx.profuturo.nci.business.vo.OrdenesVO.numeroOrden">
+
+		<selectKey keyProperty="numeroOrden" resultType="String" order="BEFORE">
+			select SE_TTAFOAVOL_ORDENES_ID.nextVal from dual
+		</selectKey>
+	
+	    INSERT INTO TTAFOAVOL_ORDENES
+	    
+	    <trim prefix="(" suffix=")" suffixOverrides="," >
+	      
+	      <if test="numeroOrden != null" >
+	        FTC_NO_ORDEN,
+	      </if>
+	      
+	      <if test="numCuentaIndividual != null" >
+	        FTN_NUM_CTA_INVDUAL,
+	      </if>
+	      
+	      <if test="estatus != null and estatus.id" >
+	        FTN_ESTATUS,
+	      </if>
+	      
+	      <if test="importe != null" >
+	        FTN_IMPORTE,
+	      </if>
+	            
+	      <if test="usuarioCreacion != null" >
+	        FTC_USU_CRE,
+	      </if>
+	      
+	        FTD_FEH_CRE,      
+	      
+	    </trim>
+	    
+	    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+	    
+	      <if test="numeroOrden != null" >
+	        #{numeroOrden,jdbcType=VARCHAR},
+	      </if>
+	      
+	      <if test="numCuentaIndividual != null" >
+	        #{numCuentaIndividual,jdbcType=DECIMAL},
+	      </if>
+	      
+	      <if test="estatus != null and estatus.id" >
+	        #{estatus.id,jdbcType=DECIMAL},
+	      </if>
+	      
+	      <if test="importe != null" >
+	        #{importe,jdbcType=DECIMAL},
+	      </if>
+	      
+	      <if test="usuarioCreacion != null" >
+	        #{usuarioCreacion,jdbcType=VARCHAR},
+	      </if>
+	      
+	      SYSTIMESTAMP,
+	    
+	    </trim>
+  </insert>
+
+
+ <update id="update" parameterType="mx.profuturo.nci.business.vo.OrdenesVO">
+ 
+ 
+ 	UPDATE TTAFOAVOL_ORDENES
+ 	
+	<set>
+		
+	  <if test="numCuentaIndividual != null" >
+		FTN_NUM_CTA_INVDUAL = #{numCuentaIndividual,jdbcType=DECIMAL},
+	  </if>
+		
+      <if test="estatus != null and estatus.id" >		
+		FTN_ESTATUS = #{estatus.id,jdbcType=DECIMAL},
+	  </if>
+	  
+	  <if test="importe != null" >	 	
+		FTN_IMPORTE = #{importe,jdbcType=DECIMAL},
+	  </if>
+	  
+      <if test="usuarioActualizacion != null" >
+       FTC_USU_ACT = #{usuarioActualizacion,jdbcType=VARCHAR},
+      </if>
+    
+    	FTD_FEH_ACT = SYSTIMESTAMP,
+	  	  
+	</set>
+	
+	WHERE FTC_NO_ORDEN = #{numeroOrden,jdbcType=VARCHAR}
+ 
+ </update>
+ 
+ <select id="selectSelective" 
+ 		 parameterType="mx.profuturo.nci.business.wrapped.OrdenesFilter"
+ 		 resultMap="ResultMapOrdenesVO">
+ 
+ 
+	SELECT
+	ORDEN.FTC_NO_ORDEN,
+	ORDEN.FTN_NUM_CTA_INVDUAL,
+	ORDEN.FTN_ESTATUS AS FTN_ID_ESTATUS_ORDEN,
+	CT_EST.FCC_VALOR  AS FCC_VALOR_ESTATUS_ORDEN,
+	ORDEN.FTN_IMPORTE,
+	ORDEN.FTD_FEH_CRE AS FTD_ORDEN_FEH_CRE,
+	ORDEN.FTC_USU_CRE AS FTC_ORDEN_USU_CRE,
+	ORDEN.FTD_FEH_ACT AS FTD_ORDEN_FEH_ACT,
+	ORDEN.FTC_USU_ACT AS FTC_ORDEN_USU_ACT,
+	DIV.FTN_FONDO_APOVOL AS FTN_ID_FONDO_APOVOL,
+	CT_FONAPVL.FCC_VALOR  AS FCC_VALOR_FONDO_APOVOL,
+	DIV.FTN_MONTO,
+	DIV.FTN_PORCENTAJE,
+	DIV.FTD_FEH_CRE AS FTD_DIVORDEN_FEH_CRE,
+	DIV.FTC_USU_CRE AS FTC_DIVORDEN_USU_CRE,
+	DIV.FTD_FEH_ACT AS FTD_DIVORDEN_FEH_ACT,
+	DIV.FTC_USU_ACT AS FTC_DIVORDEN_USU_ACT
+	FROM TTAFOAVOL_ORDENES ORDEN
+	LEFT JOIN TTAFOAVOL_DIVERSIF_ORDENES DIV
+	ON ORDEN.FTC_NO_ORDEN = DIV.FTC_NO_ORDEN
+	LEFT JOIN TCCRXGRAL_CAT_CATALOGO CT_EST
+	ON CT_EST.FCN_ID_CAT_CATALOGO = ORDEN.FTN_ESTATUS
+	AND CT_EST.FCB_VIGENCIA = 1
+	LEFT JOIN TCCRXGRAL_CAT_CATALOGO CT_FONAPVL
+	ON CT_FONAPVL.FCN_ID_CAT_CATALOGO = DIV.FTN_FONDO_APOVOL
+	AND CT_FONAPVL.FCB_VIGENCIA = 1
+	
+	<where>
+	
+	  <if test="numeroOrden != null">
+			AND ORDEN.FTC_NO_ORDEN = #{numeroOrden,jdbcType=VARCHAR}
+	  </if>
+		
+	  <if test="numCuentaIndividual != null" >
+			AND ORDEN.FTN_NUM_CTA_INVDUAL = #{numCuentaIndividual,jdbcType=DECIMAL}
+	  </if>
+		
+	  <if test="estatusOrdenes != null and estatusOrdenes.size() > 0">
+	
+			AND ORDEN.FTN_ESTATUS IN
+			
+			<foreach collection="estatusOrdenes" item="idOrden" open="(" separator="," close=")">
+				#{idOrden,jdbcType=DECIMAL}
+			</foreach>
+	
+	  </if>	
+	
+	</where>
+	
+	
+ </select>
+	
+<select id="agregarInfoCuenta" parameterType="java.lang.String" resultMap="ComplementaCuenta">
+	select 
+		CI.FCC_VALOR_IND,CATIND.FCC_VALOR, CI.FTD_FEH_REG, CATDET.FCC_VALOR as FCC_DETALLE
+		FROM TTAFOGRAL_IND_CTA_INDV CI 
+		INNER JOIN TFAFOGRAL_CONFIG_INDI IND ON CI.FFN_ID_CONFIG_INDI = IND.FFN_ID_CONFIG_INDI 
+		LEFT JOIN TCCRXGRAL_CAT_CATALOGO CATIND ON CATIND.FCN_ID_CAT_CATALOGO = CI.FCC_VALOR_IND
+		LEFT JOIN TCCRXGRAL_CAT_CATALOGO CATDET ON CATDET.FCN_ID_CAT_CATALOGO = CI.FTN_DETALLE
+		<where>
+			CI.FTC_VIGENCIA ='1' AND
+			CI.FTN_NUM_CTA_INVDUAL = #{numCuentaIndividual} AND 
+			IND.FCN_ID_INDICADOR in (57,58)
+   		</where>
+ </select>
+	
+
+</mapper>

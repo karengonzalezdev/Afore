@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
+<!-- 2019-05-27T11:16:38 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="subReporteAbonos" pageWidth="330" pageHeight="20" columnWidth="330" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="5c6eacd5-643f-4206-82c7-a036eea1a577">
+	<property name="ireport.zoom" value="2.5937424601000023"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<field name="importeAbono" class="java.math.BigDecimal"/>
+	<field name="fondoEntrada" class="java.lang.String"/>
+	<field name="porcentajeString" class="java.lang.String"/>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField pattern="$#,##0.00;$-#,##0.00">
+				<reportElement x="110" y="0" width="110" height="20" uuid="b20e5a0d-458a-45ab-8479-d1aad4ab3055"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{importeAbono}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="110" height="20" uuid="fe3ef45a-2da1-44c3-b971-542999cb85e5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{fondoEntrada}== null) ? " " : $F{fondoEntrada}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="220" y="0" width="110" height="20" uuid="f01c2b9b-d410-4ee9-9bbe-adb6e898c7ca">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{porcentajeString}== null) ? " " : $F{porcentajeString}
+]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

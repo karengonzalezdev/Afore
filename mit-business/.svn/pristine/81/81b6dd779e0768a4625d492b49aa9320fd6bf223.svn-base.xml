@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mx.profuturo.nci.persistence.MatrizConvivenciaPersistence">
+
+  <insert id="insert" 
+  		  parameterType="mx.profuturo.nci.business.vo.MatrizConvivenciaVO">
+	 <selectKey  keyProperty="idMarca" resultType="Long" order="BEFORE">
+	 	SELECT SE_TTAFOGRAL_MARCA_CTA_SUBCTA.nextVal from dual
+	 </selectKey> 
+  		  
+    INSERT INTO 
+    TTAFOGRAL_MATRIZ_CONVIVENCIA 
+    (
+     FTN_ID_MARCA, 
+     FTC_FOLIO, 
+     FTC_FOLIO_REL, 
+     FTN_NUM_CTA_INVDUAL, 
+     TCN_TIPO_SALDO_OPERA, 
+     FCN_ID_TIPO_MONTO,
+     <if test="movimientoSubcuenta != null and movimientoSubcuenta.id != null"> 
+     FRN_ID_MOV_SUBCTA, 
+     </if>
+     FTF_MONTO, 
+     FTB_ESTATUS_MARCA,       
+     FCC_USU_CRE, 
+     FTD_FEH_CRE
+     )
+    VALUES 
+    (
+     #{idMarca,jdbcType=DECIMAL}, 
+     #{folio,jdbcType=VARCHAR}, 
+     #{folioRelacionado,jdbcType=VARCHAR}, 
+     #{numeroCuentaIndividual,jdbcType=DECIMAL}, 
+     #{tipoSaldoOpera.id,jdbcType=DECIMAL}, 
+     #{tipoMonto.id,jdbcType=DECIMAL}, 
+     <if test="movimientoSubcuenta != null and movimientoSubcuenta.id != null">
+     #{movimientoSubcuenta.id,jdbcType=DECIMAL}, 
+     </if>
+     #{monto,jdbcType=DECIMAL}, 
+     #{estatusMarca,jdbcType=CHAR}, 
+     #{usuarioCreacion,jdbcType=VARCHAR}, 
+     SYSTIMESTAMP     
+    )
+  </insert>
+  
+  
+	<!--   
+			Consulta para obtener los registros que no conviven de acuerdo a la configuración orientada para abonos de apovol 
+			NOTA: 	Para otros procesos la consulta debe hacerse por servicio ya que esta validación no es suficiente en todos los casos 
+					ya que para otros procesos hay que validar otro flujo donde deben considerarse cargo/abono, tipo de cargo con el que 
+					opera, saldo al día, etc 
+			NOTA 2:	La consulta se hace inversa (consulta los que NO conviven) debido a que si no encuentra resultados es porque no hay 
+					procesos esten marcando la cuenta y por lo el proceso si convive 
+	-->
+  <select id="countNoConvivenSimple" parameterType="mx.profuturo.nci.business.wrapped.MatrizConvivenciaFilter" resultType="java.lang.Integer">
+			
+			select count (FFB_CONVIVENCIA) from (		
+				select  conf.FFB_CONVIVENCIA		<!-- Se obtienen los que no conviven y que tienen idMovimiento registrado en la tabla matriz -->
+				from TTAFOGRAL_MATRIZ_CONVIVENCIA mc
+					inner join TRAFOGRAL_MOV_SUBCTA msc on msc.FRN_ID_MOV_SUBCTA = mc.FRN_ID_MOV_SUBCTA and msc.FRB_VIGENCIA=1
+					inner join TFAFOGRAL_CONFIG_CONVIV conf on conf.FCN_ID_SUBPROCESO_CON = msc.FCN_ID_SUBPROCESO and conf.FFB_VIGENTE = 1 
+								and conf.FCN_ID_SUBPROCESO = #{idSubproceso,jdbcType=DECIMAL}
+				where mc.FTB_ESTATUS_MARCA = 1 		<!-- Indica que tienen marca activa -->	 
+					and conf.FFB_CONVIVENCIA =0		<!-- Indica que conviven con el idSubproceso enviado -->
+					and mc.FTN_NUM_CTA_INVDUAL = #{numeroCuentaIndividual,jdbcType=DECIMAL}	
+				union	<!-- Se obtienen los que no conviven y que no tienen idMovimiento registrado en la tabla matriz por lo que el subproceso se saca del folio -->
+				select  conf.FFB_CONVIVENCIA		
+				from TTAFOGRAL_MATRIZ_CONVIVENCIA mc
+					inner join TTCRXGRAL_FOLIO f on f.FTC_FOLIO = mc.FTC_FOLIO 
+					inner join TFAFOGRAL_CONFIG_CONVIV conf on conf.FCN_ID_SUBPROCESO_CON = f.FCN_ID_SUBPROCESO and conf.FFB_VIGENTE = 1 		
+								and conf.FCN_ID_SUBPROCESO = #{idSubproceso,jdbcType=DECIMAL}
+				where mc.FTB_ESTATUS_MARCA = 1			<!-- Se obtienen solo los que tienen marca activa -->
+					and conf.FFB_CONVIVENCIA =0			<!-- Indica que conviven con el idSubproceso enviado -->
+					and mc.FTN_NUM_CTA_INVDUAL = #{numeroCuentaIndividual,jdbcType=DECIMAL}			
+		)
+			
+			
+			
+  </select>
+
+</mapper>
+

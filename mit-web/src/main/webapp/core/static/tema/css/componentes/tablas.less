@@ -1,0 +1,105 @@
+// Colores
+@black: #515151;
+@white: #fff;
+@blue: #00427a;
+@graylighter: #e3e3e3;
+@row: #f6f6f6;
+@active: #c6e5ff;
+
+table {
+    text-align: center;
+    border: 0px;
+    thead {
+        tr {
+            th {
+                height: 35px;
+                font-weight: normal;
+                min-width: 125px;
+            }
+        }
+    }
+    tbody {
+        tr {
+            td {
+                height: 25px;
+                padding-top: 9px;
+                font-size: 0.9em;
+            }
+        }
+    }
+}
+
+table.simple {
+    thead {
+        tr {
+            th {
+                color: @blue;
+                border-bottom: 2px solid #cccccc;
+            }
+        }
+    }
+    tbody {
+        tr {
+            border-bottom: 1px solid @graylighter;
+            td {
+
+            }
+        }
+    }
+}
+
+table.color {
+    tbody {
+        tr:hover {
+            background: @active;
+            color: @blue;
+        }
+    }
+}
+
+table.color, table.color2 {
+    thead {
+        tr {
+            th {
+                background: @blue;
+                color: @white;
+                font-weight: bold;
+            }
+        }
+    }
+    tbody {
+        tr {
+            background: @row;
+            border-bottom: 1px solid @white;
+        }
+    }
+}
+
+table.color2 {
+    tbody {
+        tr.cebra {
+            background: @white;
+        }
+    }
+}
+
+.lt-ie8 {
+    table {
+        thead {
+            tr {
+                th {
+                    width: 100px;
+                }
+            }
+        }
+    }
+    table.simple {
+        tbody {
+            tr {
+                td {
+                    border-bottom: 1px solid @graylighter;
+                }
+            }
+        }
+    }
+}

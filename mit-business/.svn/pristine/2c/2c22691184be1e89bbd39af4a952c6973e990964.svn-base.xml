@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mx.profuturo.nci.persistence.DepositosIDCPersistence">
+
+	<resultMap id="ResultSelect"
+		type="mx.profuturo.nci.business.vo.DepositosIDCVO">
+
+		<result column="COLUMN_FECHA_DEPOSITO" 		property="fechaDeposito" />
+		<result column="COLUMN_BANCO" 				property="banco" />
+		<result column="COLUMN_REFERENCIA" 			property="referencia" />
+		<result column="COLUMN_IMPORTE" 			property="importe" />
+		<result column="COLUMN_MEDIO_DEPOSITO" 		property="medioDeposito" />
+		<result column="COLUMN_ESTATUS_DESPOSITO" 	property="estatusDeposito" />
+		<result column="COLUMM_ID_BANCO" 			property="idBanco" />
+		<result column="COLUMN_CUENTA_INDIVIDUAL" 	property="cuentaIndividual" />
+		<result column="COLUMN_CONCEPTO" 			property="concepto" />
+		<result column="COLUMN_CONVENIO" 			property="convenio" />
+		
+	</resultMap>
+	
+	<resultMap id="ResultSelectValidarCuenta"
+		type="mx.profuturo.nci.business.vo.ValidarCuentaVO">
+
+		<result column="COLUMN_CUENTA_INDIVIDUAL" 		property="cuentaIndividual" />
+		<result column="COLUMN_NOMBRE" 					property="nombre" />
+		<result column="COLUMN_APELLIDO_PATERNO" 		property="apellidoPaterno" />
+		<result column="COLUMN_APELLIDO_MATERNO" 		property="apellidoMaterno" />
+		<result column="COLUMN_CORREO" 					property="correo" />
+		<result column="COLUMN_TELEFONO" 				property="telefono" />
+		<result column="COLUMN_ESTATUS" 				property="estatus" />
+		
+	</resultMap>
+
+	<select id="select"
+		parameterType="mx.profuturo.nci.business.wrapped.DepositosIDCFilter"
+		resultMap="ResultSelect">
+WITH DEPOSITOS AS (
+SELECT ROW_NUMBER() OVER (PARTITION BY FTN_ID_BANCO, FCN_ID_TIPO_DOCUMENTO ORDER BY FTD_FEH_CRE DESC) ROW_NUMBER_COLUM, A.* 
+FROM PROCESOS.TTAFORECA_REINT_CORREGIDOS A),
+
+CORREGIDOS AS (
+SELECT DISTINCT
+ROW_NUMBER_COLUM,
+FTN_ID_BANCO,
+FTN_NUM_CTA_INVDUAL_ORIG,
+FTN_NUM_CTA_INVDUAL_CORREG,
+1 AS FTN_ESTATUS_IDC
+FROM DEPOSITOS 
+WHERE ROW_NUMBER_COLUM = 1
+AND FCN_ID_TIPO_DOCUMENTO NOT IN (0)
+)
+
+SELECT
+ 
+BANCOS . FTN_ID_BANCO			 			AS COLUMM_ID_BANCO,
+COALESCE(CORREGIDOS.FTN_NUM_CTA_INVDUAL_CORREG,
+BANCOS . FTN_NUM_CTA_INVDUAL) 	 			AS COLUMN_CUENTA_INDIVIDUAL,
+BANCOS . FTD_FEH_DEPOSITO 		 			AS COLUMN_FECHA_DEPOSITO,
+CATBAN . FCC_VALOR 		  		 			AS COLUMN_BANCO,
+BANCOS . FTN_REF_CUENTA						AS COLUMN_REFERENCIA,
+BANCOS . FTN_IMPORTE      		 			AS COLUMN_IMPORTE,
+CATSBC . FCC_DESC				 			AS COLUMN_MEDIO_DEPOSITO,
+CATSBC . FCC_VALOR 				 			AS COLUMN_ESTATUS_DESPOSITO,
+BANCOS . FTN_REF_SUBCTA_APOVOL   			AS COLUMN_CONCEPTO,
+TO_NUMBER(BANCOS . FTC_REFERENCIA_AMPLIADA) AS COLUMN_CONVENIO
+
+FROM PROFAPOVOL . TTAFOAVOL_BANCOS 		BANCOS
+	
+	LEFT JOIN  CORREGIDOS								   ON BANCOS . FTN_ID_BANCO  = CORREGIDOS.FTN_ID_BANCO	  
+	INNER JOIN CIERREN . TCCRXGRAL_CAT_CATALOGO 	CATBAN ON BANCOS . FTN_CVE_BANCO = CATBAN . FCN_ID_CAT_CATALOGO AND  CATBAN . FCN_ID_TIPO_CAT  = 47 AND CATBAN . FCB_VIGENCIA = 1
+	INNER JOIN CIERREN . TCCRXGRAL_CAT_CATALOGO 	CATSBC ON BANCOS . FTN_IND_SBC   = CATSBC . FCN_ID_CAT_CATALOGO AND  CATSBC . FCN_ID_TIPO_CAT  = 63 AND CATSBC . FCB_VIGENCIA = 1
+	
+	AND FTN_REF_SUBCTA_APOVOL = 57822 /*AND FTN_IND_SBC IN (590,591,592,593)*/
+
+		
+		<where>
+		
+			AND FTN_REF_SUBCTA_APOVOL = 57822 /*AND FTN_IND_SBC IN (590,591,592,593)*/
+			
+			<if test="estatusIDC != null">
+			AND COALESCE(CORREGIDOS.FTN_ESTATUS_IDC,BANCOS.FTN_ESTATUS_IDC) = #{estatusIDC,jdbcType=INTEGER}
+			</if>			
+			<if test="fechaInicio != null and fechaFinal != null">
+			AND TRUNC(BANCOS . FTD_FEH_DEPOSITO) BETWEEN TRUNC(#{fechaInicio,jdbcType=TIMESTAMP}) AND TRUNC(#{fechaFinal,jdbcType=TIMESTAMP})
+			</if>
+			<if test="banco != null">
+			AND TRIM(CATBAN . FCC_VALOR) = TRIM(#{banco,jdbcType=VARCHAR})
+			</if>
+			<if test="referencia != null">
+			AND TRIM(BANCOS . FTN_REF_CUENTA) = TRIM(#{referencia,jdbcType=VARCHAR})
+			</if>
+
+		</where>
+		
+		ORDER BY COLUMN_FECHA_DEPOSITO DESC
+	</select>
+	
+
+	<select id="selectValidarCuenta"
+		parameterType="mx.profuturo.nci.business.wrapped.ValidarCuentaFilter"
+		resultMap="ResultSelectValidarCuenta">
+SELECT  
+
+TRIM(CTAINDIV.FTN_NUM_CTA_INVDUAL)		AS COLUMN_CUENTA_INDIVIDUAL,
+TRIM(CTAINDIV.FTC_NOMBRE)				AS COLUMN_NOMBRE,
+TRIM(CTAINDIV.FTC_AP_PATERNO)			AS COLUMN_APELLIDO_PATERNO,
+TRIM(CTAINDIV.FTC_AP_MATERNO)			AS COLUMN_APELLIDO_MATERNO,
+TRIM(CTAINDIV.FTC_CORREO_ELEC)			AS COLUMN_CORREO,
+COALESCE(COALESCE(COALESCE(CTAINDIV.FTC_TEL_PREFERENTE,CTAINDIV.FTN_CELULAR),CTAINDIV.FTC_TEL_FIJO),CTAINDIV.FTC_TEL_OFICINA) 	AS COLUMN_TELEFONO,
+CASE WHEN CTACONFI.FCC_VALOR_IND = '1' THEN 'Cuenta Vigente' ELSE 'Cuenta No Vigente' END 										AS COLUMN_ESTATUS
+
+FROM  CIERREN_ETL . TLSISGRAL_ETL_BUC 	CTAINDIV	
+
+	INNER JOIN CIERREN.TTAFOGRAL_IND_CTA_INDV 	CTACONFI 
+		ON CTAINDIV.FTN_NUM_CTA_INVDUAL = CTACONFI.FTN_NUM_CTA_INVDUAL AND CTACONFI.FFN_ID_CONFIG_INDI = '2' AND CTACONFI.FTC_VIGENCIA = 1		
+		
+		<where>
+			CTAINDIV.FTN_NUM_CTA_INVDUAL = TRIM(#{cuenta,jdbcType=VARCHAR})
+		</where>
+
+	</select>
+
+</mapper>

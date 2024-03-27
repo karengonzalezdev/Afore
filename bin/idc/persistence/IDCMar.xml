@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN">
+<mapper namespace="mx.secure.nci.persistence.SecureIDCPersistence">
+
+<resultMap id="BaseResultMapDevol" type="mx.secure.nci.business.vo.DevolucionesVO">
+	<result column="FTC_FOLIO"					jdbcType="VARCHAR"		property="folio"			javaType="string"/>
+	<result column="FTN_NSS"					jdbcType="NUMERIC"		property="nss"				javaType="long"/>
+	<result column="FTC_CURP"					jdbcType="VARCHAR"		property="curp"				javaType="string"/>
+	<result column="FTN_NUM_CTA_INDIVIDUAL"		jdbcType="NUMERIC"		property="cuenta"			javaType="long"/>
+	<result column="FTC_NOMBRE"					jdbcType="VARCHAR"		property="nombre"			javaType="string"/>
+	<result column="FTC_APELLIDO_PATERNO"		jdbcType="VARCHAR"		property="apellidoP"		javaType="string"/>
+	<result column="FTC_APELLIDO_MATERNO"		jdbcType="VARCHAR"		property="apellidoM"		javaType="string"/>
+	<result column="FTC_DIAGNOSTICO"			jdbcType="NUMERIC"		property="diagn"			javaType="boolean"/>
+	<result column="FTN_ID_SUBP_NO_VIG"			jdbcType="VARCHAR"		property="subprcs"			javaType="string"/>
+	<result column="FTD_FEH_CERT"				jdbcType="TIMESTAMP"	property="certif"			javaType="date"/>
+</resultMap>
+
+<select id="getListaIDC" resultMap="listaIDC" parameterType="java.util.List">
+	SELECT FTN_NSS, FTC_CURP, FTN_NUM_CTA_INDIVIDUAL, TRIM(TRIM(FTC_NOMBRE)||' '||TRIM(FTC_APELLIDO_PATERNO)||' 
+	'||TRIM(FTC_APELLIDO_MATERNO)) AS NOMBRE_COMPLETO,  'DIAGNOSTICO' AS FTC_DIAGNOSTICO, FTN_ID_SUBP_NO_VIG, 
+	TO_CHAR(FTD_FEH_CERT,'DD/MM/YYYY HH:MM:SS AM') AS FTD_FEH_CERT
+		FROM CIERREN_ETL.TTAFOAVOL_ETL_IDC_VIGENCIA
+  	<where>
+ 		FTC_FOLIO IN 
+ 		 <foreach item="folio"  index="index" collection="list" open="(" separator="," close=")">
+			#{folio,jdbcType=VARCHAR}
+		</foreach>   		
+  	</where>		
+</select>
+
+</mapper>

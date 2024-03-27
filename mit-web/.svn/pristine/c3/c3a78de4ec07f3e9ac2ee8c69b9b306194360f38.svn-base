@@ -1,0 +1,23 @@
+// Colores
+@black: #515151;
+@link: #005eae;
+
+h1, h2, h3 ,h4, h5, h6, p, a {
+    color:@black;
+    font-family: Arial, sans-serif;
+}
+
+h1 { line-height: 30px; }
+h2 { line-height: 25px; }
+h3 { line-height: 20px; }
+h4 { line-height: 15px; }
+h5 { line-height: 10px; }
+h6 { line-height: 5px; }
+
+a {
+    color: @link;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}

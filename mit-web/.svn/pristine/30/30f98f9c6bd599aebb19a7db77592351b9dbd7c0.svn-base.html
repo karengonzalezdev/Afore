@@ -1,0 +1,503 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<ui:composition template="../../core/desktop/desktop.xhtml">
+	<ui:define name="body">
+		<h:form id="formMovimientos" styleClass="form-general"
+			enctype="multipart/form-data">
+			<p:panel id="idpanelBuscaMov"
+				header="#{msg['validacion.cuenta.editar.title']}" style="margin-top:56px;">
+				<h:panelGrid columns="6" cellpadding="10px"
+					style="text-align: left; vertical-align: middle !important;">
+					
+					<p:outputLabel for="idFechaIni"
+						value="*#{msg['validacion.cuenta.label.fecha.inicio']}" />
+					<p:calendar id="idFechaIni" showOn="button" 
+					value="#{validacionManualView.fechaInicio}" locale="es" mask="true" 
+					pattern="dd/MM/yyyy" effect="fold" readonlyInput="true" 
+					maxdate="#{validacionManualView.maxDate}"
+					navigator="true" style="margin-left:20px; width: 120px;" />
+					<p:outputLabel for="idFechaFin"
+						value="#{msg['validacion.cuenta.label.fecha.fin']}"
+						style="margin-left:30px;" />
+					<p:calendar id="idFechaFin" showOn="button"  
+					value="#{validacionManualView.fechaFin}" locale="es" mask="true" 
+					pattern="dd/MM/yyyy" effect="fold" readonlyInput="true" 
+					maxdate="#{validacionManualView.maxDate}"
+					navigator="true" style="margin-left:20px; width: 120px;" />
+					<p:outputLabel for="idBanco"
+						value="#{msg['validacion.cuenta.label.banco']}" style="margin-left:30px;"/>
+
+					<p:selectOneMenu id="idBanco" style="width:245px; margin-left:20px;"
+						value="#{validacionManualView.claveBanco}">
+						<f:selectItem itemLabel="Seleccione uno" noSelectionOption="true"
+							itemValue="" />
+						<f:selectItems value="#{validacionManualView.bancos}"
+							var="_bancosBean" itemValue="#{_bancosBean.id}"
+							itemLabel="#{_bancosBean.valor}" />
+					</p:selectOneMenu>
+				</h:panelGrid>
+				<p:spacer height="20" />
+				<p:panelGrid>
+			<p:row>
+			<p:column>
+				<p:commandButton value="#{msg['validacion.cuenta.buscar.button']}"
+					update="formMovimientos"
+					styleClass="blue-button"
+					actionListener="#{validacionManualView.clickBuscar}"
+					onclick="PF('consultDataDialog').show()"
+					oncomplete="PF('consultDataDialog').hide()" />
+					</p:column>
+					<p:column>
+					<p:commandButton value="Limpiar"
+					update="formMovimientos"
+					styleClass="gray-button"
+					actionListener="#{validacionManualView.limpiar}"/>
+			</p:column>
+			</p:row>
+			</p:panelGrid>
+			</p:panel>
+			<p:spacer height="20" />
+			<p:panel id="idpanelDetalleMov" rendered="#{not empty validacionManualView.listaBancos}"
+				header="#{msg['validacion.cuenta.detalle.subtitle']}">
+				<h:panelGrid columns="1" cellpadding="15px">
+					<p:dataTable id="bancosT"
+						rendered="#{not empty validacionManualView.listaBancos}"
+						value="#{validacionManualView.listaBancos}" var="_bancos"
+						rowIndexVar="_rowIndexAutBanc" rowKey="#{_bancos.idBanco}"
+						paginatorPosition="bottom" style="margin-top:-10px;"
+						tableStyleClass="table-style" styleClass="tabla-indicadores"
+						paginator="true" selection="#{validacionManualView.selectedBanco}"
+						emptyMessage="#{msg['general.table.rows.empty']}" rows="10">
+						<p:ajax event="rowSelectRadio"
+							update=":formMovimientos:idpanelDetalleMov">
+						</p:ajax>
+						<p:column selectionMode="single" headerText=""
+							 style="text-align: left; width:5%;">
+						</p:column>
+						<p:column style="text-align: center; width:10%;"
+							headerText="#{msg['validacion.cuenta.table.columna.fecha']}">
+							<h:outputText value="#{_bancos.fechaCarga}" >
+								<f:convertDateTime type="date" pattern="dd/MM/yyyy" timeZone="America/Mexico_City" />
+							</h:outputText>
+						</p:column>
+						<p:column style="text-align: center; width:14%;"
+							headerText="#{msg['validacion.cuenta.table.columna.banco']}">
+							<h:outputText value="#{_bancos.claveBanco.valor}" />
+						</p:column>
+						<p:column style="text-align: center; width:10%;"
+							headerText="#{msg['validacion.cuenta.table.columna.importe']}">
+							<h:outputText value="#{_bancos.importe}">
+								<f:convertNumber pattern="$#,###,##0.00" locale="es_MX" />
+							</h:outputText>
+						</p:column>
+						<p:column style="text-align: center; width:15%;"
+							headerText="#{msg['validacion.cuenta.table.columna.referencia.cuenta']}">
+							<h:outputText value="#{_bancos.cuenta}" />
+						</p:column>
+						<p:column style="text-align: center; width:23%;" 
+							headerText="#{msg['validacion.cuenta.table.columna.referencia.apovol']}">
+							<h:outputText value="#{_bancos.subctaApovol.valor}" />
+						</p:column>
+						<p:column style="text-align: center; width:23%;"
+							headerText="#{msg['validacion.cuenta.table.columna.referencia.origen']}">
+							<h:outputText value="#{_bancos.origenAportacion.valor}" />
+						</p:column>
+						<p:column style="text-align: center; width:23%;"
+							headerText="#{msg['validacion.cuenta.table.columna.referencia.autMov']}">
+							<h:outputText value="#{_bancos.autBanco}" />
+						</p:column>
+					</p:dataTable>
+				</h:panelGrid>
+				<p:panelGrid>
+				<br></br>
+				<p:commandButton process="bancosT" update=":form:idIdentificarMov,:form:idIdentificarArchivos"
+					value="#{msg['validacion.cuenta.identificar.button']}"
+					onstart="PF('identificarReg').show();"
+					oncomplete="PF('dialogIdentMov').show();setTimeout(function(){ PF('identificarReg').hide()},1000);" styleClass="yellow-button"
+					disabled="#{validacionManualView.selectedBanco == null}" />
+			</p:panelGrid>
+			</p:panel>
+		</h:form>
+		<h:form id="form" styleClass="form-general"
+			enctype="multipart/form-data">
+			<p:dialog id="idDialogIdentMov" modal="true"
+				widgetVar="dialogIdentMov" draggable="false" closable="false" resizable="false" showHeader="false"
+				width="610" height="550px"> 
+				<p:panel id="idIdentificarMov"
+					header="#{msg['validacion.cuenta.identificacion.subtitle.movimiento']}">
+					<p:messages id="messages-validacion" 
+					showDetail="true" showSummary="false" autoUpdate="true" redisplay="false" showIcon="false"/>
+					<h:panelGrid columns="4" cellpadding="15px"
+						style="text-align: left; vertical-align: middle !important;">
+						<p:outputLabel style="font-weight: bold; width:350px;">Banco</p:outputLabel>
+						<h:outputText
+							value="#{validacionManualView.selectedBanco.claveBanco.valor}"
+							style="margin-left:40px; width: 350px;" />
+						<p:outputLabel
+							style="font-weight: bold; margin-left:40px; width:350px;">Referencia Cuenta</p:outputLabel>
+						<h:outputText style="margin-left:40px; width: 350px;"
+							value="#{validacionManualView.selectedBanco.cuenta}" />
+						<p:outputLabel style="font-weight: bold; width: 350px;">Importe</p:outputLabel>
+						<h:outputText
+							value="#{validacionManualView.selectedBanco.importe}"
+							style="margin-left:40px; width: 350px;" >
+							<f:convertNumber pattern="$#,###,##0.00" locale="es_MX" />
+						</h:outputText>
+							
+						<p:outputLabel
+							style="font-weight: bold; margin-left:40px; width: 350px;">Referencia Tipo Apovol</p:outputLabel>
+						<h:outputText style="margin-left:40px; width: 350px;"
+							value="#{validacionManualView.selectedBanco.subctaApovol.valor}" />
+					</h:panelGrid>
+
+					<p:panel id="idEmpresaSel">
+						<h:panelGrid columns="2" cellpadding="15px"
+							style="text-align:left; vertical-align: middle !important; margin-top:-15px;">
+							
+							<h:panelGrid columns="1" cellpadding="15px"
+							style="text-align: left; vertical-align: middle !important;">
+								<p:outputLabel for="idOrigen" style="width:350px;"
+									value="#{msg['validacion.cuenta.identificacion.label.origen']}" />
+								<p:selectOneMenu id="idOrigen" style="width:245px;"
+									value="#{validacionManualView.idOrigen}">
+									<p:ajax event="change" listener="#{validacionManualView.cambioOrigen}" update=":form:idEmpresaSel, :form:idIdentificarArchivos"></p:ajax>
+									<f:selectItem itemLabel="Seleccione uno"
+										noSelectionOption="true" itemValue="" />
+									<f:selectItems value="#{validacionManualView.origen}"
+										var="_origen" itemValue="#{_origen.id}"
+										itemLabel="#{_origen.valor}" />
+								</p:selectOneMenu>
+							</h:panelGrid>
+														
+							<h:panelGrid columns="1" cellpadding="15px"
+							style="text-align: left; margin-left:15px; vertical-align: middle !important; ">
+								<p:outputLabel for="idEmpresa"
+									style="width:350px; "
+									value="#{msg['validacion.cuenta.identificacion.label.empresa']}" />
+								<p:selectOneMenu id="idEmpresa"
+									required="#{validacionManualView.idOrigen == 289}"
+									value="#{validacionManualView.idEmpresa}"
+									style="width:245px; "
+									disabled="#{validacionManualView.idOrigen != 289}">
+									<p:ajax event="change" update=":form:idIdentificarArchivos"></p:ajax>
+									<f:selectItem itemLabel="Seleccione uno"
+									noSelectionOption="true" itemValue="" />
+									<f:selectItems value="#{validacionManualView.empresa}"
+										var="_empresa" itemValue="#{_empresa.id}"
+										itemLabel="#{_empresa.valor}" />
+								</p:selectOneMenu>
+							</h:panelGrid>
+							
+							<p:spacer height="3" />
+							<p:spacer height="3" />
+							
+							<h:panelGrid columns="1" cellpadding="15px"
+								style="text-align: left; vertical-align: middle !important; margin-top:-5px;">
+								<p:outputLabel for="cuentaAfore"
+									style="width:350px; " value="#{msg['validacion.cuenta.identificacion.label.cuenta']}"/>
+ 								<p:inputText id="cuentaAfore" maxlength="100"
+									value="${validacionManualView.cuentaAfore}"
+									style="width:200px !important;margin-top:-15px;">
+								</p:inputText>
+							</h:panelGrid>
+
+							<h:panelGrid columns="1" cellpadding="15px"
+							style="text-align: left;  margin-left:15px; vertical-align: middle !important; margin-top:-5px;">
+								<p:outputLabel for="idApovol"
+									value="#{msg['validacion.cuenta.identificacion.label.apovol']}" />
+								<p:spacer height="3"/>
+								<p:selectOneMenu id="idApovol" style="width:245px;"
+									value="${validacionManualView.idApovol}">
+									<f:selectItem itemLabel="Seleccione uno"
+										noSelectionOption="true" itemValue="" />
+									<f:selectItems value="#{validacionManualView.apovol}"
+										var="_apovol" itemValue="#{_apovol.id}"
+										itemLabel="#{_apovol.valor}" />
+								</p:selectOneMenu>
+							</h:panelGrid>	
+
+							<h:panelGrid columns="1" cellpadding="15px"
+								style="text-align:left; vertical-align: middle !important;">
+								<p:commandButton
+									value="#{msg['validacion.cuenta.validar.button']}"
+									update=":form:idEmpresaSel, :form:idIdentificarArchivos, :form:idIdentificarMov"
+									styleClass="blue-button" style="!important;"
+									onstart="PF('validarCuenta').show();"
+									oncomplete="setTimeout(function(){ PF('validarCuenta').hide()},1000);"
+									actionListener="#{validacionManualView.clickValidarCuenta}" />
+							</h:panelGrid>
+							
+							<h:panelGrid columns="1" cellpadding="15px" 
+							style="text-align: left; margin-left:15px; vertical-align: middle !important; margin-top:-15px;">
+								<p:fieldset
+									style="background:#E6E6E6; width:280px !important;">
+									<h:outputText value="DATOS DE CUENTA" style="font-weight:bold" />
+								<h:panelGrid columns="2" cellpadding="5"
+									style="text-align:left;">
+									<h:outputText value="Nombre: "  style="font-weight:bold"/>
+									<h:outputText
+										value="${validacionManualView.datosCuenta.nombreCliente}"
+										style="margin-left: 10px;" />
+									<h:outputText value="Correo: " style="font-weight: bold;"/>
+									<h:outputText
+										value="${validacionManualView.datosCuenta.correo}"
+										style="margin-left: 10px;" />
+									<h:outputText value="Teléfono: " style="font-weight: bold;"/>
+									<h:outputText
+										value="${validacionManualView.datosCuenta.telefono}"
+										style="margin-left: 10px;" />
+									<h:outputText value="Estatus: " style="font-weight: bold;"/>
+									<h:outputText rendered="${!validacionManualView.muestraEstatus}"
+										value="${validacionManualView.datosCuenta.isVigente ? 'Cuenta Vigente' : 'Cuenta No vigente'}"
+										style="margin-left: 10px; color:green;" />
+								</h:panelGrid>
+							</p:fieldset>
+							
+							</h:panelGrid>
+														
+						</h:panelGrid>
+					</p:panel>
+<!-- 					<p:spacer height="3" /> -->
+				</p:panel>
+				<p:panel id="idIdentificarArchivos" style="margin-top:-15px;"
+					header="#{msg['validacion.cuenta.identificacion.subtitle.documentacion']}">
+					<h:panelGrid columns="2" style="text-align:left;margin-top:-10px;">
+						<h:panelGrid columns="1" cellpadding="10px"
+							style="text-align: left; vertical-align: middle !important;">
+					
+							<h:outputText value="Tipo de documentación" />
+	<!-- 						<h:outputText value="" /> -->
+							<p:selectOneMenu id="idArchivo" style="width:240px;"
+								value="#{validacionManualView.idArchivo}"
+								disabled="#{validacionManualView.idEmpresa == 474 ? true : (validacionManualView.idEmpresa == 434 ? true : false)}">
+								<p:ajax event="change" update=":form:idIdentificarArchivos"></p:ajax>
+								<f:selectItem itemLabel="Seleccione uno" itemValue="Seleccionar" />
+								<f:selectItem itemLabel="Copia IFE" itemValue="Copia IFE" />
+								<f:selectItem itemLabel="Comprobante" itemValue="Comprobante" />
+							</p:selectOneMenu>
+							<h:outputText
+								value="Se han agregado los siguientes archivos:" />
+	<!-- 						<h:outputText value="" /> -->
+							<h:outputLabel
+								value="${validacionManualView.archivos[0].listaCargados}" style="font-weight: bold;"></h:outputLabel>
+	<!-- 						<h:outputLabel></h:outputLabel> -->
+	<!-- 						<br></br> -->
+	<!-- 						<br></br> -->
+	<!-- 						<p:spacer height="3" /> -->
+						</h:panelGrid>
+				
+				<h:panelGrid columns="1" cellpadding="10px" style="text-align: left;margin-top:-15px;">
+					<p:panelGrid style="float:right;">
+						<p:row>
+								<p:column style="text-align:left;" colspan="2">
+ 								<p:fileUpload id="uploadFile" style="margin-left:1px;width:100px;" 
+									fileUploadListener="#{validacionManualView.cargar}" auto="true"
+									mode="advanced" multiple="true" label="Examinar"
+									onstart="PF('dialogDepositandoBar').show();"
+									oncomplete="setTimeout(function(){ PF('dialogDepositandoBar').hide()},1000);"
+									accept=".pdf, .PDF, .jpg, .JPG"
+									update=":form:idIdentificarArchivos"
+									disabled="${validacionManualView.idArchivo == null or validacionManualView.idArchivo.equals('Seleccionar')}" /> 
+								</p:column>
+						</p:row>
+						<p:row>
+								<p:column style="text-align:left;">
+								<p:commandButton id="btnGuardar" styleClass="yellow-button" 
+								style="margin-left:20px;margin-top:3px;"
+									disabled="${validacionManualView.habiliaGuardar}"
+									value="#{msg['validacion.cuenta.confirmar.button']}"
+									actionListener="#{validacionManualView.validarGuardarInfo}"
+									 validateClient="true" />
+								</p:column>
+								<p:column style="text-align:right;">
+								<p:commandButton
+									value="#{msg['validacion.cuenta.cancelar.button']}" onclick="PF('dialogIdentMov').hide()"  actionListener="#{validacionManualView.clickCancelar}"
+									styleClass="gray-button" />
+							</p:column>
+						</p:row>
+					</p:panelGrid>
+				</h:panelGrid>
+					
+				</h:panelGrid>
+				
+				</p:panel>
+				
+			</p:dialog>
+			<p:dialog id="idDialogDepositandoBar" modal="true"
+				widgetVar="dialogDepositandoBar" draggable="false" closable="false"
+				resizable="false" appendTo="@(body)" 
+				showHeader="false">
+
+				<div align="center">
+					<h:outputText value="Depositando los archivos..."
+						styleClass="outputTextGeneric" />
+					<br />
+					<h:graphicImage value="/core/static/images/loading-bar.gif"
+						width="150" />
+				</div>
+			</p:dialog>
+			<p:dialog id="idIdentificarReg" modal="true"
+				widgetVar="identificarReg" draggable="false" closable="false"
+				resizable="false" appendTo="@(body)" 
+				showHeader="false">
+
+				<div align="center">
+					<h:outputText value="Identificando..."
+						styleClass="outputTextGeneric" />
+					<br />
+					<h:graphicImage value="/core/static/images/loading-bar.gif"
+						width="150" />
+				</div>
+			</p:dialog>
+			<p:dialog id="idvalidarCuenta" modal="true"
+				widgetVar="validarCuenta" draggable="false" closable="false"
+				resizable="false" appendTo="@(body)" 
+				showHeader="false">
+
+				<div align="center">
+					<h:outputText value="Validando cuenta"
+						styleClass="outputTextGeneric" />
+					<br />
+					<h:graphicImage value="/core/static/images/loading-bar.gif"
+						width="150" />
+				</div>
+			</p:dialog>			
+		</h:form>
+		<p:dialog id="idDialogConfirmarOperacion" modal="true"
+				widgetVar="dialogConfirmarOperacion" draggable="true"
+				closable="false" resizable="false" appendTo="@(body)" header="#{msg['validacion.cuenta.confirmar.asociacion']}">
+				<p:panel id="idConfirmarOperacion">
+					<div align="center">
+						<center>
+							<h:outputText
+								value="Se asociará la aportación seleccionada a la cuenta indicada" /><br></br>
+							<h:outputText value="¿Está seguro?" />
+						</center>
+						<br />
+						<p:panelGrid style="float:right;">
+							<p:row>
+								<p:column style="text-align:right;">
+									<p:commandButton
+										value="#{msg['validacion.cuenta.confirmar.button']}"
+										actionListener="#{validacionManualView.guardarInfo}" oncomplete="PF('dialogConfirmarOperacion').hide(), PF('dialogResultadoOperacion').show()"
+										update="dialogofinal:idResumenOperacion,:formMovimientos"
+										styleClass="blue-button" validateClient="true"/>
+									<p:spacer width="10" />
+									<p:commandButton
+										value="#{msg['validacion.cuenta.cancelar.button']}" onclick="PF('dialogConfirmarOperacion').hide()"
+										styleClass="gray-button" />
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+					</div>
+				</p:panel>
+			</p:dialog>
+			<h:form id="dialogofinal">
+			<p:dialog id="idDialogResultadoOperacion" modal="true"
+				widgetVar="dialogResultadoOperacion" draggable="false"
+				closable="false" resizable="false" appendTo="@(body)" >
+				<p:panel id="idResumenOperacion"
+					header="#{msg['msg.general.operacion.concluida']}">
+					<div align="center">
+						<center>
+							<h:outputText value="La operación ha concluido con Éxito #{validacionManualView.mensajeError}" rendered="#{validacionManualView.mensajeError==null}"/>
+							<h:outputText value="La operación ha concluido con Error: #{validacionManualView.mensajeError}" rendered="#{validacionManualView.mensajeError!=null}"/>
+							<br></br>
+						</center>
+						<br />
+						<p:panelGrid style="float:right;">
+							<p:row>
+								<p:column style="text-align:right;">
+									<p:commandButton onclick="PF('dialogResultadoOperacion').hide(), PF('dialogIdentMov').hide()" process="@this" update=":form:idDialogIdentMov, 
+									:form:idEmpresaSel, :formMovimientos:idpanelBuscaMov, :formMovimientos:idpanelDetalleMov" value="#{msg['validacion.cuenta.cerrar.button']}"
+										actionListener="#{validacionManualView.clickLimpiar}"
+										styleClass="gray-button" />
+								</p:column>
+							</p:row>
+						</p:panelGrid>						
+					</div>
+				</p:panel>
+			</p:dialog>
+			<p:dialog id="consultDataDialog"
+					widgetVar="consultDataDialog"
+					modal="true"
+					draggable="false"
+					closable="false" 
+					resizable="false" 
+					appendTo="@(body)"
+					showHeader="false" 
+					showEffect="fade">
+				<div align="center">
+					<h:outputText value="#{msg['general.progress.consultando']}"
+						styleClass="outputTextGeneric" />
+					<br />
+					<h:graphicImage value="/core/static/images/loading-bar.gif"
+						width="150" />
+				</div>
+			</p:dialog>
+			
+			<p:dialog id="dCriterioBusqueda" 
+			  closable="false"
+			  resizable="false"			  
+			  header="#{msg['validacion.cuenta.editar.title']}" 
+			  widgetVar="dCriterioBusqueda"
+			  modal="true"
+			  draggable="false">
+    	
+    		<h:form style="text-align: center;">
+    			<p:panelGrid style="margin-top:-30px;">
+	    			<p:row>
+		    			<p:column>
+			    			<h:outputText id="validarParametros" value="#{msg['general.msg.fechaIni.requerida']}" />
+			    		</p:column>
+			    	</p:row>
+	    			<br/>
+	    			<br/>
+	    			<p:row>
+		    			<p:column style="text-align:right;">
+			    			<p:commandButton value="#{msg['general.button.cerrar']}" onclick="PF('dCriterioBusqueda').hide();"  type="button"
+			                           styleClass="gray-button"/>
+		                </p:column>
+	                </p:row>
+                </p:panelGrid>
+			</h:form>
+		</p:dialog>
+		
+		
+		<p:dialog id="dNoExistenRegistros" 
+			  closable="false"
+			  resizable="false"			  
+			  header="#{msg['validacion.cuenta.editar.title']}" 
+			  widgetVar="dNoExistenRegistros"
+			  modal="true"
+			  draggable="false">
+    	
+    		<h:form style="text-align: center;">
+    			<p:panelGrid style="margin-top:-30px;">
+	    			<p:row>
+		    			<p:column>
+			    			<h:outputText id="noExistenRegistros" value="#{msg['general.table.rows.empty.busqueda']}" />
+			    		</p:column>
+			    	</p:row>
+	    			<br/>
+	    			<br/>
+	    			<p:row>
+		    			<p:column style="text-align:right;">
+			    			<p:commandButton value="#{msg['general.button.cerrar']}" onclick="PF('dNoExistenRegistros').hide();"  type="button"
+			                           styleClass="gray-button"/>
+		                </p:column>
+	                </p:row>
+                </p:panelGrid>
+			</h:form>
+		</p:dialog>
+		
+			</h:form>
+	</ui:define>
+</ui:composition>
+</html>

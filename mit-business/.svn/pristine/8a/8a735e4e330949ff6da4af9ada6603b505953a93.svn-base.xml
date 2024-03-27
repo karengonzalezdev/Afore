@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?><!--File CertificacionService/CuentasCertificadasService.xsd, shared library Lib_NCI_MM--><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://mx.profuturo/iib/certif/Certificaciones/CuentasCertificadasService/v1/types" version="1.0" xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" xmlns:mod="http://mx.profuturo/nci/modelo" xmlns:tns="http://mx.profuturo/iib/certif/Certificaciones/CuentasCertificadasService/v1/types">
+	
+	<xsd:import namespace="http://mx.profuturo/nci/modelo" schemaLocation="CuentasCertificadasService.2.xsd"/>
+
+	<xsd:element ibmSchExtn:docRoot="true" name="consultarCuentasCertificadasRequest" type="tns:consultarCuentasCertificadasReq"/>	
+	<xsd:element ibmSchExtn:docRoot="true" name="consultarCuentasCertificadasResponse" type="tns:consultarCuentasCertificadasResp"/>
+	<xsd:element ibmSchExtn:docRoot="true" name="consultarCuentasCertificacionRequest" type="tns:consultarCuentasCertificacionReq"/>	
+	<xsd:element ibmSchExtn:docRoot="true" name="consultarCuentasCertificacionResponse" type="tns:consultarCuentasCertificacionResp"/>
+	<xsd:element ibmSchExtn:docRoot="true" name="consultarCuentasCertificadasDomiRequest" type="tns:consultarCuentasCertificadasDomiReq"/>	
+	<xsd:element ibmSchExtn:docRoot="true" name="consultarCuentasCertificadasDomiResponse" type="tns:consultarCuentasCertificadasDomiResp"/>
+	<xsd:element ibmSchExtn:docRoot="true" name="guardaCuentaACertificarRequest" type="tns:guardaCuentaACertificarReq"/>	
+	<xsd:element ibmSchExtn:docRoot="true" name="guardaCuentaACertificarResponse" type="tns:guardaCuentaACertificarResp"/>
+	<xsd:element ibmSchExtn:docRoot="true" name="cancelarCuentaCertificadaRequest" type="tns:cancelarCuentaCertificadaReq"/>	
+	<xsd:element ibmSchExtn:docRoot="true" name="cancelarCuentaCertificadaResponse" type="tns:cancelarCuentaCertificadaResp"/>
+	<xsd:element ibmSchExtn:docRoot="true" name="insertarSolicitudCertificacionRequest" type="tns:insertarSolCertReq"/>	
+	<xsd:element ibmSchExtn:docRoot="true" name="insertarSolicitudCertificacionResponse" type="tns:insertarSolCertResp"/>
+	<xsd:element ibmSchExtn:docRoot="true" name="actualizarEstatusCuentaRequest" type="tns:actualizarEstatusCuentaReq"/>	
+	<xsd:element ibmSchExtn:docRoot="true" name="actualizarEstatusCuentaResponse" type="tns:actualizarEstatusCuentaResp"/>
+	
+	<xsd:complexType name="consultarCuentasCertificadasReq">
+		<xsd:sequence>
+			<xsd:element name="numeroCuenta" type="xsd:long"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="consultarCuentasCertificadasResp">
+		<xsd:complexContent>
+			<xsd:extension base="mod:ResponseBase">
+				<xsd:sequence>
+					<xsd:element minOccurs="0" name="cuentasCertificadas" type="tns:ListaCuentaCertificada"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+	<xsd:complexType name="consultarCuentasCertificacionReq">
+		<xsd:sequence>
+			<xsd:element name="numeroCuenta" type="xsd:long"/>
+			<xsd:element minOccurs="0" name="fechaCapturaIni" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="fechaCapturaFin" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="cveSolicitud" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="consultarCuentasCertificacionResp">
+		<xsd:complexContent>
+			<xsd:extension base="mod:ResponseBase">
+				<xsd:sequence>
+					<xsd:element minOccurs="0" name="cuentasCertificacion" type="tns:ListaCuentasCertificacion"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+	<xsd:complexType name="consultarCuentasCertificadasDomiReq">
+		<xsd:sequence>
+			<xsd:element name="numeroCuenta" type="xsd:long"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="consultarCuentasCertificadasDomiResp">
+		<xsd:complexContent>
+			<xsd:extension base="mod:ResponseBase">
+				<xsd:sequence>
+					<xsd:element maxOccurs="unbounded" minOccurs="0" name="CuentasCertDomis" type="tns:ListaCuentasCertificacionDomi"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+	<xsd:complexType name="guardaCuentaACertificarReq">
+		<xsd:sequence>
+			<xsd:element name="cuentaACertificar" type="tns:CuentaACertificar"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="guardaCuentaACertificarResp">
+		<xsd:complexContent>
+			<xsd:extension base="mod:ResponseBase">
+				<xsd:sequence>
+					<xsd:element minOccurs="0" name="cveSolicitud" type="tns:cveSolicitudGuardado"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+	<xsd:complexType name="cancelarCuentaCertificadaReq">
+		<xsd:sequence>
+			<xsd:element name="numeroCuentaIndividual" type="xsd:long"/>
+			<xsd:element name="numeroCuentaBanco" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="cveSolicitud" type="xsd:string"/>
+			<xsd:element name="usuario" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="cancelarCuentaCertificadaResp">
+		<xsd:complexContent>
+			<xsd:extension base="mod:ResponseBase">
+				<xsd:sequence>
+					<xsd:element minOccurs="0" name="success" type="xsd:string"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="insertarSolCertReq">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" name="cuentasCertificacion" type="tns:ListaCuentasSolicitadasCertificacion"/>
+			<xsd:element name="usuario" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="insertarSolCertResp">
+		<xsd:complexContent>
+			<xsd:extension base="mod:ResponseBase">
+				<xsd:sequence>
+					<xsd:element name="response" type="tns:ResponseInsert"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+	<xsd:complexType name="actualizarEstatusCuentaReq">
+		<xsd:sequence>
+			<xsd:element name="cuentaCertificacion" type="tns:CuentaActualizacionEstado"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="actualizarEstatusCuentaResp">
+		<xsd:complexContent>
+			<xsd:extension base="mod:ResponseBase">
+				<xsd:sequence>
+					<xsd:element name="response" type="tns:ResponseInsert"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="Catalogo">
+		<xsd:sequence>
+			<xsd:element name="idCatalogo" type="xsd:short"/>
+			<xsd:element minOccurs="0" name="descCatalogo" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="CuentaCertificada">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" name="claveBanco" type="tns:Catalogo"/>
+			<xsd:element minOccurs="0" name="tipoCuenta" type="tns:Catalogo"/>
+			<xsd:element name="bancoCuenta" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="nombreTitular" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="apPaternoTitular" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="apMaternoTitular" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="titularCuenta" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="tipoBeneficiario" type="tns:Catalogo"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="CuentaACertificar">
+		<xsd:sequence>
+			<xsd:element name="numCuentaIndividual" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="claveBanco" type="tns:Catalogo"/>
+			<xsd:element minOccurs="0" name="tipoCuenta" type="tns:Catalogo"/>
+			<xsd:element name="subproceso" type="tns:Catalogo"/>
+			<xsd:element name="cuentaBanco" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="nombreTitular" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="apPaternoTitular" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="apMaternoTitular" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="rfc" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="idTramiteDependiente" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="tramiteDependiente" type="tns:Catalogo"/>
+			<xsd:element minOccurs="0" name="usuarioCreacion" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="tipoBeneficiario" type="tns:Catalogo"/>
+			<xsd:element name="origenSolicitud" type="tns:Catalogo"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="CuentaCertificacion">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" name="cveSolicitud" type="xsd:string"/>
+			<xsd:element name="numCuentaIndividual" type="xsd:string"/>
+			<xsd:element name="nombreTitular" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="apPaternoTitular" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="apMaternoTitular" type="xsd:string"/>
+			<xsd:element name="cuentaBanco" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="tipoCuenta" type="tns:Catalogo"/>
+			<xsd:element minOccurs="0" name="claveBanco" type="tns:Catalogo"/>
+			<xsd:element minOccurs="0" name="idSubproceso" type="tns:Catalogo"/>
+			<xsd:element name="tramiteDependiente" type="tns:Catalogo"/>
+			<xsd:element minOccurs="0" name="idTramiteDependiente" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="estatus" type="tns:Catalogo"/>
+			<xsd:element minOccurs="0" name="motivorechazo" type="tns:Catalogo"/>
+			<xsd:element minOccurs="0" name="rfc" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="tipoBeneficiario" type="tns:Catalogo"/>
+			<xsd:element minOccurs="0" name="origenSolicitud" type="tns:Catalogo"/>
+			<xsd:element minOccurs="0" name="numRecertificaciones" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="CuentaSolicitudACertificar">
+		<xsd:sequence>
+			<xsd:element name="nombreCompletoBeneficiario" type="xsd:string"/>
+			<xsd:element name="idBancoBeneficiario" type="xsd:string"/>
+			<xsd:element name="cuentaBeneficiario" type="xsd:string"/>
+			<xsd:element name="cePago" type="xsd:string"/>
+			<xsd:element name="cveSolicitud" type="xsd:string"/>
+			<xsd:element name="rfc" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CuentaActualizacionEstado">
+		<xsd:sequence>
+			<xsd:element name="numCuentaIndividual" type="mod:numeroCuenta"/>
+			<xsd:element name="cveSolicitud" type="xsd:string"/>
+			<xsd:element name="cuentaBanco" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="idTramiteDependiente" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="fechaVigencia" type="xsd:dateTime"/>
+			<xsd:element name="estatus" type="tns:Catalogo"/>
+			<xsd:element minOccurs="0" name="motivoRechazo" type="tns:Catalogo"/>
+			<xsd:element name="usuario" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="nombreOrdenante" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="rfcOrdenante" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="cveSolicitudGuardado">
+		<xsd:sequence>
+			<xsd:element name="cveSolicitud" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="ResponseInsert">
+		<xsd:sequence>
+			<xsd:element name="success" type="xsd:boolean"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+
+	<xsd:complexType name="ListaCuentaCertificada">
+		<xsd:sequence>
+			<xsd:element maxOccurs="unbounded" name="cuentaCertificada" type="tns:CuentaCertificada"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="ListaCuentasCertificacion">
+		<xsd:sequence>
+			<xsd:element maxOccurs="unbounded" name="cuenta" type="tns:CuentaCertificacion"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ListaCuentasSolicitadasCertificacion">
+		<xsd:sequence>
+			<xsd:element maxOccurs="unbounded" name="cuenta" type="tns:CuentaSolicitudACertificar"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="ListaCuentasCertificacionDomi">
+		<xsd:sequence>
+			<xsd:element name="numeroCuenta" type="xsd:long"/>
+			<xsd:element name="cuentaCertificada" type="tns:CuentaCertificada"/>
+			<xsd:element maxOccurs="unbounded" minOccurs="0" name="domiciliaciones" type="tns:ListaDomiciliacionesCuentaCertificada"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="ListaDomiciliacionesCuentaCertificada">
+		<xsd:sequence>
+			<xsd:element name="claveSolicitud" type="xsd:string"/>
+			<xsd:element name="estatus" type="tns:Catalogo"/>
+			<xsd:element minOccurs="0" name="tipoSolicitud" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	
+	
+
+</xsd:schema>

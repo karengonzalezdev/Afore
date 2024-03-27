@@ -1,0 +1,10 @@
+package mx.profuturo.nci.business.service;
+
+import java.util.List;
+
+import mx.profuturo.nci.business.vo.ObtenerCifrasControlVO;
+
+public interface IObtenerCifrasControlService {
+
+	public List<ObtenerCifrasControlVO> obtenerCifrasControl(ObtenerCifrasControlVO param) throws Exception;
+}

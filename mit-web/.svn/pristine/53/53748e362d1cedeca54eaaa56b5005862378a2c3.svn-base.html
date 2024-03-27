@@ -1,0 +1,256 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"	
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+ 	xmlns:s="http://www.springframework.org/security/tags">
+	
+
+
+<ui:composition template="../../core/desktop/desktop.xhtml">
+
+
+<ui:define name="body">
+
+
+
+
+<p:panel id="idPanelDepositoArchivo"
+		 header="#{msg['deposito.archivo.title']}" style="margin-top:56px;">
+ 
+
+
+	<h:form id="idFormDepositoArchivo">
+
+		<p:panelGrid  id="idPanelGridDtoCtl" 
+					  style="margin-left:-20px;"
+					  styleClass="leftAlignStyle">		
+			    
+			    
+			 <p:row>
+			 	<p:column style="width: 100%;">	    
+				
+						<p:fileUpload id="uploadFile" 
+									  fileUploadListener="#{depositoArchivoView.cargar}" 
+									  auto="true" 
+									  mode="advanced"  
+									  multiple="true"
+									  label="#{msg['general.button.examinar']}"
+									  accept=".txt, .TXT, .csv, .CSV, .dom, .DOM, .exp, .EXP"		
+									  onstart="PF('dialogValidandoBar').show();"
+									  oncomplete="setTimeout(function(){ PF('dialogValidandoBar').hide()},1000);"
+									  rendered="#{depositoArchivoView.depositoArchivoWrapperBean.showBotonExaminar}"					  
+									  update="idPanelGroupArchivos, idFormDepositoArchivo:idDataTableArchivos,idPanelGridBotones" />
+		
+<!-- 				</p:column> -->
+		
+<!-- 				<p:column style="width: 100%;text-align: left;">	 -->
+				
+							<p:messages id="idMessages"   showDetail="true" autoUpdate="true" closable="false" />			  
+				
+				</p:column>		
+			</p:row>
+			
+			 <p:row>
+			 	<p:column>	    
+			 		 	      
+				 	<h:panelGroup id="idPanelGroupArchivos">	 	        
+				 						  
+						<p:dataTable id="idDataTableArchivos"
+									 emptyMessage="#{msg['deposito.archivo.table.empty']}"					 
+									 value="#{depositoArchivoView.depositoArchivoWrapperBean.depositosArchivos}"
+									 rendered="#{not empty depositoArchivoView.depositoArchivoWrapperBean.depositosArchivos}"
+									 var="_depositoArchivo"
+									 rowIndexVar="_rowIndex"
+									 tableStyleClass="table-style"
+									 rowStyleClass="#{_depositoArchivo.erroneo ? 'colorRowRed' : '' }"
+									 style="padding-left:10px; width:100%;">
+									 
+<!-- 									 <p:columnGroup type="header"> -->
+									 
+<!-- 									 <p:row>  -->
+<!-- 									 	<p:column  style="width: 40%;" 	 headerText="#{msg['deposito.archivo.table.column.archivo']}" /> -->
+<!-- 									 	<p:column  style="width: 40%;" 	 headerText="#{msg['deposito.archivo.table.column.descripcion']}" /> -->
+<!-- 									 	<p:column  style="width: 10%;" headerText="#{msg['deposito.archivo.table.column.status']}" /> -->
+<!-- 									 	<p:column  style="width: 5%;"  /> -->
+<!-- 									 	<p:column  style="width: 5%;"  headerText="#{msg['deposito.archivo.table.column.remover']}" visible="#{depositoArchivoView.depositoArchivoWrapperBean.showColumnRemover}" />	 -->
+									 
+<!-- 									 </p:row> -->
+									 
+<!-- 									 </p:columnGroup> -->
+									 
+									 <p:column width="30%;" headerText="#{msg['deposito.archivo.table.column.archivo']}">
+											<h:outputText style="float:left" value="#{_depositoArchivo.archivo.fileName}"/>
+									 </p:column>
+						
+									 <p:column width="20%;" headerText="#{msg['deposito.archivo.table.column.descripcion']}">
+											<h:outputText style="float:left" value="#{_depositoArchivo.descripcion}"/>
+									 </p:column>
+				
+									 <p:column width="20%;" headerText="#{msg['deposito.archivo.table.column.status']}">
+											<h:outputText value="#{_depositoArchivo.descStatus}"/>
+									 </p:column>
+				
+									 <p:column width="10%;">
+											    <h:graphicImage  value="/core/static/images/depositoArchivo/#{_depositoArchivo.imgStatus}"   
+				      											   width="40" />
+				
+									 </p:column>
+						
+									 <p:column width="20%;" headerText="#{msg['deposito.archivo.table.column.remover']}" visible="#{depositoArchivoView.depositoArchivoWrapperBean.showColumnRemover}" >					 		
+									 		<p:commandButton  id="idEliminarArchivo_#{_rowIndex}"
+									 						  actionListener="#{depositoArchivoView.eliminar(_rowIndex)}"  
+									 						  update="idFormDepositoArchivo"
+									 						  styleClass="gray-button"
+									 						  icon="ui-icon-close"  />							
+									 </p:column>
+						
+						
+						
+						</p:dataTable>
+								  
+					</h:panelGroup>
+			
+				</p:column>
+			</p:row>
+		
+			<p:row>
+				<p:column>
+				
+						<p:panelGrid id="idPanelGridBotones">
+						<p:row>
+						<p:column>
+				
+							<p:commandButton id="idCommBtoDepositar"
+											 value="#{depositoArchivoView.depositoArchivoWrapperBean.reintentoDeposito ? msg['general.button.reintentar'] : msg['general.button.depositar'] }" 
+											 rendered="#{depositoArchivoView.depositoArchivoWrapperBean.showBotonDepositar}"
+											 oncomplete="PF('dialogConfirDepositarArchivo').show();"									 
+											 update="idDialogConfirDepoArchivo"
+											 styleClass="blue-button"/>
+		<!-- 				</p:column> -->
+							<p:spacer width="5px;" rendered="#{depositoArchivoView.depositoArchivoWrapperBean.showBotonDepositar}" />
+		<!-- 				<p:column> -->
+							<p:commandButton id="idCommBtoLimpiar"
+											 value="#{msg['general.button.clean']}"
+											 rendered="#{depositoArchivoView.depositoArchivoWrapperBean.showBotonLimpiar}"
+											 actionListener="#{depositoArchivoView.inicializar}"									 
+											 update="idFormDepositoArchivo"
+											 styleClass="gray-button"/>
+						</p:column>
+						</p:row>
+						</p:panelGrid>
+											 
+				</p:column>
+			</p:row>
+	
+	    </p:panelGrid>
+	</h:form>
+
+	
+</p:panel>
+		
+
+			    <p:dialog id="idDialogConfirDepoArchivo"
+						  modal="true" 
+						  widgetVar="dialogConfirDepositarArchivo" 		
+						  header="#{msg['deposito.archivo.title']}"						  		    	  
+				    	  draggable="false" 
+				    	  closable="false" 
+				    	  resizable="false"	
+				    	  appendTo="@(body)"		
+				    	  width="50%">
+				    	  
+							 <h:form id="idformConfirDeposito">							 
+
+							 					   
+								   <p:dataTable id="idDataTableConfirDepoArchi"
+								   				value="#{depositoArchivoView.obtenerArchivosDepositar()}"
+								   				var="_depositoArchivo"
+                          						tableStyleClass="table-style">
+                          					                          						
+											 <p:column headerText="#{msg['deposito.archivo.table.column.archivo']}">											 
+													<h:outputText value="#{_depositoArchivo.archivo.fileName}" />												
+											 </p:column>
+								
+											 <p:column headerText="#{msg['deposito.archivo.table.column.descripcion']}">											
+													<h:outputText value="#{_depositoArchivo.descripcion}" />													
+											 </p:column>                          						
+                          					                          					
+                          			</p:dataTable>
+                          			
+                          			
+									<p:panelGrid style="width:100%;">
+									<p:row style="text-align:right;">
+									<p:column>
+							
+										<p:commandButton id="idCommBtoAceptar"
+														 value="#{msg['general.button.submit']}" 
+														 actionListener="#{depositoArchivoView.depositar}"
+														 update="idFormDepositoArchivo"
+														 onstart="PF('dialogConfirDepositarArchivo').hide();PF('dialogDepositandoBar').show();"
+														 oncomplete="setTimeout(function(){ PF('dialogDepositandoBar').hide()},1000);"
+														 styleClass="blue-button"/>
+<!-- 									</p:column> -->
+										<p:spacer width="5px;" />
+<!-- 									<p:column> -->
+										<p:commandButton id="idCommBtoCancelar"
+														 value="#{msg['general.button.cancel']}"
+														 onclick="PF('dialogConfirDepositarArchivo').hide();"
+														 styleClass="gray-button"/>
+									</p:column>
+									</p:row>
+									</p:panelGrid>                          			
+                          			
+                          			
+                          	</h:form>
+                          	
+                   </p:dialog>       						
+		
+
+
+				<p:dialog id="idDialogDepositandoBar"
+						  modal="true" 
+						  widgetVar="dialogDepositandoBar" 				    	  
+				    	  draggable="false" 
+				    	  closable="false" 
+				    	  resizable="false"	
+				    	  appendTo="@(body)"
+				    	  width="300"
+						  height="25" 	
+						  showHeader="false"							  						  	    	  			    	  
+				    	  >
+				    	  
+			    		   	<div align="center"> 
+			    		   	<h:outputText value="Depositando los archivos..."  styleClass="outputTextGeneric" /> 			
+			    		   	<br/>				
+							<h:graphicImage  value="/core/static/images/loading-bar.gif" width="150"  />
+							</div>
+				
+				</p:dialog>	
+
+				<p:dialog id="idDialogValidandoBar"
+						  modal="true" 
+						  widgetVar="dialogValidandoBar" 				    	  
+				    	  draggable="false" 
+				    	  closable="false" 
+				    	  resizable="false"	
+				    	  appendTo="@(body)"
+				    	  width="300"
+						  height="25" 	
+						  showHeader="false"							  						  	    	  			    	  
+				    	  >
+				    	  
+			    		   	<div align="center"> 
+			    		   	<h:outputText value="Validando archivos..."  styleClass="outputTextGeneric" /> 			
+			    		   	<br/>				
+							<h:graphicImage  value="/core/static/images/loading-bar.gif" width="150"  />
+							</div>
+				
+				</p:dialog>	
+
+</ui:define>
+</ui:composition>
+</html>

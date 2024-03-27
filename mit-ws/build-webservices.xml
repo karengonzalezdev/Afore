@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="ws-publisher" default="codegen">
+
+	<property file="build-webservices.properties" />
+
+	<property name="base.dir" location="." />
+
+	<!-- 
+	   From jeveris-codegen project. 
+	   Requires definition of "codegen.project.dir"
+	   Defines "template.dir"
+	-->
+	<import file="${codegen.project.dir}/codegen-3.2.0.RELEASE.xml" />
+	
+	<path id="project.class.path">
+		<path path="${runtime-classpath}" />
+	</path>
+
+	<!-- Source code -->
+	<property name="java.dir" location="src/main/java" />
+	<!-- Generated code -->
+	<property name="target.dir" location="target" />
+	<property name="java-gen.dir" location="${target.dir}/codegen/webservices/src/main/java-gen" />
+	<target name="codegen" description="Code Generation">
+
+		<mkdir dir="${java-gen.dir}" />
+
+		<codegen type="reflect" encoding="UTF-8" locale="en">
+			<fileset dir="${java.dir}">
+				<include name="**/ws/service/**/*Service.java"/>
+			</fileset>
+			<classpath>
+				<pathelement location="${java.dir}" />
+				<path refid="project.class.path"/>
+			</classpath>
+
+			<template file="${template.dir}/ws-cxf-interface.ftl" todir="${java-gen.dir}">
+				<param name="title" value="${component-title}" />
+				<javamapper from="**/ws/service/**/*Service.java" to="**/ws/webservice/**/*WS.java" />
+			</template>
+						<template file="${template.dir}/ws-cxf-service.ftl" todir="${java-gen.dir}">
+				<param name="title" value="${component-title}" />
+				<javamapper from="**/ws/service/**/*Service.java" to="**/ws/webservice/**/impl/*WSImpl.java" />
+			</template>
+						<template file="${template.dir}/ws-response.ftl" todir="${java-gen.dir}">
+				<param name="title" value="${component-title}" />
+				<javamethodsmapper from="**/ws/service/**/*Service.java" to="**/ws/webservice/**/*WS.java" pattern="[class][method]Response" />
+			</template>
+		</codegen>
+
+	</target>
+
+	<target name="clean" description="Output cleaning">
+		<delete dir="${java-gen.dir}" />
+		</target>
+
+	<target name="clean-codegen" depends="clean, codegen" description="Regenera todo">
+	</target>
+
+</project>

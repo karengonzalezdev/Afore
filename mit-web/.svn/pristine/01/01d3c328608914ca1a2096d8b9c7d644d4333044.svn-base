@@ -1,0 +1,269 @@
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:s="http://www.springframework.org/security/tags">
+
+	<p:idleMonitor timeout="#{session.getMaxInactiveInterval()*1000}">
+		<p:ajax event="idle" listener="#{sessionValidatorView.onIdle}" />
+		<p:ajax event="idle" listener="#{sessionValidatorView.onActive}" />
+	</p:idleMonitor>
+
+	<s:authorize access="isAuthenticated()">
+
+		<header>
+
+			<div class="container">
+				<div class="header-top">
+
+					<div class="header-logo five columns alpha">
+						<a href="http://www.profuturo.mx/"></a>
+					</div>
+
+					<div class="header-search-login">
+
+						<div class=" header-login four columns omega" id="logout">
+							<h:form >
+
+								<h:outputLink value="${request.contextPath}/logout">logout</h:outputLink>
+							</h:form>
+						</div>
+
+
+
+					</div>
+					<div class="header-corporate-menu ten columns right">
+
+
+						<div class="five columns alpha">
+							<div class=" headerItemLinks">
+								<span style="color: #FFF !important; font-weight: bold">
+									#{msg['header.data.usuario']} </span><a href="${request.contextPath}/index.html"
+									style="color: #f6a704 !important; font-weight: bold">#{request.remoteUser}</a>
+							</div>
+
+
+						</div>
+						<div class="five columns omega">
+							<div id="headerDate"
+								style="box-shadow: 0 0 8px #ffffff; color: #f6a704 !important; font-weight: bold">
+								<script>
+									document.write(new Date()
+											.toLocaleDateString('es-MX', {
+												year : 'numeric',
+												month : 'long',
+												day : 'numeric'
+											}));
+								</script>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div class="header-menu twentyfour columns alpha omega">
+					<dl>
+						<dt class="twentyfour columns hidden" id="mobilemenu">ApoVol</dt>
+						<dd></dd>
+					</dl>
+					<ul id="mobiledropdown">
+					<s:authorize access="hasAnyRole('826','481','1089','1103','6110')">
+						<li class="ultimo-li"><a
+							class="wrapper four columns omega section"> <span
+								class="title">#{msg['menu.item1.name']}</span> <img
+								src="#{facesContext.externalContext.requestContextPath}/core/static/tema/img/flecha-azul.png"
+								alt="arrow" class="flecha-azul" />
+						</a>
+							<div class="menu-hover tercer-menu simple columns four">
+								<ul id="submenu1dropdown">
+									<s:authorize access="hasRole('481')">
+										<li>
+											<a href="#{facesContext.externalContext.requestContextPath}/views/depositoArchivo/depositoArchivo.xhtml">#{msg['menu.item1.submenu4.name']}</a>
+										</li>	
+									</s:authorize>
+								</ul>
+								<ul id="submenu1dropdown">
+									<s:authorize access="hasRole('1103')">
+										<li id="elementoSubmenu2">
+										<a href="#{facesContext.externalContext.requestContextPath}/views/domiciliacion/principal.xhtml">#{msg['menu.item1.submenu2.name']}</a>										
+										</li>
+									</s:authorize>
+								</ul>
+								<ul id="submenu1dropdown">
+									<s:authorize access="hasRole('826')">
+										<li id="elementoSubmenu1">
+										<a href="#{facesContext.externalContext.requestContextPath}/views/movimientos/consultarMovimientos.xhtml">#{msg['menu.item1.submenu1.name']}</a>										
+										</li>
+									</s:authorize>
+								</ul>
+								<ul id="submenu1dropdown">
+									<s:authorize access="hasRole('1089')">
+										<li id="elementoSubmenu1">
+										<a href="#{facesContext.externalContext.requestContextPath}/views/apovol-spei/identificacioncliente.xhtml">#{msg['menu.item3.submenu1.name']}</a>										
+										</li>
+									</s:authorize>
+								</ul>
+								<ul id="submenu1dropdown">
+									<s:authorize access="hasRole('6110')">
+										<li id="elementoSubmenu1">
+										<a href="#{facesContext.externalContext.requestContextPath}/views/cifrasControl/cifrasControlCliente.xhtml">Cifras control por cliente</a>										
+										</li>
+									</s:authorize>
+								</ul>
+								
+								<ul id="submenu1dropdown">
+									<s:authorize access="hasRole('9488')">
+										<li id="elementoSubmenu1">
+<!-- 									Parametrizacion Intentos Carga	 -->
+										<a href="#{facesContext.externalContext.requestContextPath}/views/domiciliacion/parametrizacionIntentosCarga.xhtml">#{msg['menu.item1.submenu7.name']}</a>										
+										</li>
+									</s:authorize>
+								</ul> 
+							</div></li>
+					</s:authorize>
+					
+					<s:authorize access="hasAnyRole('1086','1087','1088')">
+					<li class="ultimo-li"><a
+							class="wrapper four columns omega section"> <span
+								class="title">#{msg['menu.item2.name']}</span> <img
+								src="#{facesContext.externalContext.requestContextPath}/core/static/tema/img/flecha-azul.png"
+								alt="arrow" class="flecha-azul" />
+						</a>
+							<div class="menu-hover tercer-menu simple columns four">
+								<ul id="submenu2_1dropdown">
+ 									<s:authorize access="hasRole('1086')">
+ 										<li id="elementoSubmenu1">
+										<a href="#{facesContext.externalContext.requestContextPath}/views/traspasos/monitoreoCargos.xhtml">#{msg['menu.item2.submenu1.name']}</a>										
+										</li>
+ 									</s:authorize>
+ 								</ul>
+								<ul id="submenu2_2dropdown">
+									<s:authorize access="hasRole('1087')">
+ 										<li id="elementoSubmenu2">
+										<a href="#{facesContext.externalContext.requestContextPath}/views/traspasos/inversionDomiciliacion.xhtml">#{msg['menu.item2.submenu2.name']}</a>										
+										</li>
+ 									</s:authorize>
+ 								</ul>
+ 								<ul id="submenu2_3dropdown">
+ 									<s:authorize access="hasRole('1088')">
+ 										<li id="elementoSubmenu2">
+										<a href="#{facesContext.externalContext.requestContextPath}/views/traspasos/detalleMes.xhtml">#{msg['menu.item2.submenu3.name']}</a>										
+										</li>
+ 									</s:authorize>
+ 								</ul>
+							</div></li>
+					</s:authorize>
+					
+					<s:authorize access="hasAnyRole('1090','1085')">
+ 						<li class="ultimo-li"><a
+							class="wrapper four columns omega section"> <span
+								class="title">#{msg['menu.item5.name']}</span> <img
+								src="#{facesContext.externalContext.requestContextPath}/core/static/tema/img/flecha-azul.png"
+								alt="arrow" class="flecha-azul" />
+						</a>
+							<div class="menu-hover tercer-menu simple columns four">
+								<ul id="submenu1dropdown">
+									<s:authorize access="hasRole('1090')">
+										<li id="elementoSubmenu1">
+										<a href="#{facesContext.externalContext.requestContextPath}/views/aforeMovil/consultaMontosAforeMovil.xhtml">#{msg['menu.item4.submenu1.name']}</a>										
+										</li>
+									</s:authorize>
+									<s:authorize access="hasRole('1085')">							
+										<li id="elementoSubmenu3_1">
+											<a href="#{facesContext.externalContext.requestContextPath}/views/aforeMovil/configMinimosAfiliadoIndependiente.xhtml">#{msg['menu.item5.submenu2.name']}</a>										
+										</li>
+									</s:authorize>
+								</ul>
+							</div>
+						</li>
+					</s:authorize>
+					
+					
+					<s:authorize access="hasAnyRole('1091','1100','1086')">
+ 						<li class="ultimo-li"><a
+							class="wrapper four columns omega section"> <span
+								class="title">#{msg['menu.item4.name']}</span> <img
+								src="#{facesContext.externalContext.requestContextPath}/core/static/tema/img/flecha-azul.png"
+								alt="arrow" class="flecha-azul" />
+						</a>
+							<div class="menu-hover tercer-menu simple columns four">
+								<ul id="submenu2_4dropdown">
+ 									<s:authorize access="hasRole('1091')">
+ 										<li id="elementoSubmenu2">
+										<a href="#{facesContext.externalContext.requestContextPath}/views/traspasos/monitoreoSolicitudes.xhtml">#{msg['menu.item2.submenu4.name']}</a>										
+										</li>
+ 									</s:authorize>
+ 								</ul>
+ 								<ul id="submenudropdown">
+									<s:authorize access="hasRole('1100')">
+										<li id="elementoSubmenu3">
+										<a href="#{facesContext.externalContext.requestContextPath}/views/domiciliacion/consultaDomiciliacion.xhtml">#{msg['menu.item1.submenu3.name']}</a>										
+										</li>
+									</s:authorize>
+								</ul> 
+								
+																
+ 								<ul id="submenudropdown">
+									<s:authorize access="hasRole('1086')">
+										<li id="elementoSubmenu4">
+<!-- 																																			Consulta de Cargos	 -->
+										<a href="#{facesContext.externalContext.requestContextPath}/views/monitoreos/consultaCargo.xhtml">#{msg['menu.item1.submenu6.name']}</a>										
+										</li>
+									</s:authorize>
+								</ul> 								
+							</div>
+						</li>
+					</s:authorize>	
+					
+					<s:authorize access="hasAnyRole('1091','2432','8494')">
+ 						<li class="ultimo-li">
+ 							<a class="wrapper four columns omega section"> 
+ 								<span class="title">#{msg['menu.item6.name']}</span> 
+ 								<img src="#{facesContext.externalContext.requestContextPath}/core/static/tema/img/flecha-azul.png"
+										alt="arrow" class="flecha-azul" />
+							</a>
+							<div class="menu-hover tercer-menu simple columns four">
+								<ul id="submenu2_4dropdown">
+ 									<s:authorize access="hasAnyRole('1091','2432')">
+ 										<li id="elementoSubmenu2">
+										<a href="#{facesContext.externalContext.requestContextPath}/views/cif/consultaMovimientosCif.xhtml">#{msg['menu.item6.submenu1.name']}</a>										
+										</li>
+ 									</s:authorize>
+ 								</ul>
+								<ul id="submenu3_4dropdownDev">
+ 									<s:authorize access="hasAnyRole('8494')">
+ 										<li id="elementoSubmenu3Dev">
+										<a href="#{facesContext.externalContext.requestContextPath}/views/cif/devolucionesMovimientosCif.xhtml">#{msg['menu.item6.submenu2.dev.name']}</a>										
+										</li>
+ 									</s:authorize>
+ 								</ul> 		
+ 							    <ul id="submenu4_4dropdownDev">
+ 									<s:authorize access="hasAnyRole('8577')">
+ 										<li id="elementoSubmenu4Dev">
+										<a href="#{facesContext.externalContext.requestContextPath}/views/cif/autorizaDevolucionesCif.xhtml">#{msg['menu.item6.submenu3.dev.name']}</a>										
+										</li>
+ 									</s:authorize>
+ 								</ul> 	
+ 							    <ul id="submenu5_4dropdownDev">
+ 									<s:authorize access="hasAnyRole('8596')">
+ 										<li id="elementoSubmenu4Dev">
+										<a href="#{facesContext.externalContext.requestContextPath}/views/cif/seguimientoDevolucionesCif.xhtml">#{msg['menu.item6.submenu4.dev.name']}</a>										
+										</li>
+ 									</s:authorize>
+ 								</ul> 	 								
+							</div>
+
+						</li>
+					</s:authorize>	
+						 
+					</ul>
+				</div>
+			</div>
+		</header>
+
+	</s:authorize>
+
+
+</ui:component>
+

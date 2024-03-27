@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8"?><!--File ConciliacionService/ConciliacionService.xsd, shared library Lib_NCI_MM--><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://mx.profuturo/iib/apovol/Conciliacion/ConciliacionService/v1/types" version="1.0" xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" xmlns:mod="http://mx.profuturo/nci/modelo" xmlns:tns="http://mx.profuturo/iib/apovol/Conciliacion/ConciliacionService/v1/types">
+
+	<xsd:import namespace="http://mx.profuturo/nci/modelo" schemaLocation="ConciliacionService.2.xsd"/>
+
+	<xsd:element ibmSchExtn:docRoot="true" name="consultarArchivosPorConciliarRequest" type="tns:consultarArchivosPorConciliarReq"/>
+	<xsd:element ibmSchExtn:docRoot="true" name="consultarArchivosPorConciliarResponse" type="tns:consultarArchivosPorConciliarResp"/>
+	<xsd:element ibmSchExtn:docRoot="true" name="consultarArchivosBancariosRequest" type="tns:consultarArchivosBancariosReq"/>
+	<xsd:element ibmSchExtn:docRoot="true" name="consultarArchivosBancariosResponse" type="tns:consultarArchivosBancariosResp"/>
+	<xsd:element ibmSchExtn:docRoot="true" name="consultarAportacionesConciliadasRequest" type="tns:consultarAportacionesConciliadasReq"/>
+	<xsd:element ibmSchExtn:docRoot="true" name="consultarAportacionesConciliadasResponse" type="tns:consultarAportacionesConciliadasResp"/>
+	<xsd:element ibmSchExtn:docRoot="true" name="conciliarRequest" type="tns:conciliarReq"/>
+	<xsd:element ibmSchExtn:docRoot="true" name="conciliarResponse" type="tns:conciliarResp"/>
+	<xsd:element ibmSchExtn:docRoot="true" name="consultarArchivosNoConciliadosRequest" type="tns:consultarArchivosNoConciliadosReq"/>
+	<xsd:element ibmSchExtn:docRoot="true" name="consultarArchivosNoConciliadosResponse" type="tns:consultarArchivosNoConciliadosResp"/>
+	<xsd:element ibmSchExtn:docRoot="true" name="consultarMovimientosNoConciliadosRequest" type="tns:consultarMovimientosNoConciliadosReq"/>
+	<xsd:element ibmSchExtn:docRoot="true" name="consultarMovimientosNoConciliadosResponse" type="tns:consultarMovimientosNoConciliadosResp"/>
+	<xsd:element ibmSchExtn:docRoot="true" name="asociarMovimientosConArchivoRequest" type="tns:asociarMovimientosConArchivoReq"/>
+	<xsd:element ibmSchExtn:docRoot="true" name="asociarMovimientosConArchivoResponse" type="tns:asociarMovimientosConArchivoResp"/>
+	<xsd:element ibmSchExtn:docRoot="true" name="consultarConciliacionRequest" type="tns:consultarConciliacionReq"/>
+	<xsd:element ibmSchExtn:docRoot="true" name="consultarConciliacionResponse" type="tns:consultarConciliacionResp"/>
+	<xsd:element ibmSchExtn:docRoot="true" name="actualizarConciliacionRequest" type="tns:actualizarConciliacionReq"/>
+	<xsd:element ibmSchExtn:docRoot="true" name="actualizarConciliacionResponse" type="tns:actualizarConciliacionResp"/>
+	<xsd:element ibmSchExtn:docRoot="true" name="consultarFoliosPorConciliarRequest" type="tns:consultarFoliosPorConciliarReq"/>
+	<xsd:element ibmSchExtn:docRoot="true" name="consultarFoliosPorConciliarResponse" type="tns:consultarFoliosPorConciliarResp"/>
+	<xsd:element ibmSchExtn:docRoot="true" name="consultarCuantosRegistrosRequest" type="tns:consultarCuantosRegistrosReq"/>
+	<xsd:element ibmSchExtn:docRoot="true" name="consultarCuantosRegistrosResponse" type="tns:consultarCuantosRegistrosResp"/>
+	<xsd:element ibmSchExtn:docRoot="true" name="liberarMovimientosRequest" type="tns:LiberarMovimientosReq"/>
+	<xsd:element ibmSchExtn:docRoot="true" name="liberarMovimientosResponse" type="tns:LiberarMovimientosResp"/>
+
+
+
+	<xsd:element name="guardarPagoApovolRequest" type="tns:guardarPagoApovolReq"/>
+
+	<xsd:complexType name="guardarPagoApovolReq">
+		<xsd:sequence>
+			<xsd:element name="claveBanco" type="xsd:short"/>
+			<xsd:element minOccurs="0" name="diversificaciones" type="tns:ListaDiversificaciones"/>
+			<xsd:element name="importe" type="xsd:decimal"/>
+			<xsd:element name="cuentaIndividual" type="xsd:string"/>
+			<xsd:element name="nombre" type="xsd:string"/>
+			<xsd:element name="apPaterno" type="xsd:string"/>
+			<xsd:element name="apMaterno" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="nss" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="curp" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="rfc" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="origenAportacion" type="xsd:short"/>
+			<xsd:element minOccurs="0" name="estatusConciliado" type="xsd:short"/>
+			<xsd:element minOccurs="0" name="claveSolicitud" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="movGenerado" type="xsd:short"/>
+			<xsd:element minOccurs="0" name="usuario" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="referenciaSubcuentaApovol" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="correoElectronico" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="celular" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	<xsd:complexType name="consultarArchivosPorConciliarReq">
+		<xsd:sequence>
+			<xsd:element minOccurs="1" name="idEstatusArchivo" type="xsd:short"/>
+			<xsd:element minOccurs="0" name="origenesAportacion" type="tns:ListaOrigenesAportacion"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ListaOrigenesAportacion">
+		<xsd:sequence>
+			<xsd:element maxOccurs="unbounded" name="idOrigenAportacion" type="xsd:short"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="consultarArchivosPorConciliarResp">
+		<xsd:complexContent>
+			<xsd:extension base="mod:ResponseBase">
+				<xsd:sequence>
+					<xsd:element minOccurs="0" name="archivosPorConciliar" type="tns:ListaArchivosPorConciliar"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="consultarArchivosBancariosReq">
+		<xsd:sequence>
+			<xsd:element minOccurs="1" name="idEstatusArchivo" type="xsd:short"/>
+			<xsd:element minOccurs="0" name="idOrigenAportacion" type="xsd:short"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="consultarArchivosBancariosResp">
+		<xsd:complexContent>
+			<xsd:extension base="mod:ResponseBase">
+				<xsd:sequence>
+					<xsd:element minOccurs="0" name="archivosBancarios" type="tns:ListaArchivosBancarios"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="consultarAportacionesConciliadasReq">
+		<xsd:sequence>
+			<xsd:element name="idOrigen" type="xsd:int"/>
+			<xsd:element name="esConciliado" type="xsd:short"/> 
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="consultarAportacionesConciliadasResp">
+		<xsd:complexContent>
+			<xsd:extension base="mod:ResponseBase">
+				<xsd:sequence>
+					<xsd:element minOccurs="0" name="aportacionesConciliadas" type="tns:ListaAportacionesConciliadas"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="conciliarReq">
+		<xsd:sequence>
+			<xsd:element name="folioConciliacion" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="conciliarResp">
+		<xsd:complexContent>
+			<xsd:extension base="mod:ResponseBase">
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="consultarArchivosNoConciliadosReq">
+	</xsd:complexType>
+
+	<xsd:complexType name="consultarArchivosNoConciliadosResp">
+		<xsd:complexContent>
+			<xsd:extension base="mod:ResponseBase">
+				<xsd:sequence>
+					<xsd:element minOccurs="0" name="archivosNoConciliados" type="tns:ListaArchivosNoConciliados"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="consultarMovimientosNoConciliadosReq">
+	</xsd:complexType>
+
+	<xsd:complexType name="consultarMovimientosNoConciliadosResp">
+		<xsd:complexContent>
+			<xsd:extension base="mod:ResponseBase">
+				<xsd:sequence>
+					<xsd:element minOccurs="0" name="movimientosNoConciliados" type="tns:ListaMovimientosNoConciliados"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="asociarMovimientosConArchivoReq">
+		<xsd:sequence>
+			<xsd:element name="folioArchivo" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="folioConciliacion" type="xsd:string"/>
+			<xsd:element name="importe" type="xsd:decimal"/>
+			<xsd:element name="movimientosPorAsociar" type="tns:ListaMovimientosPorAsociar"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="asociarMovimientosConArchivoResp">
+		<xsd:complexContent>
+			<xsd:extension base="mod:ResponseBase">
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="MovimientoPorAsociar">
+		<xsd:sequence>
+			<xsd:element name="folio" type="xsd:string"/>
+			<xsd:element name="codigoMovimiento" type="xsd:string"/>
+			<xsd:element name="importe" type="xsd:decimal"/>
+			<xsd:element name="idMovBanco" type="xsd:integer"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ListaMovimientosPorAsociar">
+		<xsd:sequence>
+			<xsd:element maxOccurs="unbounded" name="movimientoPorAsociar" type="tns:MovimientoPorAsociar"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ArchivoPorConciliar">
+		<xsd:sequence>
+			<xsd:element name="folio" type="xsd:string"/>
+			<xsd:element name="nombre" type="xsd:string"/>
+			<xsd:element name="origenArchivo" type="xsd:string"/>
+			<xsd:element name="origenDetalle" type="xsd:string"/>
+			<xsd:element name="estatusArchivo" type="xsd:string"/>
+			<xsd:element name="fechaRecepcion" type="xsd:dateTime"/>
+			<xsd:element name="fechaUltimoEstatus" type="xsd:dateTime"/>
+			<xsd:element name="idArchivo" type="xsd:long"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ListaArchivosPorConciliar">
+		<xsd:sequence>
+			<xsd:element maxOccurs="unbounded" name="archivoPorConciliar" type="tns:ArchivoPorConciliar"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ArchivoBancario">
+		<xsd:sequence>
+			<xsd:element name="folio" type="xsd:string"/>
+			<xsd:element name="nombre" type="xsd:string"/>
+			<xsd:element name="origenDetalle" type="xsd:string"/>
+			<xsd:element name="fechaRecepcion" type="xsd:dateTime"/>
+			<xsd:element name="fechaUltimoEstatus" type="xsd:dateTime"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ListaArchivosBancarios">
+		<xsd:sequence>
+			<xsd:element maxOccurs="unbounded" name="archivoBancario" type="tns:ArchivoBancario"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="AportacionConciliada">
+		<xsd:sequence>
+			<xsd:element name="folio" type="xsd:string"/>
+			<xsd:element name="nombreCliente" type="xsd:string"/>
+			<xsd:element name="fechaRecepcion" type="xsd:dateTime"/>
+			<xsd:element name="fechaUltimoEstatus" type="xsd:dateTime"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ListaAportacionesConciliadas">
+		<xsd:sequence>
+			<xsd:element maxOccurs="unbounded" name="aportacionConciliada" type="tns:AportacionConciliada"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ArchivoNoConciliado">
+		<xsd:sequence>
+			<xsd:element name="folio" type="xsd:string"/>
+			<xsd:element name="origen" type="xsd:string"/>
+			<xsd:element name="origenDetalle" type="xsd:string"/>
+			<xsd:element name="monto" type="xsd:string"/> 
+			<xsd:element name="estatus" type="xsd:short"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ListaArchivosNoConciliados">
+		<xsd:sequence>
+			<xsd:element maxOccurs="unbounded" name="archivoNoConciliado" type="tns:ArchivoNoConciliado"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="MovimientoNoConciliado">
+		<xsd:sequence>
+			<xsd:element name="folio" type="xsd:string"/>
+			<xsd:element name="referenciaCuenta" type="xsd:string"/>
+			<xsd:element name="codigoMovimiento" type="xsd:string"/>
+			<xsd:element name="importe" type="xsd:string"/> 
+			<xsd:element name="claveBanco" type="xsd:string"/>
+			<xsd:element name="fechaCarga" type="xsd:dateTime"/>
+			<xsd:element name="origenAportacion" type="xsd:string"/>
+			<xsd:element name="cuentaIndividual" type="xsd:string"/>
+			<xsd:element name="curp" type="xsd:string"/>
+			<xsd:element name="idMovBanco" type="xsd:integer"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ListaMovimientosNoConciliados">
+		<xsd:sequence>
+			<xsd:element maxOccurs="unbounded" name="movimientoNoConciliado" type="tns:MovimientoNoConciliado"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="consultarConciliacionReq">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" name="numeroCuenta" type="mod:numeroCuenta"/>
+			<xsd:element minOccurs="0" name="folio" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="estado" type="xsd:string"/> 
+			<xsd:element minOccurs="0" name="claveSolicitud" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="idEstatusTramite" type="xsd:int"/>
+			<xsd:element minOccurs="0" name="idOrigenAportacion" type="xsd:int"/>
+			<xsd:element minOccurs="0" name="curp" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="movimientoGenerado" type="xsd:short"/>
+			<xsd:element minOccurs="0" name="tipoAhorrador" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="consultarConciliacionResp">
+		<xsd:complexContent>
+			<xsd:extension base="mod:ResponseBase">
+				<xsd:sequence>
+					<xsd:element minOccurs="0" name="conciliaciones" type="tns:ListaConciliacion"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="actualizarConciliacionReq">
+		<xsd:sequence>
+			<xsd:element name="conciliacion" type="tns:Conciliacion"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="actualizarConciliacionResp">
+		<xsd:complexContent>
+			<xsd:extension base="mod:ResponseBase">
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="ListaDiversificaciones">
+		<xsd:sequence>
+			<xsd:element maxOccurs="unbounded" minOccurs="0" name="diversificacion" type="tns:Diversificacion"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="Diversificacion">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" name="fondo" type="tns:Catalogo"/>
+			<xsd:element minOccurs="0" name="monto" type="xsd:decimal"/>
+			<xsd:element minOccurs="0" name="porcentaje" type="xsd:decimal"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Catalogo">
+		<xsd:sequence>
+			<xsd:element name="idCatalogo" type="xsd:short"/>
+			<xsd:element minOccurs="0" name="descCatalogo" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="Conciliacion">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" name="folio" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="numeroOrden" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="usuario" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="fechaActualizacion" type="xsd:dateTime"/>
+			<xsd:element minOccurs="0" name="apMaternoCliente" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="apPaternoCliente" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="celular" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="claveBanco" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="claveRedComercial" type="tns:Catalogo"/>
+			<xsd:element minOccurs="0" name="claveSolicitud" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="correoElectronico" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="cuentaBanco" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="curp" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="diversificaciones" type="tns:ListaDiversificaciones"/>
+			<xsd:element minOccurs="0" name="empresa" type="tns:Catalogo"/>
+			<xsd:element minOccurs="0" name="estatusTramite" type="tns:Catalogo"/>
+			<xsd:element minOccurs="0" name="fechaCargaArchivo" type="xsd:dateTime"/>
+			<xsd:element minOccurs="0" name="fechaCreacion" type="xsd:dateTime"/>
+			<xsd:element minOccurs="0" name="fechaPagoApovol" type="xsd:dateTime"/>
+			<xsd:element minOccurs="0" name="fechaValorApovol" type="xsd:dateTime"/>
+			<xsd:element minOccurs="0" name="folioProcesar" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="folioTransaccion" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="idConciliacion" type="xsd:int"/>
+			<xsd:element minOccurs="0" name="importe" type="xsd:decimal"/>
+			<xsd:element minOccurs="0" name="movimiento" type="xsd:long"/>
+			<xsd:element minOccurs="0" name="movimientoGenerado" type="xsd:short"/>
+			<xsd:element minOccurs="0" name="nombreCliente" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="nss" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="numeroCuentaIndividual" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="numeroEmpleado" type="xsd:int"/>
+			<xsd:element minOccurs="0" name="numeroPago" type="xsd:int"/>
+			<xsd:element minOccurs="0" name="origenAportacion" type="tns:Catalogo"/>
+			<xsd:element minOccurs="0" name="referenciaSubcuentaApovol" type="xsd:int"/>
+			<xsd:element minOccurs="0" name="registroConciliado" type="xsd:short"/>
+			<xsd:element minOccurs="0" name="rfc" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="sucursal" type="xsd:long"/>
+			<xsd:element minOccurs="0" name="tipoAportacion" type="xsd:short"/>
+			<xsd:element minOccurs="0" name="tipoNomina" type="tns:Catalogo"/>
+			<xsd:element minOccurs="0" name="folioConciliacion" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ListaConciliacion">
+		<xsd:sequence>
+			<xsd:element maxOccurs="unbounded" name="conciliacion" type="tns:Conciliacion"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="consultarFoliosPorConciliarReq">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" name="idEstatusTramite" type="xsd:short"/>
+			<xsd:element minOccurs="0" name="idOrigenAportacion" type="xsd:short"/>
+			<xsd:element minOccurs="0" name="movGenerado" type="xsd:short"/>
+			<xsd:element minOccurs="0" name="regConciliado" type="xsd:short"/>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="consultarFoliosPorConciliarResp">
+		<xsd:complexContent>
+			<xsd:extension base="mod:ResponseBase">
+				<xsd:sequence>
+					<xsd:element minOccurs="0" name="folios">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element maxOccurs="unbounded" minOccurs="0" name="folio" type="xsd:string"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="consultarCuantosRegistrosReq">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" name="claveSolicitud" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="curp" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="folio" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="idEstatusTramite" type="xsd:short"/>
+			<xsd:element minOccurs="0" name="idOrigenAportacion" type="xsd:short"/>
+			<xsd:element minOccurs="0" name="movimientoGenerado" type="xsd:short"/>
+			<xsd:element minOccurs="0" name="numCuentaIndividual" type="xsd:long"/>
+			<xsd:element minOccurs="0" name="registroConciliado" type="xsd:short"/>
+			<xsd:element minOccurs="0" name="tipoAhorrador" type="xsd:string"/>
+
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="consultarCuantosRegistrosResp">
+		<xsd:complexContent>
+			<xsd:extension base="mod:ResponseBase">
+				<xsd:sequence>
+					<xsd:element minOccurs="0" name="numRegistros" type="xsd:int"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="LiberarMovimientosReq">
+		<xsd:sequence>
+			<xsd:element name="listaCurp" type="tns:ListaCurp"/>
+			<xsd:element name="usuario" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ListaCurp">
+		<xsd:sequence>
+			<xsd:element maxOccurs="unbounded" name="curp" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="LiberarMovimientosResp">
+		<xsd:complexContent>
+			<xsd:extension base="mod:ResponseBase">
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+
+</xsd:schema>

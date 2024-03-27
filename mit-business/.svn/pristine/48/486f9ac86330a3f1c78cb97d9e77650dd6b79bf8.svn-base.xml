@@ -1,0 +1,494 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mx.profuturo.nci.persistence.ArchivoDomiPersistence">
+
+
+	<resultMap id="CatPrioridadResultMap" type="mx.profuturo.nci.business.vo.CatPrioridadesDiversificacionesVO">
+		<id 	column="FTN_ID_CAT_PRIORIDAD" 	property="idCatPrioridad" 		jdbcType="DECIMAL" />
+		<result column="FCN_ID_TIPO_CAT" 		property="idTipoCat" 			jdbcType="DECIMAL" />
+		<result column="FCN_ID_CAT_CATALOGO"	property="idCatCatalogo" 		jdbcType="DECIMAL" />
+		<result column="FTN_ID_PRIORIDAD"		property="idPrioridad" 			jdbcType="DECIMAL" />
+		<result column="FCC_DESC" 				property="descDiversiicacion"	jdbcType="VARCHAR"/>
+	</resultMap>
+
+
+	<resultMap id="BaseResultMap" type="mx.profuturo.nci.business.vo.ArchivosGeneradosVO">
+		<id column="FLN_ID_ARCHIVO_DOMI" property="idArchivo" jdbcType="DECIMAL" />
+		<result column="FLD_FEH_INI_GEN" property="fechaInicio" jdbcType="TIMESTAMP" />
+		<result column="FLD_FEH_FIN_GEN" property="fechaFin" jdbcType="TIMESTAMP" />
+		<result column="FLC_NOMBRE_ARCHIVO" property="nombreArchivo" jdbcType="VARCHAR"/>
+
+		<association property="estatus"
+					resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericEstatus" />
+		<association property="tipoCuenta"
+					resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericCtTipoCuenta" />
+		<association property="claveBanco"
+					resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericClaveBanco" />
+		<association property="tipoArchivo"
+					resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericTipoArchivoDomi" />
+	</resultMap>
+	<resultMap id="CompleteResultMap" type="mx.profuturo.nci.business.vo.ArchivosGeneradosVO" extends="BaseResultMap">
+		<collection property="detalles " javaType="ArrayList" 
+			ofType="mx.profuturo.nci.business.vo.DetalleArchivoDomiVO"
+			resultMap="mx.profuturo.nci.persistence.DetalleArchivoDomiPersistence.ResultMapDetalleArchivoDomi">
+		</collection>
+	</resultMap>
+	
+	<!-- MAPS ARCHIVOS DOMICILIACION -->
+	<resultMap id="archivosDomiciliacionResultMap" type="mx.profuturo.nci.business.vo.ArchivosDomiciliacionVO">
+		<result	column="FLN_ID_ARCHIVO_DOMI" 		property="idArchivoDomi" 		jdbcType="VARCHAR" />
+		<result column="FLC_NOMBRE_ARCHIVO" 		property="nombreArchivo" 		jdbcType="VARCHAR" />
+		<result column="FLD_FEH_INI_GEN"			property="fechIniGen" 			jdbcType="VARCHAR" />
+		<result column="FLD_FEH_FIN_GEN"			property="fechFinGen" 			jdbcType="VARCHAR" />
+		<result column="FLN_ESTATUS" 				property="estatus"				jdbcType="VARCHAR" />
+		<result column="FTN_CVE_BANCO" 				property="cveBanco"				jdbcType="VARCHAR" />
+		<result column="NOMBRE_BANCO" 				property="nomBanco"				jdbcType="VARCHAR" />
+		<result column="FLD_FEH_CRE" 				property="fechCre"				jdbcType="VARCHAR" />
+		<result column="FLC_USU_CRE" 				property="usuCre"				jdbcType="VARCHAR" />
+		<result column="FLD_FEH_ACT" 				property="fechAct"				jdbcType="VARCHAR" />
+		<result column="FLC_USU_ACT" 				property="usuAct"				jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<!-- MAPS ARCHIVOS DOMICILIACION BITACORA -->
+	<resultMap id="archivosDomiciliacionBitacoraResultMap" type="mx.profuturo.nci.business.vo.ArchivosDomiciliacionBitacoraVO">
+		<result	column="FTN_ID_DOMIS" 			property="idDomis" 			jdbcType="VARCHAR" />
+		<result column="FTC_FOLIO" 				property="folio" 			jdbcType="VARCHAR" />
+		<result column="FTN_ID_ARCHIVO"			property="idArchivo" 		jdbcType="VARCHAR" />
+		<result column="FTN_ID_TIPO_CONTRATO"	property="idTipoContrato" 	jdbcType="VARCHAR" />
+		<result column="TIPO_CONTRATO" 			property="tipoContrato"		jdbcType="VARCHAR" />
+		<result column="FTN_ID_ESTATUS" 		property="idEstatus"		jdbcType="VARCHAR" />
+		<result column="ESTATUS" 				property="estatus"			jdbcType="VARCHAR" />
+		<result column="FTN_ID_TIPO_ARCHIVO" 	property="idTipoArchivo"	jdbcType="VARCHAR" />
+		<result column="TIPO_ARCHIVO" 			property="tipoArchivo"		jdbcType="VARCHAR" />
+		<result column="FTN_ID_BANCO" 			property="idBanco"			jdbcType="VARCHAR" />
+		<result column="BANCO" 					property="banco"			jdbcType="VARCHAR" />
+		<result column="FTN_ID_ARCH_BANCO" 		property="idArchBanco"		jdbcType="VARCHAR" />
+		<result column="ARCH_BANCO" 			property="archBanco"		jdbcType="VARCHAR" />
+		<result column="FTN_ID_TIPO_CTA" 		property="idTipoCta"		jdbcType="VARCHAR" />
+		<result column="TIPO_CTA" 				property="tipoCta"			jdbcType="VARCHAR" />
+		<result column="FTC_NOMBRE_ARCHIVO" 	property="nombreArchivo"	jdbcType="VARCHAR" />
+		<result column="FTC_MSG" 				property="msg"				jdbcType="VARCHAR" />
+		<result column="FTC_RUTA" 				property="ruta"				jdbcType="VARCHAR" />
+		<result column="FTN_ARCH_GENERADO" 		property="archGenerado"		jdbcType="VARCHAR" />
+		<result column="FTD_FEH_CRE" 			property="fechCre"			jdbcType="VARCHAR" />
+		<result column="FTC_USU_CRE" 			property="usuCre"			jdbcType="VARCHAR" />
+		<result column="FTD_FEH_ACT" 			property="fechAct"			jdbcType="VARCHAR" />
+		<result column="FTC_USU_ACT" 			property="usuAct"			jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap id="consultarFechaFormatoDomiResultMap" type="mx.profuturo.nci.business.vo.FechaArchivoDomiVO">
+		<result column="FECHA_ARCHIVO" 			property="fecha"			jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap id="consultarConsecutivosResultMap" type="mx.profuturo.nci.business.vo.ConsecutivosDomiVO">
+		<result column="VALOR" 					property="valor"			jdbcType="VARCHAR" />
+	</resultMap>
+
+	<resultMap id="obtenerRegistrosMaximosArchivoResultMap" type="mx.profuturo.nci.business.vo.RegistrosMaxArchVO">
+		<result column="FCC_VALOR" 				property="cantidad"		jdbcType="VARCHAR" />
+		<result column="FCC_DESC" 				property="descripcion"	jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap id="ResultMapRegistrosArchivo"
+			   type="mx.profuturo.nci.business.vo.RegistrosArchivoVO">
+			   
+			<result column="FTC_FOLIO" 					property="folio" 				jdbcType="VARCHAR" />
+			<result column="ID_ARCHIVO" 				property="idArchivo" 			jdbcType="VARCHAR" />
+			<result column="NOMBRE_ARCHIVO" 			property="nombreArchivo" 		jdbcType="VARCHAR" />
+			<result column="NUM_REGS" 					property="numRegistros" 		jdbcType="VARCHAR" />
+			<result column="FEH_CRE" 					property="fechaCre" 			jdbcType="VARCHAR" />
+			
+	</resultMap>	
+	
+	<select id="consultarFechaFormatoDomiBancomer" resultMap="consultarFechaFormatoDomiResultMap">
+			SELECT TO_CHAR(SYSDATE,'YYYYMMDD') FECHA_ARCHIVO 
+			FROM DUAL
+	</select>
+	
+	<select id="consultarFechaFormatoDomiBanamex" resultMap="consultarFechaFormatoDomiResultMap">
+			SELECT TO_CHAR(SYSDATE,'YYMMDD') FECHA_ARCHIVO 
+			FROM DUAL
+	</select>
+	
+	<select id="consultarConsecutivoBanamexOrdinario" resultMap="consultarConsecutivosResultMap">
+			SELECT PROFAPOVOL.SE_DOMI_BANAMEX_ORD.NEXTVAL VALOR 
+			FROM DUAL
+	</select>
+	
+	<select id="consultarConsecutivoBanamexTraspasos" resultMap="consultarConsecutivosResultMap">
+			SELECT PROFAPOVOL.SE_DOMI_BANAMEX_TRASP.NEXTVAL VALOR 
+			FROM DUAL
+	</select>
+	
+	<select id="consultarConsecutivoBancomerOrdinario" resultMap="consultarConsecutivosResultMap">
+			SELECT PROFAPOVOL.SE_DOMI_BBVA_ORD.NEXTVAL VALOR 
+			FROM DUAL
+	</select>
+	
+	<select id="consultarConsecutivoBancomerTraspasos" resultMap="consultarConsecutivosResultMap">
+			SELECT PROFAPOVOL.SE_DOMI_BBVA_TRASP.NEXTVAL VALOR 
+			FROM DUAL
+	</select>
+
+	<select id="selectCatPrioridadDiversificaciones" resultMap="CatPrioridadResultMap">
+			select 	FTN_ID_CAT_PRIORIDAD, FCN_ID_TIPO_CAT, FCN_ID_CAT_CATALOGO, FTN_ID_PRIORIDAD, FCC_DESC
+				from TCCRXGRAL_CAT_PRIORIDAD 
+	</select>
+
+	<select id="selectFechasArchivo" resultMap="BaseResultMap" 
+			parameterType="mx.profuturo.nci.business.wrapped.ArchivoDomiciliacionfilter">
+			select 	row_number() over (
+							order by ARGEN.FTN_CVE_BANCO, 
+									DET.FTN_ID_TIPO_CTA, 
+									DET.FTN_CVE_BANCO,
+							 		T_A_CAT.FCC_VALOR,
+							 		T_C_CAT.FCC_VALOR,
+							 		C_B_CAT.FCC_VALOR) AS FLN_ID_ARCHIVO_DOMI,
+					max(ARGEN.FLD_FEH_INI_GEN) as FLD_FEH_INI_GEN, 
+					max(ARGEN.FLD_FEH_FIN_GEN) AS FLD_FEH_FIN_GEN, 
+					ARGEN.FTN_CVE_BANCO AS FTN_TIPO_ARCHIVO, 
+					T_A_CAT.FCC_VALOR AS FTN_VALOR_TIPO_ARCHIVO,
+					DET.FTN_ID_TIPO_CTA, 
+					T_C_CAT.FCC_VALOR AS FCC_VALOR_TIPO_CTA,
+					DET.FTN_CVE_BANCO,
+					C_B_CAT.FCC_VALOR AS FCC_VALOR_CLAVE_BANCO
+			from TLAFOAVOL_ARCHIVOS_DOMI_GEN ARGEN 
+      		join TLAFOAVOL_DETALLE_CTAS_BANCO DET on ARGEN.FLN_ID_ARCHIVO_DOMI = DET.FLN_ID_ARCHIVO_DOMI
+      		left join TCCRXGRAL_CAT_CATALOGO T_A_CAT on T_A_CAT.FCN_ID_CAT_CATALOGO = ARGEN.FTN_CVE_BANCO
+      		left join TCCRXGRAL_CAT_CATALOGO  T_C_CAT on T_C_CAT.FCN_ID_CAT_CATALOGO = DET.FTN_ID_TIPO_CTA
+      		left join TCCRXGRAL_CAT_CATALOGO  C_B_CAT on C_B_CAT.FCN_ID_CAT_CATALOGO = DET.FTN_CVE_BANCO
+      		<where>
+      			<if test="tipoCuenta!=null and tipoCuenta.id !=null">
+      				AND DET.FTN_ID_TIPO_CTA =#{tipoCuenta.id}
+      			</if>
+      			<if test="idBanco!=null">
+      				 DET.FTN_CVE_BANCO =#{idBanco}
+      			</if>
+      			<if test="idOrigenSolicitud!=null">
+      				 AND DET.FTN_ORIGEN_APORTACION =#{idOrigenSolicitud}
+      			</if>
+      				AND FLN_ESTATUS > 0
+      		</where>
+			group by ARGEN.FTN_CVE_BANCO, DET.FTN_ID_TIPO_CTA, DET.FTN_CVE_BANCO,
+					 T_A_CAT.FCC_VALOR,T_C_CAT.FCC_VALOR,C_B_CAT.FCC_VALOR
+	</select>
+	
+	<select id="selectConsecutivoHoy" resultType="int" 
+				parameterType="mx.profuturo.nci.business.wrapped.ArchivoDomiciliacionfilter">
+		SELECT count(gen.FLC_NOMBRE_ARCHIVO)+1 AS CONSECUTIVO 
+		FROM TLAFOAVOL_ARCHIVOS_DOMI_GEN gen
+		LEFT join TLAFOAVOL_DETALLE_CTAS_BANCO DET on gen.FLN_ID_ARCHIVO_DOMI = DET.FLN_ID_ARCHIVO_DOMI
+		<where>
+			GEN.FLD_FEH_CRE BETWEEN TRUNC(SYSDATE) AND TRUNC(SYSDATE)+.99999
+			<if test= "idOrigenSolicitud !=null ">
+				AND DET.FTN_ORIGEN_APORTACION =#{idOrigenSolicitud}
+			</if>
+		</where> 
+		
+  	</select>
+	
+	<insert id="insert" parameterType="mx.profuturo.nci.business.vo.ArchivosGeneradosVO"
+			useGeneratedKeys="true"
+			keyProperty="mx.profuturo.nci.business.vo.ArchivosGeneradosVO.idArchivo">
+		
+		<selectKey keyProperty="idArchivo" resultType="Long"  order="BEFORE">
+			SELECT SE_TLAFOAVOL_ARCHIVOS_DOMI_ID.nextVal as FLN_ID_ARCHIVO_DOMI FROM DUAL
+		</selectKey>
+		
+		insert into TLAFOAVOL_ARCHIVOS_DOMI_GEN
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="idArchivo != null">
+				FLN_ID_ARCHIVO_DOMI,
+			</if>
+			<if test="nombreArchivo != null">
+				FLC_NOMBRE_ARCHIVO,
+			</if>
+			<if test="fechaInicio != null">
+				FLD_FEH_INI_GEN,
+			</if>
+			<if test="fechaFin != null">
+				FLD_FEH_FIN_GEN,
+			</if>
+			<if test="estatus != null and estatus.id != null">
+				FLN_ESTATUS,
+			</if>
+			<if test="claveBanco != null and claveBanco.id != null">
+				FTN_CVE_BANCO,
+			</if>
+			FLC_USU_CRE,
+			FLD_FEH_CRE
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+		<if test="idArchivo != null">
+			#{idArchivo,jdbcType=DECIMAL},
+		</if>
+		<if test="nombreArchivo != null">
+			#{nombreArchivo,jdbcType=VARCHAR},
+		</if>
+		<if test="fechaInicio != null">
+			#{fechaInicio,jdbcType=TIMESTAMP},
+		</if>
+		<if test="fechaFin != null">
+			#{fechaFin,jdbcType=TIMESTAMP},
+		</if>
+		<if test="estatus != null and estatus.id != null">
+			#{estatus.id, jdbcType=DECIMAL},
+		</if>
+		<if test="claveBanco != null and claveBanco.id != null">
+			#{claveBanco.id, jdbcType=DECIMAL},
+		</if>
+		#{usuario,jdbcType=VARCHAR},
+		SYSTIMESTAMP	
+		</trim>
+	
+	</insert>
+	
+	<update id="update"  parameterType="mx.profuturo.nci.business.vo.ArchivosGeneradosVO">
+		UPDATE TLAFOAVOL_ARCHIVOS_DOMI_GEN
+		<set>
+			<if test="estatus != null and estatus.id != null">
+				FLN_ESTATUS = #{estatus.id, jdbcType=DECIMAL},
+			</if>
+			<if test="nombreArchivo != null">
+				FLC_NOMBRE_ARCHIVO = #{nombreArchivo,jdbcType=VARCHAR},
+			</if>
+			<if test="fechaInicio != null">
+				FLD_FEH_INI_GEN = #{fechaInicio,jdbcType=TIMESTAMP},
+			</if>
+			<if test="fechaFin != null">
+				FLD_FEH_FIN_GEN = #{fechaFin,jdbcType=TIMESTAMP},
+			</if>
+			<if test="claveBanco != null and claveBanco.id != null">
+				FTN_CVE_BANCO = #{claveBanco.id, jdbcType=DECIMAL},
+			</if>
+			FLD_FEH_ACT = SYSTIMESTAMP,
+			FLC_USU_ACT = #{usuario,jdbcType=VARCHAR},
+		</set>
+		<where>
+			FLN_ID_ARCHIVO_DOMI = #{idArchivo,jdbcType=DECIMAL}
+		</where>
+	</update>
+	
+	<update id="updatePar"  parameterType="mx.profuturo.nci.business.vo.ArchivosGeneradosVO">
+		UPDATE TLAFOAVOL_ARCHIVOS_DOMI_GEN
+		<set>
+			<if test="estatus != null and estatus.id != null">
+				FLN_ESTATUS = #{estatus.id, jdbcType=DECIMAL},
+			</if>
+			<if test="nombreArchivo != null">
+				FLC_NOMBRE_ARCHIVO = #{nombreArchivo,jdbcType=VARCHAR},
+			</if>
+			<if test="fechaInicio != null">
+				FLD_FEH_INI_GEN = #{fechaInicio,jdbcType=TIMESTAMP},
+			</if>
+			<if test="fechaFin != null">
+				FLD_FEH_FIN_GEN = #{fechaFin,jdbcType=TIMESTAMP},
+			</if>
+			<if test="claveBanco != null and claveBanco.id != null">
+				FTN_CVE_BANCO = #{claveBanco.id, jdbcType=DECIMAL},
+			</if>
+			FLD_FEH_ACT = SYSTIMESTAMP,
+			FLC_USU_ACT = #{usuario,jdbcType=VARCHAR},
+		</set>
+		<where>
+			FLN_ID_ARCHIVO_DOMI = #{idArchivo,jdbcType=DECIMAL}
+		</where>
+	</update>
+
+	<insert id="insertArchivoDomiGenerado" parameterType="mx.profuturo.nci.business.vo.ArchivosGeneradosVO"
+			useGeneratedKeys="true"
+			keyProperty="mx.profuturo.nci.business.vo.ArchivosGeneradosVO.idArchivo">
+		
+		<selectKey keyProperty="idArchivo" resultType="long"  order="AFTER">
+			SELECT MAX(FLN_ID_ARCHIVO_DOMI) as FLN_ID_ARCHIVO_DOMI FROM TLAFOAVOL_ARCHIVOS_DOMI_GEN
+		</selectKey>
+		
+		insert into TLAFOAVOL_ARCHIVOS_DOMI_GEN
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="idArchivo != null">
+				FLN_ID_ARCHIVO_DOMI,
+			</if>
+			FLC_NOMBRE_ARCHIVO,
+			FLD_FEH_INI_GEN,
+			FLD_FEH_FIN_GEN,
+			FLN_ESTATUS,
+			FTN_CVE_BANCO,
+			FLC_USU_CRE,
+			FLD_FEH_CRE
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+		<if test="idArchivo != null">
+			#{idArchivo,jdbcType=DECIMAL},
+		</if>
+		<if test="nombreArchivo != null">
+			#{nombreArchivo,jdbcType=VARCHAR},
+		</if>
+		<if test="fechaInicio != null">
+			#{fechaInicio,jdbcType=TIMESTAMP},
+		</if>
+		<if test="fechaFin != null">
+			#{fechaFin,jdbcType=TIMESTAMP},
+		</if>
+		<if test="estatus != null and estatus.id != null">
+			#{estatus.id, jdbcType=DECIMAL},
+		</if>
+		<if test="claveBanco != null and claveBanco.id != null">
+			#{claveBanco.id, jdbcType=DECIMAL},
+		</if>
+		<if test="usuario != null">
+			#{usuario,jdbcType=VARCHAR},
+		</if>
+		SYSTIMESTAMP	
+		</trim>
+	
+	</insert>	
+
+	<insert id="insertPar" parameterType="mx.profuturo.nci.business.vo.ArchivosGeneradosVO"
+			useGeneratedKeys="true"
+			keyProperty="mx.profuturo.nci.business.vo.ArchivosGeneradosVO.idArchivo">
+		
+		<selectKey keyProperty="idArchivo" resultType="Long"  order="BEFORE">
+			SELECT SE_TLAFOAVOL_ARCHIVOS_DOMI_ID.nextVal as FLN_ID_ARCHIVO_DOMI FROM DUAL
+		</selectKey>
+		
+		insert into TLAFOAVOL_ARCHIVOS_DOMI_GEN 
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="idArchivo != null">
+				FLN_ID_ARCHIVO_DOMI,
+			</if>
+			<if test="nombreArchivo != null">
+				FLC_NOMBRE_ARCHIVO,
+			</if>
+			<if test="fechaInicio != null">
+				FLD_FEH_INI_GEN,
+			</if>
+			<if test="fechaFin != null">
+				FLD_FEH_FIN_GEN,
+			</if>
+			<if test="estatus != null and estatus.id != null">
+				FLN_ESTATUS,
+			</if>
+			<if test="claveBanco != null and claveBanco.id != null">
+				FTN_CVE_BANCO,
+			</if>
+			FLC_USU_CRE,
+			FLD_FEH_CRE
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+		<if test="idArchivo != null">
+			#{idArchivo,jdbcType=DECIMAL},
+		</if>
+		<if test="nombreArchivo != null">
+			#{nombreArchivo,jdbcType=VARCHAR},
+		</if>
+		<if test="fechaInicio != null">
+			#{fechaInicio,jdbcType=TIMESTAMP},
+		</if>
+		<if test="fechaFin != null">
+			#{fechaFin,jdbcType=TIMESTAMP},
+		</if>
+		<if test="estatus != null and estatus.id != null">
+			#{estatus.id, jdbcType=DECIMAL},
+		</if>
+		<if test="claveBanco != null and claveBanco.id != null">
+			#{claveBanco.id, jdbcType=DECIMAL},
+		</if>
+		#{usuario,jdbcType=VARCHAR},
+		SYSTIMESTAMP	
+		</trim>
+	
+	</insert>
+	
+	<!--OBTENER LOS ARCHIVOS DOMICILIACION GENERADOS EN UN RANGO DE FECHAS-->
+	<select id="consultarArchivosDomiciliacion"
+			parameterType="mx.profuturo.nci.business.wrapped.FiltroArchivosDomiciliacionFilter"
+			resultMap="archivosDomiciliacionResultMap">
+			SELECT FLN_ID_ARCHIVO_DOMI, FLC_NOMBRE_ARCHIVO, TO_CHAR(FLD_FEH_INI_GEN, 'dd/MM/yyyy HH:mi:ss') FLD_FEH_INI_GEN, 
+			TO_CHAR(FLD_FEH_FIN_GEN, 'dd/MM/yyyy HH:mi:ss') FLD_FEH_FIN_GEN,
+			FLN_ESTATUS, FTN_CVE_BANCO, (SELECT FCC_VALOR FROM TCCRXGRAL_CAT_CATALOGO WHERE FCN_ID_CAT_CATALOGO = FTN_CVE_BANCO) NOMBRE_BANCO, 
+			TO_CHAR(FLD_FEH_CRE, 'dd/MM/yyyy HH:mi:ss') FLD_FEH_CRE, FLC_USU_CRE, 
+			TO_CHAR(FLD_FEH_ACT, 'dd/MM/yyyy HH:mi:ss') FLD_FEH_ACT, FLC_USU_ACT
+			FROM PROFAPOVOL.TLAFOAVOL_ARCHIVOS_DOMI_GEN
+			WHERE TRUNC(FLD_FEH_CRE) BETWEEN TO_DATE(#{fechaInicio, jdbcType=VARCHAR},'DD-MM-YYYY') 
+			AND TO_DATE(#{fechaFin, jdbcType=VARCHAR},'DD-MM-YYYY')
+			ORDER BY FLD_FEH_FIN_GEN DESC, FLN_ID_ARCHIVO_DOMI DESC
+	</select>
+	
+	<!--OBTENER LOS DATOS DE DOMICILIACION BITACORA, GENERADOS EN UN RANGO DE FECHAS-->
+	<select id="consultarArchivosDomiciliacionBitacora"
+			parameterType="mx.profuturo.nci.business.wrapped.FiltroArchivosDomiciliacionFilter"
+			resultMap="archivosDomiciliacionBitacoraResultMap">
+			SELECT FTN_ID_DOMIS, FTC_FOLIO, FTN_ID_ARCHIVO,
+			FTN_ID_TIPO_CONTRATO, (SELECT FCC_VALOR FROM TCCRXGRAL_CAT_CATALOGO WHERE FCN_ID_CAT_CATALOGO = FTN_ID_TIPO_CONTRATO) TIPO_CONTRATO,
+			FTN_ID_ESTATUS, (SELECT FCC_VALOR FROM TCCRXGRAL_CAT_CATALOGO WHERE FCN_ID_CAT_CATALOGO = FTN_ID_ESTATUS) ESTATUS,
+			FTN_ID_TIPO_ARCHIVO, (SELECT FCC_VALOR FROM TCCRXGRAL_CAT_CATALOGO WHERE FCN_ID_CAT_CATALOGO = FTN_ID_TIPO_ARCHIVO) TIPO_ARCHIVO,
+			FTN_ID_BANCO, (SELECT FCC_VALOR FROM TCCRXGRAL_CAT_CATALOGO WHERE FCN_ID_CAT_CATALOGO = FTN_ID_BANCO) BANCO,
+			FTN_ID_ARCH_BANCO, (SELECT FCC_VALOR FROM TCCRXGRAL_CAT_CATALOGO WHERE FCN_ID_CAT_CATALOGO = FTN_ID_ARCH_BANCO) ARCH_BANCO,
+			FTN_ID_TIPO_CTA, (SELECT FCC_VALOR FROM TCCRXGRAL_CAT_CATALOGO WHERE FCN_ID_CAT_CATALOGO = FTN_ID_TIPO_CTA) TIPO_CTA,
+			FTC_NOMBRE_ARCHIVO, FTC_MSG, FTC_RUTA, FTN_ARCH_GENERADO, TO_CHAR(FTD_FEH_CRE, 'dd/MM/yyyy HH:mi:ss') FTD_FEH_CRE,
+			FTC_USU_CRE, TO_CHAR(FTD_FEH_ACT, 'dd/MM/yyyy HH:mi:ss') FTD_FEH_ACT, FTC_USU_ACT
+			FROM TTAFOVOL_DOMIS_BITACORA
+			WHERE TRUNC(FTD_FEH_CRE) BETWEEN TO_DATE(#{fechaInicio, jdbcType=VARCHAR},'DD-MM-YYYY')
+			AND TO_DATE(#{fechaFin, jdbcType=VARCHAR},'DD-MM-YYYY')
+			ORDER BY FTN_ID_DOMIS DESC
+	</select>
+				
+	<!--OBTENER EL TAMAÑO MAXIMO POR ARCHIVO POR BANCO-->
+	<select id="obtenerRegistrosMaximosArchivo"
+			parameterType="mx.profuturo.nci.business.wrapped.TipoRegistrosMaxFilter"
+			resultMap="obtenerRegistrosMaximosArchivoResultMap">
+			SELECT FCC_VALOR, FCC_DESC 
+			FROM TCCRXGRAL_CAT_CATALOGO
+			WHERE FCN_ID_CAT_CATALOGO = #{idCatalogo, jdbcType = DECIMAL}
+	</select>	
+	
+	<!--OBTENER LOS DATOS DE DOMICILIACION BITACORA POR FOLIO-->
+	<select id="consultarArchivosDomiBitacora"
+			parameterType="mx.profuturo.nci.business.wrapped.TablaDinamicaArchDomiFilter"
+			resultMap="archivosDomiciliacionBitacoraResultMap">
+			SELECT FTN_ID_DOMIS, FTC_FOLIO, FTN_ID_ARCHIVO,
+			FTN_ID_TIPO_CONTRATO, (SELECT FCC_VALOR FROM TCCRXGRAL_CAT_CATALOGO WHERE FCN_ID_CAT_CATALOGO = FTN_ID_TIPO_CONTRATO) TIPO_CONTRATO,
+			FTN_ID_ESTATUS, (SELECT FCC_VALOR FROM TCCRXGRAL_CAT_CATALOGO WHERE FCN_ID_CAT_CATALOGO = FTN_ID_ESTATUS) ESTATUS,
+			FTN_ID_TIPO_ARCHIVO, (SELECT FCC_VALOR FROM TCCRXGRAL_CAT_CATALOGO WHERE FCN_ID_CAT_CATALOGO = FTN_ID_TIPO_ARCHIVO) TIPO_ARCHIVO,
+			FTN_ID_BANCO, (SELECT FCC_VALOR FROM TCCRXGRAL_CAT_CATALOGO WHERE FCN_ID_CAT_CATALOGO = FTN_ID_BANCO) BANCO,
+			FTN_ID_ARCH_BANCO, (SELECT FCC_VALOR FROM TCCRXGRAL_CAT_CATALOGO WHERE FCN_ID_CAT_CATALOGO = FTN_ID_ARCH_BANCO) ARCH_BANCO,
+			FTN_ID_TIPO_CTA, (SELECT FCC_VALOR FROM TCCRXGRAL_CAT_CATALOGO WHERE FCN_ID_CAT_CATALOGO = FTN_ID_TIPO_CTA) TIPO_CTA,
+			FTC_NOMBRE_ARCHIVO, FTC_MSG, FTC_RUTA, FTN_ARCH_GENERADO, TO_CHAR(FTD_FEH_CRE, 'dd/MM/yyyy HH:mi:ss') FTD_FEH_CRE,
+			FTC_USU_CRE, TO_CHAR(FTD_FEH_ACT, 'dd/MM/yyyy HH:mi:ss') FTD_FEH_ACT, FTC_USU_ACT
+			FROM TTAFOVOL_DOMIS_BITACORA
+			WHERE FTN_ID_ESTATUS > 0 AND FTC_FOLIO = #{folio, jdbcType = VARCHAR}
+			ORDER BY FTN_ID_DOMIS DESC
+	</select>
+	
+	<!--ACTUALIZACION DEL VALOR DEL PROCESAMIENTO PARA DOMIS-->
+	<update id="actValorProcesamientoDomi"  parameterType="mx.profuturo.nci.business.wrapped.TipoProcesamientoDomisFilter">
+		UPDATE TCCRXGRAL_CAT_CATALOGO
+		<set>
+			FCC_VALOR = #{valor, jdbcType = VARCHAR},
+			<if test="usuario != null">
+				FCC_USU_ACT = #{usuario, jdbcType = VARCHAR},
+			</if>
+			FCD_FEH_ACT = SYSTIMESTAMP
+		</set>
+		WHERE FCN_ID_CAT_CATALOGO = 9618
+	</update>
+	
+	<!-- CONSULTA PARA OBTENER LA CANTIDAD DE REGISTROS QUE CONTIENE CADA ARCHIVO -->
+	<select id="consultarRegistrosArchivo"
+			parameterType="mx.profuturo.nci.business.wrapped.TablaDinamicaArchDomiFilter"
+			resultMap="ResultMapRegistrosArchivo">
+			SELECT DB.FTC_FOLIO AS FOLIO, 
+			CARGO.FLN_ID_ARCHIVO_DOMI AS ID_ARCHIVO,
+			DB.FTC_NOMBRE_ARCHIVO AS NOMBRE_ARCHIVO,
+			COUNT(CARGO.FLN_ID_ARCHIVO_DOMI) AS NUM_REGS,
+			TO_CHAR(DB.FTD_FEH_CRE, 'dd/MM/yyyy HH:mi:ss') AS FEH_CRE
+			FROM TTCRXGRAL_CARGOS CARGO
+			INNER JOIN TTAFOVOL_DOMIS_BITACORA DB
+			ON DB.FTN_ID_ARCHIVO = CARGO.FLN_ID_ARCHIVO_DOMI
+			WHERE DB.FTC_FOLIO IN ( #{folio, jdbcType = VARCHAR} )
+			GROUP BY DB.FTC_FOLIO, CARGO.FLN_ID_ARCHIVO_DOMI, 
+			CARGO.FLN_ID_ARCHIVO_DOMI, DB.FTC_NOMBRE_ARCHIVO, DB.FTD_FEH_CRE
+			ORDER BY 2
+	</select>
+	
+</mapper>

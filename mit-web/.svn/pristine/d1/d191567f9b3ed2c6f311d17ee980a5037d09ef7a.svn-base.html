@@ -1,0 +1,716 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+
+<ui:composition template="../../core/desktop/desktop.xhtml">
+	<ui:define name="body">
+	
+	<script type="text/javascript">
+
+	function validateInput(regexString) {
+		var theEvent = window.event || event;
+	    var key = theEvent.keyCode || theEvent.which;
+	    if (key >= 46) {
+	        key = String.fromCharCode(key);
+	        var regex = new RegExp("^" + regexString + "$");
+	       if (!regex.test(key)) {
+	            theEvent.returnValue = false;
+	            if (theEvent.preventDefault) {
+	                theEvent.preventDefault();
+	            }
+	        }
+	    }else{
+	    	theEvent.returnValue = false;
+            if (theEvent.preventDefault) {
+                theEvent.preventDefault();
+            }
+	    }
+	}
+    
+    </script>
+	
+	<style>
+	
+	.foo td {
+    vertical-align: middle;
+	}
+
+	.ui-selectmanycheckbox.ui-widget td, .ui-selectoneradio.ui-widget td{
+		padding-top: 0 !important;
+	}
+	
+	.ui-dialog-content > .ui-icon {
+    display: none;
+	}
+	
+	.ui-confirm-dialog .ui-dialog-content{
+	padding-bottom: 0 !important;
+	}
+	</style>
+				<p:panel id="idPnlidentificacionCliente" style="margin-top:43px;">
+		
+		<h:form id="idFrmPrincipalIdentificacionCliente">
+			<p:panel id="idPnlPrincipal" header="Ordenes SPEI" 
+					style="margin-bottom:15px">
+		
+		 		<p:panelGrid style="margin-bottom:10px; padding: 0px 0px !important; margin-left:-1%">
+		 			<p:row>
+		 				<p:column style="vertical-align: left !important; text-align: left !important;">
+							<p:selectOneRadio id="tipoConsulta"
+								value="#{identificarClienteView.filtroVal}">
+								<f:selectItem itemLabel="Cuenta"
+									itemValue="Cuenta" />
+								<f:selectItem itemLabel="NSS" itemValue="NSS" />
+								<f:selectItem itemLabel="CURP" itemValue="CURP" />
+								<p:ajax event="change" listener="#{identificarClienteView.onCleanCampoFiltrar}" 
+									update="clienteResultadoPanel,idFrmPrincipalIdentificacionCliente:idTxtFiltro idFrmPrincipalIdentificacionCliente:btnIdentificarCliente idFrmPrincipalIdentificacionCliente:tblCliente"/>
+							</p:selectOneRadio>		 				
+		 				</p:column>
+		 			</p:row>
+		 			<p:row>
+		 				<p:column style="vertical-align: left; text-align: left;">
+							<p:inputText value="#{identificarClienteView.filtro}" disabled="#{identificarClienteView.filtroVal eq null or identificarClienteView.filtroVal eq ''}"
+					    		styleClass="input-style" id="idTxtFiltro" maxlength="#{identificarClienteView.filtroVal.contains('NSS') ? '11' : 
+					    		(identificarClienteView.filtroVal.contains('CURP') ? '18' : '10')}" />
+		 				</p:column>
+		 			</p:row>
+		 			<p:row>
+		 				<p:column style="vertical-align: left; text-align: left;">
+		 					<p:commandButton
+								actionListener="#{identificarClienteView.consultarCliente}" disabled="#{identificarClienteView.filtroVal eq null or identificarClienteView.filtroVal eq ''}"
+								id="btnIdentificarCliente" value="Buscar" onclick="PF('consultDataDialog').show()" oncomplete="PF('consultDataDialog').hide()"
+								styleClass="blue-button" update="idFrmPrincipalIdentificacionCliente:clienteResultadoPanel, :idFormDlgErrorMessage:errorMessage" />
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+				<p:panel id="clienteResultadoPanel" visible="#{identificarClienteView.tablaResultado}">
+				<p:panelGrid columns="2" style="margin-bottom:10px; margin-left:-1%;">
+					<p:dataTable id="tblCliente" var="cliente" emptyMessage="Sin resultados." style="width: 100% !important;"
+						value="#{identificarClienteView.lstClientes}"
+						rowKey="#{cliente.numeroCuenta}"
+						selection="#{identificarClienteView.clienteSelected}" styleClass="table-style">
+						<p:ajax event="rowSelectRadio" update="idFrmPrincipalIdentificacionCliente:idBtnNuevaOrden idFrmPrincipalIdentificacionCliente:idBtnRelacion" process="tblCliente"/>
+						<p:column selectionMode="single"
+							style="width:16px;text-align:left">
+						</p:column>
+						<p:column headerText="Cuenta" width="10%">
+							<h:outputText value="#{cliente.numeroCuenta}" />
+						</p:column>
+						<p:column headerText="NSS" width="9%">
+							<h:outputText value="#{cliente.nss}" />
+						</p:column>
+						<p:column headerText="CURP" width="15%">
+							<h:outputText value="#{cliente.curp}" />
+						</p:column>
+						<p:column headerText="Regimen" width="8%">
+							<h:outputText value="#{cliente.regimen}" />
+						</p:column>
+						<p:column headerText="Nombre" width="20%">
+							<h:outputText value="#{cliente.nombre}" />
+						</p:column>
+						<p:column headerText="Estatus de vigencia" width="15%">
+							<h:outputText value="#{cliente.vigencia == '1' ? 'VIGENTE' : 'NO VIGENTE'}" />
+						</p:column>
+						<p:column headerText="Última actualización" width="19%">
+							<h:outputText value="#{cliente.vigencia == '1' ? cliente.fechaUltimaAct : cliente.fechaUltimaAct}" ><f:convertDateTime pattern="dd/MM/yyyy"/></h:outputText><h:outputText value="#{cliente.vigencia == '1' ? '' : ' - '.concat(cliente.detalle)}" />
+						</p:column>
+					</p:dataTable>
+				</p:panelGrid>
+		
+				<p:commandButton value="Generar orden" 
+					actionListener="#{identificarClienteView.onActualizarDlgNvaOrden}"
+					styleClass="blue-button" id="idBtnNuevaOrden" disabled="#{identificarClienteView.clienteSelected eq null}"/>
+				<p:spacer width="20px"/>
+				<p:commandButton value="Relacionar orden" disabled="#{identificarClienteView.clienteSelected eq null}"
+					actionListener="#{identificarClienteView.onCargarDatosRelacionar}"
+					styleClass="yellow-button" id="idBtnRelacion"/>
+				<p:spacer width="20px"/>
+				<p:commandButton
+					action="#{identificarClienteView.init()}" update="idPnlPrincipal"
+					id="btnCancelarOrden" value="Limpiar" styleClass="gray-button"
+					ajax="true" />
+			</p:panel>
+			</p:panel>
+		</h:form>
+		
+		<!-- Dialogo para la relacion de ordenes -->
+		<h:form id="idFormRelacion">
+				<p:dialog id="idDlgRelacion" header="Relacionar orden - Ordenes SPEI" widgetVar="dlgRelacionar" modal="true" width="96%" showEffect="fade" closable="false" resizable="false" maximizable="false" draggable="false">
+						<p:messages id="messagesDlgRelacionarOrden" showDetail="true"
+							autoUpdate="true" closable="true" />
+						<p:dataTable id="tblNoConci" var="noConci" emptyMessage="Sin registros."
+							value="#{identificarClienteView.lstConciliacion}"
+							rowKey="#{noConci.idConciliacion}" currentPageReportTemplate="Mostrando de {startRecord} al {endRecord} de {totalRecords}"
+							selection="#{identificarClienteView.conciliacionSelected}" styleClass="table-style" paginator="true" paginatorPosition="bottom" rows="2">
+
+							<f:facet name="header">
+            						Dep&oacute;sitos SPEI pendientes de identificar
+        					</f:facet>
+        					<p:ajax event="rowSelectRadio" update="idFormRelacion:idBtnRealcionarNewOrder, idFormRelacion:idBtnRelacionRel" process="tblNoConci"/>
+							<p:column selectionMode="single"
+								style="width:16px;text-align:center" />
+							<p:column headerText="Cuenta">
+								<h:outputText value="#{identificarClienteView.tieneMultiplesCI ? identificarClienteView.clienteSelected.numeroCuenta : identificarClienteView.lstClientes.get(0).numeroCuenta}" />
+							</p:column>
+							<p:column headerText="Nombre cliente">
+								<h:outputText value="#{identificarClienteView.tieneMultiplesCI ? identificarClienteView.clienteSelected.nombre : identificarClienteView.lstClientes.get(0).nombre}" /> <!-- styleClass="input-style" -->
+							</p:column>
+							<p:column headerText="NSS">
+								<h:outputText value="#{identificarClienteView.tieneMultiplesCI ? identificarClienteView.clienteSelected.nss : identificarClienteView.lstClientes.get(0).nss}" /><!-- styleClass="input-style" -->
+							</p:column>
+							<p:column headerText="CURP">
+								<h:outputText value="#{identificarClienteView.tieneMultiplesCI ? identificarClienteView.clienteSelected.curp : identificarClienteView.lstClientes.get(0).curp}" /><!-- styleClass="input-style" -->
+							</p:column>
+							<p:column headerText="Banco">
+								<h:outputText value="#{identificarClienteView.consultaBancoById(noConci.claveBanco)}"/> <!-- styleClass="input-style" -->
+							</p:column>
+							<p:column headerText="Importe">
+								<h:outputText value="#{noConci.importe}" > <!-- styleClass="input-style" -->
+									<f:convertNumber pattern="$#,###,##0.00" currencySymbol="$" type="currency" locale="es_MX" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Referencia">
+<!-- 								<h:outputText value="#{noConci.numeroOrden}" /> styleClass="input-style" -->
+								<h:outputText value="#{noConci.referenciaSubcuentaApovol}" />
+							</p:column>
+							<p:column headerText="Fecha depósito">
+								<h:outputText value="#{noConci.fechaPagoApovol}">
+									<f:convertDateTime type="date" pattern="dd/MM/yyyy" timeZone="America/Mexico_City" />
+								</h:outputText> <!-- styleClass="input-style" -->
+							</p:column>
+						</p:dataTable>
+
+						<br />
+						<p:commandButton id="idBtnRealcionarNewOrder" value="Generar orden" style="float: right"
+							actionListener="#{identificarClienteView.onActualizarDlgNvaOrdenRelacion}"
+							styleClass="blue-button"
+							disabled="#{identificarClienteView.conciliacionSelected eq null}" />
+						<br />
+						<br />
+						<br />
+						<br />
+						<p:dataTable id="tblOrdnPendPago" var="orden" 
+							value="#{identificarClienteView.lstOrdenes}" paginator="true" paginatorPosition="bottom" rows="2"
+							rowKey="#{orden.numeroOrden}" currentPageReportTemplate="Mostrando de {startRecord} al {endRecord} de {totalRecords}"
+							selection="#{identificarClienteView.ordenSelected}" styleClass="table-style" emptyMessage="Sin resultados">
+
+							<f:facet name="header">
+            						Ordenes pendientes de dep&oacute;sito SPEI
+        					</f:facet>
+        					<p:ajax event="rowSelectRadio" update="idFormRelacion:idBtnRelacionRel" />
+							<p:column selectionMode="single"
+								style="width:16px;text-align:center" />
+							
+							<p:column headerText="Número de orden">
+								<h:outputText value="#{orden.numeroOrden}" />
+							</p:column>
+							
+							<p:column headerText="Cuenta individual">
+								<h:outputText value="#{orden.numCuentaIndividual}" />
+							</p:column>
+							
+							<p:column headerText="Fecha generación">
+								<h:outputText value="#{orden.fechaCreacion}" >
+									<f:convertDateTime type="date" pattern="dd/MM/yyyy" timeZone="America/Mexico_City" />
+								</h:outputText>
+							</p:column>
+							
+							<p:column headerText="Importe">
+								<h:outputText value="#{orden.importe}" >
+									<f:convertNumber pattern="$#,###,##0.00" currencySymbol="$" type="currency" locale="es_MX" />
+								</h:outputText>
+							</p:column>
+						</p:dataTable>
+						<br/>
+						
+						<center>
+						<div align="right">
+							<p:commandButton id="idBtnRelacionRel" value="Relacionar orden"
+								disabled="#{identificarClienteView.conciliacionSelected == null or identificarClienteView.ordenSelected == null}"
+								actionListener="#{identificarClienteView.onRelacionarOrdenConciliacion}"
+								styleClass="blue-button" >
+								<p:confirm header="Confirmación - Ordenes SPEI" message="El depósito SPEI será asociado a la orden seleccionada. Ésta operación no se podrá deshacer"  />
+							</p:commandButton>
+							<p:spacer width="20px"/>
+							<p:commandButton value="Detalle" actionListener="#{identificarClienteView.consultarDetalleOrden}" 
+								styleClass="yellow-button" /> 
+							<p:spacer width="20px"/>	
+							<p:commandButton value="Cerrar" actionListener="#{identificarClienteView.cancelarRelacion}"
+								onclick="PF('dlgRelacionar').hide();"
+								styleClass="gray-button" update="idFrmPrincipalIdentificacionCliente:clienteResultadoPanel" />
+						</div>
+						</center>
+				</p:dialog>
+			</h:form>
+		
+			<!-- Dialogo para la generacion de nuevas ordenes --> 
+			<h:form id="idFrmNuevaOrden" >
+				<p:dialog id="idDlgNvaOrden" header="Generar nueva orden - Ordenes SPEI" widgetVar="dlgNvaOrden" modal="true" width="80%" height="100%" resizable="false" 
+					maximizable="false" appendToBody="true" closable="false" draggable="false" style="text-align: left" closeOnEscape="true">
+						<p:panel id="pnlNuevaORden" header="Datos del cliente" style="height:50%">
+							<p:panelGrid style="text-align: left; width:100%;" >
+								<p:row>
+									<p:column>
+										<h:outputText value="Nombre:"/>
+									</p:column>
+									<p:column>
+										<h:outputText value="#{!identificarClienteView.tieneMultiplesCI and identificarClienteView.lstClientes.size() == 1 ? identificarClienteView.lstClientes.get(0).nombre : identificarClienteView.clienteSelected.nombre}" />
+									</p:column>
+									<p:column>
+										<h:outputText value="Cuenta:"/>
+									</p:column>
+									<p:column>
+		               					<h:outputText value="#{!identificarClienteView.tieneMultiplesCI and identificarClienteView.lstClientes.size() == 1 ? identificarClienteView.lstClientes.get(0).numeroCuenta : identificarClienteView.clienteSelected.numeroCuenta}" />
+		               				</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<h:outputText value="CURP:" />
+									</p:column>
+									<p:column>
+										<h:outputText value="#{!identificarClienteView.tieneMultiplesCI and identificarClienteView.lstClientes.size() == 1 ? identificarClienteView.lstClientes.get(0).curp : identificarClienteView.clienteSelected.curp}" />
+									</p:column>
+									<p:column>
+										<h:outputText value="NSS:" />
+									</p:column>
+									<p:column>
+		               					<h:outputText value="#{!identificarClienteView.tieneMultiplesCI and identificarClienteView.lstClientes.size() == 1 ? identificarClienteView.lstClientes.get(0).nss : identificarClienteView.clienteSelected.nss}" 
+		               						rendered="#{!identificarClienteView.tieneMultiplesCI and identificarClienteView.lstClientes.size() == 1 ? identificarClienteView.lstClientes.get(0).nss != null : identificarClienteView.clienteSelected.nss != null}"/>
+		               				</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<h:outputText value="Estado de cuenta:" />
+									</p:column>
+									<p:column>
+										<h:outputText value="#{!identificarClienteView.tieneMultiplesCI and identificarClienteView.lstClientes.size() == 1 ? identificarClienteView.lstClientes.get(0).estadoCuenta : identificarClienteView.clienteSelected.estadoCuenta}" />
+									</p:column>
+									<p:column>
+										<h:outputText value="CLABE Profuturo:" />
+									</p:column>
+									<p:column>
+		                				<h:outputText value="#{!identificarClienteView.tieneMultiplesCI and identificarClienteView.lstClientes.size() == 1 ? identificarClienteView.lstClientes.get(0).clabe : identificarClienteView.clienteSelected.clabe}"/>
+		                			</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<h:outputText value="Dirección:"/>
+									</p:column>
+									<p:column>
+										<h:outputText value="#{!identificarClienteView.tieneMultiplesCI and identificarClienteView.lstClientes.size() == 1 ? identificarClienteView.lstClientes.get(0).direccion : identificarClienteView.clienteSelected.direccion}" />
+									</p:column>
+									<p:column>
+										<h:outputText value="RFC:" />
+									</p:column>
+									<p:column>
+										<h:outputText value="#{!identificarClienteView.tieneMultiplesCI and identificarClienteView.lstClientes.size() == 1 ? identificarClienteView.lstClientes.get(0).rfc : identificarClienteView.clienteSelected.rfc}" />
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<h:outputText value="Correo electrónico:"/>
+									</p:column>
+									<p:column>
+										<h:outputText value="#{!identificarClienteView.tieneMultiplesCI and identificarClienteView.lstClientes.size() == 1 ? identificarClienteView.lstClientes.get(0).correoElectronico : identificarClienteView.clienteSelected.correoElectronico}" />
+									</p:column>
+								</p:row>
+							</p:panelGrid>
+						</p:panel>
+						<p:panel id="pnlDiversificacion" header="Generación de ordenes para realizar aportaciones voluntarias mediante el uso de SPEI" >
+							<p:panelGrid columns="8" style="text-align: left;" styleClass="foo">
+							   	<p:column style="position:relative; padding-top:5%;">
+							   		<p:outputLabel>Cantidad a invertir:  $ </p:outputLabel>
+							   	</p:column>
+								<p:inputText id="txtImporte" widgetVar="txtImporte"
+									value="#{identificarClienteView.importe}" 
+									disabled="#{identificarClienteView.falgNuevaOrdenRelacionar}" 
+									readonly="#{identificarClienteView.falgNuevaOrdenRelacionar}"
+									onkeypress="validateInput('([0-9]*[.]?[0-9]*)')"
+									maxlength="12"
+									styleClass="input-style" style="width:90% !important; padding:3% !important; margin-top:0 !important;">
+									<p:ajax event="blur" listener="#{identificarClienteView.onUpdateImporte}" update="idFrmNuevaOrden:txtImporte idFrmNuevaOrden:btnGenerarOrden"/>
+								</p:inputText>
+								<p:message for="txtImporte" />
+								<p:column>
+									<p:outputLabel value="Diversificación:"/>
+								</p:column>
+								<p:selectOneRadio id="console" value="#{identificarClienteView.vlrDiversificacion}">
+									<f:selectItem itemLabel="Monto" itemValue="Monto" />
+									<f:selectItem itemLabel="Porcentaje" itemValue="Porcentaje" />
+									<p:ajax event="change"
+											listener="#{identificarClienteView.cleanDiversificacionValues()}" 
+									 		update="idFrmNuevaOrden:idGridTotal idFrmNuevaOrden:dtDiversificacion"/>
+								</p:selectOneRadio>
+								<p:spacer/>	
+								<p:column styleClass="foo">
+									<p:panel rendered="#{identificarClienteView.conciliacionSelected.cuentaBanco !=null and identificarClienteView.importe != null}">
+										<p:outputLabel>CLABE: </p:outputLabel>
+						  			</p:panel>	
+								</p:column> 
+						  		<p:panel rendered="#{identificarClienteView.conciliacionSelected.cuentaBanco !=null and identificarClienteView.importe != null}">
+							  		<p:outputLabel id="txtClabeLabel" value="#{identificarClienteView.conciliacionSelected.cuentaBanco}"/>
+						  		</p:panel>
+							</p:panelGrid>
+						<p:panelGrid columns="2">
+							<p:dataTable id="dtDiversificacion" value="#{identificarClienteView.diversificacionLst}" var="diversificacion" styleClass="table-style">
+								<p:column headerText="" width="5%">
+									<p:selectBooleanCheckbox value="#{diversificacion.selecion}" >
+										<p:ajax event="change" update="idTextDiver" />
+									</p:selectBooleanCheckbox>
+								</p:column>
+								<p:column headerText="Fondo aportación" width="40%">
+									<h:outputText value="#{diversificacion.descripcion}" />
+								</p:column>
+								<p:column headerText="Aportación" >
+									<p:outputLabel value="$ " rendered="#{!empty identificarClienteView.vlrDiversificacion and identificarClienteView.vlrDiversificacion eq 'Monto'}"/>
+									<p:inputText value="#{diversificacion.valor}" id="idTextDiver"
+													maxlength="#{identificarClienteView.vlrDiversificacion eq 'Monto' ? 12 : 3}"
+													disabled="#{not diversificacion.selecion}"
+													onkeypress="validateInput(#{identificarClienteView.regexMontoPorcentaje})"
+													styleClass="input-style"
+													style="width:30% !important; padding:1% !important; margin-top:1% !important; margin-bottom:1% !important;">
+										<p:ajax event="blur" listener="#{identificarClienteView.onUpdateTotalTabla()}" 
+												update="idFrmNuevaOrden:idColumnTotal idTextDiver" 
+												process="dtDiversificacion" partialSubmit="true" />
+									</p:inputText>
+									<p:outputLabel value=" %" rendered="#{!empty identificarClienteView.vlrDiversificacion and identificarClienteView.vlrDiversificacion != 'Monto'}"/>
+								</p:column>
+							</p:dataTable>
+						</p:panelGrid>
+						<p:panelGrid id="idGridTotal" style="width:100%; text-align:right;">
+								<p:row >
+									<p:column >
+										<h:outputText value="Inversión total: " />
+								
+										<p:outputLabel value="$ " rendered="#{!empty identificarClienteView.vlrDiversificacion and identificarClienteView.vlrDiversificacion eq 'Monto'}"/>
+										<h:outputText id="idColumnTotal" value="#{identificarClienteView.formatNumber(identificarClienteView.totalTabla, identificarClienteView.vlrDiversificacion eq 'Monto' ? true : false)}" >
+										</h:outputText>
+										<p:outputLabel value=" %" rendered="#{!empty identificarClienteView.vlrDiversificacion and identificarClienteView.vlrDiversificacion != 'Monto'}"/>
+									</p:column>
+								</p:row>
+									<p:row>
+								    	<p:column>
+							   				<p:commandButton actionListener="#{identificarClienteView.validaOrdenSpei}" id="btnGenerarOrden" value="Generar orden" styleClass="blue-button">
+												<ui:remove>
+													<p:confirm header="Confirmación - Ordenes SPEI" message="Se generará una orden para realizar una aportación voluntaria mediante SPEI"  icon="ui-icon-alert" />
+												</ui:remove>								
+											</p:commandButton>
+										<p:spacer width="10" />
+										<p:commandButton value="Cerrar" actionListener="#{identificarClienteView.cancelarOrdenSpei}" onclick="PF('dlgNvaOrden').hide();" styleClass="gray-button"/>
+							   			</p:column>
+							   		</p:row>
+						</p:panelGrid>
+						</p:panel>
+				</p:dialog>
+			</h:form>
+			
+			<!-- Detalle de la diversificacion -->
+<!-- Detalle de la diversificacion -->
+		<h:form id="idFormDetalle">
+			<p:dialog id="idDlgDetalle" header="Detalle Diversificación - Ordenes SPEI" widgetVar="dlgDetalleDiver" modal="true" appendTo="@(body)" width="30%" resizable="false" maximizable="false" closable="false">
+				<p:panel header="Movimientos">
+					<p:panelGrid columns="2" styleClass="leftAlignStyle" >
+						<p:outputPanel>
+							Número de orden: <p:outputLabel value="#{identificarClienteView.ordenSelected.numeroOrden}"/>
+						</p:outputPanel>
+						<p:outputPanel>
+							Cuenta individual: <p:outputLabel value="#{identificarClienteView.ordenSelected.numCuentaIndividual}"/>
+						</p:outputPanel>
+						<p:outputPanel>
+							Importe: <p:outputLabel value="#{identificarClienteView.ordenSelected.importe}">
+									 	<f:convertNumber pattern="$#,###,##0.00" currencySymbol="$" type="currency" locale="es_MX" />
+									 </p:outputLabel>
+						</p:outputPanel>
+						<p:outputPanel>
+							Fecha de generación: <h:outputText value="#{identificarClienteView.ordenSelected.fechaCreacion}"><f:convertDateTime type="date" pattern="dd/MM/yyyy" timeZone="America/Mexico_City" /></h:outputText>
+						</p:outputPanel>
+					</p:panelGrid>
+				</p:panel>
+					<p:panel header="Diversificación">
+				  <p:panelGrid>
+					<p:panelGrid styleClass="foo">
+						<p:column>
+							<p:outputLabel for="console" value="Diversificación:" />
+						</p:column>
+						<p:column>
+							<p:selectOneRadio id="console" value="#{identificarClienteView.ordenSelected.diversificacionesOrdenes.get(0).monto ne null ? 'Monto' : 'Porcentaje'}" disabled="true">
+								<f:selectItem itemLabel="Monto" itemValue="Monto" />
+								<f:selectItem itemLabel="Porcentaje" itemValue="Porcentaje" />
+							</p:selectOneRadio>	
+						</p:column>
+					</p:panelGrid>
+			  </p:panelGrid>
+				
+				  <p:panelGrid columns="1">
+				  	<p:column>
+					<p:dataTable var="diversificacion" value="#{identificarClienteView.ordenSelected.diversificacionesOrdenes}" styleClass="table-style" style="width: 100% !important">
+						<p:column headerText="" style="width:20% !important">
+							<p:selectBooleanCheckbox value="#{true}" disabled="true"/>
+						</p:column>
+						<p:column headerText="Fondo aportación" style="width:60% !important">
+							<h:outputText value="#{diversificacion.fondoApovol.valor}" />
+						</p:column>
+						<p:column headerText="Aportación"  style="width:80% !important">
+							<p:outputLabel value="$ " rendered="#{identificarClienteView.ordenSelected.diversificacionesOrdenes.get(0).monto ne null ? true : false}"/>
+							<p:inputText value="#{identificarClienteView.formatNumber(diversificacion.monto ne null ? diversificacion.monto : diversificacion.porcentaje ,diversificacion.monto ne null ) }" styleClass="input-style" style="width:60% !important;" disabled="true"/>
+							<p:outputLabel value="% " rendered="#{identificarClienteView.ordenSelected.diversificacionesOrdenes.get(0).monto eq null ? true : false}"/>
+						</p:column>
+					</p:dataTable>
+					</p:column>
+				  </p:panelGrid>
+				</p:panel>
+					<p:panelGrid style="width:100%; text-align: right;">
+						<p:row>
+							<p:column/>
+							<p:column>
+								<h:outputText value="Inversión total: " />
+								<h:outputText value="#{identificarClienteView.ordenSelected.importe}" >
+									<f:convertNumber pattern="$#,###,##0.00" currencySymbol="$" type="currency" locale="es_MX" />
+								</h:outputText>
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column/>
+							<p:column>
+			   					<p:commandButton styleClass="gray-button" value="Cerrar" oncomplete="PF('dlgDetalleDiver').hide()"/>
+			   				</p:column>
+			   			</p:row>	
+					</p:panelGrid>
+			</p:dialog>
+			</h:form>	
+			   
+			  <h:form id="idFrmConfirmaDialog"> 
+			   	<p:dialog id="idConfirm" modal="true" header="Confirmación - Ordenes SPEI"
+					widgetVar="dialogConfirm" draggable="false"
+					closable="false" resizable="false" appendTo="@(body)">
+					<p:panel id="idConfirmacion">
+						<div align="center">
+							<center>
+								<h:outputText value="Se generará una orden para realizar una aportación voluntaria mediante SPEI" /><br></br>
+							</center>
+							<br/>
+							<p:commandButton  process="@this" 
+								value="#{msg['domiciliacion.traspasos.monSol.btnAceptar']}" styleClass="blue-button"
+			 					actionListener="#{identificarClienteView.generarOrdenSpei}"/>
+							<p:spacer width="10"/>
+							<p:commandButton onclick="PF('dialogConfirm').hide()" process="@this" value="#{msg['domiciliacion.traspasos.monSol.btnCancelar']}"
+								styleClass="gray-button" />					
+						</div>
+					</p:panel>
+				</p:dialog>
+			</h:form>
+			<!-- ConfirmDialog -->
+			<h:form id="idFrmConfirmDialog">
+				<p:confirmDialog closable="false" global="true" showEffect="fade" hideEffect="fade" style="text-align: center;" >
+					<div align="right">
+				        <p:commandButton value="Aceptar" type="button" styleClass="ui-confirmdialog-yes blue-button" />
+				        <p:spacer width="10px"/>
+				        <p:commandButton value="Cerrar" type="button" styleClass="ui-confirmdialog-no gray-button" />
+			        </div>
+			    </p:confirmDialog>
+			</h:form>
+			
+			<!-- Dialog Exception -->
+			
+			<h:form id="idFormDlgErrorMessage">
+			<p:dialog id="idDlgErrorMessage" header="Ordenes SPEI" widgetVar="dlgErrorMessage" modal="true" appendTo="@(body)" resizable="false" maximizable="false" closable="false" draggable="false">
+			  <center>
+			  	<p:spacer height="10px" width="0px"/>
+			  	<br/>
+				<h:outputText id="errorMessage" value="#{identificarClienteView.errorMessage}" />
+				<br/>
+				<br/>
+				<p:commandButton value="Cerrar" onclick="PF('dlgErrorMessage').hide();" styleClass="gray-button" style="float: right;"/>
+				<br/>
+				<p:spacer height="10px"/>
+			  </center>	
+			</p:dialog>
+			</h:form>
+			
+			
+			
+			
+			
+			<!-- Dialog OrdenGenerada -->
+			<h:form id="idFormDlgInfoOrdenGenerada">
+				<p:dialog id="idDlgInfoOrdenGenerada" header="Orden generada - Ordenes SPEI" widgetVar="dlgOrdenGenerada" modal="true" appendTo="@(body)" 
+					resizable="false" maximizable="false" closable="false" width="50%">
+					<center>
+						<p:messages id="messagesDlgOrdenGenerada" showDetail="true" 
+							autoUpdate="true" showIcon="false" />
+						<ui:remove>
+						<p:panel id="pnlNuevaORdenGenerada" header="Datos del cliente">
+							<p:panelGrid style="text-align: left; width:100%;">
+								<p:row>
+									<p:column>
+										<h:outputText value="Nombre:" />
+									</p:column>
+									<p:column>
+										<h:outputText value="#{identificarClienteView.clienteSelected.nombre}" />
+									</p:column>
+									<p:column>
+										<h:outputText value="Número de orden:" />
+									</p:column>
+									<p:column>
+										<h:outputText value="#{identificarClienteView.clienteSelected.ordenSpei.orden}" />
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<h:outputText value="CURP:" />
+									</p:column>
+									<p:column>
+										<h:outputText value="#{identificarClienteView.clienteSelected.curp}" />
+									</p:column>
+									<p:column>
+										<h:outputText value="Cuenta:" />
+									</p:column>
+									<p:column>
+										<h:outputText value="#{identificarClienteView.clienteSelected.numeroCuenta}" />
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<h:outputText value="RFC:" />
+									</p:column>
+									<p:column>
+										<h:outputText value="#{identificarClienteView.clienteSelected.rfc}" />
+									</p:column>
+									<p:column>
+										<h:outputText value="NSS:" />
+									</p:column>
+									<p:column>
+										<h:outputText value="#{identificarClienteView.clienteSelected.nss}" />	
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<h:outputText value="Estado de cuenta:" />
+									</p:column>
+									<p:column>
+										<h:outputText value="#{identificarClienteView.clienteSelected.estadoCuenta}" />
+									</p:column>
+									<p:column>
+										<h:outputText value="CLABE:" />
+									</p:column>
+									<p:column>
+										<h:outputText value="#{identificarClienteView.clienteSelected.clabe}" />
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<h:outputText value="Dirección:" />
+									</p:column>
+									<p:column>
+										<h:outputText value="#{identificarClienteView.clienteSelected.direccion}" />
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<h:outputText value="Correo electronico:" />
+									</p:column>
+									<p:column>
+										<h:outputText value="#{identificarClienteView.clienteSelected.correoElectronico}" />
+									</p:column>
+								</p:row>
+							</p:panelGrid>
+						</p:panel>
+						
+						<p:panel id="pnlDiversificacion" header="Resumen de inversión de Aportción Voluntaria" style="height: 400px !important">
+							<p:panelGrid columns="3" layout="grid" columnClasses="ui-grid-col-2,ui-grid-col-8,ui-grid-col-2">
+								<br />
+								  <p:row style="vertical-align:middle;">
+									<p:outputLabel style="vertical-align:middle;">Cantidad a invertir:</p:outputLabel>
+									<p:spacer width="50px" height="0px"/>
+									<p:inputText id="txtImporteGen" maxlength="15" disabled="true" readonly="true"
+										value="#{identificarClienteView.clienteSelected.ordenSpei.importe}" styleClass="input-style" style="width:30% !important;">
+										<f:convertNumber pattern="$#,###,##0.00" currencySymbol="$" type="currency" locale="es_MX" />
+									</p:inputText>
+								  </p:row>
+							</p:panelGrid>
+							<br />
+						</p:panel>
+						
+						<p:panel id="pnlDiversificacionGenerada">
+							<p:panelGrid columns="3" layout="grid">
+								<br />
+								<h:panelGrid columns="2" cellpadding="5">
+									<p:outputLabel for="consoleGenerada" value="Diversificación:" />
+									<p:selectOneRadio id="consoleGenerada" value="#{identificarClienteView.vlrDiversificacion}" disabled="true">
+										<f:selectItem itemLabel="Monto" itemValue="Monto" />
+										<f:selectItem itemLabel="Porcentaje" itemValue="Porcentaje" />
+									</p:selectOneRadio>
+								</h:panelGrid>
+								<br />
+							</p:panelGrid>
+						</p:panel>
+						
+						<p:panelGrid columns="3" layout="grid" columnClasses="ui-grid-col-2,ui-grid-col-8,ui-grid-col-2">
+							<br />
+							<p:dataTable var="diversificacion" value="#{identificarClienteView.diversificacionLst}" styleClass="table-style" style="width: 60% !important">
+								<p:column headerText="" style="width:20% !important">
+									<p:selectBooleanCheckbox value="#{diversificacion.selecion}" disabled="true"/>
+								</p:column>
+								<p:column headerText="Fondo aportación" style="width:50% !important">
+									<h:outputText value="#{diversificacion.descripcion}" />
+								</p:column>
+								<p:column headerText="Aportación"  style="width:50% !important">
+									<p:inputText value="#{diversificacion.selecion ? identificarClienteView.formatNumber(diversificacion.valor, identificarClienteView.vlrDiversificacion eq 'Monto' ) : diversificacion.valor}" styleClass="input-style" style="width:60% !important;" disabled="true"/>
+								</p:column>
+							</p:dataTable>
+							<br />
+						</p:panelGrid>
+						<br/>
+						<p:panelGrid columns="3" layout="grid" columnClasses="ui-grid-col-2,ui-grid-col-8,ui-grid-col-2">
+ 							<br />
+								<p:row>
+									<p:column>
+										<h:outputText value="Inversión total: " />
+									</p:column>
+									<p:column>
+										<h:outputText value="#{identificarClienteView.clienteSelected.ordenSpei.importe}" >
+											<f:convertNumber pattern="$#,###,##0.00" currencySymbol="$" type="currency" locale="es_MX" />
+										</h:outputText>
+									</p:column>
+								</p:row>
+ 							<br />
+						</p:panelGrid>
+						<br />
+								<p:spacer height="100px"/>
+						</ui:remove>
+						<div align="right">
+<!-- 							<center> -->
+								<p:commandButton value="Cerrar" onclick="PF('dlgOrdenGenerada').hide();"
+										styleClass="gray-button" />
+								<br/>
+<!-- 							</center> -->
+						</div>
+						
+					</center>
+				</p:dialog>
+			</h:form>
+			
+			<p:dialog id="consultDataDialog" modal="true"
+					widgetVar="consultDataDialog" draggable="false" closable="false"
+					resizable="false" appendTo="@(body)" 
+					showHeader="false">
+
+				<div align="center">
+					<h:outputText value="Consultando..."
+						styleClass="outputTextGeneric" />
+					<br />
+					<h:graphicImage value="/core/static/images/loading-bar.gif"
+						width="150" />
+				</div>
+			</p:dialog>
+		
+		</p:panel>
+	</ui:define>
+</ui:composition>
+</html>

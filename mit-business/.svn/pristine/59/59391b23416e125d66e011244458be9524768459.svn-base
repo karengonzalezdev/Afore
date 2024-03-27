@@ -1,0 +1,36 @@
+business.message.id=business module message
+
+## ********************************************
+##  CODIGOS DE ERRORES DE CAPA REPOSITORY
+## ********************************************
+
+####### CODIGOS DE ERROR DE EXCEPTION (Rango de 1100 a 1199) #######  
+1100=Reposistory, PersistenceException Class {0}'.'{1}
+
+1199=Reposistory, Exception Class {0}'.'{1}
+####### CODIGOS DE ERROR DE ERRORES (Rango de 1200 a 1299) #######
+
+
+
+## ********************************************
+##  CODIGOS DE ERRORES DE CAPA SERVICE
+## ********************************************
+
+####### CODIGOS DE ERROR DE EXCEPTION (Rango de 1300 A 1399) #######
+1300=Service, JRException Class {0}'.'{1}
+1301=Service, IOException Class {0}'.'{1}
+1302=Service, FaultMsg Class {0}'.'{1}'. ServicioBus-IibException Servicio:'{2}', Operacion: '{3}', Error-Tipo: '{4}', Error-Codigo: '{5}', Error-Descripcion: '{6}', Error-Servicio-Origen: '{7}', Error-Trace: '{8}
+1399=Service, Exception Class {0}'.'{1}
+
+####### CODIGOS DE ERROR DE ERRORES (Rango de 1400 A 1499) #######
+
+
+## ********************************************
+##  CODIGOS DE ERRORES DE CAPA SOAP (WS)
+## ********************************************
+
+####### CODIGOS DE ERROR DE EXCEPTION (Rango de 1500 A 1599) #######
+1599=Soap, Exception Class {0}'.'{1}
+
+####### CODIGOS DE ERROR DE ERRORES (Rango de 1600 A 1699) #######
+1600=Atributo(s) requerido(s): [{0}]

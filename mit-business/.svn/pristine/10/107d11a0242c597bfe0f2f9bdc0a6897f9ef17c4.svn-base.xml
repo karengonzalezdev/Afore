@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" targetNamespace="http://www.profuturo-gnp.com.mx/web/exception" xmlns:ns1="http://www.profuturo.mx/ldap/OperacionesLdap" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:import namespace="http://www.profuturo.mx/ldap/OperacionesLdap" schemaLocation="OperacionesLdapService_schema1.xsd"/>
+
+  <xs:element name="FaultBeanServiceInfo" nillable="true" type="ns1:faultBeanServiceInfo"/>
+</xs:schema>
+

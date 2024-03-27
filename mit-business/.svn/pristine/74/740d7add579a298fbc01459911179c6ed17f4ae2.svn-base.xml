@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mx.profuturo.nci.persistence.ConfPermisoSeccionPersistence">
+  <resultMap id="BaseResultMap" type="mx.profuturo.nci.business.vo.ConfPermisosSeccionVO">
+    <result column="FCN_ID_SECCION" jdbcType="DECIMAL" property="idSeccion" />
+    <result column="FCN_ID_PERFIL" jdbcType="DECIMAL" property="idPerfil" />
+    <result column="FCB_VIGENCIA" jdbcType="CHAR" property="vigencia" />
+    <result column="FCD_FEH_CRE" jdbcType="TIMESTAMP" property="fehCre" />
+    <result column="FCC_USU_CRE" jdbcType="VARCHAR" property="usuCre" />
+    <result column="FCD_FEH_ACT" jdbcType="TIMESTAMP" property="fehAct" />
+    <result column="FCC_USU_ACT" jdbcType="VARCHAR" property="usuAct" />
+  </resultMap>
+  
+  <sql id="allColumns">
+  	FCN_ID_SECCION,FCN_ID_PERFIL,FCB_VIGENCIA,FCD_FEH_CRE,FCC_USU_CRE,FCD_FEH_ACT,FCC_USU_ACT
+  </sql>
+  
+  <select id="selectByIdRol" parameterType="mx.profuturo.nci.business.vo.ConfPermisosSeccionFilter" resultMap="BaseResultMap" >
+  	select 
+		cps.FCN_ID_SECCION,cps.FCN_ID_PERFIL,
+		cps.FCB_VIGENCIA,cps.FCD_FEH_CRE,
+		cps.FCC_USU_CRE,cps.FCD_FEH_ACT,cps.FCC_USU_ACT
+		from  TFAFOGRAL_CONFIG_PERM_SECCION cps
+		inner join TCAFOGRAL_ROL_PERFIL rp on cps.FCN_ID_PERFIL = rp.FCN_ID_PERFIL
+		where rp.FCN_ID_ROL = #{idRolSearch,jdbcType=DECIMAL}
+  </select>
+  
+  
+  <select id="selectByDescRol" parameterType="mx.profuturo.nci.business.vo.ConfPermisosSeccionFilter" resultMap="BaseResultMap" >
+  	
+SELECT 
+	CPS.FCN_ID_SECCION,
+    CPS.FCN_ID_PERFIL,
+	CPS.FCB_VIGENCIA,
+    CPS.FCD_FEH_CRE,
+	CPS.FCC_USU_CRE,
+    CPS.FCD_FEH_ACT,
+    CPS.FCC_USU_ACT
+	FROM  TFAFOGRAL_CONFIG_PERM_SECCION CPS
+	
+		INNER JOIN TCCRXGRAL_CAT_PERFIL CATPERF 
+    ON CATPERF.FCN_ID_PERFIL  = CPS.FCN_ID_PERFIL
+    
+    INNER JOIN TCCRXGRAL_CAT_CATALOGO CATSECCI
+    ON CATSECCI.FCN_ID_CAT_CATALOGO = CPS.FCN_ID_SECCION 
+	
+	WHERE CPS.FCB_VIGENCIA = 1
+    AND CATPERF.FCB_VIGENCIA = 1
+    AND CATSECCI.FCB_VIGENCIA = 1
+    AND upper(CATPERF.FCC_VALOR) = UPPER(#{descRol,jdbcType=VARCHAR})
+		
+		
+  </select>
+  
+</mapper>

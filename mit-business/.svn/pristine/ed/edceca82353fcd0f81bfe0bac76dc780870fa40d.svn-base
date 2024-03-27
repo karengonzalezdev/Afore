@@ -1,0 +1,31 @@
+package mx.profuturo.nci.business.service.impl;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import mx.profuturo.nci.business.service.IObtenerCifrasControlService;
+import mx.profuturo.nci.business.vo.ObtenerCifrasControlVO;
+
+@Service("obtenerCifrasControlService")
+public class ObtenerCifrasControlServiceImpl implements IObtenerCifrasControlService {
+
+	@Override
+	public List<ObtenerCifrasControlVO> obtenerCifrasMovimientosCif(ObtenerCifrasControlVO param) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ObtenerCifrasControlVO> obtenerCifrasTotales(ObtenerCifrasControlVO param) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Long obtenerTotalDevolucionesApovol(ObtenerCifrasControlVO param) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

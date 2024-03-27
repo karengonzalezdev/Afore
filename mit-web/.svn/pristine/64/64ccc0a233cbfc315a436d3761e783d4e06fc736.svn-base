@@ -1,0 +1,2 @@
+/* This beautiful CSS-File has been crafted with LESS (lesscss.org) and compiled by simpLESS (wearekiss.com/simpless) */
+ul.breadcrumb{list-style-type:none;padding:8px 10px;margin:0;overflow:hidden;border:1px solid #ddd}ul.breadcrumb li{float:left;padding-right:7px;font-size:.8em;color:#848183}ul.breadcrumb li a{background:url("../../img/componentes/bread.png") no-repeat;background-position:right center;padding-right:16px;color:#558ac0}

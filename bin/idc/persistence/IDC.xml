@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mx.secure.nci.persistence.SecureIDCPersistence">
+
+<resultMap id="BaseResultMapDevol" type="mx.secure.nci.business.vo.DevolucionesVO">
+	<result column="FTC_FOLIO"				jdbcType="VARCHAR"		property="folio"			javaType="string"/>
+	<result column="FTN_TOTAL"				jdbcType="NUMERIC"		property="totalCli"			javaType="string"/>
+	<result column="FTN_TOTAL_DESC"			jdbcType="NUMERIC"		property="descCli"			javaType="long"/>
+	<result column="FTN_TOTAL_IDENT"		jdbcType="NUMERIC"		property="identCli"			javaType="long"/>
+	<result column="FTN_TOTAL_NO_IDENT"		jdbcType="NUMERIC"		property="noIdentCli"		javaType="long"/>
+	<result column="FTN_TOTAL_VIG"			jdbcType="NUMERIC"		property="vigCli"			javaType="long"/>
+	<result column="FTN_TOTAL_NO_VIG"		jdbcType="NUMERIC"		property="noVigCli"			javaType="long"/>
+</resultMap>
+
+<select id="getIDC" resultMap="IDC" parameterType="java.util.List">
+	SELECT FTN_TOTAL, FTN_TOTAL_DESC, FTN_TOTAL_IDENT, FTN_TOTAL_NO_IDENT, FTN_TOTAL_VIG, FTN_TOTAL_NO_VIG
+		FROM CIERREN_ETL.TTAFOAVOL_ETL_IDC_TOTALES
+  	<where>
+ 		FTC_FOLIO IN 
+ 		 <foreach item="folio"  index="index" collection="list" open="(" separator="," close=")">
+			#{folio,jdbcType=VARCHAR}
+		</foreach>   		
+  	</where>		
+</select>
+
+</mapper>

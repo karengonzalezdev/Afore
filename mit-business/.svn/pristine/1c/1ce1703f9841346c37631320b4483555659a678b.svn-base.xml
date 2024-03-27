@@ -1,0 +1,966 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" targetNamespace="http://www.profuturo-gnp.com.mx/comun/Catalogo" xmlns:tns="http://www.profuturo-gnp.com.mx/comun/Catalogo" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="agregarCodigoPostal" type="tns:agregarCodigoPostal"/>
+
+  <xs:element name="agregarCodigoPostalResponse" type="tns:agregarCodigoPostalResponse"/>
+
+  <xs:element name="buscarMunicipioPorEntidad" type="tns:buscarMunicipioPorEntidad"/>
+
+  <xs:element name="buscarMunicipioPorEntidadResponse" type="tns:buscarMunicipioPorEntidadResponse"/>
+
+  <xs:element name="consultaCatalogoDocumentoSoporte" type="tns:consultaCatalogoDocumentoSoporte"/>
+
+  <xs:element name="consultaCatalogoDocumentoSoporteResponse" type="tns:consultaCatalogoDocumentoSoporteResponse"/>
+
+  <xs:element name="consultaEntidadFederativaPorClaveImss" type="tns:consultaEntidadFederativaPorClaveImss"/>
+
+  <xs:element name="consultaEntidadFederativaPorClaveImssResponse" type="tns:consultaEntidadFederativaPorClaveImssResponse"/>
+
+  <xs:element name="consultaEntidadFederativaPorClaveRenapo" type="tns:consultaEntidadFederativaPorClaveRenapo"/>
+
+  <xs:element name="consultaEntidadFederativaPorClaveRenapoResponse" type="tns:consultaEntidadFederativaPorClaveRenapoResponse"/>
+
+  <xs:element name="consultaInformacionEntidadFederativa" type="tns:consultaInformacionEntidadFederativa"/>
+
+  <xs:element name="consultaInformacionEntidadFederativaResponse" type="tns:consultaInformacionEntidadFederativaResponse"/>
+
+  <xs:element name="consultaMotivosRechazoSolMd" type="tns:consultaMotivosRechazoSolMd"/>
+
+  <xs:element name="consultaMotivosRechazoSolMdResponse" type="tns:consultaMotivosRechazoSolMdResponse"/>
+
+  <xs:element name="consultaPreciosAIV" type="tns:consultaPreciosAIV"/>
+
+  <xs:element name="consultaPreciosAIVResponse" type="tns:consultaPreciosAIVResponse"/>
+
+  <xs:element name="consultaPreciosAccion" type="tns:consultaPreciosAccion"/>
+
+  <xs:element name="consultaPreciosAccionResponse" type="tns:consultaPreciosAccionResponse"/>
+
+  <xs:element name="consultarAsentamientosPorCP" type="tns:consultarAsentamientosPorCP"/>
+
+  <xs:element name="consultarAsentamientosPorCPResponse" type="tns:consultarAsentamientosPorCPResponse"/>
+
+  <xs:element name="consultarCatOrigenAfiliacion" type="tns:consultarCatOrigenAfiliacion"/>
+
+  <xs:element name="consultarCatOrigenAfiliacionResponse" type="tns:consultarCatOrigenAfiliacionResponse"/>
+
+  <xs:element name="consultarCatalogo" type="tns:consultarCatalogo"/>
+
+  <xs:element name="consultarCatalogoModificacionEstatus" type="tns:consultarCatalogoModificacionEstatus"/>
+
+  <xs:element name="consultarCatalogoModificacionEstatusResponse" type="tns:consultarCatalogoModificacionEstatusResponse"/>
+
+  <xs:element name="consultarCatalogoResponse" type="tns:consultarCatalogoResponse"/>
+
+  <xs:element name="consultarCodigoPostal" type="tns:consultarCodigoPostal"/>
+
+  <xs:element name="consultarCodigoPostalResponse" type="tns:consultarCodigoPostalResponse"/>
+
+  <xs:element name="consultarComponentesCorreo" type="tns:consultarComponentesCorreo"/>
+
+  <xs:element name="consultarComponentesCorreoResponse" type="tns:consultarComponentesCorreoResponse"/>
+
+  <xs:element name="consultarElemento" type="tns:consultarElemento"/>
+
+  <xs:element name="consultarElementoResponse" type="tns:consultarElementoResponse"/>
+
+  <xs:element name="consultarEmpleado" type="tns:consultarEmpleado"/>
+
+  <xs:element name="consultarEmpleadoResponse" type="tns:consultarEmpleadoResponse"/>
+
+  <xs:element name="consultarEmpleadosPorRol" type="tns:consultarEmpleadosPorRol"/>
+
+  <xs:element name="consultarEmpleadosPorRolResponse" type="tns:consultarEmpleadosPorRolResponse"/>
+
+  <xs:element name="consultarEntidadesFederativas" type="tns:consultarEntidadesFederativas"/>
+
+  <xs:element name="consultarEntidadesFederativasResponse" type="tns:consultarEntidadesFederativasResponse"/>
+
+  <xs:element name="consultarFamGrpoPorSubcuenta" type="tns:consultarFamGrpoPorSubcuenta"/>
+
+  <xs:element name="consultarFamGrpoPorSubcuentaResponse" type="tns:consultarFamGrpoPorSubcuentaResponse"/>
+
+  <xs:element name="consultarGrupos" type="tns:consultarGrupos"/>
+
+  <xs:element name="consultarGruposResponse" type="tns:consultarGruposResponse"/>
+
+  <xs:element name="consultarInformacionElemento" type="tns:consultarInformacionElemento"/>
+
+  <xs:element name="consultarInformacionElementoResponse" type="tns:consultarInformacionElementoResponse"/>
+
+  <xs:element name="consultarMotivosRechazoValCal" type="tns:consultarMotivosRechazoValCal"/>
+
+  <xs:element name="consultarMotivosRechazoValCalResponse" type="tns:consultarMotivosRechazoValCalResponse"/>
+
+  <xs:element name="consultarPromotor" type="tns:consultarPromotor"/>
+
+  <xs:element name="consultarPromotorPorIdEmpleado" type="tns:consultarPromotorPorIdEmpleado"/>
+
+  <xs:element name="consultarPromotorPorIdEmpleadoResponse" type="tns:consultarPromotorPorIdEmpleadoResponse"/>
+
+  <xs:element name="consultarPromotorResponse" type="tns:consultarPromotorResponse"/>
+
+  <xs:element name="consultarSubcuentaPorId" type="tns:consultarSubcuentaPorId"/>
+
+  <xs:element name="consultarSubcuentaPorIdResponse" type="tns:consultarSubcuentaPorIdResponse"/>
+
+  <xs:element name="consultarSubcuentas" type="tns:consultarSubcuentas"/>
+
+  <xs:element name="consultarSubcuentasPorFamGpo" type="tns:consultarSubcuentasPorFamGpo"/>
+
+  <xs:element name="consultarSubcuentasPorFamGpoResponse" type="tns:consultarSubcuentasPorFamGpoResponse"/>
+
+  <xs:element name="consultarSubcuentasResponse" type="tns:consultarSubcuentasResponse"/>
+
+  <xs:element name="consultarSucursales" type="tns:consultarSucursales"/>
+
+  <xs:element name="consultarSucursalesResponse" type="tns:consultarSucursalesResponse"/>
+
+  <xs:complexType name="consultarPromotor">
+    <xs:sequence>
+      <xs:element name="consultarPromotorIn" type="tns:consultarPromotorIn" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarPromotorIn">
+    <xs:sequence>
+      <xs:element name="claveConsar" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarPromotorResponse">
+    <xs:sequence>
+      <xs:element name="consultarPromotorOut" type="tns:consultarPromotorOut" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarPromotorOut">
+    <xs:sequence>
+      <xs:element name="empleado" type="tns:empleadoOut" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="empleadoOut">
+    <xs:sequence>
+      <xs:element name="apellidoMaterno" type="xs:string" minOccurs="0"/>
+      <xs:element name="apellidoPaterno" type="xs:string" minOccurs="0"/>
+      <xs:element name="claveConsar" type="xs:string" minOccurs="0"/>
+      <xs:element name="curp" type="xs:string" minOccurs="0"/>
+      <xs:element name="email" type="xs:string" minOccurs="0"/>
+      <xs:element name="fechaAltaConsar" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="idCentroCostos" type="xs:long" minOccurs="0"/>
+      <xs:element name="idEmpleado" type="xs:long" minOccurs="0"/>
+      <xs:element name="idPuesto" type="xs:long" minOccurs="0"/>
+      <xs:element name="idRolEmpleado" type="xs:long" minOccurs="0"/>
+      <xs:element name="jefeInmediato" type="xs:string" minOccurs="0"/>
+      <xs:element name="nombre" type="xs:string" minOccurs="0"/>
+      <xs:element name="numeroEmpleado" type="xs:string" minOccurs="0"/>
+      <xs:element name="rolEmpleado" type="xs:string" minOccurs="0"/>
+      <xs:element name="userId" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="faultBeanServiceInfo">
+    <xs:sequence>
+      <xs:element name="cveAplicacion" type="xs:string" minOccurs="0"/>
+      <xs:element name="cveCategoria" type="xs:string" minOccurs="0"/>
+      <xs:element name="cveSeveridad" type="xs:string" minOccurs="0"/>
+      <xs:element name="fechaExcepcionSistema" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="mensajeExcepcionAplicacion" type="xs:string" minOccurs="0"/>
+      <xs:element name="mensajeExcepcionSistema" type="xs:string" minOccurs="0"/>
+      <xs:element name="message" type="xs:string" minOccurs="0"/>
+      <xs:element name="nombreServicio" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="agregarCodigoPostal">
+    <xs:sequence>
+      <xs:element name="agregarCodigoPostalIn" type="tns:agregarCodigoPostalIn" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="agregarCodigoPostalIn">
+    <xs:sequence>
+      <xs:element name="codigoPostal" type="tns:codigoPostalIn" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="codigoPostalIn">
+    <xs:sequence>
+      <xs:element name="descripcion" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="agregarCodigoPostalResponse">
+    <xs:sequence>
+      <xs:element name="agregarCodigoPostalOut" type="tns:agregarCodigoPostalOut" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="agregarCodigoPostalOut">
+    <xs:sequence>
+      <xs:element name="result" type="xs:boolean" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultaMotivosRechazoSolMd">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="consultaMotivosRechazoSolMdResponse">
+    <xs:sequence>
+      <xs:element name="motivosRechazoSolMDOut" type="tns:motivosRechazoSolMDOut" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="motivosRechazoSolMDOut">
+    <xs:sequence>
+      <xs:element name="listaMotivosRechazo" type="tns:motivoRechazoSolMDOut" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="motivoRechazoSolMDOut">
+    <xs:sequence>
+      <xs:element name="accionSeguir" type="xs:string" minOccurs="0"/>
+      <xs:element name="descripcion" type="xs:string" minOccurs="0"/>
+      <xs:element name="idMotivoRechazo" type="xs:long" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarAsentamientosPorCP">
+    <xs:sequence>
+      <xs:element name="ConsultarAsentaminetosPorCPIn" type="tns:consultarAsentaminetosPorCPIn" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarAsentaminetosPorCPIn">
+    <xs:sequence>
+      <xs:element name="codigoPostal" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarAsentamientosPorCPResponse">
+    <xs:sequence>
+      <xs:element name="ConsultarAsentaminetosPorCPOut" type="tns:consultarAsentaminetosPorCPOut" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarAsentaminetosPorCPOut">
+    <xs:sequence>
+      <xs:element name="asentamientos" type="tns:asentamiento" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="asentamiento">
+    <xs:sequence>
+      <xs:element name="ciudad" type="xs:string" minOccurs="0"/>
+      <xs:element name="colonia" type="xs:string" minOccurs="0"/>
+      <xs:element name="entidadFederativa" type="xs:string" minOccurs="0"/>
+      <xs:element name="idCiudad" type="xs:long" minOccurs="0"/>
+      <xs:element name="idCodigoPostal" type="xs:long" minOccurs="0"/>
+      <xs:element name="idColonia" type="xs:long" minOccurs="0"/>
+      <xs:element name="idEntidadFederativa" type="xs:long" minOccurs="0"/>
+      <xs:element name="idMunicipio" type="xs:long" minOccurs="0"/>
+      <xs:element name="municipio" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarEntidadesFederativas">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="consultarEntidadesFederativasResponse">
+    <xs:sequence>
+      <xs:element name="buscarEntidadesFederativasOut" type="tns:buscarEntidadesFederativasOut" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="buscarEntidadesFederativasOut">
+    <xs:sequence>
+      <xs:element name="listaEntidadesFederativas" type="tns:entidadFederativaOut" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="entidadFederativaOut">
+    <xs:sequence>
+      <xs:element name="claveImss" type="xs:string" minOccurs="0"/>
+      <xs:element name="claveRenapo" type="xs:string" minOccurs="0"/>
+      <xs:element name="descripcion" type="xs:string" minOccurs="0"/>
+      <xs:element name="idEntidadFederativa" type="xs:long" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarFamGrpoPorSubcuenta">
+    <xs:sequence>
+      <xs:element name="consultarFamGrpoIn" type="tns:consultarFamGrpoIn" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarFamGrpoIn">
+    <xs:sequence>
+      <xs:element name="idSubcuenta" type="xs:long" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarFamGrpoPorSubcuentaResponse">
+    <xs:sequence>
+      <xs:element name="consultarFamGrpoPorSubcuentaOut" type="tns:consultarFamGrpoOut" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarFamGrpoOut">
+    <xs:sequence>
+      <xs:element name="descripcionFamilia" type="xs:string" minOccurs="0"/>
+      <xs:element name="descripcionGrupo" type="xs:string" minOccurs="0"/>
+      <xs:element name="idFamilia" type="xs:long" minOccurs="0"/>
+      <xs:element name="idGrupo" type="xs:long" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarSucursales">
+    <xs:sequence>
+      <xs:element name="ConsultarSucursalIn" type="tns:consultarSucursalIn" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarSucursalIn">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="consultarSucursalesResponse">
+    <xs:sequence>
+      <xs:element name="consultarSucursalOut" type="tns:consultarSucursalOut" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarSucursalOut">
+    <xs:sequence>
+      <xs:element name="sucurales" type="tns:sucursalOut" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="sucursalOut">
+    <xs:sequence>
+      <xs:element name="descripcion" type="xs:string" minOccurs="0"/>
+      <xs:element name="idSucursal" type="xs:long" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultaEntidadFederativaPorClaveRenapo">
+    <xs:sequence>
+      <xs:element name="consultaEntidadFederativaPorClaveRenapoIn" type="tns:consultaEntidadFederativaPorClaveRenapoIn" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultaEntidadFederativaPorClaveRenapoIn">
+    <xs:sequence>
+      <xs:element name="claveRenapo" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultaEntidadFederativaPorClaveRenapoResponse">
+    <xs:sequence>
+      <xs:element name="consultaEntidadFederativaPorClaveRenapoOut" type="tns:consultaEntidadFederativaPorClaveRenapoOut" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultaEntidadFederativaPorClaveRenapoOut">
+    <xs:sequence>
+      <xs:element name="claveImss" type="xs:string" minOccurs="0"/>
+      <xs:element name="claveProcesar" type="xs:string" minOccurs="0"/>
+      <xs:element name="claveRenapo" type="xs:string" minOccurs="0"/>
+      <xs:element name="descripcion" type="xs:string" minOccurs="0"/>
+      <xs:element name="idEntidadFederativa" type="xs:long" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultaEntidadFederativaPorClaveImss">
+    <xs:sequence>
+      <xs:element name="consultarEntidadFederativaPorClaveImssIn" type="tns:consultarEntidadFederativaPorClaveImssIn" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarEntidadFederativaPorClaveImssIn">
+    <xs:sequence>
+      <xs:element name="claveImss" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultaEntidadFederativaPorClaveImssResponse">
+    <xs:sequence>
+      <xs:element name="consultarInformacionEntidadFederativaOut" type="tns:consultarInformacionEntidadFederativaOut" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarInformacionEntidadFederativaOut">
+    <xs:sequence>
+      <xs:element name="claveImss" type="xs:string" minOccurs="0"/>
+      <xs:element name="claveProcesar" type="xs:string" minOccurs="0"/>
+      <xs:element name="claveRenapo" type="xs:string" minOccurs="0"/>
+      <xs:element name="descripcion" type="xs:string" minOccurs="0"/>
+      <xs:element name="idEntidadFederativa" type="xs:long" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarEmpleado">
+    <xs:sequence>
+      <xs:element name="consultarEmpleadoIn" type="tns:consultarEmpleadoIn" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarEmpleadoIn">
+    <xs:sequence>
+      <xs:element name="userId" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarEmpleadoResponse">
+    <xs:sequence>
+      <xs:element name="consultarEmpleadoOut" type="tns:consultarEmpleadoOut" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarEmpleadoOut">
+    <xs:sequence>
+      <xs:element name="apellidoMaterno" type="xs:string" minOccurs="0"/>
+      <xs:element name="apellidoPaterno" type="xs:string" minOccurs="0"/>
+      <xs:element name="email" type="xs:string" minOccurs="0"/>
+      <xs:element name="idCentroCostos" type="xs:long" minOccurs="0"/>
+      <xs:element name="idEmpleado" type="xs:long" minOccurs="0"/>
+      <xs:element name="idRol" type="xs:long" minOccurs="0"/>
+      <xs:element name="idSucursal" type="xs:long" minOccurs="0"/>
+      <xs:element name="nombre" type="xs:string" minOccurs="0"/>
+      <xs:element name="nss" type="xs:string" minOccurs="0"/>
+      <xs:element name="numeroEmpleado" type="xs:string" minOccurs="0"/>
+      <xs:element name="numeroSucursal" type="xs:string" minOccurs="0"/>
+      <xs:element name="rol" type="xs:string" minOccurs="0"/>
+      <xs:element name="sucursal" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarGrupos">
+    <xs:sequence>
+      <xs:element name="consultarGruposIn" type="tns:consultarGruposIn" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarGruposIn">
+    <xs:sequence>
+      <xs:element name="idFamiliaSubcuenta" type="xs:long" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarGruposResponse">
+    <xs:sequence>
+      <xs:element name="consultarGruposPorFamiliaOut" type="tns:consultarCatalogoOut" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarCatalogoOut">
+    <xs:sequence>
+      <xs:element name="elementos" type="tns:elementoOut" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="elementoOut">
+    <xs:sequence>
+      <xs:element name="claveAlfanumerica" type="xs:string" minOccurs="0"/>
+      <xs:element name="claveNumerica" type="xs:long" minOccurs="0"/>
+      <xs:element name="descripcion" type="xs:string" minOccurs="0"/>
+      <xs:element name="idElemento" type="xs:long" minOccurs="0"/>
+      <xs:element name="vigencia" type="xs:long" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarSubcuentasPorFamGpo">
+    <xs:sequence>
+      <xs:element name="consultarSubcuentaIn" type="tns:consultarSubcuentaIn" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarSubcuentaIn">
+    <xs:sequence>
+      <xs:element name="idFamiliaSubcuenta" type="xs:long" minOccurs="0"/>
+      <xs:element name="idGrupoSubcuenta" type="xs:long" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarSubcuentasPorFamGpoResponse">
+    <xs:sequence>
+      <xs:element name="consultarSubcuentasPorFamGpo" type="tns:consultarSubcuentasOut" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarSubcuentasOut">
+    <xs:sequence>
+      <xs:element name="subcuentas" type="tns:subcuentaOut" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="subcuentaOut">
+    <xs:sequence>
+      <xs:element name="claveAlfanumericaOP09" type="xs:string" minOccurs="0"/>
+      <xs:element name="claveAlfanumericaOP29" type="xs:string" minOccurs="0"/>
+      <xs:element name="claveAlfanumericaProf" type="xs:string" minOccurs="0"/>
+      <xs:element name="descripcionOP09" type="xs:string" minOccurs="0"/>
+      <xs:element name="descripcionOP29" type="xs:string" minOccurs="0"/>
+      <xs:element name="descripcionProf" type="xs:string" minOccurs="0"/>
+      <xs:element name="idSubcuenta" type="xs:long" minOccurs="0"/>
+      <xs:element name="vigencia" type="xs:long" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarCodigoPostal">
+    <xs:sequence>
+      <xs:element name="consultarCodigoPostalIn" type="tns:consultarCodigoPostalIn" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarCodigoPostalIn">
+    <xs:sequence>
+      <xs:element name="codigoPostal" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarCodigoPostalResponse">
+    <xs:sequence>
+      <xs:element name="consultarCodigoPostalOut" type="tns:consultarCodigoPostalOut" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarCodigoPostalOut">
+    <xs:sequence>
+      <xs:element name="codigoPostal" type="tns:codigoPostalOut" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="codigoPostalOut">
+    <xs:sequence>
+      <xs:element name="descripcion" type="xs:string" minOccurs="0"/>
+      <xs:element name="fechaActualizacion" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="fechaAlta" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="idCodigoPostal" type="xs:long" minOccurs="0"/>
+      <xs:element name="vigencia" type="xs:long" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarMotivosRechazoValCal">
+    <xs:sequence>
+      <xs:element name="PConsultarMotivosRechazoValCalIn" type="tns:pConsultarMotivosRechazoValCalIn" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="pConsultarMotivosRechazoValCalIn">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="consultarMotivosRechazoValCalResponse">
+    <xs:sequence>
+      <xs:element name="PConsultarMotivosRechazoValCalOut" type="tns:pConsultarMotivosRechazoValCalOut" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="pConsultarMotivosRechazoValCalOut">
+    <xs:sequence>
+      <xs:element name="rechazoValCalList" type="tns:rechazoValCalOut" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="rechazoValCalOut">
+    <xs:sequence>
+      <xs:element name="claveRechazoValcal" type="xs:string" minOccurs="0"/>
+      <xs:element name="descripcion" type="xs:string" minOccurs="0"/>
+      <xs:element name="idMotivoRechazoValcal" type="xs:long" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarSubcuentaPorId">
+    <xs:sequence>
+      <xs:element name="consultarSubcuentaPorIdIn" type="tns:consultarSubcuentaPorIdIn" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarSubcuentaPorIdIn">
+    <xs:sequence>
+      <xs:element name="idSubcuenta" type="xs:long" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarSubcuentaPorIdResponse">
+    <xs:sequence>
+      <xs:element name="consultarSubcuentaPorIdOut" type="tns:consultarSubcuentaPorIdOut" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarSubcuentaPorIdOut">
+    <xs:sequence>
+      <xs:element name="subcuenta" type="tns:subcuentaOut" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultaPreciosAIV">
+    <xs:sequence>
+      <xs:element name="consultarPreciosAccionIn" type="tns:consultarPreciosAccionIn" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarPreciosAccionIn">
+    <xs:sequence>
+      <xs:element name="fecha" type="xs:dateTime" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultaPreciosAIVResponse">
+    <xs:sequence>
+      <xs:element name="consultarPreciosAccionAivOut" type="tns:consultarPreciosAccionAivOut" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarPreciosAccionAivOut">
+    <xs:sequence>
+      <xs:element name="precio" type="tns:consultarPrecioAivEntidadOut" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarPrecioAivEntidadOut">
+    <xs:sequence>
+      <xs:element name="idEntidad" type="xs:long" minOccurs="0"/>
+      <xs:element name="precio" type="xs:double" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarElemento">
+    <xs:sequence>
+      <xs:element name="consultarElementoIn" type="tns:consultarElementoIn" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarElementoIn">
+    <xs:sequence>
+      <xs:element name="claveAlfanumerica" type="xs:string" minOccurs="0"/>
+      <xs:element name="claveNumerica" type="xs:long" minOccurs="0"/>
+      <xs:element name="descripcion" type="xs:string" minOccurs="0"/>
+      <xs:element name="idCatalogo" type="xs:long" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarElementoResponse">
+    <xs:sequence>
+      <xs:element name="consultarElementoOut" type="tns:consultarElementoOut" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarElementoOut">
+    <xs:sequence>
+      <xs:element name="claveAlfanumerica" type="xs:string" minOccurs="0"/>
+      <xs:element name="claveNumerica" type="xs:long" minOccurs="0"/>
+      <xs:element name="descripcion" type="xs:string" minOccurs="0"/>
+      <xs:element name="idElemento" type="xs:long" minOccurs="0"/>
+      <xs:element name="vigencia" type="xs:long" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarPromotorPorIdEmpleado">
+    <xs:sequence>
+      <xs:element name="consultarPromotorPorIdEmpleado" type="tns:consultarPromotorPorIdEmpleadoIn" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarPromotorPorIdEmpleadoIn">
+    <xs:sequence>
+      <xs:element name="idEmpleado" type="xs:long" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarPromotorPorIdEmpleadoResponse">
+    <xs:sequence>
+      <xs:element name="consultarPromotorOut" type="tns:consultarPromotorOut" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarCatalogo">
+    <xs:sequence>
+      <xs:element name="consultarCatalogoIn" type="tns:consultarCatalogoIn" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarCatalogoIn">
+    <xs:sequence>
+      <xs:element name="idCatalogo" type="xs:long" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarCatalogoResponse">
+    <xs:sequence>
+      <xs:element name="consultarCatalogoOut" type="tns:consultarCatalogoOut" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultaCatalogoDocumentoSoporte">
+    <xs:sequence>
+      <xs:element name="relTipoDocumentoIn" type="tns:relTipoDocumentoIn" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="relTipoDocumentoIn">
+    <xs:sequence>
+      <xs:element name="idCatalogo" type="xs:long" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultaCatalogoDocumentoSoporteResponse">
+    <xs:sequence>
+      <xs:element name="relTipoDocumentoOut" type="tns:relTipoDocumentoOut" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="relTipoDocumentoOut">
+    <xs:sequence>
+      <xs:element name="listDocumentos" type="tns:documento" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="documento">
+    <xs:sequence>
+      <xs:element name="descripcion" type="xs:string" minOccurs="0"/>
+      <xs:element name="idDocumento" type="xs:long" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="buscarMunicipioPorEntidad">
+    <xs:sequence>
+      <xs:element name="buscarMunicipioPorEntidadIn" type="tns:buscarMunicipioPorEntidadIn" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="buscarMunicipioPorEntidadIn">
+    <xs:sequence>
+      <xs:element name="idEntidadFederativa" type="xs:long" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="buscarMunicipioPorEntidadResponse">
+    <xs:sequence>
+      <xs:element name="buscarMunicipioPorEntidadOut" type="tns:buscarMunicipioPorEntidadOut" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="buscarMunicipioPorEntidadOut">
+    <xs:sequence>
+      <xs:element name="listaMunicipios" type="tns:municipioOut" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="municipioOut">
+    <xs:sequence>
+      <xs:element name="descripcion" type="xs:string" minOccurs="0"/>
+      <xs:element name="idMunicipio" type="xs:long" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarSubcuentas">
+    <xs:sequence>
+      <xs:element name="consultarSubcuentasIn" type="tns:consultarSubcuentasIn" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarSubcuentasIn">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="consultarSubcuentasResponse">
+    <xs:sequence>
+      <xs:element name="consultarSubcuentasOut" type="tns:consultarSubcuentasOut" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarEmpleadosPorRol">
+    <xs:sequence>
+      <xs:element name="ConsultarEmpleadosPorRolIn" type="tns:consultarEmpleadosPorRolIn" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarEmpleadosPorRolIn">
+    <xs:sequence>
+      <xs:element name="idRol" type="xs:long" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarEmpleadosPorRolResponse">
+    <xs:sequence>
+      <xs:element name="ConsultarEmpleadosPorRolOut" type="tns:consultarEmpleadosPorRolOut" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarEmpleadosPorRolOut">
+    <xs:sequence>
+      <xs:element name="empleados" type="tns:empleadoOut" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultaPreciosAccion">
+    <xs:sequence>
+      <xs:element name="consultarPreciosAccionIn" type="tns:consultarPreciosAccionIn" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultaPreciosAccionResponse">
+    <xs:sequence>
+      <xs:element name="consultarPreciosAccionOut" type="tns:consultarPreciosAccionOut" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarPreciosAccionOut">
+    <xs:sequence>
+      <xs:element name="precio" type="tns:consultarPrecioAccionSieforeOut" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarPrecioAccionSieforeOut">
+    <xs:sequence>
+      <xs:element name="idInstrumento" type="xs:long" minOccurs="0"/>
+      <xs:element name="precioAccion" type="xs:double" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultaInformacionEntidadFederativa">
+    <xs:sequence>
+      <xs:element name="consultarInformacionEntidadFederativaIn" type="tns:consultarInformacionEntidadFederativaIn" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarInformacionEntidadFederativaIn">
+    <xs:sequence>
+      <xs:element name="idEntidadFederativa" type="xs:long" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultaInformacionEntidadFederativaResponse">
+    <xs:sequence>
+      <xs:element name="consultarInformacionEntidadFederativaOut" type="tns:consultarInformacionEntidadFederativaOut" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarCatalogoModificacionEstatus">
+    <xs:sequence>
+      <xs:element name="ConsultarCatalogoModificacionEstatusIn" type="tns:consultarCatalogoModificacionEstatusIn" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarCatalogoModificacionEstatusIn">
+    <xs:sequence>
+      <xs:element name="idEtapaEstatus" type="xs:long" minOccurs="0"/>
+      <xs:element name="idEtapaSolicitud" type="xs:long" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarCatalogoModificacionEstatusResponse">
+    <xs:sequence>
+      <xs:element name="ConsultarCatalogoModificacionEstatusOut" type="tns:consultarCatalogoModificacionEstatusOut" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarCatalogoModificacionEstatusOut">
+    <xs:sequence>
+      <xs:element name="catalogoModificacionEstatus" type="tns:catalogoModificacionEstatusOut" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="catalogoModificacionEstatusOut">
+    <xs:sequence>
+      <xs:element name="estatus" type="xs:string" minOccurs="0"/>
+      <xs:element name="idEstatus" type="xs:long" minOccurs="0"/>
+      <xs:element name="indicadorRechazo" type="xs:long" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarCatOrigenAfiliacion">
+    <xs:sequence>
+      <xs:element name="consultarCatOrigenAfiliacionIn" type="tns:consultarCatOrigenAfiliacionIn" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarCatOrigenAfiliacionIn">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="consultarCatOrigenAfiliacionResponse">
+    <xs:sequence>
+      <xs:element name="consultarCatOrigenAfiliacionOut" type="tns:consultarCatOrigenAfiliacionOut" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarCatOrigenAfiliacionOut">
+    <xs:sequence>
+      <xs:element name="catOrigenAfiliacion" type="tns:catalogoOrigenAfiliacionOut" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="catalogoOrigenAfiliacionOut">
+    <xs:sequence>
+      <xs:element name="claveOrigenAfiliacion" type="xs:string" minOccurs="0"/>
+      <xs:element name="descripcion" type="xs:string" minOccurs="0"/>
+      <xs:element name="edoAfil" type="xs:long" minOccurs="0"/>
+      <xs:element name="idOrigenAfiliacion" type="xs:long" minOccurs="0"/>
+      <xs:element name="origenAfiliacionAlpha" type="xs:string" minOccurs="0"/>
+      <xs:element name="tipoTraspasoOp09" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarComponentesCorreo">
+    <xs:sequence>
+      <xs:element name="ConsultarComponentesCorreoIn" type="tns:consultarComponentesCorreoIn" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarComponentesCorreoIn">
+    <xs:sequence>
+      <xs:element name="proceso" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarComponentesCorreoResponse">
+    <xs:sequence>
+      <xs:element name="ConsultarComponentesCorreoOut" type="tns:consultarComponentesCorreoOut" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarComponentesCorreoOut">
+    <xs:sequence>
+      <xs:element name="cc" type="xs:string" minOccurs="0"/>
+      <xs:element name="descripcion" type="xs:string" minOccurs="0"/>
+      <xs:element name="from" type="xs:string" minOccurs="0"/>
+      <xs:element name="subject" type="xs:string" minOccurs="0"/>
+      <xs:element name="to" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarInformacionElemento">
+    <xs:sequence>
+      <xs:element name="consultarInformacionElementoIn" type="tns:consultarInformacionElementoIn" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarInformacionElementoIn">
+    <xs:sequence>
+      <xs:element name="idElemento" type="xs:long" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarInformacionElementoResponse">
+    <xs:sequence>
+      <xs:element name="consultarInformacionElementoOut" type="tns:consultarInformacionElementoOut" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarInformacionElementoOut">
+    <xs:sequence>
+      <xs:element name="claveAlfanumerica" type="xs:string" minOccurs="0"/>
+      <xs:element name="claveNumerica" type="xs:long" minOccurs="0"/>
+      <xs:element name="descripcion" type="xs:string" minOccurs="0"/>
+      <xs:element name="vigencia" type="xs:long" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+

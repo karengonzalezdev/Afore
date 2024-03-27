@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mx.profuturo.nci.cif.persistence.ProfuturoCIFPersistence">
+
+  <resultMap id="BaseResultMap" type="mx.profuturo.nci.business.vo.cif.Profuturo_CIFVo">
+    <id 	column="ITEM"				jdbcType="VARCHAR"		property="idItem"				javaType="string"	/>
+    <result column="BUSINESS_UNIT"		jdbcType="VARCHAR"		property="unidadDeNegocio"		javaType="string" />
+    <result column="ORIG_ITEM_AMT"		jdbcType="DECIMAL"		property="importe"				javaType="java.math.BigDecimal"/>
+	<result column="BUSINESS_UNIT"		jdbcType="VARCHAR"		property="unidadDeNegocio"		javaType="string" />
+    <result column="CUST_ID"			jdbcType="VARCHAR"		property="idCliente"			javaType="string"/>
+    <result column="ASOF_DT"			jdbcType="TIMESTAMP"	property="fechaItem"			javaType="java.util.Date"/>
+    <result column="ACCOUNTING_DT"		jdbcType="TIMESTAMP"	property="fechaContable"		javaType="java.util.Date"/>
+    <result column="ENTRY_DT"			jdbcType="TIMESTAMP"	property="fechaIntroduccion"	javaType="java.util.Date"/>
+    <result column="PYMNT_METHOD"		jdbcType="VARCHAR"		property="metodoCobro"			javaType="string"/>
+    <result column="PYMNT_TERMS_CD"		jdbcType="VARCHAR"		property="condicionCobro"		javaType="string"/>
+    <result column="ENTRY_TYPE"			jdbcType="VARCHAR"		property="tipo"					javaType="string"/>
+    <result column="ENTRY_REASON"		jdbcType="VARCHAR"		property="motivo"				javaType="string"/>
+    <result column="CURRENCY_CD"		jdbcType="VARCHAR"		property="codigoMoneda"			javaType="string"/>
+    <result column="BANK_CD"			jdbcType="VARCHAR"		property="claveBanco"			javaType="string"/>
+    <result column="BANK_ACCT_KEY"		jdbcType="VARCHAR"		property="cuenta"				javaType="string"/>
+    <result column="PF_ID_PROCESO"		jdbcType="VARCHAR"		property="tipoProceso"			javaType="string"/>
+    <result column="STATUS"				jdbcType="VARCHAR"		property="estatus"				javaType="string"/>
+    <result column="SEQNO"				jdbcType="NUMERIC"		property="secuencia"			javaType="long"/>
+  </resultMap>
+  
+  <resultMap id="BaseResultMapDevCif" type="mx.profuturo.nci.business.vo.cif.DevolucionesCabeceraCifVO">
+  	<result column="BUSINESS_UNIT"		jdbcType="VARCHAR"		property="businessUnit"			javaType="string" />
+  	<result column="ORIGIN"				jdbcType="VARCHAR"		property="origin"				javaType="string" />
+  	<result column="PF_TRAN_ID"			jdbcType="VARCHAR"		property="pfTranId"				javaType="string" />
+  	<result column="DESCR60"			jdbcType="VARCHAR"		property="desCr60"				javaType="string" />
+  	<result column="SCHEDULED_PAY_DT"	jdbcType="DATE"			property="scheduledPayDt"		javaType="java.util.Date"/>
+  	<result column="VOUCHER_ID"			jdbcType="VARCHAR"		property="voucherId"			javaType="string" />
+  	<result column="VENDOR_ID"			jdbcType="VARCHAR"		property="vendorId"				javaType="string" />
+  	<result column="INVOICE_ID"			jdbcType="VARCHAR"		property="invoiceId"			javaType="string" />
+  	<result column="PF_STATUS_CIF"		jdbcType="VARCHAR"		property="pfStatusCif"			javaType="string" />
+  	<result column="PYMNT_ID_REF"		jdbcType="VARCHAR"		property="pymntIdRef"			javaType="string" />
+  	<result column="DUE_DT"				jdbcType="DATE"			property="dueDt"				javaType="java.util.Date"/>
+  	<result column="PF_DIR_BEN"			jdbcType="VARCHAR"		property="pfDirBen"				javaType="string" />
+  	<result column="PF_NOM_BEN"			jdbcType="VARCHAR"		property="pfNomBen"				javaType="string" />
+  	<result column="BANK_CD"			jdbcType="VARCHAR"		property="bankCd"				javaType="string" />
+  	<result column="BANK_ACCOUNT_NUM"	jdbcType="VARCHAR"		property="ctaBeneficiario"		javaType="string" />
+  	<result column="CHECK_DIGIT"		jdbcType="VARCHAR"		property="checkDigit"			javaType="string" />
+  	<result column="PYMNT_DT"			jdbcType="DATE"			property="pymntDt"				javaType="java.util.Date"/>
+  	<result column="REMIT_VENDOR"		jdbcType="VARCHAR"		property="remitVendor"			javaType="string" />
+  	<result column="PYMNT_AMT"			jdbcType="DECIMAL"		property="pymntAmt"				javaType="java.lang.Double"/>
+  	<result column="TXN_CURRENCY_CD"	jdbcType="VARCHAR"		property="currencyCd"			javaType="string" />
+  	<result column="PF_TIPO_CUENTA"		jdbcType="VARCHAR"		property="pfTipoCuenta"			javaType="string" />
+  	<result column="PFCODTIPOPAGO"		jdbcType="VARCHAR"		property="pfCogTipoPago"		javaType="string" />
+  	<result column="ACCOUNTING_DT"		jdbcType="DATE"			property="accountingDt"			javaType="java.util.Date"/>
+  	<result column="ENTERED_DT"			jdbcType="DATE"			property="enteredDt"			javaType="java.util.Date"/>
+  	<result column="OP_START_TIME"		jdbcType="TIMESTAMP"	property="opStartTime"			javaType="java.util.Date"/>
+  	<result column="OPRID_ENTERED_BY"	jdbcType="VARCHAR"		property="opPridEnteredBy"		javaType="string" />
+  	<result column="OPRID_REVIEWED_BY"	jdbcType="VARCHAR"		property="opPridReviewedBy"		javaType="string" />
+  	<result column="OPRID_APPROVED_BY"	jdbcType="VARCHAR"		property="opPridApprovedBy"		javaType="string" />
+  	<result column="PF_DUMMY_FIELD1"	jdbcType="VARCHAR"		property="pfDummyField1"		javaType="string" />
+  	<result column="PF_DUMMY_FIELD2"	jdbcType="VARCHAR"		property="pfDummyField2"		javaType="string" />
+  	<result column="PF_DUMMY_FIELD3"	jdbcType="VARCHAR"		property="pfDummyField3"		javaType="string" />
+  	<result column="PF_DUMMY_FIELD4"	jdbcType="VARCHAR"		property="pfDummyField4"		javaType="string" />
+  	<result column="PF_DUMMY_FIELD5"	jdbcType="VARCHAR"		property="pfDummyField5"		javaType="string" />
+  	<result column="PF_DUMMY_FIELD6"	jdbcType="VARCHAR"		property="pfDummyField6"		javaType="string" />
+  	<result column="PF_DUMMY_FIELD7"	jdbcType="VARCHAR"		property="pfDummyField7"		javaType="string" />
+  	<result column="PF_DUMMY_FIELD8"	jdbcType="VARCHAR"		property="pfDummyField8"		javaType="string" />
+  	<result column="PF_DUMMY_FIELD9"	jdbcType="VARCHAR"		property="pfDummyField9"		javaType="string" />
+  	<result column="PF_DUMMY_FIELD10"	jdbcType="VARCHAR"		property="pfDummyField10"		javaType="string" />
+  </resultMap>
+  
+  
+	<select id="selectReportDevCif" resultMap="BaseResultMapDevCif" parameterType="mx.profuturo.nci.business.vo.cif.DevolucionesCabeceraCifVO">
+		SELECT BUSINESS_UNIT, ORIGIN, PF_TRAN_ID, DESCR60, SCHEDULED_PAY_DT, VOUCHER_ID, VENDOR_ID, INVOICE_ID, PF_STATUS_CIF, PYMNT_ID_REF, DUE_DT, PF_DIR_BEN, PF_NOM_BEN, 
+				BANK_CD, BANK_ACCOUNT_NUM, CHECK_DIGIT, PYMNT_DT, REMIT_VENDOR, PYMNT_AMT, TXN_CURRENCY_CD, PF_TIPO_CUENTA, PFCODTIPOPAGO, ACCOUNTING_DT, ENTERED_DT, OP_START_TIME,
+				OPRID_ENTERED_BY, OPRID_REVIEWED_BY, OPRID_APPROVED_BY, PF_DUMMY_FIELD1, PF_DUMMY_FIELD2, PF_DUMMY_FIELD3, PF_DUMMY_FIELD4, PF_DUMMY_FIELD5, PF_DUMMY_FIELD6, PF_DUMMY_FIELD7,
+				PF_DUMMY_FIELD8, PF_DUMMY_FIELD9, PF_DUMMY_FIELD10
+		FROM PS_PF_DEVD_HDRCIF
+			<if test="pfTranId != ''">
+				WHERE PF_TRAN_ID = #{pfTranId}
+			</if>
+	</select>
+	  
+	<select id="select" resultMap="BaseResultMap" parameterType="mx.profuturo.nci.business.wrapped.cif.Profuturo_CIFFilter">
+	
+		SELECT ITEM, 
+				BUSINESS_UNIT, 
+				ORIG_ITEM_AMT, 
+				CUST_ID, 
+				ASOF_DT, 
+				ACCOUNTING_DT, 
+				ENTRY_DT, 
+				PYMNT_METHOD, 
+				PYMNT_TERMS_CD, 
+				ENTRY_TYPE, 
+				ENTRY_REASON, 
+				CURRENCY_CD, 
+				BANK_CD, 
+				BANK_ACCT_KEY, 
+				PF_ID_PROCESO, 
+				STATUS, 
+				SEQNO
+		FROM PS_PF_CIF_AR_APV
+		<where>
+			<if test="idItem != null">
+				AND ITEM = #{idItem}
+			</if>
+			
+		</where>
+	</select>
+  
+	<insert id="insert" parameterType="mx.profuturo.nci.business.vo.cif.Profuturo_CIFVo"
+		keyProperty="mx.profuturo.nci.business.vo.cif.Profuturo_CIFVo.idItem"
+		keyColumn="ITEM">
+  			INSERT INTO PS_PF_CIF_AR_APV
+		  	<trim prefix="(" suffix=")" suffixOverrides=",">
+			  	<if test="idItem != null">
+					ITEM, 
+			  	</if>
+			  	<if test="unidadDeNegocio != null">
+					BUSINESS_UNIT, 
+			  	</if>
+			  	<if test="importe != null">
+					ORIG_ITEM_AMT, 
+			  	</if>
+			  	<if test="idCliente != null">
+					CUST_ID, 
+			  	</if>
+			  	<if test="fechaItem != null">
+					ASOF_DT, 
+			  	</if>
+			  	<if test="fechaContable != null">
+					ACCOUNTING_DT, 
+			  	</if>
+			  	<if test="fechaIntroduccion != null">
+					ENTRY_DT, 
+			  	</if>
+			  	<if test="metodoCobro != null">
+					PYMNT_METHOD, 
+			  	</if>
+			  	<if test="condicionCobro != null">
+					PYMNT_TERMS_CD, 
+			  	</if>
+			  	<if test="tipo != null">
+					ENTRY_TYPE, 
+			  	</if>
+			  	<if test="motivo != null">
+					ENTRY_REASON, 
+			  	</if>
+			  	<if test="codigoMoneda != null">
+					CURRENCY_CD, 
+			  	</if>
+			  	<if test="claveBanco != null">
+					BANK_CD, 
+			  	</if>
+			  	<if test="cuenta != null">
+					BANK_ACCT_KEY, 
+			  	</if>
+			  	<if test="tipoProceso != null">
+					PF_ID_PROCESO, 
+			  	</if>
+			  	<if test="estatus != null">
+					STATUS, 
+			  	</if>
+			  	<if test="secuencia != null">
+					SEQNO
+			  	</if>
+		  	</trim>
+		  	<trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+				<if test="idItem != null">
+					#{idItem,jdbcType=VARCHAR}, 
+			  	</if> 
+				<if test="unidadDeNegocio != null">
+					#{unidadDeNegocio,jdbcType=VARCHAR}, 
+			  	</if> 
+				<if test="importe != null">
+					#{importe,jdbcType=DECIMAL},  
+			  	</if>
+				<if test="idCliente != null">
+					#{idCliente,jdbcType=VARCHAR}, 
+			  	</if> 
+				<if test="fechaItem != null">
+					#{fechaItem,jdbcType=TIMESTAMP}, 
+			  	</if> 
+				<if test="fechaContable != null">
+					#{fechaContable,jdbcType=TIMESTAMP}, 
+			  	</if> 
+				<if test="fechaIntroduccion != null">
+					#{fechaIntroduccion,jdbcType=TIMESTAMP}, 
+			  	</if> 
+				<if test="metodoCobro != null">
+					#{metodoCobro,jdbcType=VARCHAR}, 
+			  	</if> 
+				<if test="condicionCobro != null">
+					#{condicionCobro,jdbcType=VARCHAR}, 
+			  	</if> 
+				<if test="tipo != null">
+					#{tipo,jdbcType=VARCHAR}, 
+			  	</if>
+				<if test="motivo != null">
+					#{motivo,jdbcType=VARCHAR}, 
+			  	</if>
+				<if test="codigoMoneda != null">
+					#{codigoMoneda,jdbcType=VARCHAR}, 
+			  	</if>
+				<if test="claveBanco != null">
+					#{claveBanco,jdbcType=VARCHAR}, 
+			  	</if>
+				<if test="cuenta != null">
+					#{cuenta,jdbcType=VARCHAR}, 
+			  	</if>
+				<if test="tipoProceso != null">
+					#{tipoProceso,jdbcType=VARCHAR}, 
+			  	</if>
+				<if test="estatus != null">
+					#{estatus,jdbcType=VARCHAR}, 
+			  	</if>
+				<if test="secuencia != null">
+					#{secuencia,jdbcType=NUMERIC}, 
+			  	</if>
+		  </trim>
+	</insert>
+	
+	<insert id="creaDevolucionesDetalleCIF" parameterType="mx.profuturo.nci.business.vo.cif.DevolucionesDetalleCifVO">
+  			INSERT INTO PS_PF_DEVD_DETCIF
+		  	<trim prefix="(" suffix=")" suffixOverrides=",">
+		  		<if test="businessUnit != null">
+					BUSINESS_UNIT, 
+			  	</if>
+		  		<if test="origin != null">
+					ORIGIN, 
+			  	</if>
+			  	<if test="pfTranId != null">
+					PF_TRAN_ID, 
+			  	</if>
+			  	<if test="seqNo != null">
+					SEQNO, 
+			  	</if>
+			  	<if test="pfTipoAfectacion != null">
+					PF_TIPO_AFECTACION, 
+			  	</if>
+			  	<if test="pfSTipoAfectacion != null">
+					PF_STIPOAFECTACION, 
+			  	</if>
+			  	<if test="amtSel != null">
+					AMT_SEL, 
+			  	</if>
+			  	<if test="percentage != null">
+					PERCENTAGE, 
+			  	</if>
+		  	</trim>
+		  	<trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+				<if test="businessUnit != null">
+					#{businessUnit,jdbcType=VARCHAR}, 
+			  	</if> 
+				<if test="origin != null">
+					#{origin,jdbcType=VARCHAR}, 
+			  	</if> 
+				<if test="pfTranId != null">
+					#{pfTranId,jdbcType=VARCHAR},  
+			  	</if>
+				<if test="seqNo != null">
+					#{seqNo,jdbcType=NUMERIC}, 
+			  	</if> 
+				<if test="pfTipoAfectacion != null">
+					#{pfTipoAfectacion,jdbcType=VARCHAR}, 
+			  	</if> 
+				<if test="pfSTipoAfectacion != null">
+					#{pfSTipoAfectacion,jdbcType=VARCHAR}, 
+			  	</if> 
+				<if test="amtSel != null">
+					#{amtSel,jdbcType=NUMERIC}, 
+			  	</if> 
+				<if test="percentage != null">
+					#{percentage,jdbcType=NUMERIC}, 
+			  	</if> 
+			</trim>
+	</insert>
+		
+	<insert id="creaDevolucionesCIF" parameterType="mx.profuturo.nci.business.vo.cif.DevolucionesCabeceraCifVO">
+  			INSERT INTO PS_PF_DEVD_HDRCIF
+		  	<trim prefix="(" suffix=")" suffixOverrides=",">
+		  		<if test="businessUnit != null">
+					BUSINESS_UNIT, 
+			  	</if>
+		  		<if test="origin != null">
+					ORIGIN, 
+			  	</if>
+			  	<if test="pfTranId != null">
+					PF_TRAN_ID, 
+			  	</if>
+			  	<if test="desCr60 != null">
+					DESCR60, 
+			  	</if>
+			  	<if test="scheduledPayDt != null">
+					SCHEDULED_PAY_DT, 
+			  	</if>
+			  	<if test="voucherId != null">
+					VOUCHER_ID, 
+			  	</if>
+			  	<if test="vendorId != null">
+					VENDOR_ID, 
+			  	</if>
+			  	<if test="invoiceId != null">
+					INVOICE_ID, 
+			  	</if>
+			  	<if test="pfStatusCif != null">
+					PF_STATUS_CIF, 
+			  	</if>
+			  	<if test="pymntIdRef != null">
+					PYMNT_ID_REF, 
+			  	</if>
+			  	<if test="dueDt != null">
+					DUE_DT, 
+			  	</if>
+			  	<if test="pfDirBen != null">
+					PF_DIR_BEN, 
+			  	</if>
+			  	<if test="pfNomBen != null">
+					PF_NOM_BEN, 
+			  	</if>
+			  	<if test="bankCd != null">
+					BANK_CD, 
+			  	</if>
+			  	<if test="ctaBeneficiario != null">
+					BANK_ACCOUNT_NUM, 
+			  	</if>
+			  	<if test="checkDigit != null">
+					CHECK_DIGIT, 
+			  	</if>
+			  	<if test="pymntDt != null">
+					PYMNT_DT, 
+			  	</if>
+			  	<if test="remitVendor != null">
+					REMIT_VENDOR, 
+			  	</if>
+			  	<if test="pymntAmt != null">
+					PYMNT_AMT, 
+			  	</if>
+			  	<if test="currencyCd != null">
+			  		TXN_CURRENCY_CD, 
+			  	</if>
+			  	<if test="pfTipoCuenta != null">
+					PF_TIPO_CUENTA, 
+			  	</if>
+			  	<if test="pfCogTipoPago != null">
+					PFCODTIPOPAGO, 
+			  	</if>
+			  	<if test="accountingDt != null">
+					ACCOUNTING_DT, 
+			  	</if>
+			  	<if test="enteredDt != null">
+					ENTERED_DT, 
+			  	</if>
+			  	<if test="opStartTime != null">
+					OP_START_TIME, 
+			  	</if>
+			  	<if test="opPridEnteredBy != null">
+					OPRID_ENTERED_BY, 
+			  	</if>
+			  	<if test="opPridReviewedBy != null">
+					OPRID_REVIEWED_BY, 
+			  	</if>
+			  	<if test="opPridApprovedBy != null">
+					OPRID_APPROVED_BY, 
+			  	</if>
+			  	<if test="pfDummyField1 != null">
+					PF_DUMMY_FIELD1, 
+			  	</if>
+			  	<if test="pfDummyField2 != null">
+					PF_DUMMY_FIELD2, 
+			  	</if>
+			  	<if test="pfDummyField3 != null">
+					PF_DUMMY_FIELD3, 
+			  	</if>
+			  	<if test="pfDummyField4 != null">
+					PF_DUMMY_FIELD4, 
+			  	</if>
+			  	<if test="pfDummyField5 != null">
+					PF_DUMMY_FIELD5, 
+			  	</if>
+			  	<if test="pfDummyField6 != null">
+					PF_DUMMY_FIELD6, 
+			  	</if>
+			  	<if test="pfDummyField7 != null">
+					PF_DUMMY_FIELD7, 
+			  	</if>
+			  	<if test="pfDummyField8 != null">
+					PF_DUMMY_FIELD8, 
+			  	</if>
+			  	<if test="pfDummyField9 != null">
+					PF_DUMMY_FIELD9, 
+			  	</if>
+			  	<if test="pfDummyField10 != null">
+					PF_DUMMY_FIELD10, 
+			  	</if>
+		  	</trim>
+		  	<trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+				<if test="businessUnit != null">
+					#{businessUnit,jdbcType=VARCHAR}, 
+			  	</if> 
+				<if test="origin != null">
+					#{origin,jdbcType=VARCHAR}, 
+			  	</if> 
+				<if test="pfTranId != null">
+					#{pfTranId,jdbcType=VARCHAR},  
+			  	</if>
+				<if test="desCr60 != null">
+					#{desCr60,jdbcType=VARCHAR}, 
+			  	</if> 
+				<if test="scheduledPayDt != null">
+					#{scheduledPayDt,jdbcType=DATE}, 
+			  	</if> 
+				<if test="voucherId != null">
+					#{voucherId,jdbcType=VARCHAR}, 
+			  	</if> 
+				<if test="vendorId != null">
+					#{vendorId,jdbcType=VARCHAR}, 
+			  	</if> 
+				<if test="invoiceId != null">
+					#{invoiceId,jdbcType=VARCHAR}, 
+			  	</if> 
+				<if test="pfStatusCif != null">
+					#{pfStatusCif,jdbcType=VARCHAR}, 
+			  	</if> 
+				<if test="pymntIdRef != null">
+					#{pymntIdRef,jdbcType=VARCHAR}, 
+			  	</if>
+				<if test="dueDt != null">
+					#{dueDt,jdbcType=TIMESTAMP}, 
+			  	</if>
+				<if test="pfDirBen != null">
+					#{pfDirBen,jdbcType=VARCHAR}, 
+			  	</if>
+				<if test="pfNomBen != null">
+					#{pfNomBen,jdbcType=VARCHAR}, 
+			  	</if>
+				<if test="bankCd != null">
+					#{bankCd,jdbcType=VARCHAR}, 
+			  	</if>
+				<if test="ctaBeneficiario != null">
+					#{ctaBeneficiario,jdbcType=VARCHAR}, 
+			  	</if>
+				<if test="checkDigit != null">
+					#{checkDigit,jdbcType=VARCHAR}, 
+			  	</if>
+				<if test="pymntDt != null">
+					#{pymntDt,jdbcType=DATE}, 
+			  	</if>
+				<if test="remitVendor != null">
+					#{remitVendor,jdbcType=VARCHAR}, 
+			  	</if>
+				<if test="pymntAmt != null">
+					#{pymntAmt,jdbcType=NUMERIC}, 
+			  	</if>
+				<if test="currencyCd != null">
+					#{currencyCd,jdbcType=VARCHAR}, 
+			  	</if>
+				<if test="pfTipoCuenta != null">
+					#{pfTipoCuenta,jdbcType=VARCHAR}, 
+			  	</if>
+				<if test="pfCogTipoPago != null">
+					#{pfCogTipoPago,jdbcType=VARCHAR}, 
+			  	</if>
+				<if test="accountingDt != null">
+					#{accountingDt,jdbcType=TIMESTAMP}, 
+			  	</if>
+				<if test="enteredDt != null">
+					#{enteredDt,jdbcType=TIMESTAMP}, 
+			  	</if>
+				<if test="opStartTime != null">
+					#{opStartTime,jdbcType=TIMESTAMP}, 
+			  	</if>
+				<if test="opPridEnteredBy != null">
+					#{opPridEnteredBy,jdbcType=VARCHAR}, 
+			  	</if>
+				<if test="opPridReviewedBy != null">
+					#{opPridReviewedBy,jdbcType=VARCHAR}, 
+			  	</if>
+				<if test="opPridApprovedBy != null">
+					#{opPridApprovedBy,jdbcType=VARCHAR}, 
+			  	</if>
+				<if test="pfDummyField1 != null">
+					#{pfDummyField1,jdbcType=VARCHAR}, 
+			  	</if>
+				<if test="pfDummyField2 != null">
+					#{pfDummyField2,jdbcType=VARCHAR}, 
+			  	</if>
+				<if test="pfDummyField3 != null">
+					#{pfDummyField3,jdbcType=VARCHAR}, 
+			  	</if>
+				<if test="pfDummyField4 != null">
+					#{pfDummyField4,jdbcType=VARCHAR}, 
+			  	</if>
+				<if test="pfDummyField5 != null">
+					#{pfDummyField5,jdbcType=VARCHAR}, 
+			  	</if>
+				<if test="pfDummyField6 != null">
+					#{pfDummyField6,jdbcType=VARCHAR}, 
+			  	</if>
+				<if test="pfDummyField7 != null">
+					#{pfDummyField7,jdbcType=VARCHAR}, 
+			  	</if>
+				<if test="pfDummyField8 != null">
+					#{pfDummyField8,jdbcType=VARCHAR}, 
+			  	</if>
+				<if test="pfDummyField9 != null">
+					#{pfDummyField9,jdbcType=VARCHAR}, 
+			  	</if>
+				<if test="pfDummyField10 != null">
+					#{pfDummyField10,jdbcType=VARCHAR}, 
+			  	</if>
+			</trim>
+	</insert>
+				
+</mapper>

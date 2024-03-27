@@ -1,0 +1,1101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mx.secure.nci.persistence.ConciliacionPersistence">
+
+	<resultMap id="BaseResultMapConciliacionVO" type="mx.secure.nci.business.vo.ConciliacionVO">
+
+		<id		column="FTN_ID_CONCILIACION"            property="idConciliacion"				jdbcType="DECIMAL" />
+		<result	column="FTC_FOLIO"                      property="folio"						jdbcType="VARCHAR"/>
+		<result	column="FTN_CVE_SOLICITUD"              property="claveSolicitud"				jdbcType="VARCHAR"/>
+		<result	column="FTN_NO_ORDEN"                   property="numeroOrden"					jdbcType="VARCHAR"/>
+		<result	column="FTN_NUM_CTA_INVDUAL"            property="numeroCuentaIndividual"		jdbcType="DECIMAL"/>
+		<result	column="FTN_NO_PAGO"                    property="numeroPago"					jdbcType="DECIMAL"/>
+		<result	column="FTN_CVE_BANCO"                  property="claveBanco"					jdbcType="DECIMAL"/>
+		<result	column="FTC_CTA_BANCO"                  property="cuentaBanco"					jdbcType="VARCHAR"/>				
+		<result	column="FTN_IMPORTE"                    property="importe"						jdbcType="DECIMAL"/>
+		<result	column="FTN_REF_SUBCTA_secure"          property="referenciaSubcuentasecure"	jdbcType="DECIMAL"/>
+		<result	column="FTD_FEH_CARG_ARCHIVO"           property="fechaCargaArchivo"			jdbcType="TIMESTAMP"/>		
+		<result	column="FTC_NOMBRE_CTE"                 property="nombreCliente"				jdbcType="VARCHAR"/>
+		<result	column="FTC_AP_PATERNO_CTE"             property="apellidoClientePaterno"		jdbcType="VARCHAR"/>
+		<result	column="FTC_AP_MATERNO_CTE"             property="apellidoClienteMaterno"		jdbcType="VARCHAR"/>
+		<result	column="FTC_CURP"                       property="curp"							jdbcType="VARCHAR"/>
+		<result	column="FTC_RFC_CTE"                    property="rfc"							jdbcType="VARCHAR"/>
+		<result	column="FTN_NSS"                        property="nss"							jdbcType="DECIMAL"/>
+		<result	column="FTC_CORREO_ELEC"                property="correoElectronico"			jdbcType="VARCHAR" />
+		<result	column="FTN_CELULAR"                    property="celular"						jdbcType="DECIMAL"/>
+		<result	column="FTN_NO_EMPLEADO"                property="numeroEmpleado"				jdbcType="DECIMAL"/>
+		<result	column="FTD_FEH_PAGO_secure"            property="fechaPagosecure"				jdbcType="TIMESTAMP"/>
+		<result	column="FTD_FEH_VALOR_secure"           property="fechaValorsecure"				jdbcType="TIMESTAMP" />
+		<result	column="FTC_FOLIO_TRANSAC"              property="folioTransaccion"				jdbcType="VARCHAR"/>
+		<result	column="FTC_FOLIO_PROCESAR"             property="folioProcesar"				jdbcType="VARCHAR"/>
+		<result	column="FTN_ID_SUCURSAL"                property="sucursal"						jdbcType="DECIMAL"/>
+		<result	column="FTN_TIPO_APORTACION"            property="tipoAportacion"				jdbcType="DECIMAL"/>
+		<result	column="FTN_REG_CONCILIADO"             property="registroConciliado"			jdbcType="DECIMAL"/>
+		<result	column="FTN_MOV_GENERADO"               property="movimientoGenerado"			jdbcType="DECIMAL"/>
+		<result	column="FTN_ID_MOV"               	    property="movimiento"					jdbcType="DECIMAL"/>
+		<result column="FTD_CONCI_FEH_CRE" 			    property="fechaCreacion" 				jdbcType="TIMESTAMP" 	javaType="date" />
+		<result column="FTC_CONCI_USU_CRE" 			    property="usuarioCreacion" 				jdbcType="VARCHAR" 		javaType="string" />
+		<result column="FTD_CONCI_FEH_ACT" 			    property="fechaActualizacion" 			jdbcType="TIMESTAMP" 	javaType="date" />
+		<result column="FTC_CONCI_USU_ACT" 			    property="usuarioActualizacion" 		jdbcType="VARCHAR" 		javaType="string" />
+		<result	column="FTC_NOMBRE_ORD"                 property="nombreOrdenante"				jdbcType="VARCHAR"/>
+		<result	column="FTC_RFC_ORDENANTE"              property="rfcOrdenante"					jdbcType="VARCHAR"/>
+		<result column="FTC_CURP_ORDENANTE"				property="curpOrdenante"				jdbcType="VARCHAR"/>
+		
+		<result column="FTC_TIPO_AHORRADOR"				property="tipoAhorrador"				jdbcType="VARCHAR"/>
+		<result column="FTD_FEH_CONCILIACION" 			property="fechaConciliacion" 			jdbcType="TIMESTAMP" 	javaType="date" />
+		<result column="FTD_FEH_ACT_SUBCTA" 			property="fechaActualizacionFondo" 		jdbcType="TIMESTAMP" 	javaType="date" />
+		<result column="FTC_USU_ACT_SUBCTA"				property="usuarioActualizacionFondo"	jdbcType="VARCHAR"/>
+		<result column="FTC_FOLIO_CONCILIACION"			property="folioConciliacion"			jdbcType="VARCHAR"/>
+		
+<!-- 		<association property="referenciaSubcuentasecureCat"
+			resultMap="mx.secure.nci.persistence.CatalogoPersistence.resMapGenericReferenciaSubcuentasecure" /> -->
+		
+		<association property="origenAportacion"
+			resultMap="mx.secure.nci.persistence.CatalogoPersistence.resMapGenericOrigenAportacion" />
+		
+		<association property="empresa"
+			resultMap="mx.secure.nci.persistence.CatalogoPersistence.resMapGenericEmpresa" />
+		
+		<association property="tipoNomina"
+			resultMap="mx.secure.nci.persistence.CatalogoPersistence.resMapGenericTipoNomina" />
+		
+		<association property="claveRedComercial"
+			resultMap="mx.secure.nci.persistence.CatalogoPersistence.resMapGenericRedComercial" />
+
+		<association property="estatusTramite"
+			resultMap="mx.secure.nci.persistence.CatalogoPersistence.resMapGenericEstatus" />
+
+	
+		<collection property="diversificaciones" javaType="ArrayList"
+			ofType="mx.secure.nci.business.vo.DiversificacionConciliacionVO" column="FTN_ID_CONCILIACION"
+			resultMap="mx.secure.nci.persistence.DiversificacionConciliacionPersistence.ResultMapDiversiConciliacion">
+		</collection>
+	
+	</resultMap>
+	
+	
+	<select id="selectSelective"
+		parameterType="mx.secure.nci.business.wrapped.ConciliacionFilter"
+		resultMap="BaseResultMapConciliacionVO">
+		
+		SELECT 
+			CON.FTN_ID_CONCILIACION, 
+			CON.FTC_FOLIO,
+			CON.FTN_CVE_SOLICITUD,
+			CON.FTN_NO_ORDEN, 
+			CON.FTN_NUM_CTA_INVDUAL,
+			CON.FTN_NO_PAGO, 
+			CON.FTN_CVE_BANCO,
+			CON.FTC_CTA_BANCO,
+			CON.FTN_IMPORTE,		
+			CON.FTN_REF_SUBCTA_secure,
+<!-- 		NVL(REF_APVOL.FCC_VALOR, CON.FTN_REF_SUBCTA_secure) AS FCC_VALOR_REF_SUBCTA_secure, --> 
+			CON.FTD_FEH_CARG_ARCHIVO,
+			CON.FTC_NOMBRE_CTE, 
+			CON.FTC_AP_PATERNO_CTE,
+			CON.FTC_AP_MATERNO_CTE,
+			CON.FTC_CURP, 
+			CON.FTC_RFC_CTE,
+			CON.FTN_NSS,
+			CON.FTC_CORREO_ELEC,
+			CON.FTN_CELULAR,
+			CON.FTN_NO_EMPLEADO,
+			CON.FTD_FEH_PAGO_secure,
+			CON.FTD_FEH_VALOR_secure,
+			CON.FTC_FOLIO_TRANSAC,
+			CON.FTC_FOLIO_PROCESAR,
+			CON.FTN_ID_SUCURSAL,
+			CON.FTN_TIPO_APORTACION,
+			CON.FTN_REG_CONCILIADO,
+			CON.FTN_MOV_GENERADO,
+			CON.FTN_ID_MOV,
+			CON.FTD_FEH_CRE AS FTD_CONCI_FEH_CRE,
+			CON.FTC_USU_CRE AS FTC_CONCI_USU_CRE,
+			CON.FTD_FEH_ACT AS FTD_CONCI_FEH_ACT,
+			CON.FTC_USU_ACT AS FTC_CONCI_USU_ACT,				
+			CON.FTN_ORIGEN_APORTACION,
+			CON.FTC_TIPO_AHORRADOR,
+			CON.FTD_FEH_CONCILIACION,
+			CON.FTD_FEH_ACT_SUBCTA,
+			CON.FTC_USU_ACT_SUBCTA,
+			CON.FTC_FOLIO_CONCILIACION,
+			APOR.FCC_VALOR as FCC_VALOR_ORIGEN_APORTACION,
+			CASE 
+				WHEN CON.FTN_ID_EMPRESA = 841 THEN  CON.FTN_CVE_BANCO
+				ELSE CON.FTN_ID_EMPRESA
+			END AS FTN_ID_EMPRESA,										
+			CASE 
+				WHEN CON.FTN_ID_EMPRESA = 841 THEN  BAN.FCC_VALOR
+				ELSE EMP.FCC_VALOR
+			END  AS FCC_VALOR_EMPRESA,	
+			CON.FTN_ID_TIPO_NOMINA,
+			TNOM.FCC_VALOR AS FCC_VALOR_TIPO_NOMINA,
+			CON.FTN_CVE_RED_COM,
+			CRED.FCC_VALOR AS FCC_VALOR_CLAVE_RED_COMERCIAL,        
+		    DIV.FTN_FONDO_secure AS FTN_ID_FONDO_secure,
+		    APVOL.FCC_VALOR AS FCC_VALOR_FONDO_secure,
+		    DIV.FTN_MONTO AS FTN_DIVCONCI_MONTO,
+		    DIV.FTN_PORCENTAJE AS FTN_DIVCONCI_PORCENTAJE,
+		    DIV.FTD_FEH_CRE AS FTD_DIVCONCI_FEH_CRE,
+		    DIV.FTC_USU_CRE AS FTC_DIVCONCI_USU_CRE,
+		    DIV.FTD_FEH_ACT AS FTD_DIVCONCI_FEH_ACT,
+		    DIV.FTC_USU_ACT AS FTC_DIVCONCI_USU_ACT,
+		    CON.FTN_ESTATUS_TRAMITE AS FLN_ESTATUS, 
+		    EST.FCC_VALOR AS FLN_VALOR_ESTATUS 
+		    ,CON.FTC_NOMBRE_ORD,CON.FTC_RFC_ORDENANTE,CON.FTC_CURP_ORDENANTE     
+		FROM TTAFOAVOL_CONCILIACION CON
+			LEFT JOIN TCCRXGRAL_CAT_CATALOGO APOR  ON APOR.FCN_ID_CAT_CATALOGO = CON.FTN_ORIGEN_APORTACION		
+			LEFT JOIN TCCRXGRAL_CAT_CATALOGO EMP   ON EMP.FCN_ID_CAT_CATALOGO = CON.FTN_ID_EMPRESA				
+			LEFT JOIN TCCRXGRAL_CAT_CATALOGO TNOM  ON TNOM.FCN_ID_CAT_CATALOGO = CON.FTN_ID_TIPO_NOMINA		
+			LEFT JOIN TCCRXGRAL_CAT_CATALOGO CRED  ON CRED.FCN_ID_CAT_CATALOGO = CON.FTN_CVE_RED_COM	    
+			LEFT JOIN TTAFOAVOL_DIVERSIF_CONC DIV  ON DIV.FTN_ID_CONCILIACION = CON.FTN_ID_CONCILIACION		
+		    LEFT JOIN TCCRXGRAL_CAT_CATALOGO APVOL ON APVOL.FCN_ID_CAT_CATALOGO = DIV.FTN_FONDO_secure  
+		    LEFT JOIN TCCRXGRAL_CAT_CATALOGO REF_APVOL ON REF_APVOL.FCN_ID_CAT_CATALOGO = CON.FTN_REF_SUBCTA_secure 
+		    LEFT JOIN TCCRXGRAL_CAT_CATALOGO EST   ON EST.FCN_ID_CAT_CATALOGO = CON.FTN_ESTATUS_TRAMITE
+		    LEFT JOIN TCCRXGRAL_CAT_CATALOGO BAN   ON BAN.FCN_ID_CAT_CATALOGO = CON.FTN_CVE_BANCO
+		<where>
+			<if test="folio != null">
+				AND CON.FTC_FOLIO = #{folio,jdbcType=VARCHAR}
+			</if>
+			<if test="idConciliacion != null">
+				AND CON.FTN_ID_CONCILIACION = #{idConciliacion,jdbcType=DECIMAL}
+			</if>
+			<if test="numeroCuentaIndividual != null">
+				AND CON.FTN_NUM_CTA_INVDUAL = #{numeroCuentaIndividual,jdbcType=DECIMAL}
+			</if>
+			<if test="origenAportacion != null and origenAportacion.id != null" >
+				AND CON.FTN_ORIGEN_APORTACION = #{origenAportacion.id,jdbcType=DECIMAL}
+			</if>
+			<if test="registroConciliado != null">
+				AND CON.FTN_REG_CONCILIADO = #{registroConciliado,jdbcType=DECIMAL}
+			</if>
+			<if test="estatusTramite != null and estatusTramite.id != null" >
+				AND CON.FTN_ESTATUS_TRAMITE = #{estatusTramite.id,jdbcType=DECIMAL}
+			</if>
+			<if test="claveSolicitud != null">
+				AND CON.FTN_CVE_SOLICITUD = #{claveSolicitud,jdbcType=VARCHAR}
+			</if>
+			<if test="importe != null">
+				AND CON.FTN_IMPORTE = #{importe,jdbcType=VARCHAR}
+			</if>
+			<if test="curp != null">
+				AND CON.FTC_CURP = #{curp,jdbcType=VARCHAR}
+			</if>
+			<if test="movimientoGenerado != null">
+				AND CON.FTN_MOV_GENERADO = #{movimientoGenerado,jdbcType=DECIMAL}
+			</if>
+			<if test="tipoAhorrador != null">
+				AND CON.FTC_TIPO_AHORRADOR = #{tipoAhorrador,jdbcType=VARCHAR}
+			</if>
+			<if test="folioConciliacion != null">
+				AND CON.FTC_FOLIO_CONCILIACION = #{folioConciliacion,jdbcType=VARCHAR}
+			</if>
+			<if test="isFolioConciliacionNull != null">
+				AND CON.FTC_FOLIO_CONCILIACION IS
+				<if test="!isFolioConciliacionNull">
+					 NOT 
+				</if>
+				 NULL
+			</if>
+		</where>
+
+	</select>
+	
+	<select id="selectCount" parameterType="mx.secure.nci.business.wrapped.ConciliacionFilter" resultType="Integer">
+		
+		SELECT 
+			COUNT(CON.FTN_ID_CONCILIACION) 
+		FROM TTAFOAVOL_CONCILIACION CON
+		<where>
+			<if test="folio != null">
+				AND CON.FTC_FOLIO = #{folio,jdbcType=VARCHAR}
+			</if>
+			<if test="idConciliacion != null">
+				AND CON.FTN_ID_CONCILIACION = #{idConciliacion,jdbcType=DECIMAL}
+			</if>
+			<if test="numeroCuentaIndividual != null">
+				AND CON.FTN_NUM_CTA_INVDUAL = #{numeroCuentaIndividual,jdbcType=DECIMAL}
+			</if>
+			<if test="origenAportacion != null and origenAportacion.id != null" >
+				AND CON.FTN_ORIGEN_APORTACION = #{origenAportacion.id,jdbcType=DECIMAL}
+			</if>
+			<if test="registroConciliado != null">
+				AND CON.FTN_REG_CONCILIADO = #{registroConciliado,jdbcType=DECIMAL}
+			</if>
+			<if test="estatusTramite != null and estatusTramite.id != null" >
+				AND CON.FTN_ESTATUS_TRAMITE = #{estatusTramite.id,jdbcType=DECIMAL}
+			</if>
+			<if test="claveSolicitud != null">
+				AND CON.FTN_CVE_SOLICITUD = #{claveSolicitud,jdbcType=VARCHAR}
+			</if>
+			<if test="importe != null">
+				AND CON.FTN_IMPORTE = #{importe,jdbcType=VARCHAR}
+			</if>
+			<if test="curp != null">
+				AND CON.FTC_CURP = #{curp,jdbcType=VARCHAR}
+			</if>
+			<if test="movimientoGenerado != null">
+				AND CON.FTN_MOV_GENERADO = #{movimientoGenerado,jdbcType=DECIMAL}
+			</if>
+			<if test="tipoAhorrador != null">
+				AND CON.FTC_TIPO_AHORRADOR = #{tipoAhorrador,jdbcType=VARCHAR}
+			</if>
+			<if test="folioConciliacion != null">
+				AND CON.FTC_FOLIO_CONCILIACION = #{folioConciliacion,jdbcType=VARCHAR}
+			</if>
+		</where>
+
+	</select>
+	
+	<select id="selectSelectivePantalla"
+		parameterType="mx.secure.nci.business.wrapped.ConciliacionFilter"
+		resultMap="BaseResultMapConciliacionVO">
+		SELECT /*+ INDEX_DESC(TNOM) */ CON.FTN_ID_CONCILIACION,		
+		CON.FTC_FOLIO,
+		CON.FTN_CVE_SOLICITUD,
+		CON.FTN_NO_ORDEN, 
+		CON.FTN_NUM_CTA_INVDUAL,
+		CON.FTN_NO_PAGO, 
+		CON.FTN_CVE_BANCO,
+		CON.FTC_CTA_BANCO,
+		CON.FTN_IMPORTE,		
+		CON.FTN_REF_SUBCTA_secure,
+		NVL(
+		CASE WHEN REF_APVOL.FCN_ID_CAT_CATALOGO IN (170,172,174,175,741,742,743,744)
+		THEN REF_APVOL.FCC_VALOR
+		END, CON.FTN_REF_SUBCTA_secure) AS FCC_VALOR_REF_SUBCTA_secure, 
+		CON.FTD_FEH_CARG_ARCHIVO,
+		CON.FTC_NOMBRE_CTE, 
+		CON.FTC_AP_PATERNO_CTE,
+		CON.FTC_AP_MATERNO_CTE,
+		CON.FTC_CURP, 
+		CON.FTC_RFC_CTE,
+		CON.FTN_NSS,
+		CON.FTC_CORREO_ELEC,
+		CON.FTN_CELULAR,
+		CON.FTN_NO_EMPLEADO,
+		CON.FTD_FEH_PAGO_secure,
+		CON.FTD_FEH_VALOR_secure,
+		CON.FTC_FOLIO_TRANSAC,
+		CON.FTC_FOLIO_PROCESAR,
+		CON.FTN_ID_SUCURSAL,
+		CON.FTN_TIPO_APORTACION,
+		CON.FTN_REG_CONCILIADO,
+		CON.FTN_MOV_GENERADO,
+		CON.FTN_ID_MOV,
+		CON.FTD_FEH_CRE AS FTD_CONCI_FEH_CRE,
+		CON.FTC_USU_CRE AS FTC_CONCI_USU_CRE,
+		CON.FTD_FEH_ACT AS FTD_CONCI_FEH_ACT,
+		CON.FTC_USU_ACT AS FTC_CONCI_USU_ACT,
+		CON.FTN_ORIGEN_APORTACION,
+		CON.FTC_TIPO_AHORRADOR,
+		CON.FTD_FEH_CONCILIACION,
+		CON.FTD_FEH_ACT_SUBCTA,
+		CON.FTC_USU_ACT_SUBCTA,
+		CON.FTC_FOLIO_CONCILIACION,				
+		CON.FTN_ORIGEN_APORTACION,
+		APOR.FCC_VALOR as FCC_VALOR_ORIGEN_APORTACION,
+				CASE 
+			WHEN CON.FTN_ID_EMPRESA = 841 THEN  CON.FTN_CVE_BANCO
+			ELSE CON.FTN_ID_EMPRESA
+		END FTN_ID_EMPRESA,										
+		CASE 
+			WHEN CON.FTN_ID_EMPRESA = 841 THEN  BAN.FCC_VALOR
+			ELSE EMP.FCC_VALOR
+		END
+		 AS FCC_VALOR_EMPRESA,	
+		CON.FTN_ID_TIPO_NOMINA,
+		TNOM.FCC_VALOR AS FCC_VALOR_TIPO_NOMINA,
+		CON.FTN_CVE_RED_COM,
+		CRED.FCC_VALOR AS FCC_VALOR_CLAVE_RED_COMERCIAL,        
+	    DIV.FTN_FONDO_secure AS FTN_ID_FONDO_secure,
+	    APVOL.FCC_VALOR AS FCC_VALOR_FONDO_secure,
+	    DIV.FTN_MONTO AS FTN_DIVCONCI_MONTO,
+	    DIV.FTN_PORCENTAJE AS FTN_DIVCONCI_PORCENTAJE,
+	    DIV.FTD_FEH_CRE AS FTD_DIVCONCI_FEH_CRE,
+	    DIV.FTC_USU_CRE AS FTC_DIVCONCI_USU_CRE,
+	    DIV.FTD_FEH_ACT AS FTD_DIVCONCI_FEH_ACT,
+	    DIV.FTC_USU_ACT AS FTC_DIVCONCI_USU_ACT,
+	    CON.FTN_ESTATUS_TRAMITE AS FLN_ESTATUS, 
+	    EST.FCC_VALOR AS FLN_VALOR_ESTATUS 
+	    ,CON.FTC_NOMBRE_ORD,CON.FTC_RFC_ORDENANTE,CON.FTC_CURP_ORDENANTE     
+		FROM TTAFOAVOL_CONCILIACION CON
+		LEFT JOIN TCCRXGRAL_CAT_CATALOGO APOR 
+		ON APOR.FCN_ID_CAT_CATALOGO = CON.FTN_ORIGEN_APORTACION		
+		LEFT JOIN TCCRXGRAL_CAT_CATALOGO EMP 
+		ON EMP.FCN_ID_CAT_CATALOGO = CON.FTN_ID_EMPRESA				
+		LEFT JOIN TCCRXGRAL_CAT_CATALOGO TNOM 
+		ON TNOM.FCN_ID_CAT_CATALOGO = CON.FTN_ID_TIPO_NOMINA		
+		LEFT JOIN TCCRXGRAL_CAT_CATALOGO CRED 
+		ON CRED.FCN_ID_CAT_CATALOGO = CON.FTN_CVE_RED_COM	    
+		LEFT JOIN TTAFOAVOL_DIVERSIF_CONC DIV 
+	    ON DIV.FTN_ID_CONCILIACION = CON.FTN_ID_CONCILIACION		
+	    LEFT JOIN TCCRXGRAL_CAT_CATALOGO APVOL 
+	    ON APVOL.FCN_ID_CAT_CATALOGO = DIV.FTN_FONDO_secure
+	    LEFT JOIN TCCRXGRAL_CAT_CATALOGO REF_APVOL 
+	    ON REF_APVOL.FCN_ID_CAT_CATALOGO = CON.FTN_REF_SUBCTA_secure  
+	    LEFT JOIN TCCRXGRAL_CAT_CATALOGO EST 
+	    ON EST.FCN_ID_CAT_CATALOGO = CON.FTN_ESTATUS_TRAMITE
+	    LEFT JOIN TCCRXGRAL_CAT_CATALOGO BAN 
+	    ON BAN.FCN_ID_CAT_CATALOGO = CON.FTN_CVE_BANCO
+		<where>
+			<if test="folio != null">
+				AND CON.FTC_FOLIO = #{folio,jdbcType=VARCHAR}
+			</if>
+			<if test="idConciliacion != null">
+				AND CON.FTN_ID_CONCILIACION = #{idConciliacion,jdbcType=DECIMAL}
+			</if>
+			<if test="numeroCuentaIndividual != null">
+				AND CON.FTN_NUM_CTA_INVDUAL = #{numeroCuentaIndividual,jdbcType=DECIMAL}
+			</if>
+			<if test="origenAportacion != null and origenAportacion.id != null" >
+				AND CON.FTN_ORIGEN_APORTACION = #{origenAportacion.id,jdbcType=DECIMAL}
+			</if>
+			<if test="registroConciliado != null">
+				AND CON.FTN_REG_CONCILIADO = #{registroConciliado,jdbcType=DECIMAL}
+			</if>
+			<if test="estatusTramite != null and estatusTramite.id != null" >
+				AND CON.FTN_ESTATUS_TRAMITE = #{estatusTramite.id,jdbcType=DECIMAL}
+			</if>
+			<if test="claveSolicitud != null">
+				AND CON.FTN_CVE_SOLICITUD = #{claveSolicitud,jdbcType=VARCHAR}
+			</if>
+			<if test="importe != null">
+				AND CON.FTN_IMPORTE = #{importe,jdbcType=VARCHAR}
+			</if>
+		</where>
+
+	</select>
+	
+	<insert id="insert" 
+			parameterType="mx.secure.nci.business.vo.ConciliacionVO"		
+			keyProperty="mx.secure.nci.business.vo.ConciliacionVO.idConciliacion">
+		
+		<selectKey keyProperty="idConciliacion" resultType="INTEGER"  order="BEFORE">
+			SELECT SE_TTAFOAVOL_CONCILIACION_ID.NEXTVAL FROM dual
+		</selectKey>
+
+
+ 		INSERT INTO TTAFOAVOL_CONCILIACION
+ 		
+	    <trim prefix="(" suffix=")" suffixOverrides="," >
+	    
+		      <if test="idConciliacion != null" >
+		        FTN_ID_CONCILIACION,
+		      </if>
+		      <if test="folio != null" >
+		        FTC_FOLIO,
+		      </if>
+		      <if test="claveSolicitud != null" >
+		        FTN_CVE_SOLICITUD,
+		      </if>
+		      <if test="numeroOrden != null" >
+		        FTN_NO_ORDEN,
+		      </if>
+		      <if test="origenAportacion != null and origenAportacion.id != null" >
+		        FTN_ORIGEN_APORTACION,
+		      </if>
+		      <if test="numeroCuentaIndividual != null" >
+		        FTN_NUM_CTA_INVDUAL,
+		      </if>
+		      <if test="numeroPago != null" >
+		        FTN_NO_PAGO,
+		      </if>
+		      <if test="claveBanco != null" >
+		        FTN_CVE_BANCO,
+		      </if>
+		      <if test="cuentaBanco != null" >
+		        FTC_CTA_BANCO,
+		      </if>
+		      <if test="importe != null" >
+		        FTN_IMPORTE,
+		      </if>
+		      <if test="referenciaSubcuentasecure != null" >
+		        FTN_REF_SUBCTA_secure,
+		      </if>
+		      <if test="fechaCargaArchivo != null" >
+		        FTD_FEH_CARG_ARCHIVO,
+		      </if>
+		      <if test="nombreCliente != null" >
+		        FTC_NOMBRE_CTE,
+		      </if>
+		      <if test="apellidoClientePaterno != null" >
+		        FTC_AP_PATERNO_CTE,
+		      </if>
+		      <if test="apellidoClienteMaterno != null" >
+		        FTC_AP_MATERNO_CTE,
+		      </if>
+		      <if test="curp != null" >
+		        FTC_CURP,
+		      </if>
+		      <if test="rfc != null" >
+		        FTC_RFC_CTE,
+		      </if>
+		      <if test="nss != null" >
+		        FTN_NSS,
+		      </if>
+		      <if test="correoElectronico != null" >
+		        FTC_CORREO_ELEC,
+		      </if>
+		      <if test="celular != null" >
+		        FTN_CELULAR,
+		      </if>
+		      <if test="empresa != null and empresa.id != null" >
+		        FTN_ID_EMPRESA,
+		      </if>
+		      <if test="tipoNomina != null and tipoNomina.id != null" >
+		        FTN_ID_TIPO_NOMINA,
+		      </if>
+		      <if test="numeroEmpleado != null" >
+		        FTN_NO_EMPLEADO,
+		      </if>
+		      <if test="fechaPagosecure != null" >
+		        FTD_FEH_PAGO_secure,
+		      </if>
+		      <if test="fechaValorsecure != null" >
+		        FTD_FEH_VALOR_secure,
+		      </if>
+		      <if test="folioTransaccion != null" >
+		        FTC_FOLIO_TRANSAC,
+		      </if>
+		      <if test="folioProcesar != null" >
+		        FTC_FOLIO_PROCESAR,
+		      </if>
+		      <if test="claveRedComercial != null and claveRedComercial.id != null" >
+		        FTN_CVE_RED_COM,
+		      </if>
+		      <if test="sucursal != null" >
+		        FTN_ID_SUCURSAL,
+		      </if>
+		      <if test="tipoAportacion != null" >
+		        FTN_TIPO_APORTACION,
+		      </if>
+		      <if test="registroConciliado != null" >
+		        FTN_REG_CONCILIADO,
+		      </if>
+		      <if test="movimientoGenerado != null" >
+		        FTN_MOV_GENERADO,
+		      </if>
+		      <if test="movimiento != null" >
+		        FTN_ID_MOV,
+		      </if>
+		      <if test="usuarioCreacion != null" >
+		        FTC_USU_CRE,
+		      </if>
+			  <if test="estatusTramite != null and estatusTramite != null" >
+			    FTN_ESTATUS_TRAMITE,
+			  </if>
+			  <if test="nombreOrdenante != null" >
+		        FTC_NOMBRE_ORD,
+		      </if>
+		      <if test="rfcOrdenante != null" >
+		        FTC_RFC_ORDENANTE,
+		      </if>
+		      <if test="curpOrdenante != null" >
+		        FTC_CURP_ORDENANTE,
+		      </if>
+		      <if test="tipoAhorrador != null">
+				FTC_TIPO_AHORRADOR,
+			</if>
+			<if test="folioConciliacion != null">
+				FTC_FOLIO_CONCILIACION,
+			</if>
+		       FTD_FEH_CRE,
+	    </trim>
+    
+	    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+	      
+	      <if test="idConciliacion != null" >
+	        #{idConciliacion,jdbcType=DECIMAL},
+	      </if>
+	      <if test="folio != null" >
+	        #{folio,jdbcType=VARCHAR},
+	      </if>
+	      <if test="claveSolicitud != null" >
+	        #{claveSolicitud,jdbcType=VARCHAR},
+	      </if>
+	      <if test="numeroOrden != null" >
+	        #{numeroOrden,jdbcType=VARCHAR},
+	      </if>
+	      <if test="origenAportacion != null and origenAportacion.id != null" >
+	        #{origenAportacion.id,jdbcType=DECIMAL},
+	      </if>
+	      <if test="numeroCuentaIndividual != null" >
+	        #{numeroCuentaIndividual,jdbcType=DECIMAL},
+	      </if>
+	      <if test="numeroPago != null" >
+	        #{numeroPago,jdbcType=DECIMAL},
+	      </if>
+	      <if test="claveBanco != null" >
+	        #{claveBanco,jdbcType=DECIMAL},
+	      </if>
+	      <if test="cuentaBanco != null" >
+	        #{cuentaBanco,jdbcType=VARCHAR},
+	      </if>
+	      <if test="importe != null" >
+	        #{importe,jdbcType=DECIMAL},
+	      </if>
+	      <if test="referenciaSubcuentasecure != null" >
+	        #{referenciaSubcuentasecure,jdbcType=DECIMAL},
+	      </if>
+	      <if test="fechaCargaArchivo != null" >
+	        #{fechaCargaArchivo,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="nombreCliente != null" >
+	        #{nombreCliente,jdbcType=VARCHAR},
+	      </if>
+	      <if test="apellidoClientePaterno != null" >
+	        #{apellidoClientePaterno,jdbcType=VARCHAR},
+	      </if>
+	      <if test="apellidoClienteMaterno != null" >
+	        #{apellidoClienteMaterno,jdbcType=VARCHAR},
+	      </if>
+	      <if test="curp != null" >
+	        #{curp,jdbcType=VARCHAR},
+	      </if>
+	      <if test="rfc != null" >
+	        #{rfc,jdbcType=VARCHAR},
+	      </if>
+	      <if test="nss != null" >
+	        #{nss,jdbcType=DECIMAL},
+	      </if>
+	      <if test="correoElectronico != null" >
+	        #{correoElectronico,jdbcType=VARCHAR},
+	      </if>
+	      <if test="celular != null" >
+	        #{celular,jdbcType=DECIMAL},
+	      </if>
+	      <if test="empresa != null and empresa.id != null" >
+	        #{empresa.id,jdbcType=DECIMAL},
+	      </if>
+	      <if test="tipoNomina != null and tipoNomina.id != null" >
+	        #{tipoNomina.id,jdbcType=DECIMAL},
+	      </if>
+	      <if test="numeroEmpleado != null" >
+	        #{numeroEmpleado,jdbcType=DECIMAL},
+	      </if>
+	      <if test="fechaPagosecure != null" >
+	        #{fechaPagosecure,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="fechaValorsecure != null" >
+	        #{fechaValorsecure,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="folioTransaccion != null" >
+	        #{folioTransaccion,jdbcType=VARCHAR},
+	      </if>
+	      <if test="folioProcesar != null" >
+	        #{folioProcesar,jdbcType=VARCHAR},
+	      </if>
+	      <if test="claveRedComercial != null and claveRedComercial.id != null" >
+	        #{claveRedComercial.id,jdbcType=DECIMAL},
+	      </if>
+	      <if test="sucursal != null" >
+	        #{sucursal,jdbcType=DECIMAL},
+	      </if>
+	      <if test="tipoAportacion != null" >
+	        #{tipoAportacion,jdbcType=DECIMAL},
+	      </if>
+	      <if test="registroConciliado != null" >
+	        #{registroConciliado,jdbcType=DECIMAL},
+	      </if>
+	      <if test="movimientoGenerado != null" >
+	        #{movimientoGenerado,jdbcType=DECIMAL},
+	      </if>
+	      <if test="movimiento != null" >
+	        #{movimiento,jdbcType=DECIMAL},
+	      </if>
+	      <if test="usuarioCreacion != null" >
+	        #{usuarioCreacion,jdbcType=VARCHAR},
+	      </if>
+	      <if test="estatusTramite != null and estatusTramite.id != null" >
+	        #{estatusTramite.id,jdbcType=DECIMAL},
+	      </if>
+	      <if test="nombreOrdenante != null" >
+	        #{nombreOrdenante,jdbcType=VARCHAR},
+	      </if>
+	      <if test="rfcOrdenante != null" >
+	        #{rfcOrdenante,jdbcType=VARCHAR},
+	      </if>
+	      <if test="curpOrdenante != null" >
+	        #{curpOrdenante,jdbcType=VARCHAR},
+	      </if>
+	      <if test="tipoAhorrador != null">
+			 #{tipoAhorrador,jdbcType=VARCHAR},
+		  </if>
+		  <if test="folioConciliacion != null">
+			 #{folioConciliacion,jdbcType=VARCHAR},
+			</if>
+	      SYSTIMESTAMP,
+	    </trim>
+    
+  </insert>
+	
+	
+	
+	<update id="update" parameterType="mx.secure.nci.business.vo.ConciliacionVO">
+<!-- 	El servicio de actualización de conciliación se usa de dos formas: 
+			Actualización individual. En donde se obtiene previamente el id de conciliación (porque durante la operación el dato no es conocido) 
+				en base al folio y número de cuenta individual para poder actualizar las diversificaciones que tienen como llave foranea dicho valor y es necesario para la actualización. 
+ 			Actualización por folio. Se actualizan todos los registros utilizando como llave el folio. 
+				
+		Se modifica la obtención de la llave primaria (idConciliacion) para limitarla sólo en el caso que se envia como parámetro diversificaciones -->
+	<selectKey keyProperty="idConciliacion" resultType="INTEGER"  order="BEFORE">
+		<choose>
+			<when test="(diversificaciones!=null and diversificaciones.size() > 0) or idConciliacion != null">
+					SELECT FTN_ID_CONCILIACION as FTN_ID_CONCILIACION FROM TTAFOAVOL_CONCILIACION
+				<where>
+					<if test="idConciliacion != null">
+						AND FTN_ID_CONCILIACION = #{idConciliacion,jdbcType=DECIMAL}
+					</if>
+					<if test="idConciliacion == null">
+						<if test="folio != null">
+							AND FTC_FOLIO = #{folio,jdbcType=VARCHAR}
+						</if>
+						<if test="numeroCuentaIndividual != null">
+							AND FTN_NUM_CTA_INVDUAL = #{numeroCuentaIndividual,jdbcType=DECIMAL}
+						</if>
+					</if>
+				</where>		
+			</when>
+			<otherwise>
+				SELECT NULL FROM DUAL
+			</otherwise>			
+		</choose>
+			
+		</selectKey>
+	
+		UPDATE TTAFOAVOL_CONCILIACION
+		
+		<set>
+		      <if test="numeroOrden != null and registroConciliado != null and registroConciliado == 1" >
+		      	FTN_REF_SUBCTA_secure=NULL,
+		      </if>
+		      <if test="!(numeroOrden != null and registroConciliado != null and registroConciliado == 1) and referenciaSubcuentasecure != null" >
+		        FTN_REF_SUBCTA_secure = #{referenciaSubcuentasecure,jdbcType=DECIMAL},
+		      </if>
+		      <if test="claveSolicitud != null" >
+		        FTN_CVE_SOLICITUD = #{claveSolicitud,jdbcType=VARCHAR},
+		      </if>
+		      <if test="numeroOrden != null" >
+		        FTN_NO_ORDEN = #{numeroOrden,jdbcType=VARCHAR},
+		      </if>
+		      <if test="origenAportacion != null and origenAportacion.id != null" >
+		        FTN_ORIGEN_APORTACION = #{origenAportacion.id,jdbcType=DECIMAL},
+		      </if>
+		      <if test="numeroCuentaIndividual != null" >
+		        FTN_NUM_CTA_INVDUAL = #{numeroCuentaIndividual,jdbcType=DECIMAL},
+		      </if>
+		      <if test="numeroPago != null" >
+		        FTN_NO_PAGO = #{numeroPago,jdbcType=DECIMAL},
+		      </if>
+		      <if test="claveBanco != null" >
+		        FTN_CVE_BANCO = #{claveBanco,jdbcType=DECIMAL},
+		      </if>
+		      <if test="cuentaBanco != null" >
+		        FTC_CTA_BANCO = #{cuentaBanco,jdbcType=VARCHAR},
+		      </if>
+		      <if test="importe != null" >
+		        FTN_IMPORTE = #{importe,jdbcType=DECIMAL},
+		      </if>
+		      
+		      <if test="fechaCargaArchivo != null" >
+		        FTD_FEH_CARG_ARCHIVO = #{fechaCargaArchivo,jdbcType=TIMESTAMP},
+		      </if>
+		      <if test="nombreCliente != null" >
+		        FTC_NOMBRE_CTE = #{nombreCliente,jdbcType=VARCHAR},
+		      </if>
+		      <if test="apellidoClientePaterno != null" >
+		        FTC_AP_PATERNO_CTE = #{apellidoClientePaterno,jdbcType=VARCHAR},
+		      </if>
+		      <if test="apellidoClienteMaterno != null" >
+		        FTC_AP_MATERNO_CTE = #{apellidoClienteMaterno,jdbcType=VARCHAR},
+		      </if>
+		      <if test="curp != null" >
+		        FTC_CURP = #{curp,jdbcType=VARCHAR},
+		      </if>
+		      <if test="rfc != null" >
+		        FTC_RFC_CTE = #{rfc,jdbcType=VARCHAR},
+		      </if>
+		      <if test="nss != null" >
+		        FTN_NSS = #{nss,jdbcType=DECIMAL},
+		      </if>
+		      <if test="correoElectronico != null" >
+		        FTC_CORREO_ELEC = #{correoElectronico,jdbcType=VARCHAR},
+		      </if>
+		      <if test="celular != null" >
+		        FTN_CELULAR = #{celular,jdbcType=DECIMAL},
+		      </if>
+		      <if test="empresa != null and empresa.id != null" >
+		        FTN_ID_EMPRESA = #{empresa.id,jdbcType=DECIMAL},
+		      </if>
+		      <if test="tipoNomina != null and tipoNomina.id != null" >
+		        FTN_ID_TIPO_NOMINA = #{tipoNomina.id,jdbcType=DECIMAL},
+		      </if>
+		      <if test="numeroEmpleado != null" >
+		        FTN_NO_EMPLEADO = #{numeroEmpleado,jdbcType=DECIMAL},
+		      </if>
+		      <if test="fechaPagosecure != null" >
+		        FTD_FEH_PAGO_secure = #{fechaPagosecure,jdbcType=TIMESTAMP},
+		      </if>
+		      <if test="fechaValorsecure != null" >
+		        FTD_FEH_VALOR_secure = #{fechaValorsecure,jdbcType=TIMESTAMP},
+		      </if>
+		      <if test="folioTransaccion != null" >
+		        FTC_FOLIO_TRANSAC = #{folioTransaccion,jdbcType=VARCHAR},
+		      </if>
+		      <if test="folioProcesar != null" >
+		        FTC_FOLIO_PROCESAR = #{folioProcesar,jdbcType=VARCHAR},
+		      </if>
+		      <if test="claveRedComercial != null and claveRedComercial.id != null" >
+		        FTN_CVE_RED_COM = #{claveRedComercial.id,jdbcType=DECIMAL},
+		      </if>
+		      <if test="sucursal != null" >
+		        FTN_ID_SUCURSAL = #{sucursal,jdbcType=DECIMAL},
+		      </if>
+		      <if test="tipoAportacion != null" >
+		        FTN_TIPO_APORTACION = #{tipoAportacion,jdbcType=DECIMAL},
+		      </if>
+		      <if test="registroConciliado != null" >
+		        FTN_REG_CONCILIADO = #{registroConciliado,jdbcType=DECIMAL},
+		      </if>
+		      <if test="registroConciliado != null and registroConciliado == 1">
+				FTD_FEH_CONCILIACION = SYSTIMESTAMP,
+			  </if>
+		      <if test="movimientoGenerado != null" >
+		        FTN_MOV_GENERADO = #{movimientoGenerado,jdbcType=DECIMAL},
+		      </if>
+		      <if test="movimiento != null" >
+		        FTN_ID_MOV = #{movimiento,jdbcType=DECIMAL},
+		      </if>		  
+		      <if test="usuarioActualizacion != null" >
+	        	FTC_USU_ACT = #{usuarioActualizacion,jdbcType=VARCHAR},
+	      	  </if>
+	      	  <if test="estatusTramite != null and estatusTramite.id != null" >
+	        	FTN_ESTATUS_TRAMITE	= #{estatusTramite.id,jdbcType=DECIMAL},
+	      	  </if>
+	      	  <if test="nombreOrdenante != null" >
+		        FTC_NOMBRE_ORD = #{nombreOrdenante,jdbcType=VARCHAR},
+		      </if>
+		      <if test="rfcOrdenante != null" >
+		        FTC_RFC_ORDENANTE = #{rfcOrdenante,jdbcType=VARCHAR},
+		      </if>
+		      <if test="curpOrdenante != null" >
+		        FTC_CURP_ORDENANTE = #{curpOrdenante,jdbcType=VARCHAR},
+		      </if>
+		      <if test="tipoAhorrador != null">
+				FTC_TIPO_AHORRADOR = #{tipoAhorrador,jdbcType=VARCHAR},
+			  </if>
+			  <if test="fechaActualizacionFondo != null">
+			  	FTD_FEH_ACT_SUBCTA = #{fechaActualizacionFondo,jdbcType=TIMESTAMP},
+			  </if>
+			  <if test="usuarioActualizacionFondo != null">
+			  	FTC_USU_ACT_SUBCTA = #{usuarioActualizacionFondo,jdbcType=VARCHAR},
+			  </if>
+			  <if test="folioConciliacion != null">
+				FTC_FOLIO_CONCILIACION = #{folioConciliacion,jdbcType=VARCHAR},
+			  </if>
+	      		FTD_FEH_ACT = SYSTIMESTAMP,
+		</set> 
+		
+		<where>
+			<if test="idConciliacion != null">
+				AND FTN_ID_CONCILIACION = #{idConciliacion,jdbcType=DECIMAL}
+			</if>
+			<if test="idConciliacion == null">
+				<if test="folio != null">
+					AND FTC_FOLIO = #{folio,jdbcType=VARCHAR}
+				</if>
+				<if test="numeroCuentaIndividual != null">
+					AND FTN_NUM_CTA_INVDUAL = #{numeroCuentaIndividual,jdbcType=DECIMAL}
+				</if>
+			</if>
+		</where>		
+		
+		
+	</update>
+	
+	
+	<update id="actualizarConciliado" parameterType="mx.secure.nci.business.vo.ConciliacionVO"
+		keyColumn="FTN_ID_CONCILIACION">
+		update TTAFOAVOL_CONCILIACION set FTD_FEH_ACT = SYSTIMESTAMP
+
+		<if test="registroConciliado != null">
+			,FTN_REG_CONCILIADO = #{registroConciliado}
+		</if>
+		<if test="registroConciliado != null and registroConciliado == 1">
+			,FTD_FEH_CONCILIACION = SYSTIMESTAMP
+		</if>
+		<if test="claveBanco != null">
+			,FTN_CVE_BANCO = #{claveBanco}
+		</if>
+		<if test="folioConciliacion != null">
+			,FTC_FOLIO_CONCILIACION = #{folioConciliacion}
+		</if>
+		<if test="usuarioActualizacion != null">
+			,FTC_USU_ACT = #{usuarioActualizacion}
+		</if>
+		<where>
+			<if test="folio != null">
+				AND FTC_FOLIO = #{folio}
+			</if>
+			<if test="claveSolicitud != null">
+				AND FTN_CVE_SOLICITUD = #{claveSolicitud}
+			</if>
+			
+			<choose>
+				<when test="origenAportacion != null and origenAportacion.id != null and origenAportacion.id != 291">
+					AND FTN_ORIGEN_APORTACION = #{origenAportacion.id}
+				</when>
+				<otherwise>
+					<if test="origenAportacion != null and origenAportacion.id != null and origenAportacion.id == 291">
+						AND FTN_ORIGEN_APORTACION in (#{origenAportacion.id}, 844)
+					</if>
+				</otherwise>
+			</choose>
+			<if test="empresa != null and empresa.id != null">
+				AND FTN_ID_EMPRESA = #{empresa.id}
+			</if>
+<!-- 			<if test="claveRedComercial != null and claveRedComercial.id != null">
+				AND FTN_CVE_RED_COM = #{claveRedComercial.id}
+			</if> -->
+			<if test="idConciliacion != null ">
+				AND FTN_ID_CONCILIACION = #{idConciliacion}
+			</if>
+		</where>
+	</update>
+	
+	
+	<select id="selectFolios" parameterType="mx.secure.nci.business.wrapped.ConciliacionFilter" resultType="String">
+		SELECT 
+			distinct FTC_FOLIO
+		FROM TTAFOAVOL_CONCILIACION 	
+		<where>
+			<if test="movimientoGenerado != null">
+				AND FTN_MOV_GENERADO = #{movimientoGenerado,jdbcType=DECIMAL}
+			</if>
+			<if test="registroConciliado != null">
+				AND FTN_REG_CONCILIADO = #{registroConciliado,jdbcType=DECIMAL}
+			</if>
+			<if test="origenAportacion != null and origenAportacion.id != null and origenAportacion.id != 0" >
+				AND FTN_ORIGEN_APORTACION = #{origenAportacion.id,jdbcType=DECIMAL}
+			</if>
+			<if test="estatusTramite != null and estatusTramite.id != null and origenAportacion.id != 0" >
+				AND FTN_ESTATUS_TRAMITE = #{estatusTramite.id,jdbcType=DECIMAL}
+			</if>
+			<if test="folioConciliacion != null">
+				AND FTC_FOLIO_CONCILIACION = #{folioConciliacion,jdbcType=VARCHAR}
+			</if>
+			<if test="idInstancia != null">
+				AND FTC_FOLIO_ARCH_CONT = #{idInstancia,jdbcType=VARCHAR}
+			</if>
+		</where>
+		order by FTC_FOLIO
+	</select>
+
+	
+	<select id="selectFoliosSinRCniDT" >
+		SELECT 
+			distinct FTC_FOLIO
+		FROM TTAFOAVOL_CONCILIACION 	
+		<where>
+			<if test="movimientoGenerado != null">
+				AND FTN_MOV_GENERADO = #{movimientoGenerado,jdbcType=DECIMAL}
+			</if>
+			<if test="registroConciliado != null">
+				AND FTN_REG_CONCILIADO = #{registroConciliado,jdbcType=DECIMAL}
+			</if>
+			<if test="origenAportacion != null and origenAportacion.id != null and origenAportacion.id != 0" >
+				AND FTN_ORIGEN_APORTACION = #{origenAportacion.id,jdbcType=DECIMAL}
+			</if>
+			<if test="estatusTramite != null and estatusTramite.id != null and origenAportacion.id != 0" >
+				AND FTN_ESTATUS_TRAMITE = #{estatusTramite.id,jdbcType=DECIMAL}
+			</if>
+			<if test="folioConciliacion != null">
+				AND CON.FTC_FOLIO_CONCILIACION = #{folioConciliacion,jdbcType=VARCHAR}
+			</if>
+			AND 
+		</where>
+		order by FTC_FOLIO
+	</select>
+	
+	<select id="consultarFolios" parameterType="mx.secure.nci.business.wrapped.ConciliacionFilter" resultType="String">
+		
+		SELECT DISTINCT CON.FTC_FOLIO FROM TTAFOAVOL_CONCILIACION CON
+		INNER JOIN TTCRXGRAL_BITACORA_PROCESO BIT ON CON.FTC_FOLIO = BIT.FTC_FOLIO
+		<where>
+			<if test="folioConciliacion != null">
+				FTC_FOLIO_CONCILIACION = #{folioConciliacion}
+			</if>
+			<if test="folioArch != null">
+				AND FTC_FOLIO_ARCH_CONT = #{folioArch}
+			</if>
+			<if test="registroConciliado != null">
+				AND CON.FTN_REG_CONCILIADO = #{registroConciliado}
+			</if> 
+			<if test="movimientoGenerado != null">
+				AND CON.FTN_MOV_GENERADO = #{movimientoGenerado}
+			</if> 
+			<if test="idSubEtapa != null">
+				AND BIT.FCN_ID_SUBETAPA = #{idSubEtapa}
+			</if>
+			AND BIT.FCN_ID_ESTATUS = ${@mx.secure.nci.business.util.ConstantesCatalogos@ID_ESTATUS_FINALIZADO} 
+		</where>
+		
+	</select>
+	
+	<select id="consultarFoliosByConciliacion" parameterType="mx.secure.nci.business.wrapped.ConciliacionFilter" resultType="String">
+		
+		SELECT DISTINCT CON.FTC_FOLIO FROM TTAFOAVOL_CONCILIACION CON
+		INNER JOIN TTCRXGRAL_BITACORA_PROCESO BIT ON CON.FTC_FOLIO = BIT.FTC_FOLIO
+		<where>
+			<if test="folioConciliacion != null">
+				FTC_FOLIO_CONCILIACION = #{folioConciliacion}
+			</if>
+			<if test="folioArch != null">
+				AND FTC_FOLIO_ARCH_CONT = #{folioArch}
+			</if>
+			<if test="registroConciliado != null">
+				AND CON.FTN_REG_CONCILIADO = #{registroConciliado}
+			</if> 
+			<if test="movimientoGenerado != null">
+				AND CON.FTN_MOV_GENERADO = #{movimientoGenerado}
+			</if> 
+			<if test="idSubEtapa != null">
+				AND BIT.FCN_ID_SUBETAPA = #{idSubEtapa}
+			</if>
+			AND BIT.FCN_ID_ESTATUS = ${@mx.secure.nci.business.util.ConstantesCatalogos@ID_ESTATUS_FINALIZADO} 
+		</where>
+		
+	</select>		
+	
+	<select id="consultarFoliosAFinalizar" parameterType="mx.secure.nci.business.wrapped.ConciliacionFilter" resultType="String">
+		
+		SELECT DISTINCT CON.FTC_FOLIO FROM TTAFOAVOL_CONCILIACION CON
+		INNER JOIN TTCRXGRAL_FOLIO FOL ON CON.FTC_FOLIO = FOL.FTC_FOLIO
+		<where> 
+			<if test="folioArch != null">
+				CON.FTC_FOLIO_ARCH_CONT = #{folioArch}
+			</if>
+			<if test="folioConciliacion != null">
+				AND CON.FTC_FOLIO_CONCILIACION = #{folioConciliacion}
+			</if>
+			<if test="registroConciliado != null">
+				AND CON.FTN_REG_CONCILIADO = #{registroConciliado}
+			</if>
+			<if test="movimientoGenerado != null">
+				AND CON.FTN_MOV_GENERADO = #{movimientoGenerado}
+			</if>
+			AND FOL.FCN_ID_ESTATUS_PROCESO = ${@mx.secure.nci.business.util.ConstantesCatalogos@ID_PROCESO_EN_EJECUCION}
+			AND CON.FTN_ORIGEN_APORTACION IN(${@mx.secure.nci.business.util.ConstantesCatalogos@ID_ORIGEN_APORTACION_INTERNET},
+											 ${@mx.secure.nci.business.util.ConstantesCatalogos@ID_ORIGEN_APORTACION_NOMINA},
+											 ${@mx.secure.nci.business.util.ConstantesCatalogos@ID_ORIGEN_APORTACION_DOMICILIACION},
+											 ${@mx.secure.nci.business.util.ConstantesCatalogos@ID_ORIGEN_APORTACION_SPEI},
+											 ${@mx.secure.nci.business.util.ConstantesCatalogos@ID_ORIGEN_DOMICILIACION_E_SAR})
+			AND CON.FTC_FOLIO NOT IN (SELECT DISTINCT FOL.FTC_FOLIO FROM TTAFOGRAL_ARCHIVO ARCH 
+                                  INNER JOIN TRAFOGRAL_ARCHIVO_FOLIO FOL ON ARCH.FTN_ID_ARCHIVO = FOL.FTN_ID_ARCHIVO
+                                  WHERE ARCH.FTN_ID_ORIGEN_ARCHIVO = ${@mx.secure.nci.business.util.ConstantesCatalogos@ID_ARCHIVO_BANCARIO})
+		</where>
+		GROUP BY CON.FTC_FOLIO
+			
+			
+		UNION
+			
+			
+		SELECT DISTINCT REG_CON_TOT.FTC_FOLIO
+			FROM
+			    (SELECT BANC.FTC_FOLIO,COUNT(BANC.FTN_REG_CONCILIADO) AS REGISTROS FROM TTAFOAVOL_BANCOS BANC
+			     INNER JOIN TTCRXGRAL_FOLIO FOL ON BANC.FTC_FOLIO = FOL.FTC_FOLIO	
+			        WHERE
+						BANC.FTC_FOLIO IN (SELECT DISTINCT FOL.FTC_FOLIO FROM TTAFOGRAL_ARCHIVO ARCH 
+                                  INNER JOIN TRAFOGRAL_ARCHIVO_FOLIO FOL ON ARCH.FTN_ID_ARCHIVO = FOL.FTN_ID_ARCHIVO
+                                  WHERE ARCH.FTN_ID_ORIGEN_ARCHIVO = ${@mx.secure.nci.business.util.ConstantesCatalogos@ID_ARCHIVO_BANCARIO})
+                        AND FOL.FCN_ID_ESTATUS_PROCESO = ${@mx.secure.nci.business.util.ConstantesCatalogos@ID_PROCESO_EN_EJECUCION}
+		    GROUP BY BANC.FTC_FOLIO) REGISTROS
+			    
+		    INNER JOIN
+			    
+		    (SELECT REG_CON.FTC_FOLIO,SUM(REG_CON.FTN_REG_CONCILIADO) AS REG_CON_TOT
+		    FROM
+		        (SELECT BANC.FTC_FOLIO,(CASE BANC.FTN_REG_CONCILIADO WHEN 1 THEN COUNT(BANC.FTN_REG_CONCILIADO) ELSE 0 END) AS FTN_REG_CONCILIADO FROM TTAFOAVOL_BANCOS BANC
+		         INNER JOIN TTCRXGRAL_FOLIO FOL ON BANC.FTC_FOLIO = FOL.FTC_FOLIO 
+		            WHERE
+                BANC.FTN_ESTATUS_IDC = 1
+						AND BANC.FTC_FOLIO IN (SELECT DISTINCT FOL.FTC_FOLIO FROM TTAFOGRAL_ARCHIVO ARCH 
+                                  INNER JOIN TRAFOGRAL_ARCHIVO_FOLIO FOL ON ARCH.FTN_ID_ARCHIVO = FOL.FTN_ID_ARCHIVO
+                                  WHERE ARCH.FTN_ID_ORIGEN_ARCHIVO = ${@mx.secure.nci.business.util.ConstantesCatalogos@ID_ARCHIVO_BANCARIO})
+                        AND FOL.FCN_ID_ESTATUS_PROCESO = ${@mx.secure.nci.business.util.ConstantesCatalogos@ID_PROCESO_EN_EJECUCION}
+	        GROUP BY BANC.FTC_FOLIO,BANC.FTN_REG_CONCILIADO) REG_CON
+	    GROUP BY REG_CON.FTC_FOLIO) REG_CON_TOT
+		ON REG_CON_TOT.REG_CON_TOT = REGISTROS.REGISTROS AND REG_CON_TOT.FTC_FOLIO = REGISTROS.FTC_FOLIO
+			
+			
+		UNION
+			
+			
+		SELECT DISTINCT REG_EST.FTC_FOLIO
+			FROM
+			    (SELECT DISTINCT CON.FTC_FOLIO,COUNT(CON.FTN_ESTATUS_TRAMITE) AS REGISTROS FROM TTAFOAVOL_CONCILIACION CON
+			    INNER JOIN TTCRXGRAL_FOLIO FOL ON CON.FTC_FOLIO = FOL.FTC_FOLIO
+			    <where> 
+					<if test="folioConciliacion != null">
+						CON.FTC_FOLIO_CONCILIACION = #{folioConciliacion}
+					</if>
+					<if test="registroConciliado != null">
+						AND CON.FTN_REG_CONCILIADO = #{registroConciliado}
+					</if>
+					<if test="movimientoGenerado != null">
+						AND CON.FTN_MOV_GENERADO = #{movimientoGenerado}
+					</if>
+					AND CON.FTN_ORIGEN_APORTACION IN(${@mx.secure.nci.business.util.ConstantesCatalogos@ID_ORIGEN_APORTACION_RED_COMERCIAL},
+													 ${@mx.secure.nci.business.util.ConstantesCatalogos@ID_ORIGEN_DOMICILIACION_TRASPASO},
+													 ${@mx.secure.nci.business.util.ConstantesCatalogos@ID_ORIGEN_COMPLEMENTO_AFORE})
+					AND CON.FTC_FOLIO NOT IN (SELECT DISTINCT FOL.FTC_FOLIO FROM TTAFOGRAL_ARCHIVO ARCH 
+                                  INNER JOIN TRAFOGRAL_ARCHIVO_FOLIO FOL ON ARCH.FTN_ID_ARCHIVO = FOL.FTN_ID_ARCHIVO
+                                  WHERE ARCH.FTN_ID_ORIGEN_ARCHIVO = ${@mx.secure.nci.business.util.ConstantesCatalogos@ID_ARCHIVO_BANCARIO})
+				</where>  
+		    GROUP BY CON.FTC_FOLIO) REGISTROS
+			    
+		    INNER JOIN 
+			    
+			    (SELECT
+			        REG_CUMP.FTC_FOLIO,
+			        (CASE REG_CUMP.FTN_ESTATUS_TRAMITE WHEN 'CUMPLE' THEN COUNT(REG_CUMP.FTN_ESTATUS_TRAMITE) ELSE 0 END) AS REG_EST
+			    FROM
+			        (SELECT CON.FTC_FOLIO, 
+			        DECODE(CON.FTN_ESTATUS_TRAMITE,${@mx.secure.nci.business.util.ConstantesCatalogos@ID_APLICADO},'CUMPLE',
+			                                       ${@mx.secure.nci.business.util.ConstantesCatalogos@ID_POR_DEVOLVER},'CUMPLE',
+			                                       ${@mx.secure.nci.business.util.ConstantesCatalogos@ID_DEVUELTO},'CUMPLE',
+			                                      CON.FTN_ESTATUS_TRAMITE) AS FTN_ESTATUS_TRAMITE
+			        FROM TTAFOAVOL_CONCILIACION CON
+			        INNER JOIN TTCRXGRAL_FOLIO FOL ON CON.FTC_FOLIO = FOL.FTC_FOLIO
+			        <where> 
+						<if test="folioConciliacion != null">
+							CON.FTC_FOLIO_CONCILIACION = #{folioConciliacion}
+						</if>
+						<if test="registroConciliado != null">
+							AND CON.FTN_REG_CONCILIADO = #{registroConciliado}
+						</if>
+						<if test="movimientoGenerado != null">
+							AND CON.FTN_MOV_GENERADO = #{movimientoGenerado}
+						</if>
+					AND CON.FTN_ORIGEN_APORTACION IN(${@mx.secure.nci.business.util.ConstantesCatalogos@ID_ORIGEN_APORTACION_RED_COMERCIAL},
+													 ${@mx.secure.nci.business.util.ConstantesCatalogos@ID_ORIGEN_DOMICILIACION_TRASPASO},
+													 ${@mx.secure.nci.business.util.ConstantesCatalogos@ID_ORIGEN_COMPLEMENTO_AFORE})
+					AND (CON.FTN_ESTATUS_TRAMITE = ${@mx.secure.nci.business.util.ConstantesCatalogos@ID_APLICADO} OR 
+						 CON.FTN_ESTATUS_TRAMITE = ${@mx.secure.nci.business.util.ConstantesCatalogos@ID_POR_DEVOLVER} OR 
+						 CON.FTN_ESTATUS_TRAMITE = ${@mx.secure.nci.business.util.ConstantesCatalogos@ID_DEVUELTO})
+<!-- 				    AND FOL.FCN_ID_ESTATUS_PROCESO NOT IN (${@mx.secure.nci.business.util.ConstantesCatalogos@ID_PROCESO_FINALIZADO}) -->
+				    AND FOL.FCN_ID_ESTATUS_PROCESO = ${@mx.secure.nci.business.util.ConstantesCatalogos@ID_PROCESO_EN_EJECUCION}
+				    AND CON.FTC_FOLIO NOT IN (SELECT DISTINCT FOL.FTC_FOLIO FROM TTAFOGRAL_ARCHIVO ARCH 
+                                  INNER JOIN TRAFOGRAL_ARCHIVO_FOLIO FOL ON ARCH.FTN_ID_ARCHIVO = FOL.FTN_ID_ARCHIVO
+                                  WHERE ARCH.FTN_ID_ORIGEN_ARCHIVO = ${@mx.secure.nci.business.util.ConstantesCatalogos@ID_ARCHIVO_BANCARIO})
+				</where>
+		        ) REG_CUMP
+		    GROUP BY REG_CUMP.FTC_FOLIO,REG_CUMP.FTN_ESTATUS_TRAMITE
+		    ) REG_EST
+		ON REG_EST.REG_EST = REGISTROS.REGISTROS AND REG_EST.FTC_FOLIO = REGISTROS.FTC_FOLIO
+	
+	</select>
+	
+</mapper>

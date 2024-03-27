@@ -1,0 +1,606 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mx.profuturo.nci.persistence.SolicitudReclasificacionPersistence">
+
+	<resultMap id="cifrasControlClienteMap"
+		type="mx.profuturo.nci.business.vo.SolicitudReclasificacionVO">
+
+		<id property="claveSolicitud" javaType="Long" column="CVESOLICITUD"	
+			jdbcType="DECIMAL" />
+			
+		<result property="folio" javaType="string" column="FTC_FOLIO"
+			jdbcType="VARCHAR" />
+			
+		<result property="fechaInicio" javaType="Date" column="FECHASOLICITUD"
+			jdbcType="TIMESTAMP" />
+			
+		<result property="origen" javaType="int" column="FCN_ID_ORIGEN_CAPTURA"
+			jdbcType="DECIMAL" />
+			
+		<result property="cuenta" javaType="long" column="NUMCUENTA"
+			jdbcType="DECIMAL" />
+			
+		<result property="nombre" javaType="string" column="FTC_USU_CRE"
+			jdbcType="VARCHAR" />
+			
+		<result property="importe" javaType="BigDecimal" column="FTN_MONTO_ORI_RECLASIFICA"
+			jdbcType="DECIMAL" />
+			
+		<result property="estatus" javaType="int" column="FCN_ID_ESTATUS_SOLICITUD"
+			jdbcType="DECIMAL" />
+		
+		<result property="descEstatus" javaType="string" column="ESTATUS"
+			jdbcType="VARCHAR" />
+			
+		<result property="descOrigen" javaType="string" column="ORIGEN"
+			jdbcType="VARCHAR" />
+		
+	</resultMap>
+	
+	<select id="consultaSolicitudes" parameterType="mx.profuturo.nci.business.vo.SolicitudReclasificacionVO" 
+	resultMap="cifrasControlClienteMap">
+
+	SELECT 
+	SOLIRECLA.FTC_CVE_SOLICITUD CVESOLICITUD, 
+	SOLIRECLA.FTC_FOLIO FOLIO, 
+	SOLIRECLA.FTD_FEH_CAP FECHASOLICITUD, 
+		ORIGEN.FCC_VALOR ORIGEN,
+	SOLIRECLA.FTN_NUM_CTA_INVDUAL NUMCUENTA, 
+	SOLIRECLA.FTC_USU_CRE NOMBRE,
+	SOLIRECLA.FTN_MONTO_ORI_RECLASIFICA IMPORTE, 
+		ESTATUS.FCC_VALOR ESTATUS 
+
+FROM PROFAPOVOL.TTAFOAVOL_SOL_RECLASIFICACION SOLIRECLA
+INNER JOIN TCCRXGRAL_CAT_CATALOGO ORIGEN ON ORIGEN.FCN_ID_CAT_CATALOGO=SOLIRECLA.FCN_ID_ORIGEN_CAPTURA
+INNER JOIN TCCRXGRAL_CAT_CATALOGO ESTATUS ON ESTATUS.FCN_ID_CAT_CATALOGO=SOLIRECLA.FCN_ID_ESTATUS_SOLICITUD
+		
+		<where>
+			<if test="origen != null and origen != 0">
+				FCN_ID_ORIGEN_CAPTURA=#{origen,jdbcType=DECIMAL}
+			</if>
+			<if test="estatus != null and estatus != 0">
+				AND FCN_ID_ESTATUS_SOLICITUD=#{estatus,jdbcType=DECIMAL}
+			</if>
+			<if test="fechaInicio != null">
+		        AND to_date(trunc(FTD_FEH_CAP),'dd-mm-yy') BETWEEN TO_DATE(#{fechaInicio},'yy-mm-dd') and TO_DATE(#{fechaInicio},'yy-mm-dd')
+		      </if>
+		      <if test="fechaFin != null">
+		        AND to_date(trunc(FTD_FEH_CAP),'dd-mm-yy') BETWEEN TO_DATE(#{fechaFin},'yy-mm-dd') and TO_DATE(#{fechaFin},'yy-mm-dd')
+		      </if>
+		</where> 
+		
+	</select>
+	
+	<resultMap id="BaseResultMap" type="mx.profuturo.nci.business.vo.CatalogoVO">
+		<id property="idCatCatalogo" javaType="short" column="FCN_ID_CAT_CATALOGO"
+			jdbcType="DECIMAL" />
+		<result property="idCatPadre" javaType="short" column="FCN_ID_CAT_PADRE"
+			jdbcType="DECIMAL" />
+		<result property="valor" javaType="string" column="FCC_VALOR"
+			jdbcType="VARCHAR" />
+		<result property="desc" javaType="string" column="FCC_DESC"
+			jdbcType="VARCHAR" />
+		<result property="vigencia" javaType="boolean" column="FCB_CAT_VIGENCIA"
+			jdbcType="CHAR" />
+		<result property="fehCre" javaType="date" column="FCD_CAT_FEH_CRE"
+			jdbcType="TIMESTAMP" />
+		<result property="usuCre" javaType="string" column="FCC_CAT_USU_CRE"
+			jdbcType="VARCHAR" />
+		<result property="fehAct" javaType="date" column="FCD_CAT_FEH_ACT"
+			jdbcType="TIMESTAMP" />
+		<result property="usuAct" javaType="string" column="FCC_CAT_USU_ACT"
+			jdbcType="VARCHAR" />
+
+		<association property="catalogType"
+			resultMap="mx.profuturo.nci.persistence.TipoCatalogoPersistence.BaseResultMap" />
+	</resultMap>
+	
+	<select id="consultaOrigen" parameterType="mx.profuturo.nci.business.vo.CatalogoVO"
+		resultMap="BaseResultMap">
+
+			SELECT * FROM TCCRXGRAL_CAT_CATALOGO where FCN_ID_TIPO_CAT=48
+		
+		ORDER BY
+		FCC_VALOR
+	</select>
+	
+	<select id="consultaEstatus" parameterType="mx.profuturo.nci.business.vo.CatalogoVO"
+		resultMap="BaseResultMap">
+
+			SELECT * FROM TCCRXGRAL_CAT_CATALOGO where FCN_ID_TIPO_CAT=55
+
+		ORDER BY
+		FCC_VALOR
+	</select>
+	
+	<resultMap id="SolicitudReclasificacionBaseResultMap" type="mx.profuturo.nci.business.vo.SolicitudReclasificacionApoVolVO">
+			<result property="cveSolicitud" 			column="FTC_CVE_SOLICITUD" 				jdbcType="VARCHAR" />
+			<result property="numCtaInvdual" 			column="FTN_NUM_CTA_INVDUAL" 			jdbcType="NUMERIC" />
+	    	<result property="folioFus" 				column="FTC_FOLIO_FUS" 					jdbcType="VARCHAR" />
+	    	<result property="folio" 					column="FTC_FOLIO" 						jdbcType="VARCHAR" />
+	    	<result property="montoReclasificacion" 	column="FTN_MONTO_RECLASIF" 			jdbcType="DECIMAL" />
+	    	<result property="idFondoApp" 				column="FCN_ID_FONDO_APP" 				jdbcType="NUMERIC" />
+	    	<result property="usuCaptura" 				column="FTC_USU_CAPTURA" 				jdbcType="VARCHAR" />
+	    	<result property="fehCap" 					column="FTD_FEH_CAP" 					jdbcType="TIMESTAMP" />
+	    	<result property="idOrigenCaptura" 			column="FCN_ID_ORIGEN_CAPTURA" 			jdbcType="NUMERIC" />
+	    	<result property="idMedioNotificacion" 		column="FCN_ID_MEDIO_NOTIFICACION" 		jdbcType="NUMERIC" />
+	    	<result property="medioNotificacion" 		column="FCC_MEDIO_NOTIFICACION" 		jdbcType="VARCHAR" />
+	    	<result property="destinoNotificacion" 		column="FTC_DESTINO_NOTIFICACION" 		jdbcType="VARCHAR" />
+	    	<result property="idEstatusSolicitud" 		column="FCN_ID_ESTATUS_SOLICITUD" 		jdbcType="NUMERIC" />
+	    	<result property="idMotivoRechazo" 			column="FCN_ID_MOTIVO_RECHAZO" 			jdbcType="NUMERIC" />
+	    	<result property="idTipoReclasificacion" 	column="FCN_ID_TIPO_RECLASIFICACION" 	jdbcType="NUMERIC" />
+	    	<result property="idTipoSiefore" 			column="FCN_ID_TIPO_SIEFORE" 			jdbcType="NUMERIC" />
+	    	<result property="usuCre" 					column="FTC_USU_CRE" 					jdbcType="VARCHAR" />
+	    	<result property="fehCre" 					column="FTD_FEH_CRE" 					jdbcType="TIMESTAMP" />
+	    	
+	    	<association property="solicitante" column="{numCtaInvdual=FTN_NUM_CTA_INVDUAL}" javaType="mx.profuturo.nci.business.vo.ClienteVO" 
+	    		select="selectSolicitante" />
+							
+			<collection property="lstDiversificacionVO" 
+						column="{
+								cveSolicitud=FTC_CVE_SOLICITUD
+								}" 
+						javaType="ArrayList" 
+						ofType="mx.profuturo.nci.business.vo.DiversificacionSolicitudReclasificacionVO"
+	    				select="selectDiversificacion"/>
+	    	<collection property="lstSaldosOriginal" 
+						column="{
+								cveSolicitud=FTC_CVE_SOLICITUD
+								}" 
+						javaType="ArrayList" 
+						ofType="mx.profuturo.nci.business.vo.DiversificacionSolicitudReclasificacionVO"
+	    				select="selectSaldoOriginal"/>
+	    	<collection property="lstIndicadores" 
+						column="{
+								cveSolicitud=FTC_CVE_SOLICITUD
+								}" 
+						javaType="ArrayList" 
+						ofType="mx.profuturo.nci.business.vo.IndicadorSolicitudReclasificacionVO"
+	    				select="selectIndicadoresSolicitudReclasificacion"/>
+	</resultMap>
+  	
+	<select id="consultarSolicitud" parameterType="mx.profuturo.nci.business.wrapped.SolicitudReclasificacionFilter"
+		resultMap="SolicitudReclasificacionBaseResultMap">
+
+		SELECT 
+		FTC_CVE_SOLICITUD,
+		FTN_NUM_CTA_INVDUAL,
+		FTC_FOLIO_FUS,
+		FTN_MONTO_RECLASIF,
+		FCN_ID_FONDO_APP,
+		FTC_USU_CAPTURA,
+		FTD_FEH_CAP,
+		FCN_ID_ORIGEN_CAPTURA,
+		FCN_ID_MEDIO_NOTIFICACION,
+		FCC_MEDIO_NOTIFICACION,
+		FTC_DESTINO_NOTIFICACION,
+		FCN_ID_ESTATUS_SOLICITUD,
+		FCN_ID_MOTIVO_RECHAZO,
+		FCN_ID_TIPO_RECLASIFICACION,
+		FCN_ID_TIPO_SIEFORE,
+		FTC_USU_CRE,
+		FTD_FEH_CRE
+		FROM TTAFOAVOL_SOL_RECLASIFICACION
+		<where>
+			FTC_CVE_SOLICITUD = #{cveSolicitud,jdbcType=VARCHAR}
+		</where>
+	</select>
+	
+	<select id="selectDiversificacion"  parameterType="mx.profuturo.nci.business.wrapped.SolicitudReclasificacionFilter" resultType="mx.profuturo.nci.business.vo.DiversificacionSolicitudReclasificacionVO" resultMap="barResultDiversificacion">
+		
+		SELECT       
+        RED.FTC_CVE_SOLICITUD, 
+        RED.FCN_ID_SIEFORE, 
+        RED.FCN_ID_SUBCTA, 
+        CS.FCC_VALOR, 
+        RED.FTN_PESOS, 
+        RED.FTN_ACCIONES, 
+        RED.FTN_PORCENTAJE, 
+		RED.FCN_ID_VALOR_ACCION, 
+		RED.FCN_ID_TIPO_MOV, 
+		RED.FCN_ID_FONDO_APP,
+		RED.FTN_PLAZO,
+		RED.FTN_DEDUCIBLE, 
+		RED.FTD_FEH_CRE, 
+		RED.FTC_USU_CRE,
+		case when RED.FTD_FEH_ACT is null then to_date('12-12-9999','DD/MM/YYYY') else RED.FTD_FEH_ACT end  as FTD_FEH_ACT,
+        case when RED.FTC_USU_ACT is null then ' ' else RED.FTC_USU_ACT end as FTC_USU_ACT 
+		FROM TTAFOAVOL_RECLA_DIVERSIFICA RED
+		INNER JOIN TCCRXGRAL_CAT_CATALOGO CS ON CS.FCN_ID_CAT_CATALOGO = RED.FCN_ID_SUBCTA
+        <where>
+			RED.FTC_CVE_SOLICITUD = #{cveSolicitud,jdbcType=VARCHAR}
+		</where> 
+	</select>
+	
+	<resultMap id="barResultDiversificacion" type="mx.profuturo.nci.business.vo.DiversificacionSolicitudReclasificacionVO">
+		<result property="cveSolicitud" 	 	column="FTC_CVE_SOLICITUD" 		jdbcType="VARCHAR" />
+    	<result property="idSiefore" 			column="FCN_ID_SIEFORE"  		jdbcType="NUMERIC" />
+   		<result property="idSubcta" 			column="FCN_ID_SUBCTA" 			jdbcType="NUMERIC" />
+   		<result property="descSubCuenta"		column="FCC_VALOR" 				jdbcType="VARCHAR" />
+    	<result property="pesos" 				column="FTN_PESOS" 				jdbcType="DECIMAL" />
+    	<result property="acciones" 			column="FTN_ACCIONES" 			jdbcType="DECIMAL" />
+    	<result property="porcentaje" 			column="FTN_PORCENTAJE" 		jdbcType="DECIMAL" />
+    	<result property="idValorAccion" 		column="FCN_ID_VALOR_ACCION" 	jdbcType="DECIMAL" />
+    	<result property="idTipoMov" 			column="FCN_ID_TIPO_MOV" 		jdbcType="NUMERIC" />
+    	<result property="idFondoApp" 			column="FCN_ID_FONDO_APP" 		jdbcType="NUMERIC" />
+    	<result property="plazo" 				column="FTN_PLAZO" 				jdbcType="NUMERIC" />
+    	<result property="deducible" 			column="FTN_DEDUCIBLE" 			jdbcType="NUMERIC" />
+    	<result property="fehCre" 				column="FTD_FEH_CRE" 			jdbcType="TIMESTAMP" />
+    	<result property="usuCre" 				column="FTC_USU_CRE" 			jdbcType="VARCHAR" />
+    	<result property="fehAct" 				column="FTD_FEH_ACT" 			jdbcType="TIMESTAMP" />
+    	<result property="usuAct" 				column="FTC_USU_ACT" 			jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="selectSaldoOriginal"  parameterType="mx.profuturo.nci.business.wrapped.SolicitudReclasificacionFilter" resultType="mx.profuturo.nci.business.vo.DiversificacionSolicitudReclasificacionVO" resultMap="barResultDiversificacion">
+		
+		SELECT      
+        SAO.FTC_CVE_SOLICITUD, SAO.FCN_ID_SIEFORE, SAO.FCN_ID_SUBCTA, CS.FCC_VALOR, SAO.FTN_PESOS, SAO.FTN_ACCIONES, 100 as FTN_PORCENTAJE,
+		SAO.FCN_ID_VALOR_ACCION, 180 as FCN_ID_TIPO_MOV,  0 as FCN_ID_FONDO_APP, SAO.FTD_FEH_CRE, SAO.FTC_USU_CRE, 
+		case when SAO.FTD_FEH_ACT is null then to_date('12-12-9999','DD-MM-YYYY') else SAO.FTD_FEH_ACT end as FTD_FEH_ACT, 
+		case when SAO.FTC_USU_ACT is null then ' ' else SAO.FTC_USU_ACT end as FTC_USU_ACT
+        FROM TTAFOAVOL_RECLA_SALDO_ORIGINAL SAO
+        INNER JOIN TCCRXGRAL_CAT_CATALOGO CS ON CS.FCN_ID_CAT_CATALOGO = SAO.FCN_ID_SUBCTA
+        
+        <where>
+			SAO.FTC_CVE_SOLICITUD = #{cveSolicitud,jdbcType=VARCHAR}
+		</where> 
+	</select>
+	
+	<select id="selectIndicadoresSolicitudReclasificacion"  parameterType="mx.profuturo.nci.business.wrapped.SolicitudReclasificacionFilter" resultType="mx.profuturo.nci.business.vo.IndicadorSolicitudReclasificacionVO" resultMap="barResultIndicadores">
+		
+		SELECT
+		FTC_CVE_SOLICITUD,
+		FCN_ID_INDICADOR,
+		FCC_VALOR,
+		FTD_FEH_CRE,
+		FTC_USU_CRE
+        FROM TTAFOAVOL_RECLA_INDICADORES
+        <where>
+			FTC_CVE_SOLICITUD = #{cveSolicitud,jdbcType=VARCHAR}
+		</where> 
+	</select>
+	
+	<resultMap id="barResultIndicadores" type="mx.profuturo.nci.business.vo.IndicadorSolicitudReclasificacionVO">
+		<result property="cveSolicitud" 	 	column="FTC_CVE_SOLICITUD" 		jdbcType="VARCHAR" />
+    	<result property="idIndicador" 			column="FCN_ID_INDICADOR"  		jdbcType="NUMERIC" />
+   		<result property="valor" 				column="FCC_VALOR" 				jdbcType="NUMERIC" />
+    	<result property="fehCre" 				column="FTD_FEH_CRE" 			jdbcType="TIMESTAMP" />
+    	<result property="usuCre" 				column="FTC_USU_CRE" 			jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="selectSolicitante"  parameterType="mx.profuturo.nci.business.wrapped.ClienteFilter" resultType="mx.profuturo.nci.business.vo.ClienteVO" resultMap="barResultSolicitante">
+		
+		SELECT
+		FTC_NOMBRE_CTE,
+		FTC_AP_PATERNO_CTE,
+		FTC_AP_MATERNO_CTE,
+		FTC_NSS,
+		FTN_NUM_CTA_INVDUAL,
+		FTC_CURP,
+		FTC_RFC_CTE,
+		FTC_CORREO_ELEC,
+		FTC_CELULAR,
+		FTC_CALLE,
+		FTN_NUMERO_INTERIOR,
+		FTN_NUMERO_EXTERIOR,
+		FTN_CODIGO_POSTAL,
+		FTC_COLONIA,
+		FTC_MUNICIPIO_DELEGACION,
+		FTN_ESTADO,
+		FTC_TELEFONO,
+		FTC_USU_CRE,
+		FTD_FEH_CRE
+        FROM TTAFOAVOL_RECLA_SOLICITANTE
+        <where>
+			FTN_NUM_CTA_INVDUAL = #{numCtaInvdual,jdbcType=DECIMAL}
+		</where> 
+	</select>
+	
+	<resultMap id="barResultSolicitante" type="mx.profuturo.nci.business.vo.ClienteVO">
+		<result property="nombreCte" 	 			column="FTC_NOMBRE_CTE" 		jdbcType="VARCHAR" />
+    	<result property="apPaternoCte" 			column="FTC_AP_PATERNO_CTE"  	jdbcType="VARCHAR" />
+   		<result property="apMaternoCte" 			column="FTC_AP_MATERNO_CTE" 	jdbcType="VARCHAR" />
+    	<result property="nss" 						column="FTC_NSS" 				jdbcType="VARCHAR" />
+    	<result property="numCtaInvdual" 			column="FTN_NUM_CTA_INVDUAL" 	jdbcType="DECIMAL" />
+    	<result property="curp" 					column="FTC_CURP" 				jdbcType="VARCHAR" />
+    	<result property="rfcCte" 					column="FTC_RFC_CTE" 			jdbcType="VARCHAR" />
+    	<result property="correoElec" 				column="FTC_CORREO_ELEC" 		jdbcType="VARCHAR" />
+    	<result property="celular" 					column="FTC_CELULAR" 			jdbcType="VARCHAR" />
+    	<result property="calle" 					column="FTC_CALLE" 				jdbcType="VARCHAR" />
+    	<result property="noExterior" 				column="FTN_NUMERO_EXTERIOR" 		jdbcType="VARCHAR" />
+    	<result property="noInterior" 				column="FTN_NUMERO_INTERIOR" 		jdbcType="VARCHAR" />
+    	<result property="codigoPostal" 			column="FTN_CODIGO_POSTAL" 			jdbcType="VARCHAR" />
+    	<result property="colonia" 					column="FTC_COLONIA" 				jdbcType="VARCHAR" />
+    	<result property="delegMunicipio" 			column="FTC_MUNICIPIO_DELEGACION" 	jdbcType="VARCHAR" />
+    	<result property="estado" 					column="FTN_ESTADO" 		jdbcType="VARCHAR" />
+    	<result property="telefono" 				column="FTC_TELEFONO" 		jdbcType="VARCHAR" />
+    	<result property="usuCre" 					column="FTC_USU_CRE" 		jdbcType="VARCHAR" />
+    	<result property="fehCre" 					column="FTD_FEH_CRE" 		jdbcType="TIMESTAMP" />
+    	
+	</resultMap>
+	
+	<insert id="insertarSolicitud" 
+    		parameterType="mx.profuturo.nci.business.vo.SolicitudReclasificacionApoVolVO"
+    		useGeneratedKeys="false"
+	 		keyProperty="mx.profuturo.nci.business.vo.SolicitudReclasificacionApoVolVO.cveSolicitud"
+			keyColumn="FTC_CVE_SOLICITUD">
+	    
+	    INSERT INTO TTAFOAVOL_SOL_RECLASIFICACION
+	    
+	    <trim prefix="(" suffix=")" suffixOverrides=",">
+				FTC_CVE_SOLICITUD,
+				FTN_NUM_CTA_INVDUAL,
+				FTC_FOLIO_FUS,
+				FTN_MONTO_RECLASIF,
+				FCN_ID_FONDO_APP,
+				FTC_USU_CAPTURA,
+				FTD_FEH_CAP,
+				FCN_ID_ORIGEN_CAPTURA,
+				FCN_ID_MEDIO_NOTIFICACION,
+				FCC_MEDIO_NOTIFICACION,
+				FTC_DESTINO_NOTIFICACION,
+				FCN_ID_ESTATUS_SOLICITUD,
+				
+				<if test="idMotivoRechazo != null and idMotivoRechazo != 0">
+					FCN_ID_MOTIVO_RECHAZO,
+				</if>
+				
+				FCN_ID_TIPO_RECLASIFICACION,
+				FCN_ID_TIPO_SIEFORE,
+				FTD_FEH_CRE,
+				FTC_USU_CRE
+	    </trim>
+	    
+	    <trim prefix="values (" suffix=")" suffixOverrides=",">
+	    	#{cveSolicitud,jdbcType=VARCHAR},
+	    	#{numCtaInvdual,jdbcType=DECIMAL},
+	    	#{folioFus,jdbcType=VARCHAR},
+	    	#{montoReclasificacion,jdbcType=DECIMAL},  	
+	    	#{idFondoApp,jdbcType=DECIMAL},
+	    	#{usuCaptura,jdbcType=VARCHAR},
+	    	SYSTIMESTAMP,
+	    	#{idOrigenCaptura,jdbcType=DECIMAL},
+	    	#{idMedioNotificacion,jdbcType=DECIMAL},
+	    	#{medioNotificacion,jdbcType=VARCHAR},
+	    	#{destinoNotificacion,jdbcType=VARCHAR},
+	    	#{idEstatusSolicitud,jdbcType=DECIMAL},
+
+	    	<if test="idMotivoRechazo != null and idMotivoRechazo != 0">
+				#{idMotivoRechazo,jdbcType=DECIMAL},
+			</if>
+	    	
+	    	#{idTipoReclasificacion,jdbcType=DECIMAL},
+	    	#{idTipoSiefore,jdbcType=DECIMAL},
+	    	SYSTIMESTAMP,
+	    	#{usuCre,jdbcType=VARCHAR}
+	    </trim>   
+    
+  </insert>
+  
+  <insert id="insertarDiversificacion" 
+    		parameterType="mx.profuturo.nci.business.vo.DiversificacionSolicitudReclasificacionVO"
+    		useGeneratedKeys="false"
+	 		keyProperty="mx.profuturo.nci.business.vo.DiversificacionSolicitudReclasificacionVO.cveSolicitud"
+			keyColumn="FTC_CVE_SOLICITUD">
+	    
+	    INSERT INTO TTAFOAVOL_RECLA_DIVERSIFICA
+	    <trim prefix="(" suffix=")" suffixOverrides=",">
+				FTC_CVE_SOLICITUD,
+				FCN_ID_SIEFORE,
+	        	FCN_ID_SUBCTA,
+	        	FTN_PESOS,
+	        	FTN_ACCIONES,
+	        	FTN_PORCENTAJE,
+	        	FCN_ID_VALOR_ACCION,
+	        	FCN_ID_TIPO_MOV,
+	        	FCN_ID_FONDO_APP,
+	        	FTN_PLAZO,
+	        	FTN_DEDUCIBLE,
+	        	FTD_FEH_CRE,
+	        	FTC_USU_CRE
+	    </trim>
+	    
+	    <trim prefix="values (" suffix=")" suffixOverrides=",">
+	    	#{cveSolicitud,jdbcType=VARCHAR},
+	    	#{idSiefore,jdbcType=DECIMAL},
+	    	#{idSubcta,jdbcType=DECIMAL},
+	    	#{pesos,jdbcType=DECIMAL},
+	    	#{acciones,jdbcType=DECIMAL},
+	    	#{porcentaje,jdbcType=DECIMAL},
+	    	#{idValorAccion,jdbcType=DECIMAL},
+	    	#{idTipoMov,jdbcType=DECIMAL},
+	    	#{idFondoApp,jdbcType=DECIMAL},
+	    	#{plazo,jdbcType=DECIMAL},
+	    	#{deducible,jdbcType=DECIMAL},
+	    	SYSTIMESTAMP,
+	    	#{usuCre,jdbcType=VARCHAR}
+	    </trim>    
+	
+  </insert>
+  
+  <insert id="insertarSaldoOriginal" 
+    		parameterType="mx.profuturo.nci.business.vo.DiversificacionSolicitudReclasificacionVO"
+    		useGeneratedKeys="false"
+	 		keyProperty="mx.profuturo.nci.business.vo.DiversificacionSolicitudReclasificacionVO.cveSolicitud"
+			keyColumn="FTC_CVE_SOLICITUD">
+	    
+	    INSERT INTO TTAFOAVOL_RECLA_SALDO_ORIGINAL
+	    <trim prefix="(" suffix=")" suffixOverrides=",">
+	        	FTC_CVE_SOLICITUD,
+				FCN_ID_SIEFORE,
+				FCN_ID_SUBCTA,
+				FTN_PESOS,
+				FTN_ACCIONES,
+				FCN_ID_VALOR_ACCION,
+				FTD_FEH_CRE,
+				FTC_USU_CRE
+	    </trim>
+	    
+	    <trim prefix="values (" suffix=")" suffixOverrides=",">
+	    	#{cveSolicitud,jdbcType=VARCHAR},
+	    	#{idSiefore,jdbcType=DECIMAL},
+	    	#{idSubcta,jdbcType=DECIMAL},
+	    	#{pesos,jdbcType=DECIMAL},
+	    	#{acciones,jdbcType=DECIMAL},
+	    	#{idValorAccion,jdbcType=DECIMAL},
+	    	SYSTIMESTAMP,
+	    	#{usuCre,jdbcType=VARCHAR}
+	    </trim>    
+	
+  </insert>
+  
+  <insert id="insertarIndicadores" 
+    		parameterType="mx.profuturo.nci.business.vo.IndicadorSolicitudReclasificacionVO"
+    		useGeneratedKeys="false"
+	 		keyProperty="mx.profuturo.nci.business.vo.DiversificacionSolicitudReclasificacionVO.cveSolicitud"
+			keyColumn="FTC_CVE_SOLICITUD">
+	    
+	    INSERT INTO TTAFOAVOL_RECLA_INDICADORES
+	    <trim prefix="(" suffix=")" suffixOverrides=",">
+			
+				FTC_CVE_SOLICITUD,
+				FCN_ID_INDICADOR,
+				FCC_VALOR,
+				FTD_FEH_CRE,
+				FTC_USU_CRE
+	    </trim>
+	    
+	    <trim prefix="values (" suffix=")" suffixOverrides=",">
+	    	#{cveSolicitud,jdbcType=VARCHAR},
+	    	#{idIndicador,jdbcType=NUMERIC},
+	    	#{valor,jdbcType=VARCHAR},
+	    	SYSTIMESTAMP,
+	    	#{usuCre,jdbcType=VARCHAR}
+	    </trim>    
+	
+  </insert>
+  
+  <insert id="insertaSolicitante" parameterType="mx.profuturo.nci.business.vo.ClienteVO"
+    		useGeneratedKeys="false"
+	 		keyProperty="mx.profuturo.nci.business.vo.ClienteVO.numCtaInvdual"
+			keyColumn="FTN_NUM_CTA_INVDUAL">
+			
+			INSERT INTO TTAFOAVOL_RECLA_SOLICITANTE
+	    
+	    <trim prefix="(" suffix=")" suffixOverrides=",">
+				FTC_NOMBRE_CTE,
+				FTC_AP_PATERNO_CTE,
+	        	FTC_AP_MATERNO_CTE,
+	        	FTC_NSS,
+	        	FTN_NUM_CTA_INVDUAL,
+	        	FTC_CURP,
+	        	FTC_RFC_CTE,
+	        	FTC_CORREO_ELEC,
+	        	FTC_CELULAR,
+	        	FTC_CALLE,
+	        	FTN_NUMERO_INTERIOR,
+	        	FTN_NUMERO_EXTERIOR,
+	        	FTN_CODIGO_POSTAL,
+	        	FTC_COLONIA,
+	        	FTC_MUNICIPIO_DELEGACION,
+	        	FTN_ESTADO,
+	        	FTC_TELEFONO,
+	        	FTC_USU_CRE,
+	        	FTD_FEH_CRE
+	    </trim>
+	    
+	    <trim prefix="values (" suffix=")" suffixOverrides=",">
+	    	#{nombreCte,jdbcType=VARCHAR},
+	    	#{apPaternoCte,jdbcType=VARCHAR},
+	    	#{apMaternoCte,jdbcType=VARCHAR},
+	    	#{nss,jdbcType=VARCHAR},
+	    	#{numCtaInvdual,jdbcType=DECIMAL},
+	    	#{curp,jdbcType=VARCHAR},
+	    	#{rfcCte,jdbcType=VARCHAR},
+	    	#{correoElec,jdbcType=VARCHAR},
+	    	#{celular,jdbcType=VARCHAR},
+	    	#{calle,jdbcType=VARCHAR},
+	    	#{noInterior,jdbcType=VARCHAR},
+	    	#{noExterior,jdbcType=VARCHAR},
+	    	#{codigoPostal,jdbcType=VARCHAR},
+	    	#{colonia,jdbcType=VARCHAR},
+	    	#{delegMunicipio,jdbcType=VARCHAR},
+	    	#{estado,jdbcType=VARCHAR},
+	    	#{telefono,jdbcType=VARCHAR},
+	    	#{usuCre,jdbcType=VARCHAR},
+	    	SYSTIMESTAMP
+	    </trim>   
+  
+  </insert>
+  
+  <insert id="insertaEstatusSolicitud" 
+    		parameterType="mx.profuturo.nci.business.vo.SolicitudReclasificacionApoVolVO"
+    		useGeneratedKeys="false"
+	 		keyProperty="mx.profuturo.nci.business.vo.SolicitudReclasificacionApoVolVO.cveSolicitud"
+			keyColumn="FTC_CVE_SOLICITUD">
+	    
+	    INSERT INTO TTAFOAVOL_RECLA_ESTATUS_SOL
+	    
+	    <trim prefix="(" suffix=")" suffixOverrides=",">
+	    		FTC_CVE_SOLICITUD,
+	    		FCN_ID_ESTATUS_SOLICITUD,
+	    		FTD_FEH_CRE,
+	    		FTC_USU_CRE
+	    </trim>
+	    
+	    <trim prefix="values (" suffix=")" suffixOverrides=",">
+	    	#{cveSolicitud,jdbcType=VARCHAR},
+	    	#{idEstatusSolicitud,jdbcType=DECIMAL},
+	    	SYSTIMESTAMP,
+	    	#{usuCre,jdbcType=VARCHAR}
+	    </trim>    
+    
+  </insert>
+  
+  <update id="actualizarSolicitante" parameterType="mx.profuturo.nci.business.vo.ClienteVO"
+    		flushCache="true"
+			keyColumn="FTN_NUM_CTA_INVDUAL">
+		
+		UPDATE TTAFOAVOL_RECLA_SOLICITANTE
+		SET
+		FTC_NOMBRE_CTE = #{nombreCte,jdbcType=VARCHAR},
+		FTC_AP_PATERNO_CTE = #{apPaternoCte,jdbcType=VARCHAR},
+		FTC_AP_MATERNO_CTE = #{apMaternoCte,jdbcType=VARCHAR},
+		FTC_NSS = #{nss,jdbcType=VARCHAR},
+		FTC_CURP = #{curp,jdbcType=VARCHAR},
+		FTC_RFC_CTE = #{rfcCte,jdbcType=VARCHAR},
+		FTC_CORREO_ELEC = #{correoElec,jdbcType=VARCHAR},
+		FTC_CELULAR = #{celular,jdbcType=VARCHAR},
+		FTC_CALLE = #{calle,jdbcType=VARCHAR},
+		FTN_NUMERO_INTERIOR = #{noInterior,jdbcType=VARCHAR},
+		FTN_NUMERO_EXTERIOR = #{noExterior,jdbcType=VARCHAR},
+		FTN_CODIGO_POSTAL = #{codigoPostal,jdbcType=VARCHAR},
+		FTC_COLONIA = #{colonia,jdbcType=VARCHAR},
+		FTC_MUNICIPIO_DELEGACION = #{delegMunicipio,jdbcType=VARCHAR},
+		FTN_ESTADO = #{estado,jdbcType=VARCHAR},
+		FTC_TELEFONO = #{telefono,jdbcType=VARCHAR},
+		FTC_USU_ACT = #{usuAct,jdbcType=VARCHAR},
+		FTD_FEH_ACT = SYSTIMESTAMP
+        <where>
+			FTN_NUM_CTA_INVDUAL = #{numCtaInvdual,jdbcType=DECIMAL}
+		</where> 
+		
+	</update>
+	
+	<update id="actualizarSolicitud" parameterType="mx.profuturo.nci.business.vo.SolicitudReclasificacionApoVolVO"
+    		flushCache="true"
+			keyColumn="FTC_CVE_SOLICITUD">
+			
+	    UPDATE TTAFOAVOL_SOL_RECLASIFICACION
+	    SET
+	    FCN_ID_ESTATUS_SOLICITUD = #{idEstatusSolicitud,jdbcType=DECIMAL},
+	    <if test="idMotivoRechazo != null and idMotivoRechazo != 0">
+			FCN_ID_MOTIVO_RECHAZO = #{idMotivoRechazo,jdbcType=DECIMAL},
+		</if>
+		FTD_FEH_ACT = SYSTIMESTAMP,
+		FTC_USU_ACT = #{usuCre,jdbcType=VARCHAR}
+	    
+	    <where>
+			FTC_CVE_SOLICITUD = #{cveSolicitud,jdbcType=VARCHAR}
+		</where> 
+		
+  </update>
+	
+
+</mapper>

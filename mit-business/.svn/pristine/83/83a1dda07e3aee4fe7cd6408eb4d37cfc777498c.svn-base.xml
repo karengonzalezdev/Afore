@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
+<!-- 2019-01-09T16:57:28 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteRegistro_subreport" pageWidth="1090" pageHeight="555" orientation="Landscape" columnWidth="1090" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="5e050d64-e090-4501-ae2c-9033c9fa4a70">
+	<property name="ireport.zoom" value="1.0000000000000007"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="subCuenta" class="java.lang.String"/>
+	<field name="profBP" class="java.lang.String"/>
+	<field name="profB1" class="java.lang.String"/>
+	<field name="profB2" class="java.lang.String"/>
+	<field name="profB3" class="java.lang.String"/>
+	<field name="profB4" class="java.lang.String"/>
+	<field name="profCP" class="java.lang.String"/>
+	<field name="profLP" class="java.lang.String"/>
+	<field name="totalAceptado" class="java.lang.String"/>
+	<field name="totalRechazado" class="java.lang.String"/>
+	<field name="totalArchivo" class="java.lang.String"/>
+	<columnHeader>
+		<band height="35" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="15" width="372" height="20" backcolor="#BCCCEC" uuid="c627d219-4e6c-4cf8-8a92-c6382c47e25c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[                                                                                                                                            PROF-BP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="372" y="15" width="102" height="20" backcolor="#BCCCEC" uuid="0bf34d4f-a91d-4d7b-b9b2-6187db412a8a">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PROF-B1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="474" y="15" width="102" height="20" backcolor="#BCCCEC" uuid="243ae256-6466-4c10-a9b3-d999c07dd2a4">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PROF-B2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="576" y="15" width="102" height="20" backcolor="#BCCCEC" uuid="134b6063-31cf-45a1-9974-022b389bc5c3">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PROF-B3]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="678" y="15" width="102" height="20" backcolor="#BCCCEC" uuid="653e6a81-572a-48a4-85ce-4cb4803b01d8">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PROF-B4]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="780" y="15" width="102" height="20" backcolor="#BCCCEC" uuid="253ae2fd-d6aa-4258-848d-8ac4660104e3">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PROF-CP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="882" y="15" width="108" height="20" backcolor="#BCCCEC" uuid="320ef36e-e01f-4b06-b13e-7ddd8fa2b333">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PROF-LP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="990" height="15" forecolor="#FFFFFF" backcolor="#244162" uuid="88ce260d-e5f6-4057-81d2-ea51e8e6c405">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[  Reporte de registros]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="14" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<textField>
+				<reportElement x="0" y="0" width="270" height="14" uuid="4dcbfac3-6ea0-4e89-87dc-8ab2030809a3">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineColor="#CCCCCC"/>
+					<leftPen lineWidth="1.0" lineColor="#CCCCCC"/>
+					<bottomPen lineWidth="1.0" lineColor="#CCCCCC"/>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{subCuenta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="270" y="0" width="102" height="14" uuid="9ae4e661-48a4-4bc4-8573-fd0d3702350d"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#CCCCCC"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#CCCCCC"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#CCCCCC"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#CCCCCC"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{profBP}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="372" y="0" width="102" height="14" uuid="c8afe76d-7793-4398-8061-14686155eb80">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineColor="#CCCCCC"/>
+					<leftPen lineWidth="1.0" lineColor="#CCCCCC"/>
+					<bottomPen lineWidth="1.0" lineColor="#CCCCCC"/>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{profB1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="474" y="0" width="102" height="14" uuid="f8a893ad-31c2-41b0-9c0d-3a79dea6be0e">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineColor="#CCCCCC"/>
+					<leftPen lineWidth="1.0" lineColor="#CCCCCC"/>
+					<bottomPen lineWidth="1.0" lineColor="#CCCCCC"/>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{profB2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="576" y="0" width="102" height="14" uuid="02265e54-392c-4a58-af64-99e1891f9796">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineColor="#CCCCCC"/>
+					<leftPen lineWidth="1.0" lineColor="#CCCCCC"/>
+					<bottomPen lineWidth="1.0" lineColor="#CCCCCC"/>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{profB3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="678" y="0" width="102" height="14" uuid="092fbbf4-0514-4606-a042-e7ec9bf6a6e8">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineColor="#CCCCCC"/>
+					<leftPen lineWidth="1.0" lineColor="#CCCCCC"/>
+					<bottomPen lineWidth="1.0" lineColor="#CCCCCC"/>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{profB4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="780" y="0" width="102" height="14" uuid="93a9e6f7-7e74-46f6-bf23-888ba8caf889">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineColor="#CCCCCC"/>
+					<leftPen lineWidth="1.0" lineColor="#CCCCCC"/>
+					<bottomPen lineWidth="1.0" lineColor="#CCCCCC"/>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{profCP}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="882" y="0" width="108" height="14" uuid="f1e2c8b0-1ad5-4275-9f05-9776726e9aee">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineColor="#CCCCCC"/>
+					<leftPen lineWidth="1.0" lineColor="#CCCCCC"/>
+					<bottomPen lineWidth="1.0" lineColor="#CCCCCC"/>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{profLP}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

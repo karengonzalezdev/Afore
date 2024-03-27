@@ -1,0 +1,12 @@
+#
+# Application configuration file
+# -------------------------------------------
+#
+#	Property						Required	Description
+#	---------------------------------------------------------------------------------
+#	application.Id	 	 	 	 	Yes	 		Application ID
+#	application.defaultLanguage	 	Yes	 		Application default language
+# 
+
+*.application.defaultLanguage=es_ES
+

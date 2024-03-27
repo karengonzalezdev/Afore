@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mx.profuturo.nci.persistence.TipoCatalogoPersistence">
+
+
+  
+  <resultMap id="BaseResultMap" type="mx.profuturo.nci.business.vo.TipoCatalogoVO">
+  
+    <id 	property="idTipoCat"       javaType="integer"   column="FCN_ID_TIPO_CAT"    		 jdbcType="NUMERIC" />
+    <result property="nomCat"          javaType="string"    column="FCC_NOM_CAT"        		 jdbcType="VARCHAR" />
+    <result property="desc"            javaType="string"    column="FCC_TPO_CAT_DESC"  		 	 jdbcType="VARCHAR" />
+    <result property="vigencia"        javaType="boolean"   column="FCB_TPO_VIGENCIA"       	 jdbcType="CHAR" />
+    <result property="fehCre"          javaType="date"      column="FCD_TPO_CAT_FEH_CRE"         jdbcType="TIMESTAMP" />
+    <result property="usuCre"          javaType="string"    column="FCC_TPO_CAT_USU_CRE"         jdbcType="VARCHAR" />
+    <result property="fehAct"          javaType="date"      column="FCD_TPO_CAT_FEH_ACT"         jdbcType="TIMESTAMP" />
+    <result property="usuAct"          javaType="string"    column="FCC_TPO_CAT_USU_ACT"         jdbcType="VARCHAR" />
+    <result property="lineaNegocio"    javaType="integer"   column="FCN_LINEA_NEG"      		 jdbcType="NUMERIC" />
+  
+  </resultMap>
+  
+
+  
+</mapper>
+

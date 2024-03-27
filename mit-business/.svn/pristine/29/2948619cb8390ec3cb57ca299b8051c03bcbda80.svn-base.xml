@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mx.profuturo.nci.persistence.CatalogoPersistence">
+
+
+	<!-- ResulMap de Catalogo Linea Negocio Generico Cat -->
+	<resultMap id="resMapGenericCtLineaNegocio"
+		type="mx.profuturo.nci.business.vo.GenericCatalogoVO">
+		<result column="FTN_ID_LINEA_NEG" 		javaType="short" 	jdbcType="DECIMAL" 	property="id" />
+		<result column="FCC_VALOR_LINEA_NEG" 	javaType="string" 	jdbcType="VARCHAR"	 property="valor" />
+	</resultMap>
+
+	<!-- ResulMap de Catalogo Origen Solicitud Generico Cat -->
+	<resultMap id="resMapGenericCtOrigenSolicitud"
+		type="mx.profuturo.nci.business.vo.GenericCatalogoVO">
+		<result column="FTN_ID_ORIGEN_SOLICITUD" 		javaType="short" 	jdbcType="DECIMAL" 	property="id" />
+		<result column="FCC_VALOR_ORIGEN_SOLI" 	javaType="string" 	jdbcType="VARCHAR"	 property="valor" />
+	</resultMap>
+	
+	<!-- ResulMap de Catalogo Tipo Cuenta Generico Cat -->
+	<resultMap id="resMapGenericCtTipoCuenta"
+		type="mx.profuturo.nci.business.vo.GenericCatalogoVO">
+		<result column="FTN_ID_TIPO_CTA" 		javaType="short" 	jdbcType="DECIMAL" 	property="id" />
+		<result column="FCC_VALOR_TIPO_CTA" 	javaType="string" 	jdbcType="VARCHAR"	 property="valor" />
+	</resultMap>
+
+	<!-- ResulMap de Catalogo Periodo Generico Cat -->
+	<resultMap id="resMapGenericCtPeriodo"
+		type="mx.profuturo.nci.business.vo.GenericCatalogoVO">
+		<result column="FTN_ID_PERIODO" 		javaType="short" 	jdbcType="DECIMAL" 	property="id" />
+		<result column="FCC_VALOR_PERIODO" 		javaType="string" 	jdbcType="VARCHAR"	 property="valor" />
+	</resultMap>
+
+	<!-- ResulMap de Catalogo Estatus Solicitud Cat -->
+	<resultMap id="resMapGenericCtEstatusSolicitud"
+		type="mx.profuturo.nci.business.vo.GenericCatalogoVO">
+		<result column="FTN_ESTATUS_SOLICITUD" 		javaType="short" 	jdbcType="DECIMAL" 	property="id" />
+		<result column="FCC_VALOR_ESTATUS_SOL" 		javaType="string" 	jdbcType="VARCHAR"	 property="valor" />
+	</resultMap>
+
+	<!-- ResulMap de Catalogo Estatus Cargo Cat -->
+	<resultMap id="resMapGenericCtEstatusCargo"
+		type="mx.profuturo.nci.business.vo.GenericCatalogoVO">
+		<result column="FTN_ESTATUS_CARGO" 		javaType="short" 	jdbcType="DECIMAL" 	property="id" />
+		<result column="FCC_VALOR_ESTATUS_CARGO" 		javaType="string" 	jdbcType="VARCHAR"	 property="valor" />
+	</resultMap>
+	
+	<!-- ResulMap de Catalogo Rechazo Banco Cat -->
+	<resultMap id="resMapGenericCtRechazoBanco"
+		type="mx.profuturo.nci.business.vo.GenericCatalogoVO">
+		<result column="FTN_ID_RECHAZO_BANCO" 		javaType="short" 	jdbcType="DECIMAL" 	property="id" />
+		<result column="FCC_VALOR_RECHAZO_BANCO" 		javaType="string" 	jdbcType="VARCHAR"	 property="valor" />
+	</resultMap>
+	
+	<!-- ResulMap de Catalogo Porcentaje Incremento Cat -->
+	<resultMap id="resMapGenericCtPorcentajeIncremento"
+		type="mx.profuturo.nci.business.vo.GenericCatalogoVO">
+		<result column="FTN_ID_PORCENTAJE_INCREMENTO" 		javaType="short" 	jdbcType="DECIMAL" 	property="id" />
+		<result column="FCC_VALOR_PORCENTAJE_INCRENTO" 		javaType="string" 	jdbcType="VARCHAR"	 property="valor" />
+	</resultMap>	
+	
+	<!-- ResulMap de Catalogo Periodo Incrementalidad Cat -->
+	<resultMap id="resMapGenericCtPeriodoIncrementalidad"
+		type="mx.profuturo.nci.business.vo.GenericCatalogoVO">
+		<result column="FTN_ID_PERIOD_INCREMENTALIDAD" 		javaType="short" 	jdbcType="DECIMAL" 	property="id" />
+		<result column="FCC_VALOR_PERIOD_INCREMENTA" 		javaType="string" 	jdbcType="VARCHAR"	 property="valor" />
+	</resultMap>	
+	
+	<!-- ResulMap de Catalogo Moneda Cat -->
+	<resultMap id="resMapGenericCtMoneda"
+		type="mx.profuturo.nci.business.vo.GenericCatalogoVO">
+		<result column="FTN_MONEDA" 		javaType="short" 	jdbcType="DECIMAL" 	property="id" />
+		<result column="FCC_VALOR_MONEDA" 		javaType="string" 	jdbcType="VARCHAR"	 property="valor" />
+	</resultMap>		
+	<!-- ResulMap de Catalogo Fondo Apovol (Diversificacion) Generico Cat -->
+	<resultMap id="resMapGenericCt_DiversifFondoApovol"
+		type="mx.profuturo.nci.business.vo.GenericCatalogoVO">
+		<result column="FTN_DIVER_FONDO_APOVOL" 		javaType="short" 	jdbcType="DECIMAL" 	property="id" />
+		<result column="FCC_VALOR_DIVER_FONDO_APOVOL" 	javaType="string" 	jdbcType="VARCHAR"	 property="valor" />
+	</resultMap>	
+	<!-- ResulMap de Catalogo Rechazo solicitud Cat -->
+	<resultMap id="resMapGenericCtRechazoSolicitud"
+		type="mx.profuturo.nci.business.vo.GenericCatalogoVO">
+		<result column="FTN_RECHAZO_SOLICITUD" 		javaType="short" 	jdbcType="DECIMAL" 	property="id" />
+		<result column="FCC_VALOR_RECHAZO_SOLICITUD" 		javaType="string" 	jdbcType="VARCHAR"	 property="valor" />
+	</resultMap>
+
+	<!-- ResulMap de Catalogo compania celular Cat -->
+	<resultMap id="resMapGenericComCelular" type="mx.profuturo.nci.business.vo.GenericCatalogoVO">
+		<result column="FTN_COMPANIA_CELULAR" 			javaType="short" 	jdbcType="DECIMAL" 	property="id" />
+		<result column="FTN_VALOR_COMPANIA_CELULAR" 	javaType="string" 	jdbcType="VARCHAR"	 property="valor" />
+	</resultMap>
+	
+	
+	<!-- ResulMap de Catalogo estatus traspaso Cat -->
+	<resultMap id="resMapGenericEstatusTraspaso" type="mx.profuturo.nci.business.vo.GenericCatalogoVO">
+		<result column="FTN_ESTATUS_TRASPASO" 			javaType="short" 	jdbcType="DECIMAL" 	property="id" />
+		<result column="FTN_VALOR_ESTATUS_TRASPASO" 	javaType="string" 	jdbcType="VARCHAR"	 property="valor" />
+	</resultMap>
+	
+
+	<!-- ResulMap de Catalogo rechazo validacion telefonica Cat -->
+	<resultMap id="resMapGenericSubctaApovol"
+		type="mx.profuturo.nci.business.vo.GenericCatalogoVO">
+		<result column="FTN_REF_SUBCTA_APOVOL" 		javaType="short" 	jdbcType="DECIMAL" 	property="id" />
+		<result column="FCC_VALOR_SUBCTA_APOVOL" 		javaType="string" 	jdbcType="VARCHAR"	 property="valor" />
+	</resultMap>
+	<resultMap id="resMapGenericClaveBanco"
+		type="mx.profuturo.nci.business.vo.GenericCatalogoVO">
+		<result column="FTN_CVE_BANCO" 		javaType="short" 	jdbcType="DECIMAL" 	property="id" />
+		<result column="FCC_VALOR_CLAVE_BANCO" 		javaType="string" 	jdbcType="VARCHAR"	 property="valor" />
+	</resultMap>
+	<resultMap id="resMapGenericTipoArchivoDomi"
+		type="mx.profuturo.nci.business.vo.GenericCatalogoVO">
+		<result column="FTN_TIPO_ARCHIVO" 		javaType="short" 	jdbcType="DECIMAL" 	property="id" />
+		<result column="FTN_VALOR_TIPO_ARCHIVO" 		javaType="string" 	jdbcType="VARCHAR"	 property="valor" />
+	</resultMap>
+	<resultMap id="resMapGenericEstatus"
+		type="mx.profuturo.nci.business.vo.GenericCatalogoVO">
+		<result column="FLN_ESTATUS" 		javaType="short" 	jdbcType="DECIMAL" 	property="id" />
+		<result column="FLN_VALOR_ESTATUS" 		javaType="string" 	jdbcType="VARCHAR"	 property="valor" />
+	</resultMap>
+	<resultMap id="resMapGenericEstatusProceso"
+		type="mx.profuturo.nci.business.vo.GenericCatalogoVO">
+		<result column="FTN_ESTATUS_PROCESO" 		javaType="short" 	jdbcType="DECIMAL" 	property="id" />
+		<result column="FCC_VALOR_ESTATUS_PROCESO" 		javaType="string" 	jdbcType="VARCHAR"	 property="valor" />
+	</resultMap>
+	<resultMap id="resMapGenericOrigenAportacion"
+		type="mx.profuturo.nci.business.vo.GenericCatalogoVO">
+		<result column="FTN_ORIGEN_APORTACION" 		javaType="short" 	jdbcType="DECIMAL" 	property="id" />
+		<result column="FCC_VALOR_ORIGEN_APORTACION" 		javaType="string" 	jdbcType="VARCHAR"	 property="valor" />
+	</resultMap>
+	<resultMap id="resMapGenericReferenciaSubcuentaApovol"
+		type="mx.profuturo.nci.business.vo.GenericCatalogoVO">
+		<result column="FTN_REF_SUBCTA_APOVOL" 		javaType="short" 	jdbcType="DECIMAL" 	property="id" />
+		<result column="FCC_VALOR_REF_SUBCTA_APOVOL" 		javaType="string" 	jdbcType="VARCHAR"	 property="valor" />
+	</resultMap>
+	<resultMap id="resMapGenericEstatusIDC"
+		type="mx.profuturo.nci.business.vo.GenericCatalogoVO">
+		<result column="FTN_ESTATUS_IDC" 		javaType="short" 	jdbcType="DECIMAL" 	property="id" />
+		<result column="FCC_VALOR_ESTATUS_IDC" 		javaType="string" 	jdbcType="VARCHAR"	 property="valor" />
+	</resultMap>
+	<resultMap id="resMapGenericIndicadorSBC"
+		type="mx.profuturo.nci.business.vo.GenericCatalogoVO">
+		<result column="FTN_IND_SBC" 		javaType="short" 	jdbcType="DECIMAL" 	property="id" />
+		<result column="FCC_VALOR_IND_SBC" 		javaType="string" 	jdbcType="VARCHAR"	 property="valor" />
+	</resultMap>
+	<resultMap id="resMapGenericEmpresa"
+		type="mx.profuturo.nci.business.vo.GenericCatalogoVO">
+		<result column="FTN_ID_EMPRESA" 		javaType="short" 	jdbcType="DECIMAL" 	property="id" />
+		<result column="FCC_VALOR_EMPRESA" 		javaType="string" 	jdbcType="VARCHAR"	 property="valor" />
+	</resultMap>
+	<resultMap id="resMapGenericTipoNomina"
+		type="mx.profuturo.nci.business.vo.GenericCatalogoVO">
+		<result column="FTN_ID_TIPO_NOMINA" 		javaType="short" 	jdbcType="DECIMAL" 	property="id" />
+		<result column="FCC_VALOR_TIPO_NOMINA" 		javaType="string" 	jdbcType="VARCHAR"	 property="valor" />
+	</resultMap>
+	<resultMap id="resMapGenericRedComercial"
+		type="mx.profuturo.nci.business.vo.GenericCatalogoVO">
+		<result column="FTN_CVE_RED_COM" 		javaType="short" 	jdbcType="DECIMAL" 	property="id" />
+		<result column="FCC_VALOR_CLAVE_RED_COMERCIAL" 		javaType="string" 	jdbcType="VARCHAR"	 property="valor" />
+	</resultMap>
+	
+	<!-- ResulMap de Catalogo Fondo Apovol Generico Cat -->
+	<resultMap id="resMapGenericCtFondoApovol"
+		type="mx.profuturo.nci.business.vo.GenericCatalogoVO">
+		<result column="FTN_ID_FONDO_APOVOL" 		javaType="short" 	jdbcType="DECIMAL" 	property="id" />
+		<result column="FCC_VALOR_FONDO_APOVOL" 	javaType="string" 	jdbcType="VARCHAR"	 property="valor" />
+	</resultMap>	
+	
+	<!-- ResulMap de Catalogo Estatus Ordenes Cat -->
+	<resultMap id="resMapGenericCatEstatusOrdenes"
+		type="mx.profuturo.nci.business.vo.GenericCatalogoVO">
+		<result column="FTN_ID_ESTATUS_ORDEN" 		javaType="short" 	jdbcType="DECIMAL" 	property="id" />
+		<result column="FCC_VALOR_ESTATUS_ORDEN" 		javaType="string" 	jdbcType="VARCHAR"	 property="valor" />
+	</resultMap>	
+	<resultMap id="resMapGenericMedioNotificacion"
+		type="mx.profuturo.nci.business.vo.GenericCatalogoVO">
+		<result column="FTN_MEDIO_NOTIFICACION" 		javaType="short" 	jdbcType="DECIMAL" 	property="id" />
+		<result column="FCC_VALOR_MEDIO_NOTIFICACION" 		javaType="string" 	jdbcType="VARCHAR"	 property="valor" />
+	</resultMap>
+	
+	<!-- ResulMap de Catalogo Origen Archivo Generico Cat -->
+	<resultMap id="resultMapGenericCatalogoVOOrigenArchivo"
+		type="mx.profuturo.nci.business.vo.GenericCatalogoVO">
+		<result column="FTN_ID_ORIGEN_ARCHIVO" javaType="short"
+			jdbcType="DECIMAL" property="id" />
+		<result column="FCC_VALOR_ORIGEN_ARCHIVO" javaType="string"
+			jdbcType="VARCHAR" property="valor" />
+	</resultMap>
+	<!-- ResulMap de Catalogo Detalle Orgien Generico Cat -->
+	<resultMap id="resultMapGenericCatalogoVODetalleOrigen"
+		type="mx.profuturo.nci.business.vo.GenericCatalogoVO">
+		<result column="FTN_ID_DETALLE_ORIGEN" javaType="short"
+			jdbcType="DECIMAL" property="id" />
+		<result column="FCC_VALOR_DETALLE_ORIGEN" javaType="string"
+			jdbcType="VARCHAR" property="valor" />
+	</resultMap>
+	<!-- ResulMap de Catalogo Archivo Mov Banco Generico Cat -->
+	<resultMap id="resultMapGenericCatalogoVOArcivoMovBancario"
+		type="mx.profuturo.nci.business.vo.GenericCatalogoVO">
+		<result column="FFN_ID_ARCH_MOV_BANC" javaType="short"
+			jdbcType="DECIMAL" property="id" />
+		<result column="FCC_VALOR_ARCH_MOV_BANC" javaType="string"
+			jdbcType="VARCHAR" property="valor" />
+	</resultMap>
+	<!-- ResulMap de Catalogo ProcesoVO -->
+	<resultMap id="resultMapProcesoVO" type="mx.profuturo.nci.business.vo.ProcesoVO">
+		<result property="idProceso" javaType="short" column="FCN_ID_PROCESO"
+			jdbcType="DECIMAL" />
+		<result property="descProceso" javaType="string" column="FCC_VALOR_PROCESO"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<!-- ResulMap de Catalogo SubprocesoVO -->
+	<resultMap id="resultMapSubprocesoVO" type="mx.profuturo.nci.business.vo.SubprocesoVO">
+		<result property="idSubproceso" javaType="short" column="FCN_ID_SUBPROCESO"
+			jdbcType="DECIMAL" />
+		<result property="descSubproceso" javaType="string"
+			column="FCC_VALOR_SUBPROCESO" jdbcType="VARCHAR" />
+	</resultMap>
+	<!-- ResulMap de Catalogo SaldoOperaVO -->
+	<resultMap id="resultMapSaldoOperaVO" type="mx.profuturo.nci.business.vo.SaldoOperaVO">
+		<result property="idSaldoOpera" javaType="short" column="FCN_ID_SALDO_OPERA"
+			jdbcType="DECIMAL" />
+		<result property="descripcion" javaType="string" column="FCC_VALOR_SALDO_OPERA"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap id="resEstatusConvivencia" type="mx.profuturo.nci.business.vo.GenericCatalogoVO">
+		<result column="FTN_ESTATUS_CONV" 		javaType="short" 	jdbcType="DECIMAL" 	property="id" />
+		<result column="FCC_VALOR_ESTATUS_CONV" 		javaType="string" 	jdbcType="VARCHAR"	 property="valor" />
+	</resultMap>
+	
+	<resultMap id="resMotivoNoConvivencia" type="mx.profuturo.nci.business.vo.GenericCatalogoVO">
+		<result column="FTN_MOTIVO_RECHAZO" 		javaType="short" 	jdbcType="DECIMAL" 	property="id" />
+		<result column="FCC_VALOR_MOTIVO_RECHAZO" 		javaType="string" 	jdbcType="VARCHAR"	 property="valor" />
+	</resultMap>
+	
+	<resultMap id="BaseResultMap" type="mx.profuturo.nci.business.vo.CatalogoVO">
+		<id property="idCatCatalogo" javaType="short" column="FCN_ID_CAT_CATALOGO"
+			jdbcType="DECIMAL" />
+		<result property="idCatPadre" javaType="short" column="FCN_ID_CAT_PADRE"
+			jdbcType="DECIMAL" />
+		<result property="valor" javaType="string" column="FCC_VALOR"
+			jdbcType="VARCHAR" />
+		<result property="desc" javaType="string" column="FCC_CAT_DESC"
+			jdbcType="VARCHAR" />
+		<result property="vigencia" javaType="boolean" column="FCB_CAT_VIGENCIA"
+			jdbcType="CHAR" />
+		<result property="fehCre" javaType="date" column="FCD_CAT_FEH_CRE"
+			jdbcType="TIMESTAMP" />
+		<result property="usuCre" javaType="string" column="FCC_CAT_USU_CRE"
+			jdbcType="VARCHAR" />
+		<result property="fehAct" javaType="date" column="FCD_CAT_FEH_ACT"
+			jdbcType="TIMESTAMP" />
+		<result property="usuAct" javaType="string" column="FCC_CAT_USU_ACT"
+			jdbcType="VARCHAR" />
+
+		<association property="catalogType"
+			resultMap="mx.profuturo.nci.persistence.TipoCatalogoPersistence.BaseResultMap" />
+	</resultMap>
+	<select id="select" parameterType="mx.profuturo.nci.business.vo.ParamCatalogoVO"
+		resultMap="BaseResultMap">
+
+
+		SELECT
+		CCAT.FCN_ID_CAT_CATALOGO,
+		CCAT.FCN_ID_CAT_PADRE,
+		CCAT.FCC_VALOR,
+		CCAT.FCC_DESC AS FCC_CAT_DESC,
+		CCAT.FCB_VIGENCIA AS FCB_CAT_VIGENCIA,
+		CCAT.FCD_FEH_CRE AS FCD_CAT_FEH_CRE,
+		CCAT.FCC_USU_CRE AS
+		FCC_CAT_USU_CRE,
+		CCAT.FCD_FEH_ACT AS FCD_CAT_FEH_ACT,
+		CCAT.FCC_USU_ACT
+		AS FCC_CAT_USU_ACT,
+		CCAT.FCN_ID_TIPO_CAT,
+		TCAT.FCC_NOM_CAT,
+		TCAT.FCC_DESC AS FCC_TPO_CAT_DESC
+		FROM TCCRXGRAL_LINEA_NEGOCIO LNEG
+		INNER JOIN TCCRXGRAL_TIPO_CAT TCAT
+		ON LNEG.FCN_ID_LINEA_NEG =
+		TCAT.FCN_LINEA_NEG
+		INNER JOIN TCCRXGRAL_CAT_CATALOGO CCAT
+		ON
+		TCAT.FCN_ID_TIPO_CAT = CCAT.FCN_ID_TIPO_CAT
+		<where>
+
+			<if test="idLineaNegocio != null and idLineaNegocio != 0">
+				AND LNEG.FCN_ID_LINEA_NEG =
+				#{idLineaNegocio,jdbcType=DECIMAL}
+			</if>
+			<if test="idTipoCatalogo != null and idTipoCatalogo != 0">
+				AND TCAT.FCN_ID_TIPO_CAT =
+				#{idTipoCatalogo,jdbcType=DECIMAL}
+			</if>
+			<if test="idCatalogo != null and idCatalogo != 0">
+				AND CCAT.FCN_ID_CAT_CATALOGO =
+				#{idCatalogo,jdbcType=DECIMAL}
+			</if>
+			<if test="idCatalogoPadre != null and idCatalogoPadre != 0">
+				AND CCAT.FCN_ID_CAT_PADRE =
+				#{idCatalogoPadre,jdbcType=DECIMAL}
+			</if>
+
+			AND TCAT.FCB_VIGENCIA = 1
+			AND CCAT.FCB_VIGENCIA = 1
+
+		</where>
+		ORDER BY
+		CCAT.FCC_VALOR
+
+
+	</select>
+
+</mapper>

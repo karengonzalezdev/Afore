@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="mx.secure.nci.persistence.ServiciosIdcPersistence">
+
+	<resultMap id="BaseResultMapTotalesIdc" type="mx.secure.nci.business.vo.ResultadoIdcVO">
+		<result column="TOTAL_CLIENTES"			jdbcType="NUMERIC"		property="totalCli"			javaType="long"/>
+		<result column="CLIENTES_DESCARTADOS"					jdbcType="NUMERIC"		property="descCli"						javaType="long"/>
+		<result column="CLIENTES_IDENTIFICADOS"					jdbcType="NUMERIC"		property="identCli"						javaType="long"/>
+		<result column="CLIENTES_NO_IDENTIFICADOS"		jdbcType="NUMERIC"		property="noIdentCli"				javaType="long"/>
+		<result column="CLIENTES_VIGENTES"			jdbcType="NUMERIC"		property="vigCli"			javaType="long"/>
+		<result column="CLIENTES_NO_VIGENTES"			jdbcType="NUMERIC"		property="noVigCli"			javaType="long"/>
+	</resultMap>
+	
+	<resultMap id="BaseResultMapRDIdc" type="mx.secure.nci.business.vo.ReporteDetalleIdcVO">
+		<result column="NUM_CONSECUTIVO"			jdbcType="NUMERIC"		property="numConsecutivo"			javaType="integer"/>
+		<result column="FTN_NSS"					jdbcType="VARCHAR"		property="nss"						javaType="string"/>
+		<result column="FTC_CURP"					jdbcType="VARCHAR"		property="curp"						javaType="string"/>
+		<result column="FTN_NUM_CTA_INDIVIDUAL"		jdbcType="VARCHAR"		property="numeroCuenta"				javaType="string"/>
+		<result column="NOMBRE_COMPLETO"			jdbcType="VARCHAR"		property="nombreCompleto"			javaType="string"/>
+		<result column="FTC_DIAGNOSTICO"			jdbcType="VARCHAR"		property="diagnosticoIdc"			javaType="string"/>
+		<result column="FTC_SUBP_NO_VIG"			jdbcType="VARCHAR"		property="subProcesoNoVigencia"		javaType="string"/>
+		<result column="FTD_FEH_CERT"				jdbcType="TIMESTAMP"	property="fechaCertificacion"		javaType="java.util.Date"/>
+	</resultMap>
+	
+	<resultMap id="BaseResultMapDEIdc" type="mx.secure.nci.business.vo.DetalleExcepcionesIdcVO"> 
+		<result column="NUM_CONSECUTIVO"			jdbcType="NUMERIC"		property="numConsecutivo"	javaType="integer"/>
+		<result column="FTN_NSS"					jdbcType="VARCHAR"		property="nss"				javaType="string"/> 
+		<result column="FTC_CURP"					jdbcType="VARCHAR"		property="curp"				javaType="string"/> 
+		<result column="FTN_NUM_CTA_INDIVIDUAL"		jdbcType="VARCHAR"		property="cuenta"			javaType="string"/> 
+		<result column="NOMBRE_COMPLETO"			jdbcType="VARCHAR"		property="nombreCompleto"	javaType="string"/> 
+		<result column="FTC_DIAGNOSTICO"			jdbcType="VARCHAR"		property="diagn"			javaType="string"/> 
+		<result column="FTC_SUBP_NO_VIG"			jdbcType="VARCHAR"		property="subprcs"			javaType="string"/> 
+		<result column="FTD_FEH_CERT"				jdbcType="TIMESTAMP"	property="certif"			javaType="java.util.Date"/> 
+	</resultMap> 
+
+	<update id="actualizaEstatusIdc" parameterType="mx.secure.nci.business.vo.ActualizaEstatusIdcVO">
+		update CIERREN_ETL.TTAFOAVOL_ETL_DEV_ORIGEN TEDO SET TEDO.FTC_MARCA='0'
+		<where>
+			<if test="folio != null">
+				AND TEDO.FTC_FOLIO =  #{folio,jdbcType=VARCHAR} 
+			</if>
+			 <if test="clientesCurp!=null and clientesCurp.size() > 0">
+			 	AND TEDO.FTC_CURP IN
+			 	<foreach item="curp" index="index" collection="clientesCurp" open="(" separator="," close=")">
+				 	#{curp,jdbcType=VARCHAR}
+				</foreach>
+			 </if>
+		</where>
+	</update>
+	
+	<select id="getResultadoIdc" resultMap="BaseResultMapTotalesIdc" parameterType="mx.secure.nci.business.vo.ResultadoIdcVO">
+		SELECT FTN_TOTAL AS TOTAL_CLIENTES, FTN_TOTAL_DESC AS CLIENTES_DESCARTADOS,
+				FTN_TOTAL_IDENT AS CLIENTES_IDENTIFICADOS, FTN_TOTAL_NO_IDENT AS CLIENTES_NO_IDENTIFICADOS,
+				FTN_TOTAL_VIG AS CLIENTES_VIGENTES, 
+				FTN_TOTAL_NO_VIG AS CLIENTES_NO_VIGENTES 
+	  	FROM CIERREN_ETL.TTAFOAVOL_ETL_IDC_TOTALES
+	  	<where>
+	  		<if test="folio != null">
+	  			AND FTC_FOLIO = #{folio,jdbcType=VARCHAR}
+	  		</if>
+	  	</where>			
+	</select>
+	
+	<select id="getListaDetalleIdc" resultMap="BaseResultMapRDIdc" parameterType="mx.secure.nci.business.vo.ReporteDetalleIdcVO">
+		SELECT ROW_NUMBER() OVER (ORDER BY TEIV.FTD_FEH_CERT) AS NUM_CONSECUTIVO,
+				TO_CHAR(TEIV.FTN_NSS) AS FTN_NSS, TEIV.FTC_CURP, TO_CHAR(TEIV.FTN_NUM_CTA_INDIVIDUAL) AS FTN_NUM_CTA_INDIVIDUAL, 
+				UPPER(TRIM(TRIM(TEIV.FTC_NOMBRE)||' '||TRIM(TEIV.FTC_APELLIDO_PATERNO)||' '||TRIM(TEIV.FTC_APELLIDO_MATERNO))) AS NOMBRE_COMPLETO, 
+				DECODE(TEIV.FTC_ESTATUS_IDENT, '0','NO IDENTIFICADO', '1', DECODE(TEIV.FTC_VIGENCIA, '0', 'NO VIGENTE','1','VIGENTE') ) AS FTC_DIAGNOSTICO,  
+				UPPER(SNV.FCC_VALOR) AS FTC_SUBP_NO_VIG, TEIV.FTD_FEH_CERT
+			FROM CIERREN_ETL.TTAFOAVOL_ETL_IDC_VIGENCIA TEIV
+					LEFT JOIN TCCRXGRAL_CAT_CATALOGO SNV ON SNV.FCN_ID_CAT_CATALOGO = TEIV.FTN_ID_SUBPROCESO_INACTIVA
+	  	<where>
+	  		<if test="folio != null">
+	  			AND TEIV.FTC_FOLIO = #{folio,jdbcType=VARCHAR}
+	  		</if>
+	  	</where>			
+	</select>
+	
+	<select id="getListaExcepcionesIdc" resultMap="BaseResultMapDEIdc" parameterType="mx.secure.nci.business.vo.DetalleExcepcionesIdcVO">
+		SELECT ROW_NUMBER() OVER (ORDER BY TEIV.FTD_FEH_CERT) AS NUM_CONSECUTIVO,
+				TO_CHAR(TEIV.FTN_NSS) AS FTN_NSS, TEIV.FTC_CURP, TO_CHAR(TEIV.FTN_NUM_CTA_INDIVIDUAL) AS FTN_NUM_CTA_INDIVIDUAL, 
+				UPPER(TRIM(TRIM(TEIV.FTC_NOMBRE)||' '||TRIM(TEIV.FTC_APELLIDO_PATERNO)||' '||TRIM(TEIV.FTC_APELLIDO_MATERNO))) AS NOMBRE_COMPLETO, 
+				DECODE(TEIV.FTC_ESTATUS_IDENT, '0','NO IDENTIFICADO', '1', DECODE(TEIV.FTC_VIGENCIA, '0', 'NO VIGENTE','1','VIGENTE') ) AS FTC_DIAGNOSTICO,  
+				UPPER(SNV.FCC_VALOR) AS FTC_SUBP_NO_VIG, TEIV.FTD_FEH_CERT
+			FROM CIERREN_ETL.TTAFOAVOL_ETL_IDC_VIGENCIA TEIV
+					LEFT JOIN TCCRXGRAL_CAT_CATALOGO SNV ON SNV.FCN_ID_CAT_CATALOGO = TEIV.FTN_ID_SUBPROCESO_INACTIVA
+	  	<where>
+	  		<if test="folio != null">
+	  			AND TEIV.FTC_FOLIO = #{folio,jdbcType=VARCHAR}
+	  		</if>
+	  	</where>		 
+	</select> 
+	
+</mapper>

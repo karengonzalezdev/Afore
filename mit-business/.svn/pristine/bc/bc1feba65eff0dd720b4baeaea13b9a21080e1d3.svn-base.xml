@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mx.profuturo.nci.persistence.DiversificacionPersistence">
+
+
+	<resultMap id="ResultMapDiversificacion" type="mx.profuturo.nci.business.vo.DiversificacionVO" >
+	
+		<result column="FTC_DIVER_CVE_SOLICITUD" 			property="claveSolicitud" 			jdbcType="VARCHAR" />
+	    <result column="FTC_DIVER_FOLIO" 					property="folio" 					jdbcType="VARCHAR" />
+		<result column="FTN_DIVER_MONTO" 					property="monto" 					jdbcType="DECIMAL" />
+		<result column="FTN_DIVER_PORCENTAJE" 				property="porcentaje" 				jdbcType="DECIMAL" />    	
+    	<result column="FTD_DIVER_FEH_CRE"     				property="fechaCreacion" 			jdbcType="TIMESTAMP"	javaType="date"  />
+    	<result column="FTC_DIVER_USU_CRE"     				property="usuarioCreacion" 			jdbcType="VARCHAR" 		javaType="string" />
+    	<result column="FTD_DIVER_FEH_ACT"     				property="fechaActualizacion" 		jdbcType="TIMESTAMP"	javaType="date" />
+    	<result column="FTC_DIVER_USU_ACT"     				property="usuarioActualizacion" 	jdbcType="VARCHAR" 		javaType="string" />		
+    	
+    	<association property="fondoAportacionVoluntaria" resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericCt_DiversifFondoApovol" />
+    	    		
+	</resultMap>
+
+	<resultMap id="ResultMapDiversificacionOnly" type="mx.profuturo.nci.business.vo.DiversificacionVO" >
+		<result column="FTC_DIVER_CVE_SOLICITUD" 		property="claveSolicitud" 			jdbcType="VARCHAR" />
+		<result column="FTN_DIVER_MONTO" 				property="monto" 					jdbcType="DECIMAL" />
+		<result column="FTN_DIVER_PORCENTAJE" 			property="porcentaje" 				jdbcType="DECIMAL" />
+		<result column="FTN_DIVER_FONDO_APOVOL" 		property="idArchivo" 				jdbcType="DECIMAL" />
+	</resultMap>
+	
+	<select id="getDiversificacionesByCveSolicitud" resultMap="ResultMapDiversificacionOnly" parameterType="mx.profuturo.nci.business.vo.DiversificacionVO">
+		SELECT DD.FTC_CVE_SOLICITUD AS FTC_DIVER_CVE_SOLICITUD,
+				DD.FTN_MONTO AS FTN_DIVER_MONTO,
+				DD.FTN_PORCENTAJE AS FTN_DIVER_PORCENTAJE,
+				DD.FTN_FONDO_APOVOL AS FTN_DIVER_FONDO_APOVOL
+		FROM TTAFOAVOL_DIVERSIF_SOLICITUD DD
+		WHERE  DD.FTC_CVE_SOLICITUD = #{claveSolicitud}
+		AND DD.FTN_VIGENCIA = 1
+	</select>
+	
+	<select id="selectDiversificacionSolicitudDomiciliacion" resultMap="ResultMapDiversificacion" parameterType="mx.profuturo.nci.business.vo.DiversificacionVO">
+		SELECT DD.FTC_CVE_SOLICITUD AS FTC_DIVER_CVE_SOLICITUD, 
+				DD.FTC_FOLIO AS FTC_DIVER_FOLIO,
+				DD.FTN_MONTO AS FTN_DIVER_MONTO,
+				DD.FTN_PORCENTAJE AS FTN_DIVER_PORCENTAJE,
+				DD.FTN_FONDO_APOVOL AS FTN_DIVER_FONDO_APOVOL,
+				CF.FCC_VALOR AS FCC_VALOR_DIVER_FONDO_APOVOL,
+				DD.FTD_FEH_CRE AS FTD_DIVER_FEH_CRE ,
+				DD.FTC_USU_CRE AS FTC_DIVER_USU_CRE,
+				DD.FTD_FEH_ACT AS FTD_DIVER_FEH_ACT,
+				DD.FTC_USU_ACT AS FTC_DIVER_USU_ACT
+		FROM TTAFOAVOL_DIVERSIF_SOLICITUD DD
+		LEFT JOIN TCCRXGRAL_CAT_CATALOGO CF ON CF.FCN_ID_CAT_CATALOGO = DD.FTN_FONDO_APOVOL
+		<where>
+			<if test="claveSolicitud != null">
+			   	AND DD.FTC_CVE_SOLICITUD = #{claveSolicitud}
+			</if>
+			<if test="folio != null">   	 
+			    AND  DD.FTC_FOLIO = #{folio}
+			</if>  
+			<if test="fondoAportacionVoluntaria != null and fondoAportacionVoluntaria.id != null">
+				AND DD.FTN_FONDO_APOVOL = #{fondoAportacionVoluntaria.id}	
+			</if>
+
+			
+		</where>		
+	</select>
+
+
+	<select id="selectDiversificacionPreSolicitudDomiciliacion" resultMap="ResultMapDiversificacion" parameterType="mx.profuturo.nci.business.vo.DiversificacionVO">
+		SELECT DD.FTC_CVE_SOLICITUD AS FTC_DIVER_CVE_SOLICITUD, 
+				DD.FTC_FOLIO AS FTC_DIVER_FOLIO,
+				DD.FTN_MONTO AS FTN_DIVER_MONTO,
+				DD.FTN_PORCENTAJE AS FTN_DIVER_PORCENTAJE,
+				DD.FTN_FONDO_APOVOL AS FTN_DIVER_FONDO_APOVOL,
+				CF.FCC_VALOR AS FCC_VALOR_DIVER_FONDO_APOVOL,
+				DD.FTD_FEH_CRE AS FTD_DIVER_FEH_CRE ,
+				DD.FTC_USU_CRE AS FTC_DIVER_USU_CRE,
+				DD.FTD_FEH_ACT AS FTD_DIVER_FEH_ACT,
+				DD.FTC_USU_ACT AS FTC_DIVER_USU_ACT
+		FROM TTAFOAVOL_DIVERSIF_PRE_SOLIC DD
+		LEFT JOIN TCCRXGRAL_CAT_CATALOGO CF ON CF.FCN_ID_CAT_CATALOGO = DD.FTN_FONDO_APOVOL
+		<where>
+			<if test="claveSolicitud != null">
+			   	AND DD.FTC_CVE_SOLICITUD = #{claveSolicitud}
+			</if>
+			<if test="folio != null">   	 
+			    AND  DD.FTC_FOLIO = #{folio}
+			</if>  
+			<if test="fondoAportacionVoluntaria != null and fondoAportacionVoluntaria.id != null">
+				AND DD.FTN_FONDO_APOVOL = #{fondoAportacionVoluntaria.id}	
+			</if>
+		</where>		
+	</select>
+
+
+	<insert id="insertDiversificacionPreSolicitud"
+		parameterType="mx.profuturo.nci.business.vo.DiversificacionVO">
+		
+		INSERT INTO TTAFOAVOL_DIVERSIF_PRE_SOLIC
+		
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			
+			<if test="claveSolicitud != null">
+				FTC_CVE_SOLICITUD,
+			</if>
+			
+			<if test="folio != null">
+				FTC_FOLIO,
+			</if>
+			
+			<if test="fondoAportacionVoluntaria != null and fondoAportacionVoluntaria.id != null">
+				FTN_FONDO_APOVOL,
+			</if>
+			
+			<if test="monto != null">
+				FTN_MONTO,
+			</if>
+			
+			<if test="porcentaje != null">
+				FTN_PORCENTAJE,
+			</if>
+			
+			<if test="usuarioCreacion != null">
+				FTC_USU_CRE,
+			</if>
+				
+			   FTD_FEH_CRE,
+		</trim>
+		
+		<trim prefix="values (" suffix=")" suffixOverrides="">
+			
+			<if test="claveSolicitud != null">
+				#{claveSolicitud,jdbcType=VARCHAR},
+			</if>
+			
+			<if test="folio != null">
+				#{folio,jdbcType=VARCHAR},
+			</if>
+			
+			<if test="fondoAportacionVoluntaria != null and fondoAportacionVoluntaria.id != null">
+				#{fondoAportacionVoluntaria.id,jdbcType=DECIMAL},
+			</if>
+			
+			<if test="monto != null">
+				#{monto,jdbcType=DECIMAL},
+			</if>
+			<if test="porcentaje != null">
+				#{porcentaje,jdbcType=DECIMAL},
+			</if>
+			
+			<if test="usuarioCreacion != null">
+				#{usuarioCreacion,jdbcType=VARCHAR},
+			</if>
+			SYSTIMESTAMP
+		
+		</trim>
+	</insert>
+
+
+	<insert id="insertarDiversificacionSolicitudDomiciliacion"
+		parameterType="mx.profuturo.nci.business.vo.DiversificacionVO">
+		
+		
+		insert into TTAFOAVOL_DIVERSIF_SOLICITUD
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="claveSolicitud != null">
+				FTC_CVE_SOLICITUD,
+			</if>
+			<if test="folio != null">
+				FTC_FOLIO,
+			</if>
+			<if test="fondoAportacionVoluntaria.id != null">
+				FTN_FONDO_APOVOL,
+			</if>
+			<if test="monto != null">
+				FTN_MONTO,
+			</if>
+			<if test="porcentaje != null">
+				FTN_PORCENTAJE,
+			</if>
+			<if test="usuarioCreacion != null">
+				FTC_USU_CRE,
+			</if>
+			FTN_VIGENCIA,
+			FTD_FEH_CRE
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="">
+			<if test="claveSolicitud != null">
+				#{claveSolicitud,jdbcType=VARCHAR},
+			</if>
+			<if test="folio != null">
+				#{folio,jdbcType=VARCHAR},
+			</if>
+			<if test="fondoAportacionVoluntaria.id != null">
+				#{fondoAportacionVoluntaria.id,jdbcType=DECIMAL},
+			</if>
+			<if test="monto != null">
+				#{monto,jdbcType=DECIMAL},
+			</if>
+			<if test="porcentaje != null">
+				#{porcentaje,jdbcType=DECIMAL},
+			</if>
+			<if test="usuarioCreacion != null">
+				#{usuarioCreacion,jdbcType=VARCHAR},
+			</if>
+			1,
+			SYSTIMESTAMP
+		</trim>
+	</insert>
+
+	<insert id="insertarDiversificacionSolicitudDomiciliacionPar"
+		parameterType="mx.profuturo.nci.business.vo.DiversificacionVO">
+		insert into TTAFOAVOL_REPLICA_DIVERSIF_SOL
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="claveSolicitud != null">
+				FTC_CVE_SOLICITUD,
+			</if>
+			<if test="fondoAportacionVoluntaria.id != null">
+				FTN_FONDO_APOVOL,
+			</if>
+			<if test="monto != null">
+				FTN_MONTO_DIV,
+			</if>
+			<if test="porcentaje != null">
+				FTN_PORCENTAJE,
+			</if>
+			<if test="idArchivo != null">
+				FTN_ID_ARCHIVO,
+			</if>
+			<if test="idCargoStr != null">
+				FTC_ID_CARGO,
+			</if>
+			<if test="idPrioridad != null">
+				FTN_ID_PRIORIDAD,
+			</if>
+			<if test="idArchivoDomi != null">
+				FLN_ID_ARCHIVO_DOMI,
+			</if>
+			FTD_FEH_CRE,
+			<if test="usuarioCreacion != null">
+				FTC_USU_CRE
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="">
+			<if test="claveSolicitud != null">
+				#{claveSolicitud,jdbcType=VARCHAR},
+			</if>
+			<if test="fondoAportacionVoluntaria.id != null">
+				#{fondoAportacionVoluntaria.id,jdbcType=DECIMAL},
+			</if>
+			<if test="monto != null">
+				#{monto,jdbcType=DECIMAL},
+			</if>
+			<if test="porcentaje != null">
+				#{porcentaje,jdbcType=DECIMAL},
+			</if>
+			<if test="idArchivo != null">
+				#{idArchivo,jdbcType=DECIMAL},
+			</if>
+			<if test="idCargoStr != null">
+				#{idCargoStr,jdbcType=VARCHAR},
+			</if>
+			<if test="idPrioridad != null">
+				#{idPrioridad,jdbcType=DECIMAL},
+			</if>
+			<if test="idArchivoDomi != null">
+				#{idArchivoDomi,jdbcType=DECIMAL},
+			</if>
+			SYSTIMESTAMP,
+			<if test="usuarioCreacion != null">
+				#{usuarioCreacion,jdbcType=VARCHAR}
+			</if>
+		</trim>
+	</insert>
+
+
+	<update id="actualizarDiversificacionSolicitudDomiciliacion"
+			parameterType="mx.profuturo.nci.business.vo.DiversificacionVO">
+	
+	UPDATE TTAFOAVOL_DIVERSIF_SOLICITUD 
+	
+	<set> 
+				
+		<if test="monto != null">
+			FTN_MONTO = #{monto},
+		</if>
+		<if test="porcentaje != null">
+			FTN_PORCENTAJE = #{porcentaje},
+		</if>
+		<if test="usuarioActualizacion != null">
+			FTC_USU_ACT = #{usuarioActualizacion},
+		</if>
+	
+			FTD_FEH_ACT = SYSTIMESTAMP,
+	
+	</set>
+	
+	<where>
+	
+		<if test="claveSolicitud != null">
+			AND FTC_CVE_SOLICITUD = #{claveSolicitud}
+		</if>
+		
+		<if test="fondoAportacionVoluntaria != null and fondoAportacionVoluntaria.id != null">
+			AND FTN_FONDO_APOVOL = #{fondoAportacionVoluntaria.id}	
+		</if>	
+		
+	</where>
+	
+    </update>
+    
+    
+    <update id="logicDeleteDiversificacionSolicitudDomiciliacion" parameterType="mx.profuturo.nci.business.vo.DiversificacionVO">
+		UPDATE TTAFOAVOL_DIVERSIF_SOLICITUD 
+		<set> 
+			<if test="usuarioActualizacion != null">
+				FTC_USU_ACT = #{usuarioActualizacion},
+			</if>
+				FTN_VIGENCIA = 0,
+				FTD_FEH_ACT = SYSTIMESTAMP,
+		</set>
+		<where>
+				FTC_CVE_SOLICITUD = #{claveSolicitud}
+			<if test="fondoAportacionVoluntaria != null and fondoAportacionVoluntaria.id != null">
+				AND FTN_FONDO_APOVOL = #{fondoAportacionVoluntaria.id}	
+			</if>	
+		</where>
+    </update>
+    
+	<update id="actualizarDiversificacionPreSolicitudDomiciliacion"
+		parameterType="mx.profuturo.nci.business.vo.DiversificacionVO"
+		keyColumn="FTC_CVE_SOLICITUD">
+		update TTAFOAVOL_DIVERSIF_PRE_SOLIC set FTD_FEH_ACT = SYSDATE
+		<if test="fondoAportacionVoluntaria.id != null">
+			,FTN_FONDO_APOVOL = #{fondoAportacionVoluntaria.id}
+		</if>
+		<if test="monto != null">
+			,FTN_MONTO = #{monto}
+		</if>
+		<if test="porcentaje != null">
+			, FTN_PORCENTAJE = #{porcentaje}
+		</if>
+		<if test="usuarioActualizacion != null">
+			, FTC_USU_ACT = #{usuarioActualizacion}
+		</if>
+		<where>
+		  <if test="claveSolicitud != null">
+		     	AND FTC_CVE_SOLICITUD = #{claveSolicitud}
+		  </if>
+		  
+		  <if test="folio != null">   	 
+		     	AND  FTC_FOLIO = #{folio}
+		  </if>
+		  <if test="fondoAportacionVoluntaria.id != null">
+			 	AND FTN_FONDO_APOVOL = #{fondoAportacionVoluntaria.id}
+		</if>
+		</where>
+	</update>
+</mapper>

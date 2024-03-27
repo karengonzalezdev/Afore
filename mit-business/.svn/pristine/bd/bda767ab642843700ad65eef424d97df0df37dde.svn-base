@@ -1,0 +1,5 @@
+package mx.profuturo.nci.persistence;
+
+public interface RegistrarLoteControlArchivoPersistence {
+
+}

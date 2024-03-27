@@ -1,0 +1,455 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+	<ui:composition template="/core/desktop/desktop.xhtml">
+		<ui:define name="body">
+			<h:form id="formPrincipal" styleClass="form-general"
+			enctype="multipart/form-data">
+				<p:panel id="parametrosConsultaPanel" header="#{msg['consulta.domiciliacion.title']}" style="margin-top:56px;">
+					<p:panelGrid id="tipoBusqueda" style="text-align:left; margin-left:-10px;">
+						<p:row>
+		  					<p:column> 
+								<p:messages id="clienteBusquedaMsg" showIcon="false" autoUpdate="true" showSummary="false" showDetail="true" style="vertical-align:top !important;"/>
+								<p:selectOneRadio id="clientePorTipo" value="#{consultaDomiciliacionView.clientePorTipo}">
+									<f:selectItem itemLabel="#{msg['consulta.domiciliacion.txtCuenta']}" itemValue="#{msg['consulta.domiciliacion.txtCuenta']}"/>
+									<f:selectItem itemLabel="#{msg['consulta.domiciliacion.txtNss']}" itemValue="#{msg['consulta.domiciliacion.txtNss']}"/>
+									<f:selectItem itemLabel="#{msg['consulta.domiciliacion.txtCurp']}" itemValue="#{msg['consulta.domiciliacion.txtCurp']}"/>
+									<p:ajax event="change" listener="#{consultaDomiciliacionView.limpiarBusq}" update="formPrincipal"/>
+								</p:selectOneRadio>
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>
+								<p:inputText id="clienteBusquedaTxt" value="#{consultaDomiciliacionView.clienteBusqueda}" 
+										validatorMessage="#{msg['consulta.txtNoValido']}" styleClass="input-style"
+										requiredMessage="#{msg['consulta.txtCampoNoVacio']}"
+										disabled="#{consultaDomiciliacionView.clientePorTipo eq null or consultaDomiciliacionView.clientePorTipo eq ''}"
+										maxlength="#{consultaDomiciliacionView.clientePorTipo.contains('NSS') ? '11' : 
+					    				(consultaDomiciliacionView.clientePorTipo.contains('CURP') ? '18' : '10')}">
+								</p:inputText>
+							</p:column>
+						</p:row>
+					</p:panelGrid>
+					<p:panelGrid id="paramConsultaFilter" style="text-align:left; margin-left:-10px;">
+						<p:row>
+							<p:column>
+								<p:outputLabel id="txtOrigen" value="#{msg['consulta.domiciliacion.txtOrigen']}"/>
+							</p:column>
+							<p:column>
+								<p:outputLabel id="txtStatus" value="#{msg['consulta.domiciliacion.txtEstatus']}"/>
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>
+								<p:selectOneMenu id="OrigenAportacionSelect" value="#{consultaDomiciliacionView.selOrigenApo}" style="width:240px;">
+									<f:selectItem itemLabel="Seleccion uno" itemValue="" />
+									<f:selectItems value="#{consultaDomiciliacionView.origenAportacionLista}" var="origenAportacion"
+											   itemValue="#{origenAportacion.id}" 
+											   itemLabel="#{origenAportacion.valor}"/>
+								</p:selectOneMenu>
+							</p:column>
+							<p:column>
+								<p:selectOneMenu id="EstatusSelect" value="#{consultaDomiciliacionView.selEstatus}" style="width:300px;">
+									<f:selectItem itemLabel="Seleccion uno" itemValue="" />
+										<f:selectItems value="#{consultaDomiciliacionView.estatusLista}" var="estatus"
+											   itemValue="#{estatus.id}"
+											   itemLabel="#{estatus.valor}"/>
+								</p:selectOneMenu>
+							</p:column>
+							
+						</p:row>
+						<p:row>
+							<p:column>
+								<p:outputLabel id="txtFecIni" value="#{msg['consulta.domiciliacion.txtFechaIni']}"/>
+							</p:column>
+							<p:column>
+								<p:outputLabel id="txtFecFin" value="#{msg['consulta.domiciliacion.txtFechaFin']}"/>
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>
+								<p:calendar id="idFechaIni" showOn="button" value="#{consultaDomiciliacionView.fechaInicio}" 
+										locale="es" mask="true" pattern="dd/MM/yyyy" effect="fold" 
+										maxdate="#{consultaDomiciliacionView.maxDate}"
+										readonlyInput="true" 
+										navigator="true" style="width:100px;"/>
+							</p:column>
+							<p:column>
+								<p:calendar id="idFechaFin" showOn="button" value="#{consultaDomiciliacionView.fechaFin}"
+										maxdate="#{consultaDomiciliacionView.maxDate}" 
+										locale="es" mask="true" pattern="dd/MM/yyyy" effect="fold" readonlyInput="true" 
+										navigator="true" style="width:100px;"/>
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>
+								<p:commandButton value="#{msg['consulta.domiciliacion.btnBuscar']}" styleClass="blue-button"
+									actionListener="#{consultaDomiciliacionView.busquedaPrincipal}"
+									update="formPrincipal"/>
+								<p:spacer width="10" />
+								<p:commandButton value="#{msg['general.button.clean']}" styleClass="gray-button"
+									actionListener="#{consultaDomiciliacionView.limpiarBusq}"
+									update="formPrincipal"/>
+							</p:column>
+						</p:row>
+					</p:panelGrid>			
+				</p:panel>
+
+				<p:panel id="resultadoCuentasConsulta" rendered="#{consultaDomiciliacionView.muestraCuentas}">
+					<p:panelGrid id="cuentasPorUserGrid" style="margin-top: 15px; width: 100%;vertical-align:middle; !important;">
+						<p:dataTable id="resultConsultaCuentasTable" var="solicitudCuentasLista" 
+							value="#{consultaDomiciliacionView.listaCuentasSolicitud}"
+							tableStyleClass="table-style" 
+	 						emptyMessage="#{msg['consulta.domiciliacion.txtNoHayMasDatos']}"
+	 						selection="#{consultaDomiciliacionView.selectedCuentaSolicitud}" 								
+ 							rowKey="#{solicitudCuentasLista.llaveLista}" 
+ 							paginatorPosition="bottom" paginator="true" rows="5"> 
+								<p:ajax event="rowSelectRadio" update="formPrincipal"/>
+								<p:column selectionMode="single" headerText=""
+							 		style="text-align:left; width:5%;">
+								</p:column>	
+								<p:column style="text-align:center; width:29%;" headerText="#{msg['consulta.domiciliacion.txtNombre']}" colspan="2">
+									<h:outputText value="#{solicitudCuentasLista.clienteNombre} #{solicitudCuentasLista.clientePaterno} #{solicitudCuentasLista.clienteMaterno}"/>
+								</p:column>
+								<p:column style="text-align:center; width:15%;" headerText="#{msg['consulta.domiciliacion.txtCuenta']}">
+									<h:outputText value="#{solicitudCuentasLista.numCuentaIndividual}"/>
+								</p:column>
+								<p:column style="text-align:center; width:15%;" headerText="#{msg['consulta.domiciliacion.txtNss']}">
+									<h:outputText value="#{solicitudCuentasLista.nss}"/>
+								</p:column>
+								<p:column style="text-align:center; width:20%;" headerText="#{msg['consulta.domiciliacion.txtCurp']}">
+									<h:outputText value="#{solicitudCuentasLista.curp}"/>
+								</p:column>
+								<p:column style="text-align:center; width:16%;" headerText="#{msg['consulta.domiciliacion.txtEstatusDeCuenta']}">
+									<h:outputText value="#{solicitudCuentasLista.clienteRfc}"/>
+								</p:column>
+									<p:column style="text-align:center; width:16%;">
+									<h:outputText value=""/>
+								</p:column>
+									<p:column style="text-align:center; width:16%;">
+									<h:outputText value=""/>
+								</p:column>
+						</p:dataTable>
+							<p:commandButton value="#{msg['consulta.domiciliacion.btnBuscar']}" styleClass="blue-button"
+								actionListener="#{consultaDomiciliacionView.buscar}" 
+								update="formPrincipal"
+								disabled="#{!consultaDomiciliacionView.cuentaSeleccionada}"/>						
+					</p:panelGrid>
+				</p:panel>
+				
+				<p:panel id="resultadoConsultaPanel" rendered="#{consultaDomiciliacionView.tablaConsulta}">
+					<p:panelGrid id="resultadoConsultaPanelGrid" style="margin-top: 15px; width: 100%;vertical-align:middle; !important;">
+						<p:dataTable id="resultConsultaTable" var="solicitudLista" value="#{consultaDomiciliacionView.listaSolicitud}"
+								tableStyleClass="table-style"  
+								selection="#{consultaDomiciliacionView.selectedSolicitud}" 								
+ 								rowKey="#{solicitudLista.llaveLista}"
+ 								emptyMessage="#{msg['consulta.domiciliacion.txtNoHayMasDatos']}"  
+ 								paginatorPosition="bottom" paginator="true" rows="6"> 
+						<p:ajax event="rowSelectRadio" update="formPrincipal"/>
+						<p:column selectionMode="single" headerText=""
+							 style="text-align: left; width:5%;">
+						</p:column>
+							<p:column style="width:12%;text-align:center" headerText="#{msg['domiciliacion.traspasos.monSol.claveSolicitud']}">
+								<h:outputText value="#{solicitudLista.claveSolicitud}"/>
+							</p:column>
+							<p:column style="width:8%;text-align:center" headerText="#{msg['consulta.domiciliacion.txtFechaSol']}">
+ 								<h:outputText value="#{solicitudLista.fechaEstatuSolicitud}" >
+									<f:convertDateTime type="date" pattern="dd/MM/yyyy" timeZone="America/Mexico_City" />
+								</h:outputText> 
+							</p:column>
+							<p:column style="width:9%;text-align:center" headerText="#{msg['consulta.domiciliacion.txtOrigen']}">
+								<h:outputText value="#{solicitudLista.origenSolicitud.valor}" />
+							</p:column>
+							<p:column style="width:10%;text-align:center" headerText="#{msg['consulta.domiciliacion.txtCuenta']}">
+								<h:outputText value="#{solicitudLista.numCuentaIndividual}" />
+							</p:column>
+							
+							<p:column style="width:14%;text-align:center" headerText="#{msg['consulta.domiciliacion.txtNombre']}">
+								<h:outputText value="#{solicitudLista.clienteNombre} #{solicitudLista.clientePaterno} #{solicitudLista.clienteMaterno}" />
+							</p:column>
+							
+							<p:column style="width:9%;text-align:center" headerText="#{msg['consulta.domiciliacion.txtImporte']}">
+								<h:outputText value="#{solicitudLista.importe}">
+									<f:convertNumber pattern="$#,###,##0.00" locale="es_MX" />
+								</h:outputText>
+							</p:column>
+							<p:column style="width:11%;text-align:center" headerText="#{msg['consulta.domiciliacion.txtBanco']}">
+								<h:outputText value="#{solicitudLista.claveBanco.valor} #{solicitudLista.cuentaBanco}" />
+							</p:column>
+							<p:column style="width:11%;text-align:center" headerText="#{msg['consulta.domiciliacion.txtPeriodo']}">
+								<h:outputText value="#{solicitudLista.periodo.valor}"/>
+							</p:column>
+							<p:column style="width:11%;text-align:center" headerText="#{msg['consulta.domiciliacion.txtEstatus']}">
+								<h:outputText value="#{solicitudLista.estatusSolicitud.valor}" />
+							</p:column>
+						</p:dataTable>
+					</p:panelGrid>
+					<p:panelGrid style="text-align:left; margin-left:-10px;">
+						<p:row>
+							<p:column colspan="3">
+								<p:commandButton id="imprimirBoton"
+										value="#{msg['consulta.domiciliacion.txtExportar']}" styleClass="blue-button"
+										disabled="#{!not empty consultaDomiciliacionView.listaSolicitud}"
+										actionListener="#{consultaDomiciliacionView.generaImpresionPrincipal}"
+										ajax="false"/>
+								<p:spacer width="20px"/>
+								<p:commandButton id="detalleBoton" 
+										value="#{msg['consulta.domiciliacion.txtDetalle']}" styleClass="yellow-button"
+										disabled="#{consultaDomiciliacionView.habilitaBtnPrincipal}"
+										oncomplete="PF('detalleDomiDialog').show();" update="formPrincipal"/>
+								<p:spacer width="20px"/>
+								<p:commandButton id="limpiarBoton"
+										value="#{msg['consulta.domiciliacion.txtLimpiar']}" styleClass="gray-button"
+										actionListener="#{consultaDomiciliacionView.limpiarBusq}" update="formPrincipal"/>
+							</p:column>
+						</p:row>
+					</p:panelGrid>
+				</p:panel>
+
+				<p:dialog id="detalleDomiDialog"
+		              widgetVar="detalleDomiDialog"
+					  modal="true" draggable="false" resizable="false"
+					  closable="false" showHeader="false" showEffect="fade" 
+					   width="50%" height="70%">
+						<div align="center">
+						<p:panel id="detalleDomiciliacionPanel" header="#{msg['consulta.domiciliacion.txtDetalle']} #{consultaDomiciliacionView.selectedSolicitud.origenSolicitud.valor}" 
+									style="text-align: left;">
+							<p:panelGrid id="detalleDomiciliacionPanelGridFiltro" style="text-align:left; margin-left:-10px;">
+								<p:row>
+									<p:column style="font-weight:bold">
+										<p:outputLabel id="txtFiltroDetUno" value="#{msg['domiciliacion.traspasos.monSol.cuentaIndividualDosPunto']}"/>
+									</p:column>
+									<p:column style="vertical-align: middle;">
+										<p:outputLabel id="clienteBusquedaTxtDet" value="#{consultaDomiciliacionView.selectedSolicitud.numCuentaIndividual}" disabled="true"/>
+									</p:column>
+			
+								</p:row>
+								<p:row>
+									<p:column style="font-weight:bold">
+										<p:outputLabel id="txtFiltroDetDos" value="#{msg['consulta.domiciliacion.txtOrigen']}:"/>
+									</p:column>
+									<p:column style="vertical-align: middle;">				
+										<p:outputLabel id="txtAportSelected" value="#{consultaDomiciliacionView.txtOrigenDetLetra}"/>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column style="font-weight:bold">
+										<p:outputLabel id="txtFiltroDetTres" value="#{msg['consulta.domiciliacion.txtFechaModificacion']}:"/>
+									</p:column>
+									<p:column style="vertical-align: middle;">				
+										<p:outputLabel id="txtFechaModificacionDet" value="#{consultaDomiciliacionView.selectedSolicitud.fechaReactivacion}">
+											<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm" timeZone="America/Mexico_City" />
+										</p:outputLabel>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column style="font-weight:bold">
+										<p:outputLabel id="txtFiltroDetCuatro" value="#{msg['consulta.domiciliacion.txtUsuario']}:"/>
+									</p:column>
+									<p:column style="vertical-align: middle;">				
+										<p:outputLabel id="txtUserModificaDet" value="#{consultaDomiciliacionView.selectedSolicitud.usuarioActualizacion}"/>
+									</p:column>
+								</p:row>
+
+								<p:row rendered="#{consultaDomiciliacionView.txtOrigenDet == 292}">
+									<p:column style="font-weight:bold">
+										<p:outputLabel value="Banco"/>
+									</p:column>
+									<p:column>
+										<p:outputLabel value="#{consultaDomiciliacionView.selectedSolicitud.claveBanco.valor}"/>
+									</p:column>
+									<p:column style="font-weight:bold">
+										<p:outputLabel value="Cuenta bancaria"/>
+									</p:column>
+									<p:column>
+										<p:outputLabel value="#{consultaDomiciliacionView.selectedSolicitud.cuentaBanco}"/>
+									</p:column>
+									<p:column style="font-weight:bold">
+										<p:outputLabel value="Tipo cuenta"/>
+									</p:column>
+									<p:column>
+										<p:outputLabel value="#{consultaDomiciliacionView.detalleSpei.tipoCuenta}"/>
+									</p:column>
+								</p:row>
+								<p:row rendered="#{consultaDomiciliacionView.txtOrigenDet == 292}">
+								<p:column style="font-weight:bold">
+										<p:outputLabel value="Referencia"/>
+									</p:column>
+									<p:column>
+										<p:outputLabel value="#{consultaDomiciliacionView.detalleSpei.referencia}"/>
+									</p:column>
+									<p:column style="font-weight:bold">
+										<p:outputLabel value="Fecha depósito"/>
+									</p:column>
+									<p:column>
+										<p:outputLabel value="#{consultaDomiciliacionView.detalleSpei.fechaDeposito}">
+											<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm" timeZone="America/Mexico_City" />
+										</p:outputLabel>
+									</p:column>
+									<p:column style="font-weight:bold">
+										<p:outputLabel value="Estatus"/>
+									</p:column>
+									<p:column>
+										<p:outputLabel value="#{consultaDomiciliacionView.selectedSolicitud.estatusSolicitud.valor}"/>
+									</p:column>
+								</p:row>
+								<p:row rendered="#{consultaDomiciliacionView.txtOrigenDet == 292}">
+									<p:column style="font-weight:bold">
+										<p:outputLabel value="Número orden"/>
+									</p:column>
+									<p:column >
+										<p:outputLabel value="#{consultaDomiciliacionView.detalleSpei.noOrden}"/>
+									</p:column>
+									<p:column style="font-weight:bold">
+										<p:outputLabel value="Fecha captura"/>
+									</p:column>
+									<p:column>
+										<p:outputLabel value="#{consultaDomiciliacionView.detalleSpei.fechaCaptura}">
+											<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm" timeZone="America/Mexico_City" />
+										</p:outputLabel>
+									</p:column>
+									<p:column style="font-weight:bold">
+										<p:outputLabel value="Usuario captura"/>
+									</p:column>
+									<p:column>
+										<p:outputLabel value="#{consultaDomiciliacionView.detalleSpei.usuarioCaptura}"/>
+									</p:column>
+								</p:row>
+								
+
+								<p:row rendered="#{consultaDomiciliacionView.txtOrigenDet == 289}">
+									<p:column style="font-weight:bold">
+										<p:outputLabel value="Empresa"/>
+									</p:column>
+									<p:column >
+										<p:outputLabel value="#{consultaDomiciliacionView.detalleSpei.empresa}"/>
+									</p:column>
+									<p:column style="font-weight:bold">
+										<p:outputLabel value="Número empleado"/>
+									</p:column>
+									<p:column>
+										<p:outputLabel value="#{consultaDomiciliacionView.detalleSpei.noEmpleado}"/>
+									</p:column>
+									<p:column style="font-weight:bold">
+										<p:outputLabel value="Tipo nómina"/>
+									</p:column>
+									<p:column>
+										<p:outputLabel value="#{consultaDomiciliacionView.detalleSpei.tipoNomina}"/>
+									</p:column>
+								</p:row>							
+							</p:panelGrid>
+						</p:panel>
+						<p:panel id="idDatos">
+							<p:tabView dynamic="true" cache="true" onTabShow="PF('detalleDomiDialog').initPosition();" id="detTblDiversificacion">
+        						<p:tab title="#{msg['consulta.domiciliacion.txtDiversificacion']}" 
+        							rendered="#{consultaDomiciliacionView.listaDiversificacion !=null and consultaDomiciliacionView.listaDiversificacion.size()>0}">
+          							<p:dataTable id="detTblDiversificacion" var="diversificaciones" 
+												value="#{consultaDomiciliacionView.listaDiversificacion}" tableStyleClass="table-style"  
+		 										emptyMessage="#{msg['consulta.domiciliacion.txtNoHayMasDatos']}" paginatorPosition="bottom">
+		 									<p:column style="width:200px;text-align:center" headerText="#{msg['consulta.domiciliacion.txtFondo']}">
+												<h:outputText value="#{diversificaciones.fondo.descripcion}" />
+											</p:column>
+											<p:column style="width:100px;text-align:center" headerText="#{msg['consulta.domiciliacion.txtMonto']}">
+												<h:outputText value="#{diversificaciones.monto}">
+													<f:convertNumber pattern="$#,###,##0.00" locale="es_MX" />
+												</h:outputText> 
+											</p:column>
+											<p:column style="width:100px;text-align:center" headerText="#{msg['consulta.domiciliacion.txtPorcentaje']}">
+												<h:outputText value="#{diversificaciones.porcentajeInt/100}">
+													 <f:convertNumber pattern="##0%"/>
+            									</h:outputText>
+											</p:column>
+										</p:dataTable> 
+        						</p:tab>
+        						<p:tab title="#{msg['consulta.domiciliacion.txtValidacion']}"
+        							rendered="#{consultaDomiciliacionView.listaValidacion !=null and consultaDomiciliacionView.listaValidacion.size()>0}">
+         								<p:dataTable id="resultValidacionTableDet" var="solicitudValidacion" 
+												value="#{consultaDomiciliacionView.listaValidacion}" tableStyleClass="table-style"  
+		 										emptyMessage="#{msg['consulta.domiciliacion.txtNoHayMasDatos']}"
+		 										paginator="true" rows="5">
+		 									<p:column style="width:200px;text-align:center" headerText="#{msg['consulta.domiciliacion.txtTipoValidacion']}">
+												<h:outputText value="#{solicitudValidacion.tipoValidacion.valor}" />
+											</p:column>
+											<p:column style="width:100px;text-align:center" headerText="#{msg['consulta.domiciliacion.txtEstatus']}">
+												<h:outputText value="#{solicitudValidacion.estatus.valor}" />
+											</p:column>
+											<p:column style="width:180px;text-align:center" headerText="#{msg['consulta.domiciliacion.txtMotivoRechazo']}">
+												<h:outputText value="#{solicitudValidacion.motivoRechazo.valor}" />
+											</p:column>
+										</p:dataTable> 
+        						</p:tab>
+        						<p:tab title="#{msg['consulta.domiciliacion.txtCargo']}"
+        							rendered="#{consultaDomiciliacionView.listaSolicitudHis !=null and consultaDomiciliacionView.listaSolicitudHis.size()>0}">
+ 										<p:dataTable id="resultConsultaTableDet" var="solicitudListaHist" 
+												value="#{consultaDomiciliacionView.listaSolicitudHis}" tableStyleClass="table-style"  
+		 										emptyMessage="#{msg['consulta.domiciliacion.txtNoHayMasDatos']}" paginatorPosition="bottom"
+		 										paginator="true" rows="5">
+		 									<p:column style="width:120px;text-align:center" headerText="#{msg['consulta.domiciliacion.txtCuenta']}">
+ 												<h:outputText value="#{solicitudListaHist.numCuentaIndividual}" /> 
+											</p:column>
+											<p:column style="width:120px;text-align:center" headerText="#{msg['consulta.domiciliacion.txtMonto']}">
+ 												<h:outputText value="#{solicitudListaHist.importe}">
+													<f:convertNumber pattern="$#,###,##0.00" locale="es_MX" />
+												</h:outputText> 
+											</p:column>
+		 									<p:column style="width:120px;text-align:center" headerText="#{msg['consulta.domiciliacion.txtFecha']}">
+ 												<h:outputText value="#{solicitudListaHist.fechaCargo}" >
+													<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm" timeZone="America/Mexico_City" />
+												</h:outputText> 
+											</p:column>
+											<p:column style="width:120px;text-align:center" headerText="#{msg['consulta.domiciliacion.txtEstatusCargo']}">
+ 												<h:outputText value="#{solicitudListaHist.estatusCargo.valor}"/> 
+											</p:column>
+											<p:column style="width:120px;text-align:center" headerText="#{msg['consulta.domiciliacion.txtMotivoRechazo']}">
+ 												<h:outputText value="#{solicitudListaHist.rechazoBanco.valor}"/> 
+											</p:column>
+											<p:column style="width:120px;text-align:center" headerText="#{msg['consulta.domiciliacion.txtTipoCargo']}">
+ 												<h:outputText value="#{solicitudListaHist.periodo.valor}"/> 
+											</p:column>
+		 								</p:dataTable> 					
+        						</p:tab>
+        					</p:tabView>
+        				</p:panel>
+						<p:panel>
+<!-- 							<p:panelGrid id="detalleDomiciliacionPanelGridBotones" >
+								<p:row> -->
+									<p:column colspan="3" style="text-align:right">
+										<p:commandButton id="detalleBotonRegresarDomi" 
+											value="#{msg['consulta.domiciliacion.txtSalir']}" styleClass="gray-button"
+											 oncomplete="PF('detalleDomiDialog').hide()" style="float: right;"/>
+										<p:spacer width="10" style="float: right;"/>
+										<p:commandButton id="detalleBotonRegresarExportarDomi"
+											value="#{msg['consulta.domiciliacion.txtExportar']}" styleClass="blue-button"
+											actionListener="#{consultaDomiciliacionView.generaImpresionDetalle}"
+											ajax="false" style="float: right;"
+											rendered="#{consultaDomiciliacionView.txtOrigenDet != 292 and consultaDomiciliacionView.txtOrigenDet != 290 and consultaDomiciliacionView.txtOrigenDet != 289 and consultaDomiciliacionView.txtOrigenDet != 287 and consultaDomiciliacionView.txtOrigenDet != 288}"/>
+									</p:column>
+
+<!-- 								</p:row>
+							</p:panelGrid> -->
+						</p:panel>
+					</div>
+				</p:dialog>
+				<p:dialog id="detalleDetDomiDialog"
+		              widgetVar="detalleDetDomiDialog"
+					  modal="true" draggable="false" resizable="false" appendTo="@(body)" 
+					  closable="false" showHeader="false" showEffect="fade" 
+					   width="50%" height="70%">
+					<div align="center">
+					<h:outputText value="#{msg['general.progress.consultando']}"
+						styleClass="outputTextGeneric" />
+					<br />
+					<h:graphicImage value="/core/static/images/loading-bar.gif"
+						width="150" />
+
+						</div>
+				</p:dialog>
+			</h:form>			
+		</ui:define>
+	</ui:composition>
+</html>

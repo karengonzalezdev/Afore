@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+	version="2.0">
+
+	<application>
+		<el-resolver>com.jeveris.web.primefaces.spring.i18n.CustomSpringBeanFacesELResolver</el-resolver>
+		<action-listener>com.jeveris.web.primefaces.CustomActionListener</action-listener>
+	
+		<locale-config>
+			<default-locale>es_ES</default-locale>
+		</locale-config>
+		
+	</application>
+
+<!-- 	<factory> -->
+<!--    		<lifecycle-factory>com.jeveris.web.primefaces.CustomLifecycleFactory</lifecycle-factory> -->
+<!--    		<exception-handler-factory>com.jeveris.web.primefaces.exception.CustomFacesExceptionHandlerFactory</exception-handler-factory> -->
+<!--  	</factory> -->
+
+
+	<navigation-rule>
+		<from-view-id>/login</from-view-id>
+		<navigation-case>
+			<to-view-id>/views/login.xhtml</to-view-id>
+			<from-outcome>Secured</from-outcome>
+			<redirect></redirect>
+		</navigation-case>
+	</navigation-rule>
+	
+<!-- 	<navigation-rule> -->
+<!-- 		<from-view-id>/login</from-view-id> -->
+<!-- 		<navigation-case> -->
+<!-- 			<to-view-id>/error</to-view-id> -->
+<!-- 		</navigation-case> -->
+<!-- 	</navigation-rule> -->
+
+
+
+</faces-config>

@@ -1,0 +1,24 @@
+<project name="import-codegen">
+
+    <property name="tools.dir" location="${codegen.project.dir}/tools"/>
+    <property name="template.dir" location="${codegen.project.dir}/template"/>
+
+    <path id="library.codegen.classpath">
+        <pathelement location="${tools.dir}/j-everis-codegen-core-3.2.0.RELEASE.jar"/>
+    </path>
+
+    <path id="library.freemarker.classpath">
+        <pathelement location="${tools.dir}/freemarker-2.3.18.jar"/>
+    </path>
+
+    <taskdef name="codegen" classname="com.jeveris.tools.codegen.ant.FreemarkerGeneratorTask">
+        <classpath>
+            <path refid="library.codegen.classpath"/>
+            <path refid="library.freemarker.classpath"/>
+        </classpath>
+    </taskdef>
+
+</project>
+
+
+

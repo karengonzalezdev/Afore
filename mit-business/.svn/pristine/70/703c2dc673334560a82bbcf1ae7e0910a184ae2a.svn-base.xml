@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?><!--File CuentasCertificadasService.wsdl, shared library Lib_NCI_MM--><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" name="CuentasCertificadasService" targetNamespace="http://mx.profuturo/iib/certif/Certificaciones/CuentasCertificadasService/v1" xmlns:ccert="http://mx.profuturo/iib/certif/Certificaciones/CuentasCertificadasService/v1/types" xmlns:iibe="http://mx.profuturo/iib/iibException/IIBException" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://mx.profuturo/iib/certif/Certificaciones/CuentasCertificadasService/v1" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:documentation>
+    <wsdl:appinfo source="WMQI_APPINFO">
+      <MRWSDLAppInfo imported="true">
+        <binding hasEncoding="false" imported="true" name="CuentasCertificadasBinding" originalBindingStyle="document"/>
+      </MRWSDLAppInfo>
+    </wsdl:appinfo>
+  </wsdl:documentation>
+  
+
+	<wsdl:types>
+		<xsd:schema>
+<xsd:import namespace="http://mx.profuturo/iib/certif/Certificaciones/CuentasCertificadasService/v1/types" schemaLocation="CuentasCertificadasService.0.xsd">
+			</xsd:import>
+<xsd:import namespace="http://mx.profuturo/iib/iibException/IIBException" schemaLocation="CuentasCertificadasService.1.xsd">
+			</xsd:import>
+</xsd:schema>
+        <xsd:schema targetNamespace="http://mx.profuturo/iib/certif/Certificaciones/CuentasCertificadasService/v1" xmlns:bons1="http://mx.profuturo/iib/certif/Certificaciones/CuentasCertificadasService/v1/types">
+      <xsd:import namespace="http://mx.profuturo/iib/certif/Certificaciones/CuentasCertificadasService/v1/types" schemaLocation="CuentasCertificadasService.0.xsd"/>
+    </xsd:schema>
+    </wsdl:types>
+
+	<wsdl:message name="consultarCuentasCertificadasRequest">
+		<wsdl:part element="ccert:consultarCuentasCertificadasRequest" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="consultarCuentasCertificadasResponse">
+		<wsdl:part element="ccert:consultarCuentasCertificadasResponse" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="consultarCuentasCertificacionRequest">
+		<wsdl:part element="ccert:consultarCuentasCertificacionRequest" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="consultarCuentasCertificacionResponse">
+		<wsdl:part element="ccert:consultarCuentasCertificacionResponse" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="guardaCuentaACertificarRequest">
+		<wsdl:part element="ccert:guardaCuentaACertificarRequest" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="guardaCuentaACertificarResponse">
+		<wsdl:part element="ccert:guardaCuentaACertificarResponse" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="cancelarCuentaCertificadaRequest">
+		<wsdl:part element="ccert:cancelarCuentaCertificadaRequest" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="cancelarCuentaCertificadaResponse">
+		<wsdl:part element="ccert:cancelarCuentaCertificadaResponse" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="insertarSolicitudCertificacionRequest">
+		<wsdl:part element="ccert:insertarSolicitudCertificacionRequest" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="insertarSolicitudCertificacionResponse">
+		<wsdl:part element="ccert:insertarSolicitudCertificacionResponse" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="actualizarEstatusCuentaRequest">
+		<wsdl:part element="ccert:actualizarEstatusCuentaRequest" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="actualizarEstatusCuentaResponse">
+		<wsdl:part element="ccert:actualizarEstatusCuentaResponse" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="faultMsg">
+		<wsdl:part element="iibe:iibException" name="parameters"/>
+	</wsdl:message>
+	
+    <wsdl:portType name="CuentasCertificadasPortType">
+		<wsdl:operation name="consultarCuentasCertificadas">
+			<wsdl:input message="tns:consultarCuentasCertificadasRequest"/>
+			<wsdl:output message="tns:consultarCuentasCertificadasResponse"/>
+			<wsdl:fault message="tns:faultMsg" name="fault"/>
+		</wsdl:operation>
+		<wsdl:operation name="consultarCuentasCertificacion">
+			<wsdl:input message="tns:consultarCuentasCertificacionRequest"/>
+			<wsdl:output message="tns:consultarCuentasCertificacionResponse"/>
+			<wsdl:fault message="tns:faultMsg" name="fault"/>
+		</wsdl:operation>
+		<wsdl:operation name="guardaCuentaACertificar">
+			<wsdl:input message="tns:guardaCuentaACertificarRequest"/>
+			<wsdl:output message="tns:guardaCuentaACertificarResponse"/>
+			<wsdl:fault message="tns:faultMsg" name="fault"/>
+		</wsdl:operation>
+		<wsdl:operation name="cancelarCuentaCertificada">
+			<wsdl:input message="tns:cancelarCuentaCertificadaRequest"/>
+			<wsdl:output message="tns:cancelarCuentaCertificadaResponse"/>
+			<wsdl:fault message="tns:faultMsg" name="fault"/>
+		</wsdl:operation>
+		<wsdl:operation name="insertarSolicitudCertificacion">
+			<wsdl:input message="tns:insertarSolicitudCertificacionRequest"/>
+			<wsdl:output message="tns:insertarSolicitudCertificacionResponse"/>
+			<wsdl:fault message="tns:faultMsg" name="fault"/>
+		</wsdl:operation>
+		<wsdl:operation name="actualizarEstatusCuenta">
+			<wsdl:input message="tns:actualizarEstatusCuentaRequest"/>
+			<wsdl:output message="tns:actualizarEstatusCuentaResponse"/>
+			<wsdl:fault message="tns:faultMsg" name="fault"/>
+		</wsdl:operation>
+    </wsdl:portType>
+
+
+	<wsdl:binding name="CuentasCertificadasBinding" type="tns:CuentasCertificadasPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="consultarCuentasCertificadas">
+            <soap:operation soapAction="http://mx.profuturo/iib/certif/Certificaciones/CuentasCertificadasService/v1/consultarCuentasCertificadas"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+			<wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="fault">
+        <soap:fault name="fault" use="literal"/>
+      </wsdl:fault>
+        </wsdl:operation>
+		<wsdl:operation name="consultarCuentasCertificacion">
+            <soap:operation soapAction="http://mx.profuturo/iib/certif/Certificaciones/CuentasCertificadasService/v1/consultarCuentasCertificacion"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+			<wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="fault">
+        <soap:fault name="fault" use="literal"/>
+      </wsdl:fault>
+        </wsdl:operation>
+		<wsdl:operation name="guardaCuentaACertificar">
+            <soap:operation soapAction="http://mx.profuturo/iib/certif/Certificaciones/CuentasCertificadasService/v1/guardaCuentaACertificar"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+			<wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="fault">
+        <soap:fault name="fault" use="literal"/>
+      </wsdl:fault>
+        </wsdl:operation>
+		<wsdl:operation name="cancelarCuentaCertificada">
+            <soap:operation soapAction="http://mx.profuturo/iib/certif/Certificaciones/CuentasCertificadasService/v1/cancelarCuentaCertificada"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+			<wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="fault">
+        <soap:fault name="fault" use="literal"/>
+      </wsdl:fault>
+        </wsdl:operation>
+		<wsdl:operation name="insertarSolicitudCertificacion">
+            <soap:operation soapAction="http://mx.profuturo/iib/certif/Certificaciones/CuentasCertificadasService/v1/insertarSolicitudCertificacion"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+			<wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="fault">
+        <soap:fault name="fault" use="literal"/>
+      </wsdl:fault>
+        </wsdl:operation>
+		<wsdl:operation name="actualizarEstatusCuenta">
+            <soap:operation soapAction="http://mx.profuturo/iib/certif/Certificaciones/CuentasCertificadasService/v1/actualizarEstatusCuenta"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+			<wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="fault">
+        <soap:fault name="fault" use="literal"/>
+      </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+
+	<wsdl:service name="CuentasCertificadasService">
+		<wsdl:port binding="tns:CuentasCertificadasBinding" name="CuentasCertificadasPort">
+			<soap:address location="http://172.16.60.69:7801/iib/certif/Certificaciones/CuentasCertificadasService/v1"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

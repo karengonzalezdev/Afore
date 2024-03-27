@@ -1,0 +1,10 @@
+package mx.profuturo.nci.business.service.impl;
+
+import org.springframework.stereotype.Service;
+
+import mx.profuturo.nci.business.service.ICrearDetalleCuentasIndividualesService;
+
+@Service("crearDetalleCuentasIndividualesService")
+public class CrearDetalleCuentasIndividualesServiceImpl implements ICrearDetalleCuentasIndividualesService {
+
+}

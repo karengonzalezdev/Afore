@@ -1,0 +1,207 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns1="http://indicadores.webservice.ws.nci.profuturo.mx/" name="IIndicadoresSoapWS" targetNamespace="http://indicadores.webservice.ws.nci.profuturo.mx/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://indicadores.webservice.ws.nci.profuturo.mx/" elementFormDefault="unqualified" targetNamespace="http://indicadores.webservice.ws.nci.profuturo.mx/" version="1.0">
+<xs:element name="consultaBasica" type="tns:consultaBasica"/>
+<xs:element name="consultaBasicaResponse" type="tns:consultaBasicaResponse"/>
+<xs:complexType name="consultaBasica">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="req" type="tns:consultaIndicadoresBeanRequest"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="consultaIndicadoresBeanRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="listaIDsIndicadores">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="idIndicador" type="xs:int"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="listaNumerosCuenta">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="numCuenta" type="xs:long"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="consultaBasicaResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ConsultaBasicaResponse" type="tns:iIndicadoresSoapWSConsultaBasicaResponse"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="iIndicadoresSoapWSConsultaBasicaResponse">
+    <xs:complexContent>
+      <xs:extension base="tns:abstractWebServiceResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="response" type="tns:consultaIndicadoresBeanResponse"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+<xs:complexType abstract="true" name="abstractWebServiceResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="errorCode" type="xs:string"/>
+      <xs:element minOccurs="0" name="errorMessage" type="xs:string"/>
+      <xs:element minOccurs="0" name="errorTrace" type="xs:string"/>
+      <xs:element name="success" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="consultaIndicadoresBeanResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="listaCuentasIndividuales">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="cuentaIndividual" type="tns:cuentaIndividualVO"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="cuentaIndividualVO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="fechaActualizacion" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="fechaCreacion" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="listaConfiguracionesIndicadores">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="configuracionIndicadores" type="tns:configuracionIndicadorXCuentaIndividualVO"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="numeroCuentaIndividual" type="xs:long"/>
+      <xs:element minOccurs="0" name="usuarioActualizacion" type="xs:string"/>
+      <xs:element minOccurs="0" name="usuarioCreacion" type="xs:string"/>
+      <xs:element minOccurs="0" name="vigencia" type="xs:short"/>
+      <xs:element minOccurs="0" name="vigente" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="configuracionIndicadorXCuentaIndividualVO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="configuracionIndicador" type="tns:configuracionIndicadorVO"/>
+      <xs:element minOccurs="0" name="detalle" type="xs:short"/>
+      <xs:element minOccurs="0" name="fechaRegistro" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="idIndicadorXCuentaIndividual" type="xs:int"/>
+      <xs:element minOccurs="0" name="listaRegistrosDeIndicador">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="registroDeIndicador" type="tns:registroIndicadorVO"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="usuarioRegistro" type="xs:string"/>
+      <xs:element minOccurs="0" name="valorIndicador" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="configuracionIndicadorVO">
+    <xs:complexContent>
+      <xs:extension base="tns:abstractAuditoriaVO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="categoria" type="xs:boolean"/>
+          <xs:element minOccurs="0" name="descripcion" type="xs:string"/>
+          <xs:element minOccurs="0" name="estatus" type="tns:estatusIndicadorVO"/>
+          <xs:element minOccurs="0" name="idConfiguracionIndicador" type="xs:short"/>
+          <xs:element minOccurs="0" name="indicador" type="tns:indicadorVO"/>
+          <xs:element minOccurs="0" name="regla" type="xs:string"/>
+          <xs:element minOccurs="0" name="tipoIndicador" type="tns:tipoIndicadorVO"/>
+          <xs:element minOccurs="0" name="vigencia" type="xs:boolean"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+<xs:complexType name="abstractAuditoriaVO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="fechaActualizacion" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="fechaCreacion" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="usuarioActualizacion" type="xs:string"/>
+      <xs:element minOccurs="0" name="usuarioCreacion" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="estatusIndicadorVO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="descripcion" type="xs:string"/>
+      <xs:element minOccurs="0" name="idEstatus" type="xs:short"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="indicadorVO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="descripcion" type="xs:string"/>
+      <xs:element minOccurs="0" name="idIndicador" type="xs:short"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="tipoIndicadorVO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="descripcion" type="xs:string"/>
+      <xs:element minOccurs="0" name="idTipoDatoIndicador" type="xs:short"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="registroIndicadorVO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="estatus" type="tns:estatusIndicadorVO"/>
+      <xs:element minOccurs="0" name="fechaActualizacion" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="fechaCreacion" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="folio" type="tns:folioVO"/>
+      <xs:element minOccurs="0" name="idRegistroIndicador" type="xs:int"/>
+      <xs:element minOccurs="0" name="usuarioActualizacion" type="xs:string"/>
+      <xs:element minOccurs="0" name="usuarioCreacion" type="xs:string"/>
+      <xs:element minOccurs="0" name="valorIndicador" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="folioVO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="canal" type="tns:canalVO"/>
+      <xs:element minOccurs="0" name="estatusProceso" type="tns:estatusProcesoVO"/>
+      <xs:element minOccurs="0" name="fehAct" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="fehCre" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="folio" type="xs:string"/>
+      <xs:element minOccurs="0" name="idSnapshot" type="xs:string"/>
+      <xs:element minOccurs="0" name="instanciaBpm" type="xs:string"/>
+      <xs:element minOccurs="0" name="proceso" type="tns:procesoVO"/>
+      <xs:element minOccurs="0" name="subproceso" type="tns:subprocesoVO"/>
+      <xs:element minOccurs="0" name="usuAct" type="xs:string"/>
+      <xs:element minOccurs="0" name="usuCre" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="canalVO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="descCanal" type="xs:string"/>
+      <xs:element minOccurs="0" name="idCanal" type="xs:short"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="estatusProcesoVO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="descEstatusProceso" type="xs:string"/>
+      <xs:element minOccurs="0" name="idEstatusProceso" type="xs:short"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="procesoVO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="descProceso" type="xs:string"/>
+      <xs:element minOccurs="0" name="idProceso" type="xs:short"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="subprocesoVO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="descSubproceso" type="xs:string"/>
+      <xs:element minOccurs="0" name="idSubproceso" type="xs:short"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>  </wsdl:types>
+  <wsdl:message name="consultaBasica">
+    <wsdl:part element="ns1:consultaBasica" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="consultaBasicaResponse">
+    <wsdl:part element="ns1:consultaBasicaResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="IIndicadoresSoapWS">
+    <wsdl:operation name="consultaBasica">
+      <wsdl:input message="ns1:consultaBasica" name="consultaBasica">
+    </wsdl:input>
+      <wsdl:output message="ns1:consultaBasicaResponse" name="consultaBasicaResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

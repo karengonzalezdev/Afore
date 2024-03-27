@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8"?><!--File DomiciliacionService/DomiciliacionService.xsd, shared library Lib_NCI_MM--><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://mx.profuturo/iib/apovol/Domiciliaciones/DomiciliacionService/v1/types" version="1.0" xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" xmlns:mod="http://mx.profuturo/nci/modelo" xmlns:tns="http://mx.profuturo/iib/apovol/Domiciliaciones/DomiciliacionService/v1/types">
+	
+	<xsd:import namespace="http://mx.profuturo/nci/modelo" schemaLocation="DomiciliacionService.2.xsd"/>
+
+	<xsd:element ibmSchExtn:docRoot="true" name="consultarPreSolicitudRequest" type="tns:consultarPreSolicitudReq"/>
+	<xsd:element ibmSchExtn:docRoot="true" name="consultarPreSolicitudResponse" type="tns:consultarPreSolicitudResp"/>
+	<xsd:element ibmSchExtn:docRoot="true" name="actualizarPreSolicitudRequest" type="tns:actualizarPreSolicitudReq"/>
+	<xsd:element ibmSchExtn:docRoot="true" name="actualizarPreSolicitudResponse" type="tns:actualizarPreSolicitudResp"/>
+	<xsd:element ibmSchExtn:docRoot="true" name="rechazarPendientesPorFolioRequest" type="tns:rechazarPendientesPorFolioReq"/>
+	<xsd:element ibmSchExtn:docRoot="true" name="rechazarPendientesPorFolioResponse" type="tns:rechazarPendientesPorFolioResp"/>
+	
+	<xsd:element ibmSchExtn:docRoot="true" name="guardarSolicitudRequest" type="tns:guardarPreSolicitudReq"/>
+	<xsd:element ibmSchExtn:docRoot="true" name="guardarSolicitudResponse" type="tns:guardarSolicitudResp"/>
+	<xsd:element ibmSchExtn:docRoot="true" name="consultarSolicitudRequest" type="tns:consultarSolicitudReq"/>
+	<xsd:element ibmSchExtn:docRoot="true" name="consultarSolicitudResponse" type="tns:consultarSolicitudResp"/>
+	<xsd:element ibmSchExtn:docRoot="true" name="actualizarSolicitudRequest" type="tns:actualizarSolicitudReq"/>
+	<xsd:element ibmSchExtn:docRoot="true" name="actualizarSolicitudResponse" type="tns:actualizarSolicitudResp"/>
+
+	<xsd:element ibmSchExtn:docRoot="true" name="actualizarTraspasoRequest" type="tns:actualizarTraspasoReq"/>
+	<xsd:element ibmSchExtn:docRoot="true" name="actualizarTraspasoResponse" type="tns:actualizarTraspasoResp"/>
+	<xsd:element ibmSchExtn:docRoot="true" name="consultarPagoTraspasoRequest" type="tns:consultarPagoTraspasoReq"/>
+	<xsd:element ibmSchExtn:docRoot="true" name="consultarPagoTraspasoResponse" type="tns:consultarPagoTraspasoResp"/>
+	
+	<xsd:element name="guardarPreSolicitudRequest" type="tns:guardarPreSolicitudReq"/>
+	<xsd:element name="consultarCuentasCertificadasRequest" type="xsd:string"/>
+
+	<xsd:element ibmSchExtn:docRoot="true" name="actualizarListaTraspasoRequest" type="tns:actualizarListaTraspasoReq"/>
+	
+	<xsd:complexType name="rechazarPendientesPorFolioReq">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" name="folio" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="usuario" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="rechazarPendientesPorFolioResp">
+		<xsd:complexContent>
+			<xsd:extension base="mod:ResponseBase">
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+	<xsd:complexType name="consultarPreSolicitudReq">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" name="folio" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="estatus" type="tns:ListaEstatus"/>
+			<xsd:element minOccurs="0" name="claveSolicitud" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="numeroCuenta" type="mod:numeroCuenta"/>
+			<xsd:element minOccurs="0" name="curp" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="curpTutor" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="consultarPreSolicitudResp">
+		<xsd:complexContent>
+			<xsd:extension base="mod:ResponseBase">
+				<xsd:sequence>
+					<xsd:element minOccurs="0" name="preSolicitudes" type="tns:ListaPreSolicitud"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+	<xsd:complexType name="actualizarPreSolicitudReq">
+		<xsd:sequence>
+			<xsd:element name="claveSolicitud" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="estatusSolicitud" type="xsd:short"/>
+			<xsd:element minOccurs="0" name="rechazoSolicitud" type="xsd:short"/>
+			<xsd:element minOccurs="0" name="flagDoctos" type="xsd:short"/>
+			<xsd:element minOccurs="0" name="usuario" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="actualizarPreSolicitudResp">
+		<xsd:complexContent>
+			<xsd:extension base="mod:ResponseBase">
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="consultarSolicitudReq">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="0" name="numeroCuenta" type="mod:numeroCuenta"/>
+			<xsd:element minOccurs="0" name="estatus" type="tns:ListaEstatus"/>
+			<xsd:element minOccurs="0" name="folio" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="claveSolicitud" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="curp" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="curpTutor" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="consultarSolicitudResp">
+		<xsd:complexContent>
+			<xsd:extension base="mod:ResponseBase">
+				<xsd:sequence>
+					<xsd:element minOccurs="0" name="domiciliaciones" type="tns:ListaDomiciliaciones"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="actualizarSolicitudReq">
+		<xsd:sequence>
+			<xsd:element name="domiciliacion" type="tns:Domiciliacion"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="actualizarSolicitudResp">
+		<xsd:complexContent>
+			<xsd:extension base="mod:ResponseBase">
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="consultarCuentasCertificadasReq">
+		<xsd:sequence>
+			<xsd:element name="numeroCuenta" type="mod:numeroCuenta"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="guardarPreSolicitudReq">
+		<xsd:sequence>
+			<xsd:element name="presolicitud" type="tns:PreSolicitud"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="guardarSolicitudResp">
+		<xsd:complexContent>
+			<xsd:extension base="mod:ResponseBase">
+				<xsd:sequence>
+                    <xsd:element name="claveSolicitud" type="xsd:string"/>
+
+                    <xsd:element name="success" type="xsd:boolean"/>
+                </xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="actualizarTraspasoReq">
+		<xsd:sequence>
+			<xsd:element name="claveSolicitud" type="xsd:string"/>
+			<xsd:element name="numeroCuenta" type="mod:numeroCuenta"/>
+			<xsd:element name="idEstatusTraspaso" type="xsd:int"/>
+			<xsd:element minOccurs="0" name="usuario" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="actualizarTraspasoResp">
+		<xsd:complexContent>
+			<xsd:extension base="mod:ResponseBase">
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="actualizarListaTraspasoReq">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" name="traspasos" type="tns:ListaActualizarTraspasoReq"/>
+			<xsd:element minOccurs="0" name="usuario" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ListaActualizarTraspasoReq">
+		<xsd:sequence>
+			<xsd:element maxOccurs="unbounded" name="traspaso" type="tns:actualizarTraspasoReq"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="consultarPagoTraspasoReq">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" name="claveSolicitud" type="xsd:string"/>
+			<xsd:element name="numeroCuenta" type="mod:numeroCuenta"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="consultarPagoTraspasoResp">
+		<xsd:complexContent>
+			<xsd:extension base="mod:ResponseBase">
+				<xsd:sequence>
+					<xsd:element minOccurs="0" name="pagosTraspaso" type="tns:ListaPagosTraspaso"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+
+	<xsd:complexType name="ListaDomiciliaciones">
+		<xsd:sequence>
+			<xsd:element maxOccurs="unbounded" name="domiciliacion" type="tns:Domiciliacion"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ListaPreSolicitud">
+		<xsd:sequence>
+			<xsd:element maxOccurs="unbounded" name="preSolicitud" type="tns:PreSolicitud"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ListaDeversificacion">
+		<xsd:sequence>
+			<xsd:element maxOccurs="unbounded" name="diversificacion" type="tns:Deversificacion"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="Deversificacion">
+		<xsd:sequence>
+			<xsd:element name="fondo" type="tns:Catalogo"/>
+			<xsd:element minOccurs="0" name="monto" type="xsd:decimal"/>
+			<xsd:element minOccurs="0" name="porcentaje" type="xsd:decimal"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="Frecuencia">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" name="diaCargo" type="xsd:short"/>
+			<xsd:element minOccurs="0" name="frecuencia" type="tns:Catalogo"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="Catalogo">
+		<xsd:sequence>
+			<xsd:element name="idCatalogo" type="xsd:short"/>
+			<xsd:element minOccurs="0" name="descCatalogo" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="PreSolicitud">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" name="solicitud" type="tns:Solicitud"/>
+			<xsd:element minOccurs="0" name="rechazoSolicitud" type="tns:Catalogo"/>
+			<xsd:element minOccurs="0" name="flagDoctos" type="xsd:short"/>
+			<xsd:element minOccurs="0" name="archivos" type="tns:ListaArchivos"/>
+			<xsd:element minOccurs="0" name="clavePromotor" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="nombrePromotor" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="gerencia" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="Domiciliacion">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" name="solicitud" type="tns:Solicitud"/>
+			<xsd:element minOccurs="0" name="estatusCargo" type="tns:Catalogo"/>
+			<xsd:element minOccurs="0" name="rechazoBanco" type="tns:Catalogo"/>
+			<xsd:element minOccurs="0" name="fechaCargaResp" type="xsd:dateTime"/>
+			<xsd:element minOccurs="0" name="fechaReactivacion" type="xsd:dateTime"/>
+			<xsd:element minOccurs="0" name="intentos" type="xsd:short"/>
+			<xsd:element minOccurs="0" name="estatusTraspaso" type="tns:Catalogo"/>
+			<xsd:element minOccurs="0" name="origenAportacion" type="tns:Catalogo"/>
+			<xsd:element minOccurs="0" name="fechaProximoCargo" type="xsd:dateTime"/>
+			<xsd:element minOccurs="0" name="fechaSuspension" type="xsd:dateTime"/>
+			<xsd:element minOccurs="0" name="numeroCargo" type="xsd:short"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="Solicitud">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" name="folio" type="xsd:string"/>
+			<xsd:element name="claveSolicitud" type="xsd:string"/>
+			<xsd:element name="cuentaIndividual" type="mod:numeroCuenta"/>
+			<xsd:element name="lineaNegocio" type="tns:Catalogo"/>
+			<xsd:element name="origenSolicitud" type="tns:Catalogo"/>
+			<xsd:element name="cuentaBancaria" type="xsd:string"/>
+			<xsd:element name="tipoCuenta" type="tns:Catalogo"/>
+			<xsd:element name="claveBanco" type="tns:Catalogo"/>
+			<xsd:element minOccurs="0" name="titularCuentaBanco" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="nombre" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="apPaterno" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="apMaterno" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="email" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="curp" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="rfc" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="nss" type="mod:nss"/>
+			<xsd:element minOccurs="0" name="periodo" type="tns:Catalogo"/>
+			<xsd:element name="frecuenciaInicial" type="tns:Frecuencia"/>
+			<xsd:element minOccurs="0" name="frecuenciaFinal" type="tns:Frecuencia"/>
+			<xsd:element minOccurs="0" name="estatusCuentaCert" type="tns:Catalogo"/>
+			<xsd:element minOccurs="0" name="estatusSolicitud" type="tns:Catalogo"/>
+			<xsd:element minOccurs="0" name="fechaCaptura" type="xsd:dateTime"/>
+			<xsd:element minOccurs="0" name="moneda" type="tns:Catalogo"/>
+			<xsd:element minOccurs="0" name="importe" type="xsd:decimal"/>
+			<xsd:element minOccurs="0" name="importeLetra" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="incrementalidad" type="xsd:short"/>
+			<xsd:element minOccurs="0" name="opcIncrementalidad" type="xsd:short"/>
+			<xsd:element minOccurs="0" name="porcentajeIncremento" type="tns:Catalogo"/>
+			<xsd:element minOccurs="0" name="montoIncremento" type="xsd:decimal"/>
+			<xsd:element minOccurs="0" name="periodoIncrementalidad" type="tns:Catalogo"/>
+			<xsd:element minOccurs="0" name="firmaDigital" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="fechaCreacion" type="xsd:dateTime"/>
+			<xsd:element minOccurs="0" name="usuarioCreacion" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="fechaActualizacion" type="xsd:dateTime"/>
+			<xsd:element minOccurs="0" name="usuarioActualizacion" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="celular" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="companiaCelular" type="tns:Catalogo"/>	
+			<xsd:element minOccurs="0" name="fechaCargo" type="xsd:dateTime"/>
+			<xsd:element minOccurs="0" name="fechaEstatusSolicitud" type="xsd:dateTime"/>
+			<xsd:element minOccurs="0" name="medioNotificacion" type="tns:Catalogo"/>	
+			<xsd:element minOccurs="0" name="diversificaciones" type="tns:ListaDeversificacion"/>
+			<xsd:element minOccurs="0" name="lugar" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="folioProcesar" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="origenSolAfom" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="vigenciaTc" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="folioFamilia" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="curpTutor" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="gerencia" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="promotor" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="regional" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="tutor" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="paternoTutor" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="maternoTutor" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="tipoRegistro" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="ListaEstatus">
+		<xsd:sequence>
+			<xsd:element maxOccurs="unbounded" name="estatus" type="tns:Catalogo"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="ListaArchivos">
+		<xsd:sequence>
+			<xsd:element maxOccurs="unbounded" minOccurs="1" name="archivo" type="tns:Archivo"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="Archivo">
+		<xsd:sequence>
+			<xsd:element name="idTipoArchivo" type="xsd:int"/>
+			<xsd:element name="nombreArchivo" type="xsd:string"/>
+			<xsd:element name="cadenaArchivo" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="PagoTraspaso">
+		<xsd:sequence>
+			<xsd:element name="claveSolicitud" type="xsd:string"/>
+			<xsd:element name="numeroCuenta" type="mod:numeroCuenta"/>
+			<xsd:element minOccurs="0" name="estatusSolicitud" type="tns:Catalogo"/>
+			<xsd:element minOccurs="0" name="periodo" type="tns:Catalogo"/>
+			<xsd:element minOccurs="0" name="importe" type="xsd:decimal"/>
+			<xsd:element name="cuentaBancaria" type="xsd:string"/>
+			<xsd:element name="tipoCuenta" type="tns:Catalogo"/>
+			<xsd:element name="claveBanco" type="tns:Catalogo"/>
+			<xsd:element minOccurs="0" name="fechaCargoResp" type="xsd:dateTime"/>
+			<xsd:element minOccurs="0" name="rechazoBanco" type="tns:Catalogo"/>
+			<xsd:element minOccurs="0" name="intentos" type="xsd:short"/>
+			<xsd:element minOccurs="0" name="numeroCargo" type="xsd:short"/>
+			<xsd:element minOccurs="0" name="numeroDescuento" type="xsd:short"/>
+			<xsd:element minOccurs="0" name="estatusCargo" type="tns:Catalogo"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ListaPagosTraspaso">
+		<xsd:sequence>
+			<xsd:element maxOccurs="unbounded" name="pagoTraspaso" type="tns:PagoTraspaso"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

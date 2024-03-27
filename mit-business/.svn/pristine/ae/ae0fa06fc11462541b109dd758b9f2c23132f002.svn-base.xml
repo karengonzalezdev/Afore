@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://profuturo/iib/cabecera/Cabecera"
+	xmlns:tns="http://profuturo/iib/cabecera/Cabecera" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:complexType name="Cabecera">
+		<xsd:sequence>
+			<xsd:element name="CVE_TRANSACCION" type="xsd:string"></xsd:element>
+			<xsd:element name="ID_ACTOR" type="xsd:string"></xsd:element>
+			<xsd:element name="ID_ROL" type="xsd:string"></xsd:element>
+			<xsd:element name="ID_PERFIL" type="xsd:string"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>
+
+<!-- 
+CVE_TRANSACCION = es la clave del tipo de transaccion
+ID_ACTOR = 1 (Pendiente)
+ID_ROL = 1 (Pendiente)
+ID_PERFIL = 1 (Pendiente)
+ -->

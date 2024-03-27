@@ -1,0 +1,25 @@
+package mx.profuturo.nci.persistence;
+
+import java.util.List;
+
+import com.jeveris.core.exception.impl.BusinessException;
+
+import mx.profuturo.nci.business.vo.ActualizaEstatusCifVO;
+import mx.profuturo.nci.business.vo.ArchivoDetalleCifVO;
+import mx.profuturo.nci.business.vo.DetalleMovimientosCifVO;
+import mx.profuturo.nci.business.vo.DevolucionesApovolCifVO;
+import mx.profuturo.nci.business.vo.PendientesTimbradoCifVO;
+import mx.profuturo.nci.stereotype.Mapper;
+
+@Mapper
+public interface ServiciosCifPersistence {
+	
+	Integer actualizaEstatusCif(ActualizaEstatusCifVO actualizaEstatusCifVO) throws BusinessException;
+	Integer actEstatCifData(ActualizaEstatusCifVO actualizaEstatusCifVO) throws BusinessException;
+	List<PendientesTimbradoCifVO> getDevolucionesCif(PendientesTimbradoCifVO param);
+	List<PendientesTimbradoCifVO> getDevolucionesProfuturo(PendientesTimbradoCifVO param);
+	List<ArchivoDetalleCifVO> getListaDetalleCif(ArchivoDetalleCifVO param);
+	List<DevolucionesApovolCifVO> getListaDevolucionesApovol(DevolucionesApovolCifVO param);
+	List<DevolucionesApovolCifVO> getListadoDevolucionesApovol(DevolucionesApovolCifVO param);
+	List<DetalleMovimientosCifVO> getListaDetalleMovCif(DetalleMovimientosCifVO param);
+}

@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+
+<ui:composition template="../../core/desktop/desktop.xhtml">
+	<ui:define name="body">
+		<p:panel id="idPanelCertificacioncuenta">
+			<h:form id="idFormCerCta">
+				<p:messages id="messages" showDetail="true" autoUpdate="true"
+					closable="true" />
+
+				<p:panel id="basic" header="Datos del Cliente"
+					style="margin-bottom:20px">
+					<p:panelGrid columns="8" layout="grid">
+						<b />
+						<b />
+						<p:panelGrid columns="1" style="text-align: right;">
+							<h:outputText value="Nombre:" />
+							<h:outputText value="CURP:" />
+							<h:outputText value="RFC:" />
+							<h:outputText value="Cuenta:" />
+							<h:outputText value="Dirección:" />
+							<h:outputText value="Correo electronico:" />
+						</p:panelGrid>
+						<p:panelGrid columns="1" style="text-align: left;">
+							<h:outputText value="#{ordenSpeiView.clienteSpei.nombre}" />
+							<h:outputText value="#{ordenSpeiView.clienteSpei.curp}" />
+							<h:outputText value="#{ordenSpeiView.clienteSpei.rfc}" />
+							<h:outputText value="#{ordenSpeiView.clienteSpei.estadoCuenta}" />
+							<h:outputText value="#{ordenSpeiView.clienteSpei.direccion}" />
+							<h:outputText
+								value="#{ordenSpeiView.clienteSpei.correoElectronico}" />
+						</p:panelGrid>
+						<p:panelGrid columns="1" style="text-align: right;">
+							<h:outputText value="Cuenta:" />
+							<h:outputText value="NSS:" />
+							<h:outputText value="CLABE:" />
+						</p:panelGrid>
+						<p:panelGrid columns="1" style="text-align: left;">
+							<h:outputText value="#{ordenSpeiView.clienteSpei.numeroCuenta}" />
+							<h:outputText value="#{ordenSpeiView.clienteSpei.nss}" />
+							<h:outputText value="#{ordenSpeiView.clienteSpei.clabe}" />
+						</p:panelGrid>
+						<b />
+						<b />
+					</p:panelGrid>
+				</p:panel>
+				<p:panel id="id_info"
+					header="Generación de Ordenes para realizar aportaciones voluntarias mediante el uso de SPEI"
+					style="margin-bottom:20px">
+					<p:panelGrid columns="3" layout="grid">
+						<br />
+						<p:panelGrid columns="2" style="vertical-align:middle;">
+							<p:outputLabel style="vertical-align:middle;">Cantidad a invertir:</p:outputLabel>
+							<p:inputText id="txtImporte" maxlength="6"  styleClass="input-style"
+								value="#{ordenSpeiView.importe}" required="true" />
+							<p:message for="txtImporte" />
+						</p:panelGrid>
+					</p:panelGrid>
+					<br />
+				</p:panel>
+				<p:panelGrid columns="3" layout="grid">
+					<br />
+					<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+						<p:outputLabel for="console" value="Diversificación:" />
+						<p:selectOneRadio id="console" value="#{ordenSpeiView.valor}">
+							<f:selectItem itemLabel="Monto" itemValue="Monto" />
+							<f:selectItem itemLabel="Porcentaje" itemValue="Porcentaje" />
+						</p:selectOneRadio>
+					</h:panelGrid>
+					<br />
+				</p:panelGrid>
+				<p:panelGrid columns="3" layout="grid">
+					<br />
+					<p:dataTable var="diversificacion"
+						value="#{ordenSpeiView.diversificacionLst}" styleClass="table-style">
+						<p:column headerText="">
+							<p:selectBooleanCheckbox value="#{diversificacion.selecion}" />
+						</p:column>
+						<p:column headerText="Fondo Apovol">
+							<h:outputText value="#{diversificacion.descripcion}"  />
+						</p:column>
+						<p:column headerText="Aportación">
+							<p:inputText value="#{diversificacion.valor}" styleClass="input-style" />
+						</p:column>
+					</p:dataTable>
+					<br />
+				</p:panelGrid>
+				<p:panelGrid columns="2">
+					<p:commandButton actionListener="#{ordenSpeiView.generarOrdenSpei}"
+						id="btnGenerarOrden" value="Generar Orden"
+						styleClass="blue-button" />
+					<p:commandButton
+						actionListener="#{ordenSpeiView.cancelarOrdenSpei}"
+						id="btnCancelar" value="Salir" styleClass="gray-button" />
+				</p:panelGrid>
+			</h:form>
+		</p:panel>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mx.profuturo.nci.persistence.BitacoraProcesoPersistence">
+
+  	<resultMap id="BaseResultMap" type="mx.profuturo.nci.business.vo.BitacoraProcesoVO">  	
+    	<id 	column="FTC_FOLIO" 							 		property="folio" />
+    	<result column="FTD_FEH_REG" 		jdbcType="TIMESTAMP" 	property="fehReg" />
+    	<result column="FCN_ID_SUBPROCESO" 					 		property="idSubproceso" />
+    	<result column="FCN_ID_ETAPA" 		 						property="idEtapa" />
+    	<result column="FCN_ID_ESTATUS" 	 						property="idEstatus" />
+    	<result column="FCN_ID_RESULTADO" 	 						property="idResultado" />
+    	<result column="FCC_USU_REG" 		jdbcType="VARCHAR" 		property="usuReg" />		
+    	<result column="FCN_ID_SUBETAPA" 	jdbcType="DECIMAL" 		property="idSubetapa" />
+  	</resultMap>  
+  	
+
+
+	<insert id="insert" parameterType="mx.profuturo.nci.business.vo.BitacoraProcesoVO">    
+    	insert into TTCRXGRAL_BITACORA_PROCESO
+			<trim prefix="(" suffix=")" suffixOverrides="," >
+				<if test="folio != null" >
+    					FTC_FOLIO, 
+				</if>
+    			<if test="idSubproceso != null" >
+    					FCN_ID_SUBPROCESO,
+				</if>
+    			<if test="idEtapa != null" > 
+      					FCN_ID_ETAPA,
+				</if>
+      			<if test="idEstatus != null" > 
+      					FCN_ID_ESTATUS,
+				</if>
+      			<if test="idResultado != null" > 
+      					FCN_ID_RESULTADO,
+				</if>
+      			<if test="usuReg != null" > 
+      					FCC_USU_REG,
+				</if>
+      			<if test="idSubetapa != null" >
+      					FCN_ID_SUBETAPA,
+				</if>
+    					FTD_FEH_REG
+      		</trim>
+			<trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+				<if test="folio != null" >
+      					#{folio,jdbcType=VARCHAR},
+      			</if>
+      			<if test="idSubproceso != null" >	 
+      					#{idSubproceso,jdbcType=DECIMAL},
+      			</if>
+      			<if test="idEtapa != null" > 		 
+      					#{idEtapa,jdbcType=DECIMAL}, 
+      			</if>
+				<if test="idEstatus != null" > 
+      					#{idEstatus,jdbcType=DECIMAL}, 
+				</if>
+				<if test="idResultado != null" > 
+      					#{idResultado,jdbcType=DECIMAL},
+      			</if> 
+      			<if test="usuReg != null" > 
+      					#{usuReg,jdbcType=VARCHAR},
+				</if>
+				<if test="idSubetapa != null" >
+      					#{idSubetapa,jdbcType=DECIMAL},
+     			</if>
+      					SYSTIMESTAMP,
+   			</trim>
+  	</insert>
+  	
+</mapper>

@@ -1,0 +1,13 @@
+package mx.profuturo.nci.business.service;
+
+import java.util.List;
+
+import mx.profuturo.nci.business.vo.ObtenerCifrasControlVO;
+
+public interface IObtenerCifrasControlService {
+
+	public List<ObtenerCifrasControlVO> obtenerCifrasMovimientosCif(ObtenerCifrasControlVO param, IObtenerCifrasControlService lista) throws Exception;
+	public List<ObtenerCifrasControlVO> obtenerCifrasTotales(ObtenerCifrasControlVO param) throws Exception;
+	public List<ObtenerCifrasControlVO> obtenerLstBancosYCuentasDestino(ObtenerCifrasControlVO param) throws Exception;
+	public Long obtenerTotalDevolucionesApovol(ObtenerCifrasControlVO param) throws Exception;
+}

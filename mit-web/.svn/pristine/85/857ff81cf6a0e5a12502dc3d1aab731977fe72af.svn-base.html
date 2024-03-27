@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"	
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+ 	xmlns:s="http://www.springframework.org/security/tags">
+
+<ui:composition template="../../core/desktop/desktop.xhtml">
+	<ui:define name="body">
+	<style>
+		td.selectionDisabled .ui-chkbox{
+			display: none;
+		}
+	</style>
+		<h:form id="formAforeMovil" >
+		<p:panel id="idPanelConfigMinimos" header="#{msg['config.minimos.afiliados.independientes.title']}" style="margin-top:56px;">
+			<p:panelGrid id="idPanelGriTitle">
+				<p:row>			
+					<p:column style="text-align:left;">
+						<h:outputText id="idTxtTipoCliente" value="#{msg['config.minimos.TxtTipoCiente']}" 
+							styleClass="outputLabelGeneric"/>	
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column style="width:190px !important;text-align:left;">
+			 			<p:selectOneMenu id="idSelecMenuTipoCuenta" value="#{configAfiliadoIndependienteView.tipoUsuario}">
+			 				<f:selectItem itemLabel="#{msg['seleccione.uno']}" noSelectionOption="true" itemValue=""/>
+			 				<f:selectItems value="#{configAfiliadoIndependienteView.lstTipoUsuario}"/>
+			 				<p:ajax event="change" listener="#{configAfiliadoIndependienteView.actualizaTipo}" update="formAforeMovil"/>
+			 			</p:selectOneMenu>	
+					</p:column>
+				</p:row>
+			</p:panelGrid>
+			<p:spacer width="10px"/>
+			<p:panelGrid rendered="#{configAfiliadoIndependienteView.mostrarValores}">
+				<p:row>
+					<p:column style="text-align:left;">
+						<h:outputText id="idTxtMontoMinimo" value="#{msg['config.minimos.TxtMontoMinimo']}" 
+							styleClass="outputLabelGeneric"/>	
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column style="text-align: left;padding-left:10px !important;">
+						<p:inputMask id="idInputTexPorcentaje" styleClass="input-style" style="width:100px !important;"
+							autocomplete="false" mask="9?99999" slotChar="" value="#{configAfiliadoIndependienteView.cantidad}">
+						</p:inputMask>		
+					</p:column>				
+				</p:row>
+			</p:panelGrid>
+			<p:spacer width="10px"/>
+			<p:panelGrid rendered="#{configAfiliadoIndependienteView.mostrarValores}">
+				<p:row>
+		 			<p:column style="text-align: left;padding-left:10px !important;">
+	 					<p:commandButton id="idComButAceptar" value="#{msg['general.button.actualizar']}"
+	 						onstart="PF('confirmDialogActualizar').show();"
+                    		styleClass="blue-button"/>    			  
+					</p:column>									                 				  
+					<p:column>
+	 					<p:commandButton id="idComButRestaurar" value="#{msg['general.button.restaurar']}"
+	 						actionListener="#{configAfiliadoIndependienteView.restaurandoMinimos}"
+							styleClass="gray-button" onstart="PF('dialogEjecTransaccionBar').show();"
+							oncomplete="PF('dialogEjecTransaccionBar').hide();"
+							update="formAforeMovil"/>
+		   			</p:column>
+				</p:row>		
+			</p:panelGrid>
+		</p:panel>
+		
+		
+		<p:dialog id="idConfirmDialogActualizar"
+			  widgetVar="confirmDialogActualizar"
+			  header="#{msg['config.minimos.afiliados.independientes.title']}"
+			  modal="true" draggable="false" resizable="false" closable="false" >
+
+		   	<p:spacer width="15px"/>					          
+			<div align="center">     		   	
+ 		   	<h:outputText value="#{msg['config.minimos.afiliados.independientes.actualizacion.mensaje']}"  
+ 		   		styleClass="outputTextGeneric" /> 			
+			</div>
+			   	<p:spacer width="5px"/>					          
+        	<div align="center">
+		 	<p:panelGrid id="idPanelGridBotonesConfir">							 	
+		 		<p:row>
+	 				<p:column style="vertical-align:middle;">        
+			        	<p:commandButton value="#{msg['general.button.actualizar']}" 
+							actionListener="#{configAfiliadoIndependienteView.actualizarMinimos}"	      
+							oncomplete="PF('dialogEjecTransaccionBar').hide();"
+							onstart="PF('confirmDialogActualizar').hide();PF('dialogEjecTransaccionBar').show();"		                 				  							 								 			                
+							styleClass="blue-button" update="formAforeMovil"/>
+					</p:column>		    	
+	 				<p:column style="vertical-align:middle;">        
+			        	<p:commandButton value="#{msg['general.button.cancel']}"
+			        		onclick="PF('confirmDialogActualizar').hide();"
+			        		styleClass="gray-button"/>
+			    	</p:column>
+				</p:row>
+		 	</p:panelGrid>       				 
+    	 </div>	
+    	</p:dialog>
+		
+		<p:dialog id="idDialogEjecTransaccionBar" widgetVar="dialogEjecTransaccionBar"
+			  header="#{msg['config.minimos.afiliados.independientes.title']}"
+	    	  modal="true" draggable="false" closable="false" resizable="false" showHeader="false"							  						  	    	  			    	  
+	    	  width="350px"  height="35px" 	
+	    	  appendTo="@(body)" >
+	    	  
+   		   	<div align="center">     		   	
+    		   	<h:outputText value="#{msg['config.minimos.afiliados.independientes.mensaje.espera']}" styleClass="outputTextGeneric" /> 			
+   		   	</div>
+   		   	<p:spacer width="10px"/>				
+			<div align="center">
+				<h:graphicImage  value="/core/static/images/loading-bar.gif" width="150px"  />
+			</div>
+		</p:dialog>	
+		
+		<p:dialog id="idDlgErrorMessage"  
+				widgetVar="dlgErrorMessage" modal="true" appendTo="@(body)" 
+				resizable="false" maximizable="false" closable="false" draggable="false"
+				header="#{msg['config.minimos.afiliados.independientes.title']}">
+			<center>
+				<p:spacer height="10px" width="0px"/>
+			  	<br/>
+				<h:outputText id="errorMessage" value="#{configAfiliadoIndependienteView.errorMessage}" />
+				<br/>
+				<br/>
+				<p:commandButton value="Cerrar" onclick="PF('dlgErrorMessage').hide();" styleClass="gray-button" style="float: right;"/>
+				<br/>
+				<p:spacer height="10px"/>
+			</center>	
+		</p:dialog>
+		
+		
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

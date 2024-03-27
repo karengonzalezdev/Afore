@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mx.profuturo.nci.persistence.NCICIFPersistence">
+
+  <resultMap id="BaseResultMap" type="mx.profuturo.nci.business.wrapped.NCI_CIFExtVo">
+		<id 	column="FTN_ID_ITEM"				jdbcType="VARCHAR"		property="idItem"					javaType="string"/>
+   		<result	column="FTN_ID_CONCILIA"			jdbcType="NUMERIC"		property="idConciliacion"			javaType="Long"/>
+		<result column="FTC_SELECC"					jdbcType="VARCHAR"		property="seleccion"				javaType="string"/>
+		<result column="FCD_FEH_CRE"				jdbcType="TIMESTAMP"	property="fechaCreacion"			javaType="java.util.Date"/>
+		<result column="FCC_USU_CRE"				jdbcType="VARCHAR"		property="usuarioCreacion"			javaType="string"/>
+		<result column="FCD_FEH_ACT"				jdbcType="TIMESTAMP"	property="fechaActualizacion"		javaType="java.util.Date"/>
+		<result column="FCC_USU_ACT"				jdbcType="VARCHAR"		property="usuarioActualizacion"		javaType="string"/>
+		<result column="FCD_FEH_ENV_CIF"			jdbcType="TIMESTAMP"	property="fechaEnvioCIF"			javaType="java.util.Date"/>
+		<result column="FCC_USU_ENV_CIF"			jdbcType="VARCHAR"		property="usuarioEnvioCIF"			javaType="string"/>
+		<result column="FTC_UNI_NEGOCIO"			jdbcType="VARCHAR"		property="unidadDeNegocio"			javaType="string"/>
+		<result column="FTN_IMPORTE"				jdbcType="DECIMAL"		property="importe"					javaType="java.math.BigDecimal"/>
+		<result column="FTC_CLIENTE"				jdbcType="VARCHAR"		property="idCliente"				javaType="string"/>
+		<result column="FCD_FEH_ITEM"				jdbcType="TIMESTAMP"	property="fechaItem"				javaType="java.util.Date"/>
+		<result column="FCD_FEH_CONTABLE"			jdbcType="TIMESTAMP"	property="fechaContable"			javaType="java.util.Date"/>
+		<result column="FCD_FEH_INTRO"				jdbcType="TIMESTAMP"	property="fechaIntroduccion"		javaType="java.util.Date"/>
+		<result column="FTC_METODO_COBRO"			jdbcType="VARCHAR"		property="metodoCobro"				javaType="string"/>
+		<result column="FTC_COND_COBRO"				jdbcType="VARCHAR"		property="condicionCobro"			javaType="string"/>
+		<result column="FTC_TIPO"					jdbcType="VARCHAR"		property="tipo"						javaType="string"/>
+		<result column="FTC_MOTIVO"					jdbcType="VARCHAR"		property="motivo"					javaType="string"/>
+		<result column="FTC_TIPO_MONEDA"			jdbcType="VARCHAR"		property="codigoMoneda"				javaType="string"/>
+		<result column="FTC_BANCO"					jdbcType="VARCHAR"		property="banco"					javaType="string"/>
+		<result column="FTC_CUENTA_BANCO"			jdbcType="VARCHAR"		property="cuenta"					javaType="string"/>
+		<result column="FTC_TIPO_PROCESO"			jdbcType="VARCHAR"		property="tipoProceso"				javaType="string"/>
+		<result column="FTC_ESTATUS"				jdbcType="VARCHAR"		property="estatus"					javaType="string"/>
+		<result column="FTN_SECUENCIA"				jdbcType="NUMERIC"		property="secuencia"				javaType="Long"/>
+		<result column="FTN_ID_BANCO"				jdbcType="NUMERIC"		property="idBanco"					javaType="Integer"/>
+		<result column="FTN_CONSECUTIVO"			jdbcType="NUMERIC"		property="consecutivo"				javaType="Integer"/>
+		<result column="FTD_FEH_DEPOSITO"			jdbcType="TIMESTAMP"	property="fechaDepositoBancario"	javaType="java.util.Date"/>
+		<result column="FTC_REFERENCIA"				jdbcType="VARCHAR"		property="referencia"				javaType="string"/>
+		<result column="FTC_REFERENCIA_AMPLIADA"	jdbcType="VARCHAR"		property="referenciaAmpliada"		javaType="string"/>
+<!-- 		<result column="FTN_ORIG_ITEM_AMT"			jdbcType="NUMERIC"		property=""		javaType="string"/> -->
+		<result column="FTN_ORIGEN_APORTACION"		jdbcType="VARCHAR"		property="origenAportacion"			javaType="string"/>  
+		<result column="FTN_ORIGEN_APORTACION_DESC"	jdbcType="VARCHAR"		property="origenAportacionDesc"		javaType="string"/>
+		<result column="FTC_FOLIO_CONCILIACION"		jdbcType="VARCHAR"		property="folioConciliacion"		javaType="string"/>  
+  </resultMap>
+  
+  <resultMap id="DevCifDetalleResultMap" type="mx.profuturo.nci.business.vo.cif.DevolucionesEnvioCifDetalleVO">
+  		<result column="FTC_FOLIO"					jdbcType="VARCHAR"		property="folio"				javaType="string"/>
+  		<result column="FTC_UNIDAD_NEGOCIO"			jdbcType="VARCHAR"		property="unidadNegocio"		javaType="string"/>
+  		<result column="FTC_ORIGEN"					jdbcType="VARCHAR"		property="origen"				javaType="string"/>
+  		<result column="FTN_NUMERO_SEC"				jdbcType="NUMERIC"		property="numSecuencia"			javaType="Integer"/>
+  		<result column="FTC_TIPO_AFECTACION"		jdbcType="VARCHAR"		property="tipoAfectacion"		javaType="string"/>
+  		<result column="FTC_SUBTIPO_AFECTACION"		jdbcType="VARCHAR"		property="subTipoAfectacion"	javaType="string"/>
+  		<result column="FTN_MONTO"					jdbcType="NUMERIC"		property="monto"				javaType="Double"/>
+  		<result column="FTN_PORCENTAJE"				jdbcType="NUMERIC"		property="porcentaje"			javaType="Short"/>
+  		<result column="FTC_ID_ITEM_DEV"			jdbcType="VARCHAR"		property="itemDevolucion"		javaType="string"/>
+  		<result column="FTD_FEH_CRE"				jdbcType="TIMESTAMP"	property="fechaCreacion"		javaType="java.util.Date"/>
+  		<result column="FTC_USU_CRE"				jdbcType="VARCHAR"		property="usuCreacion"			javaType="string"/>
+  		<result column="FTD_FEH_ACT"				jdbcType="TIMESTAMP"	property="fechaActualizacion"	javaType="java.util.Date"/>
+  		<result column="FTC_USU_ACT"				jdbcType="VARCHAR"		property="usuActualizacion"		javaType="string"/>
+  		<result column="FTC_SELECC"					jdbcType="VARCHAR"		property="ftcSelecc"			javaType="string"/>
+  </resultMap>
+  
+  <resultMap id="DevCifCabeceroResultMap" type="mx.profuturo.nci.business.vo.cif.DevolucionesEnvioCifCabeceraVO">
+  		<result column="FTC_ESTATUS_CIF"			jdbcType="VARCHAR"		property="estatusCif"			javaType="string"/>
+  		<result column="FTC_NOMBRE_BENEFICIARIO"	jdbcType="VARCHAR"		property="nombreBeneficiario"	javaType="string"/>
+  		<result column="FTC_ID_BANCO_DEST"			jdbcType="VARCHAR"		property="idBcoDestino"			javaType="string"/>
+  		<result column="FTC_CTA_BENEFICIARIO"		jdbcType="VARCHAR"		property="ctaBeneficiario"		javaType="string"/>
+  		<result column="FTC_DIGITO_VERIF"			jdbcType="VARCHAR"		property="digitoVerificador"	javaType="string"/>
+  		<result column="FTD_FECHA_PAGO"				jdbcType="TIMESTAMP"	property="fechaPago"			javaType="java.util.Date"/>
+  		<result column="FTC_NUM_CTA_INVDUAL"		jdbcType="VARCHAR"		property="numCtaIndividual"		javaType="string"/>
+  		<result column="FTC_MONEDA"					jdbcType="VARCHAR"		property="moneda"				javaType="string"/>
+  		<result column="FTC_TIPO_CTA"				jdbcType="VARCHAR"		property="tipoCuenta"			javaType="string"/>
+  		<result column="FTC_TIPO_PAGO"				jdbcType="VARCHAR"		property="tipoPago"				javaType="string"/>
+  		<result column="FTD_FECHA_CONTABLE"			jdbcType="TIMESTAMP"	property="fechaContable"		javaType="java.util.Date"/>
+  		<result column="FTD_FECHA_INSERCION"		jdbcType="TIMESTAMP"	property="fechaInsercion"		javaType="java.util.Date"/>
+  		<result column="FTC_USU_REVISO"				jdbcType="VARCHAR"		property="usoReviso"			javaType="string"/>
+  		<result column="FTD_FECHA_REVISO"			jdbcType="TIMESTAMP"	property="fechaReviso"			javaType="java.util.Date"/>
+  		<result column="FTC_USU_AUTORIZO"			jdbcType="VARCHAR"		property="usoAutorizo"			javaType="string"/>
+  		<result column="FTD_FECHA_AUTORIZO"			jdbcType="TIMESTAMP"	property="fechaAutorizo"		javaType="java.util.Date"/>
+  		<result column="FTC_ID_ITEM_DEV"			jdbcType="VARCHAR"		property="itemDevolucion"		javaType="string"/>
+    	<result column="FTD_FEH_CRE"				jdbcType="TIMESTAMP"	property="fechaCreacion"		javaType="java.util.Date"/>
+  		<result column="FTC_USU_CRE"				jdbcType="VARCHAR"		property="usuCreacion"			javaType="string"/>
+  		<result column="FTD_FEH_ACT"				jdbcType="TIMESTAMP"	property="fechaActualizacion"	javaType="java.util.Date"/>
+  		<result column="FTC_USU_ACT"				jdbcType="VARCHAR"		property="usuActualizacion"		javaType="string"/>
+  		<result column="FTC_SELECC"					jdbcType="VARCHAR"		property="ftcSelecc"			javaType="string"/>
+  </resultMap>
+
+	<update id="actualizaCabeceraDevCif" parameterType="mx.profuturo.nci.business.vo.cif.DevolucionesEnvioCifDetalleVO">
+		UPDATE TTAFOAVOL_CIF_DEVOL SET FTD_FEH_ACT = SYSTIMESTAMP, FTC_USU_ACT =  #{usuActualizacion,jdbcType=VARCHAR}, FTC_SELECC = #{ftcSelecc,jdbcType=VARCHAR}
+			<if test="usoAutorizo != null">
+				, FTC_USU_AUTORIZO = #{usoAutorizo}, FTD_FECHA_AUTORIZO = SYSTIMESTAMP
+			</if>
+		WHERE FTC_ID_ITEM_DEV = #{itemDevolucion,jdbcType=VARCHAR}
+	</update>
+
+	<update id="actualizaDetalleDevCif" parameterType="mx.profuturo.nci.business.vo.cif.DevolucionesEnvioCifDetalleVO">
+		UPDATE TTAFOAVOL_CIF_DEVOL_DET SET FTD_FEH_ACT = SYSTIMESTAMP, FTC_USU_ACT =  #{usuActualizacion,jdbcType=VARCHAR}, FTC_SELECC = #{ftcSelecc,jdbcType=VARCHAR}
+				WHERE FTC_ID_ITEM_DEV = #{itemDevolucion,jdbcType=VARCHAR}
+	</update>
+	
+	<select id="buscaListaEnvioCIFCabeceraByFolio" parameterType="java.lang.String" resultMap="DevCifCabeceroResultMap">
+		SELECT FTC_ESTATUS_CIF, FTC_NOMBRE_BENEFICIARIO, FTC_ID_BANCO_DEST, FTC_CTA_BENEFICIARIO, FTC_DIGITO_VERIF, FTD_FECHA_PAGO,
+			FTC_NUM_CTA_INVDUAL, FTC_MONEDA, FTC_TIPO_CTA, FTC_TIPO_PAGO, FTD_FECHA_CONTABLE, FTD_FECHA_INSERCION, FTC_USU_REVISO, 
+			FTD_FECHA_REVISO, FTC_USU_AUTORIZO, FTD_FECHA_AUTORIZO, FTC_ID_ITEM_DEV, FTD_FEH_CRE, FTC_USU_CRE, FTD_FEH_ACT, FTC_USU_ACT, FTC_SELECC
+		FROM TTAFOAVOL_CIF_DEVOL
+		WHERE FTC_ID_ITEM_DEV = #{folio, jdbcType=VARCHAR}
+	</select>
+	
+	<select id="buscaListaEnvioCIFDetalleByFolio" parameterType="java.lang.String" resultMap="DevCifDetalleResultMap">
+		SELECT FTC_FOLIO, FTC_UNIDAD_NEGOCIO, FTC_ORIGEN, FTN_NUMERO_SEC, FTC_TIPO_AFECTACION, FTC_SUBTIPO_AFECTACION, FTN_MONTO, FTN_PORCENTAJE, FTC_ID_ITEM_DEV, FTD_FEH_CRE, FTC_USU_CRE, FTD_FEH_ACT, FTC_USU_ACT, FTC_SELECC
+		FROM TTAFOAVOL_CIF_DEVOL_DET
+		WHERE FTC_FOLIO = #{folio, jdbcType=VARCHAR}
+	</select>
+  
+	<select id="buscaListaEnvioCIFDetalleByRango" parameterType="mx.profuturo.nci.business.vo.cif.DevolucionesEnvioCifDetalleVO" resultMap="DevCifDetalleResultMap">
+		SELECT FTC_FOLIO, FTC_UNIDAD_NEGOCIO, FTC_ORIGEN, FTN_NUMERO_SEC, FTC_TIPO_AFECTACION, FTC_SUBTIPO_AFECTACION, FTN_MONTO, FTN_PORCENTAJE, FTC_ID_ITEM_DEV, FTD_FEH_CRE, FTC_USU_CRE, FTD_FEH_ACT, FTC_USU_ACT, FTC_SELECC
+		FROM TTAFOAVOL_CIF_DEVOL_DET
+		WHERE FTD_FEH_CRE BETWEEN  trunc(#{fechaCreacion, jdbcType=TIMESTAMP}) AND trunc(#{fechaActualizacion, jdbcType=TIMESTAMP})+.99999 
+	</select>
+
+  <select id="select" resultMap="BaseResultMap" parameterType="mx.profuturo.nci.business.wrapped.NCI_CIFFilter">
+  		SELECT 	CIF.FTN_ID_CONCILIA, 
+  			CIF.FTC_SELECC, 
+  			CIF.FCD_FEH_CRE, 
+  			CIF.FCC_USU_CRE, 
+  			CIF.FCD_FEH_ACT, 
+  			CIF.FCC_USU_ACT, 
+  			CIF.FCD_FEH_ENV_CIF, 
+  			CIF.FCC_USU_ENV_CIF, 
+  			CIF.FTN_ID_ITEM, 
+  			CIF.FTC_UNI_NEGOCIO, 
+  			CIF.FTN_IMPORTE, 
+  			CIF.FTC_CLIENTE, 
+  			CIF.FCD_FEH_ITEM, 
+  			CIF.FCD_FEH_CONTABLE, 
+  			CIF.FCD_FEH_INTRO, 
+  			CIF.FTC_METODO_COBRO, 
+  			CIF.FTC_COND_COBRO, 
+  			CIF.FTC_TIPO, 
+  			CIF.FTC_MOTIVO, 
+  			CIF.FTC_TIPO_MONEDA, 
+  			CIF.FTC_BANCO, 
+  			CIF.FTC_CUENTA_BANCO, 
+  			CIF.FTC_TIPO_PROCESO, 
+  			CIF.FTC_ESTATUS, 
+  			CIF.FTN_SECUENCIA, 
+  			CIF.FTN_ID_BANCO, 
+  			CIF.FTN_CONSECUTIVO, 
+  			CIF.FTD_FEH_DEPOSITO, 
+  			CIF.FTC_REFERENCIA, 
+  			CIF.FTC_REFERENCIA_AMPLIADA, 
+  			CIF.FTN_ORIG_ITEM_AMT, 
+  			CIF.FTN_ORIGEN_APORTACION,
+  			OAC.FCC_VALOR AS FTN_ORIGEN_APORTACION_DESC,
+  			CIF.FTC_FOLIO_CONCILIACION
+		FROM TTAFOAVOL_CIF_APV CIF
+		LEFT JOIN TCCRXGRAL_CAT_CATALOGO OAC ON OAC.FCN_ID_CAT_CATALOGO = CIF.FTN_ORIGEN_APORTACION
+		<where>
+			<if test="idItem != null">
+				AND CIF.FTN_ID_ITEM = #{idItem}
+			</if>
+			<if test="idConciliacion != null and idConciliacion != 0">
+				AND CIF.FTN_ID_CONCILIA = #{idConciliacion}
+			</if>
+			<if test="fechaContableInicio != null and fechaContableFin != null">
+				AND CIF.FCD_FEH_CONTABLE BETWEEN  trunc(#{fechaContableInicio,jdbcType=TIMESTAMP}) AND trunc(#{fechaContableFin,jdbcType=TIMESTAMP})+.99999 
+			</if>
+			<if test="referencia != null and referencia != '' ">
+				AND CIF.FTC_REFERENCIA = #{referencia}
+			</if>
+			<if test="referenciaAmpliada != null and referenciaAmpliada != ''">
+				AND CIF.FTC_REFERENCIA_AMPLIADA = #{referenciaAmpliada}
+			</if>
+			<if test="(selectSeccionNull == null or !selectSeccionNull) and seleccion != null and !seleccion.isEmpty()">
+				AND CIF.FTC_SELECC = #{seleccion}
+			</if>
+			<if test="selectSeccionNull != null and selectSeccionNull">
+				AND CIF.FTC_SELECC IS NULL
+			</if>
+			<if test="folioConciliacion != null and folioConciliacion != ''">
+				AND CIF.FTC_FOLIO_CONCILIACION =#{folioConciliacion}
+			</if>
+		</where>
+		ORDER BY CIF.FTN_CONSECUTIVO
+  </select>
+
+	<update id="update" parameterType="mx.profuturo.nci.business.wrapped.NCI_CIFExtVo" keyColumn="FTN_ID_ITEM">
+		UPDATE TTAFOAVOL_CIF_APV SET FCD_FEH_ACT = SYSTIMESTAMP, FCC_USU_ACT = #{usuarioActualizacion}
+			<if test="idItemNew != null">
+				, FTN_ID_ITEM = #{idItemNew}
+			</if>
+			<if test="fechaDepositoBancario != null">
+				, FTD_FEH_DEPOSITO = #{fechaDepositoBancario}
+			</if>
+			<if test="fechaItem != null">
+				, FCD_FEH_ITEM = #{fechaItem}
+			</if>
+			<if test="referencia != null">
+				, FTC_REFERENCIA = #{referencia}
+			</if>
+			<if test="referenciaAmpliada != null">
+				, FTC_REFERENCIA_AMPLIADA = #{referenciaAmpliada}
+			</if>
+			<if test="usuarioEnvioCIF != null">
+				, FCC_USU_ENV_CIF = #{usuarioEnvioCIF}
+				, FCD_FEH_ENV_CIF = SYSTIMESTAMP
+			</if>
+			<if test="seleccion != null">
+				,FTC_SELECC = #{seleccion}
+			</if>
+		<where>
+			<if test="idItem != null">
+				AND FTN_ID_ITEM = #{idItem}
+			</if>
+		</where>
+	</update>
+
+	<update id="delete" parameterType="mx.profuturo.nci.business.wrapped.NCI_CIFExtVo" keyColumn="FTN_ID_ITEM">
+		UPDATE TTAFOAVOL_CIF_APV SET FCD_FEH_ACT = SYSTIMESTAMP, FCC_USU_ACT = #{usuarioActualizacion}
+				,FTC_SELECC = 2
+				WHERE FTN_ID_ITEM = #{idItem}
+	</update>
+  
+</mapper>
+

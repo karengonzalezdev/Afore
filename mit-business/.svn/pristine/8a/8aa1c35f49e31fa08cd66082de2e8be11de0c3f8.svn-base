@@ -1,0 +1,15 @@
+package mx.profuturo.nci.persistence;
+
+import java.util.List;
+
+import mx.profuturo.nci.business.vo.ObtenerCifrasControlVO;
+import mx.profuturo.nci.stereotype.Mapper;
+
+@Mapper
+public interface ObtenerCifrasControlPersistence {
+
+	List<ObtenerCifrasControlVO> getLstCifrasMovimientosCif(ObtenerCifrasControlVO param);
+	List<ObtenerCifrasControlVO> getLstBancosYCuentasDestino(ObtenerCifrasControlVO param);
+	List<ObtenerCifrasControlVO> getLstTotalDevApovol(ObtenerCifrasControlVO param);
+	ObtenerCifrasControlVO getTotalDeTotales(ObtenerCifrasControlVO param);
+}

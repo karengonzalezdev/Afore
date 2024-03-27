@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mx.profuturo.nci.persistence.PrincipalPersistence">
+
+	<resultMap id="ResultPrincipalVO" type="mx.profuturo.nci.business.vo.PrincipalVO">
+	    <id 	column="FTN_ID_CONCILIACION" 	property="idConciliacion" 			jdbcType="DECIMAL"/>
+	    <result column="FTC_FOLIO" 				property="folio" 					jdbcType="VARCHAR"/>    
+	    <result column="FTN_CVE_SOLICITUD" 		property="cveSolicitud" 			jdbcType="VARCHAR"/>	
+	    <result column="FTN_NO_ORDEN"     		property="noOrden" 					jdbcType="VARCHAR"/>
+	    <result column="FTN_NUM_CTA_INVDUAL"    property="numCtaInvdual" 			jdbcType="DECIMAL"/>
+	    <result column="FTN_NO_PAGO"    		property="noPago" 					jdbcType="DECIMAL"/>
+	    <result column="FTC_CTA_BANCO"    		property="ctaBanco" 				jdbcType="VARCHAR"/>
+	    <result column="FTN_IMPORTE"    		property="importe" 					jdbcType="DECIMAL"		javaType="BigDecimal"/>
+	    <result column="FTD_FEH_CARG_ARCHIVO"   property="fechaCargaArchivo" 		jdbcType="TIMESTAMP" 	javaType="Date" />
+	    <result column="FTC_NOMBRE_CTE"    		property="nombre" 					jdbcType="VARCHAR"/>
+	    <result column="FTC_AP_PATERNO_CTE"     property="apPaterno" 				jdbcType="VARCHAR"/>
+	    <result column="FTC_AP_MATERNO_CTE"     property="apMaterno" 				jdbcType="VARCHAR"/>
+	    <result column="FTC_CURP"    			property="curp" 					jdbcType="VARCHAR"/>
+	    <result column="FTC_RFC_CTE"    		property="rfc" 						jdbcType="VARCHAR"/>
+	    <result column="FTN_NSS"   				property="nss" 						jdbcType="VARCHAR"/>
+	    <result column="FTC_CORREO_ELEC"    	property="correo" 					jdbcType="VARCHAR"/>
+	    <result column="FTN_CELULAR"    		property="celular" 					jdbcType="DECIMAL"/>
+	    <result column="FTN_NO_EMPLEADO"    	property="noEmpleado" 				jdbcType="DECIMAL"/>
+	    <result column="FTD_FEH_PAGO_APOVOL"    property="fechaPagoApovol" 			jdbcType="TIMESTAMP" 	javaType="Date"/>
+	    <result column="FTD_FEH_VALOR_APOVOL"   property="fechaValorApovol" 		jdbcType="TIMESTAMP" 	javaType="Date"/>
+	    <result column="FTC_FOLIO_TRANSAC"    	property="folioTransaccion" 		jdbcType="VARCHAR"/>
+	    <result column="FTC_FOLIO_PROCESAR"   	property="folioProcesar" 			jdbcType="VARCHAR"/>
+	    <result column="FTN_ID_SUCURSAL"    	property="idSucursal" 				jdbcType="DECIMAL"/>
+	    <result column="FTN_TIPO_APORTACION"    property="tipoAportacion" 			jdbcType="DECIMAL"		javaType="Short"/>
+	    <result column="FTN_REG_ACREDITADO"    	property="regAcreditado" 			jdbcType="DECIMAL"		javaType="Short"/>
+	    <result column="FTN_ID_MOV"   			property="identificadorMov" 		jdbcType="DECIMAL"/>
+	    <result column="FTC_ID_INSTANCIA"    	property="idInstancia"		 		jdbcType="VARCHAR"/>
+	    
+	    <result column="FTD_FEH_CRE"     		property="fechaCreacion" 			jdbcType="TIMESTAMP"		javaType="Date"/>
+	    <result column="FTC_USU_CRE"     		property="usuarioCreacion" 			jdbcType="DECIMAL"/>
+	    <result column="FTD_FEH_ACT"     		property="fechaActualizacion" 		jdbcType="TIMESTAMP"	javaType="Date"/>
+	    <result column="FTC_USU_ACT"     		property="usuarioActualizacion" 	jdbcType="VARCHAR"/>
+	    
+	    <association property="origenAportacion"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericOrigenAportacion" />
+		<association property="banco"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericClaveBanco" />
+		<association property="subctaApovol"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericSubctaApovol" />
+		<association property="empresa"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericEmpresa" />
+		<association property="tipoNomina"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericTipoNomina" />
+		<association property="claveRedComercial"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericRedComercial" />
+	</resultMap>
+	
+ <select id="select" 
+ 		 parameterType="mx.profuturo.nci.business.wrapped.PrincipalFilter"
+ 		 resultMap="ResultPrincipalVO">
+    SELECT PRI.FTN_ID_CONCILIACION, PRI.FTC_FOLIO, PRI.FTN_CVE_SOLICITUD, PRI.FTN_NO_ORDEN, PRI.FTN_ORIGEN_APORTACION, 
+           PRI.FTN_NUM_CTA_INVDUAL, PRI.FTN_NO_PAGO, PRI.FTN_CVE_BANCO, PRI.FTC_CTA_BANCO, PRI.FTN_IMPORTE, 
+           PRI.FTN_REF_SUBCTA_APOVOL, PRI.FTD_FEH_CARG_ARCHIVO, PRI.FTC_NOMBRE_CTE, PRI.FTC_AP_PATERNO_CTE, 
+           PRI.FTC_AP_MATERNO_CTE, PRI.FTC_CURP, PRI.FTC_RFC_CTE, PRI.FTN_NSS, PRI.FTC_CORREO_ELEC, PRI.FTN_CELULAR, 
+           PRI.FTN_ID_EMPRESA, PRI.FTN_ID_TIPO_NOMINA, PRI.FTN_NO_EMPLEADO, PRI.FTD_FEH_PAGO_APOVOL, 
+           PRI.FTD_FEH_VALOR_APOVOL, PRI.FTC_FOLIO_TRANSAC, PRI.FTC_FOLIO_PROCESAR, PRI.FTN_CVE_RED_COM,
+           PRI.FTN_ID_SUCURSAL, PRI.FTN_TIPO_APORTACION, PRI.FTN_REG_ACREDITADO, PRI.FTN_ID_MOV, PRI.FTD_FEH_CRE,  
+           PRI.FTC_USU_CRE, PRI.FTD_FEH_ACT, PRI.FTC_USU_ACT,
+           PRI.FTC_ID_INSTANCIA,
+           FOA.FCC_VALOR AS FCC_VALOR_ORIGEN_APORTACION, FCB.FCC_VALOR AS FCC_VALOR_CLAVE_BANCO, 
+           FRSA.FCC_VALOR AS FCC_VALOR_SUBCTA_APOVOL, FIE.FCC_VALOR AS FCC_VALOR_EMPRESA,  
+           FITN.FCC_VALOR AS FCC_VALOR_TIPO_NOMINA, FCRC.FCC_VALOR AS FCC_VALOR_CLAVE_RED_COMERCIAL 
+       FROM TTAFOAVOL_PRINCIPAL PRI
+      INNER JOIN TCCRXGRAL_CAT_CATALOGO FOA ON PRI.FTN_ORIGEN_APORTACION = FOA.FCN_ID_CAT_CATALOGO
+      INNER JOIN TCCRXGRAL_CAT_CATALOGO FRSA ON PRI.FTN_REF_SUBCTA_APOVOL = FRSA.FCN_ID_CAT_CATALOGO
+       LEFT JOIN TCCRXGRAL_CAT_CATALOGO FCB ON PRI.FTN_CVE_BANCO = FCB.FCN_ID_CAT_CATALOGO
+       LEFT JOIN TCCRXGRAL_CAT_CATALOGO FIE ON PRI.FTN_ID_EMPRESA = FIE.FCN_ID_CAT_CATALOGO
+       LEFT JOIN TCCRXGRAL_CAT_CATALOGO FITN ON PRI.FTN_ID_TIPO_NOMINA = FITN.FCN_ID_CAT_CATALOGO
+       LEFT JOIN TCCRXGRAL_CAT_CATALOGO FCRC ON PRI.FTN_CVE_RED_COM = FCRC.FCN_ID_CAT_CATALOGO 
+    <where>
+	  <if test="folio != null">
+           AND PRI.FTC_FOLIO = #{folio,jdbcType=VARCHAR}
+	  </if>
+	  <if test="folios != null and !folios.isEmpty()">
+	   	AND PRI.FTC_FOLIO IN
+           <foreach item="f" index="index" collection="folios"
+					open="(" separator="," close=")">
+					#{f,jdbcType=VARCHAR}
+				</foreach>
+	  </if>
+    </where>
+ </select>
+
+</mapper>

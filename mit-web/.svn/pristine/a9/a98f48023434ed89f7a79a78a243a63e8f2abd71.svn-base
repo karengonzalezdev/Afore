@@ -1,0 +1,19 @@
+ul.breadcrumb {
+    list-style-type: none;
+    padding: 8px 10px;
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid #dddddd;
+  li {
+      float:left;
+      padding-right: 7px;
+      font-size: 0.8em;
+      color: #848183;
+      a {
+          background: url("../../img/componentes/bread.png") no-repeat;
+          background-position: right center;
+          padding-right: 16px;
+          color: #558ac0;
+      }
+  }
+}

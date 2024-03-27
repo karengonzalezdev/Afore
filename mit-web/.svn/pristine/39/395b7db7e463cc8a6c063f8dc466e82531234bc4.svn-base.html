@@ -1,0 +1,426 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+
+<ui:composition template="../../core/desktop/desktop.xhtml">
+<ui:define name="body">
+
+	<h:form id="idFormConsultaAforeMovil" >
+			<p:panel id="idPanelConsultaAforeMovil" header="#{msg['consulta.aforeMovil.title']}" style="margin-top:56px;">
+				<p:panelGrid style="margin-bottom:10px; padding: 0px 0px !important; margin-left:-1%">
+					<p:row>
+		 				<p:column style="vertical-align: left !important; text-align: left !important;" colspan="2">
+							<p:selectOneRadio id="tipoConsulta" value="#{monitoreoAforeMovilView.filtroVal}">
+								<ui:remove>
+								<f:selectItem itemLabel="Cuenta Individual" itemValue="Cuenta individual" />
+								</ui:remove>
+								<f:selectItem itemLabel="NSS" itemValue="NSS" />
+								<f:selectItem itemLabel="CURP" itemValue="CURP" />
+								<p:ajax event="change" listener="#{monitoreoAforeMovilView.onCleanCampoFiltrar}" update="idTxtFiltro,idFechaIni,idFechaFin"/>
+							</p:selectOneRadio>		 				
+		 				</p:column>
+		 			</p:row>
+		 			<p:row>
+		 				<p:column style="vertical-align:middle; text-align:left;" colspan="2">
+							<p:inputMask id="idTxtFiltro"  value="#{monitoreoAforeMovilView.filtro}" 
+					    		maxlength="#{monitoreoAforeMovilView.filtroVal.contains('NSS') ? '11' : 
+					    					(monitoreoAforeMovilView.filtroVal.contains('CURP') ? '18' : '10')}"
+					    		slotChar=""
+					    		mask="#{monitoreoAforeMovilView.filtroVal.contains('NSS') ? '?99999999999' :
+					    				(monitoreoAforeMovilView.filtroVal.contains('CURP') ? '?aaaa999999aaaaaa**' : '?999999999')}"
+					    					 
+								disabled="#{monitoreoAforeMovilView.filtroVal eq null or monitoreoAforeMovilView.filtroVal eq ''  }"
+								styleClass="input-style" style="width:150px !important;">
+								<p:ajax event="keyup" update="idFechaIni,idFechaFin"/>
+								<p:ajax event="keypress" update="idFechaIni,idFechaFin"/>
+								<p:ajax event="mouseout" update="idFechaIni,idFechaFin" />
+								<p:ajax event="focus" update="idFechaIni,idFechaFin" />
+								<p:ajax event="blur" update="idFechaIni,idFechaFin" />
+							</p:inputMask>
+		 				</p:column>
+		 			</p:row>
+					<p:row>
+						<p:column style="vertical-align:middle; text-align: left;">
+							<p:outputLabel value="#{msg['validacion.cuenta.label.fecha.inicio']}" />
+						</p:column>
+						<p:column style="vertical-align:middle; text-align: left;">
+							<p:outputLabel value="#{msg['validacion.cuenta.label.fecha.fin']}" />
+						</p:column>
+					</p:row>
+					<p:row>
+					<p:column style="vertical-align:middle; text-align:left;">
+						<p:calendar id="idFechaIni" value="#{monitoreoAforeMovilView.fecInicio}"
+							showOn="button" locale ="es" mask="true" pattern="dd/MM/yyyy" readonlyInput="true" 
+							navigator="true" disabled="#{not (empty monitoreoAforeMovilView.filtro)}"
+							maxdate="#{monitoreoAforeMovilView.fechaMaxIni}">
+							<p:ajax event="dateSelect" listener="#{monitoreoAforeMovilView.onDateSelectIni}" 
+								update="tipoConsulta,idTxtFiltro"/>
+						</p:calendar>
+					</p:column>
+					<p:column style="vertical-align:middle; text-align:left;">
+						<p:calendar id="idFechaFin" value="#{monitoreoAforeMovilView.fecFin}"
+							showOn="button" locale ="es" mask="true" pattern="dd/MM/yyyy" readonlyInput="true" 
+							navigator="true" disabled="#{not (empty monitoreoAforeMovilView.filtro)}"
+							maxdate="#{monitoreoAforeMovilView.fechaMaxFin}">
+							<p:ajax event="dateSelect" listener="#{monitoreoAforeMovilView.onDateSelectFin}" 
+								update="tipoConsulta,idTxtFiltro"/>
+						</p:calendar>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column style="vertical-align: middle; text-align: left;">
+						<p:commandButton actionListener="#{monitoreoAforeMovilView.ejecutarConsulta}"
+								id="btnBuscarCliente" value="#{msg['consulta.aforeMovil.consultar']}"
+								onclick="PF('cargandoDialog').show();" oncomplete="PF('cargandoDialog').hide();"   
+								styleClass="blue-button" update="idFormConsultaAforeMovil,idFormDlgErrorMessage"/>
+						<p:spacer width="10px"/>
+						<p:commandButton actionListener="#{monitoreoAforeMovilView.limpiarFormulario}"
+								id="btnLimpiar" value="#{msg['consulta.aforeMovil.limpiar']}" 
+								onclick="PF('cargandoDialog').show();" oncomplete="PF('cargandoDialog').hide();" 
+								styleClass="gray-button" update="idFormConsultaAforeMovil"/>
+					</p:column>
+					<p:messages id="idMessages"  showDetail="true" autoUpdate="true" closable="false" />
+				</p:row>
+			</p:panelGrid>
+			
+			<p:panelGrid columns="2" style="margin-bottom:10px;" rendered="#{monitoreoAforeMovilView.muestraTabla}">
+			
+				<p:dataTable id="tblResult" emptyMessage="#{msg['consulta.aforeMovil.sinResultados']}" 
+					value="#{monitoreoAforeMovilView.lstMontos}" var="montos" style="width: 100% !important;"
+					styleClass="table-style" paginator="true" rows="5">
+					<p:column headerText="" width="5%">
+						<p:selectBooleanCheckbox value="#{montos.select}" disabled="true" 
+							rendered="#{monitoreoAforeMovilView.filtroOpc eq null or monitoreoAforeMovilView.filtroOpc eq ''}">
+							<p:ajax event="change" listener="#{monitoreoAforeMovilView.validaBtnRechazar}" 
+							update=":idFormConsultaAforeMovil:btnRechazar,:idFormConsultaAforeMovil:btnLiberar"/>
+						</p:selectBooleanCheckbox>
+						<p:selectBooleanCheckbox value="#{montos.select}" disabled="#{(montos.numCtaInvdual eq null or montos.numCtaInvdual eq '') ? montos.diasPrimerAportacion lt 55 and montos.importeAcumulado lt monitoreoAforeMovilView.montoMinimoIndependiente : montos.diasPrimerAportacion lt 55 and montos.importeAcumulado lt monitoreoAforeMovilView.montoMinimoAfiliado}"
+							rendered="#{monitoreoAforeMovilView.filtroOpc eq 'RECHAZAR' or monitoreoAforeMovilView.filtroOpc eq 'LIBERAR'}">
+							<p:ajax event="change" listener="#{monitoreoAforeMovilView.validaBtnRechazar}" 
+							update=":idFormConsultaAforeMovil:btnRechazar,:idFormConsultaAforeMovil:btnLiberar"/>
+						</p:selectBooleanCheckbox>
+					</p:column>
+					<p:column headerText="#{msg['consulta.aforeMovil.txtNo']}" style="width:5%;text-align:center">
+						<h:outputText value="#{montos.rowId}" />
+					</p:column>
+					<p:column headerText="#{msg['consulta.aforeMovil.curp']}" style="width:17%;text-align:center">
+						<h:outputText value="#{montos.curp}" />
+					</p:column>
+					<p:column headerText="#{msg['consulta.aforeMovil.nombre']}" style="width:15%;text-align:center">
+						<h:outputText value="#{montos.nombre}" />
+					</p:column>
+					<p:column headerText="#{msg['consulta.aforeMovil.tipoCliente']}" style="width:13%;text-align:center">
+						
+						<h:outputText value="#{msg['consulta.aforeMovil.independiente']}" 
+						 rendered="#{montos.numCtaInvdual eq null or montos.numCtaInvdual eq '' }"/>
+						
+						<h:outputText value="#{msg['consulta.aforeMovil.asignado']}" 
+						 rendered="#{!(montos.numCtaInvdual eq null or montos.numCtaInvdual eq '' )}"/>
+						
+					</p:column>
+					<p:column headerText="#{msg['consulta.aforeMovil.importeAcumulado']}" style="width:10%;text-align:center">
+						<h:outputText value="#{montos.importeAcumulado}" >
+							<f:convertNumber pattern="$#,###,##0.00" locale="es_MX"/>
+						</h:outputText>
+					</p:column>
+					<p:column headerText="#{msg['consulta.aforeMovil.fechaPrimerAportacion']}" style="width:13%;text-align:center">
+						<h:outputText value="#{montos.primerAportacion}">
+							<f:convertDateTime type="date" pattern="dd/MM/yyyy" timeZone="America/Mexico_City"/>
+						</h:outputText>
+					</p:column>
+					<p:column headerText="#{msg['consulta.aforeMovil.diasDesdePrimerAportacion']}" style="width:11%;text-align:center">
+						<h:outputText value="#{montos.diasPrimerAportacion}"/>
+					</p:column>
+					<p:column headerText="#{msg['consulta.aforeMovil.estatus']}" style="width:9%;text-align:center">
+						<h:outputText value="#{montos.estatus.valor}"/>
+					</p:column>
+					<p:column headerText="#{msg['consulta.aforeMovil.detalle']}" style="width:7%;text-align:center">
+						<p:commandLink onclick="PF('cargandoDialog').show();" actionListener="#{monitoreoAforeMovilView.myChangeListener}"
+							oncomplete="PF('cargandoDialog').hide(); PF('detalleMontosDialog').show();" update=":idFormDialog">
+							<f:param name="curp" value="#{montos.curp}"/>
+							<f:param name="nombre" value="#{montos.nombre}"/>
+							<f:param name="cuenta" value="#{montos.cuenta}"/>
+							<f:param name="idConciliacion" value="#{montos.idConciliacion}"/>
+							<h:outputText value="#{msg['consulta.aforeMovil.detalle']}" />
+						</p:commandLink>
+					</p:column>
+				</p:dataTable>
+			</p:panelGrid>
+			
+			<p:panelGrid rendered="#{monitoreoAforeMovilView.muestraTabla}">
+				<p:row rendered="#{monitoreoAforeMovilView.lstMontos !=null and monitoreoAforeMovilView.lstMontos.size()>0}">
+					<p:column style="vertical-align: left !important; text-align: left !important;" colspan="2">
+						<p:selectOneRadio id="radioBusq" style="vertical-align: left !important; text-align: left !important;" colspan="2"
+									value="#{monitoreoAforeMovilView.filtroOpc}">
+	        				<f:selectItem itemLabel="#{msg['consulta.aforeMovil.rechazar.mayusculas']}" 
+	        							  itemValue="#{msg['consulta.aforeMovil.rechazar.mayusculas']}"/>
+	                        <f:selectItem itemLabel="#{msg['consulta.aforeMovil.liberar.mayusculas']}" 
+	                        			  itemValue="#{msg['consulta.aforeMovil.liberar.mayusculas']}"/>
+	                        <p:ajax event="change" listener="#{monitoreoAforeMovilView.changeOption}" update="idFormConsultaAforeMovil"/>
+	        			</p:selectOneRadio>
+	        			<p:spacer width="20" height="20" />
+					</p:column>
+					<br></br>
+				</p:row>
+				<p:row>
+					<p:column style="vertical-align: middle !important; text-align: left !important;">
+						<p:commandButton actionListener="#{monitoreoAforeMovilView.exportarRegistros}" 
+								id="btnExportar" value="#{msg['consulta.aforeMovil.exportar']}"
+								styleClass="blue-button" disabled="#{!monitoreoAforeMovilView.habilitaBtnExportar}" ajax="false"/>
+						<p:spacer width="10px"/>	
+						<p:commandButton rendered="#{monitoreoAforeMovilView.btnRechazo}" 
+								id="btnRechazar" value="#{msg['consulta.aforeMovil.rechazar']}"
+								onclick="PF('rechazarDialog').show();" 
+								styleClass="yellow-button" disabled="#{!monitoreoAforeMovilView.habilitaBtnRechazar}"/>
+						<p:spacer width="10px"/>
+						<p:commandButton rendered="#{monitoreoAforeMovilView.btnLiberar}" 
+								id="btnLiberar" value="#{msg['consulta.aforeMovil.liberar']}"
+								onclick="PF('liberarDialog').show();" 
+								styleClass="yellow-button" disabled="#{!monitoreoAforeMovilView.habilitaBtnRechazar}"/>
+					</p:column>
+				</p:row>	
+			</p:panelGrid>
+			</p:panel>
+		</h:form>
+	
+	
+	
+	<p:dialog id="dialogCargando"
+			widgetVar="cargandoDialog"
+			modal="true" draggable="false" closable="false" resizable="false" 
+			appendTo="@(body)" showHeader="false" showEffect="fade">
+		<div align="center">
+			<h:outputText value="#{msg['consulta.aforeMovil.cargando']}" styleClass="outputTextGeneric" />
+			<br/>
+			<h:graphicImage value="/core/static/images/loading-bar.gif" width="150" />
+		</div>
+	</p:dialog>
+	
+	<p:dialog header="#{msg['consulta.aforeMovil.title']}"
+			id="resultMontosConvDialog"
+			widgetVar="detalleMontosDialog" modal="true"
+			showEffect="fade" hideEffect="fade" resizable="false"
+			draggable="false" appendTo="@(body)" closable="false">
+		<h:form id="idFormDialog">
+			<p:panel id="pnlDetalle">
+				<p:panelGrid>
+					<div align="center">
+						<p:row>
+							<p:column style="text-align:left">
+								<h:outputText value="#{msg['consulta.aforeMovil.nombre.mayusculas']}"/>
+							</p:column>
+							<p:column style="text-align:left">
+								<h:outputText value="#{monitoreoAforeMovilView.nombreDialog}"/>
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column style="text-align:left">
+								<h:outputText value="#{msg['consulta.aforeMovil.curp.mayusculas']}"/>							
+							</p:column>
+							<p:column style="text-align:left">
+								<h:outputText value="#{monitoreoAforeMovilView.curpDialog}"/>
+							</p:column>
+						</p:row>
+						<p:row rendered="#{monitoreoAforeMovilView.muestraCuenta}">
+							<p:column style="text-align:left">
+								<h:outputText value="Número de cuenta:"/>							
+							</p:column>
+							<p:column style="text-align:left">
+								<h:outputText value="#{monitoreoAforeMovilView.cuentaDialog}"/>
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column colspan="2" style="width:350px;text-align:center">
+								<p:dataTable id="tblDetail" emptyMessage="#{msg['consulta.aforeMovil.sinResultados']}" 
+										value="#{monitoreoAforeMovilView.detalleDialog}" var="detail"
+										styleClass="table-style" paginator="true" rows="5">
+									<p:column headerText="#{msg['consulta.aforeMovil.fechaDeposito']}" style="width:150px;text-align:center">
+										<h:outputText value="#{detail.fechaDeposito}">
+											<f:convertDateTime type="date" pattern="dd/MM/yyyy" timeZone="America/Mexico_City"/>
+										</h:outputText>
+									</p:column>
+									<p:column headerText="#{msg['consulta.aforeMovil.fechaConciliacion']}" style="width:100px;text-align:center">
+										<h:outputText value="#{detail.fechaConciliacion}">
+											<f:convertDateTime type="date" pattern="dd/MM/yyyy" timeZone="America/Mexico_City"/>
+										</h:outputText>
+									</p:column>
+									<p:column headerText="#{msg['consulta.aforeMovil.importe']}" style="width:100px;text-align:right  !important">
+										<h:outputText value="#{detail.importe}"  >
+											<f:convertNumber pattern="$#,###,##0.00" locale="es_MX"/>
+										</h:outputText>
+									</p:column>
+								</p:dataTable>
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column colspan="2" style="text-align:right">
+								<p:commandButton onclick="PF('detalleMontosDialog').hide();"
+					 				id="btnCerrarDialog" value="#{msg['consulta.aforeMovil.cerrar']}" styleClass="gray-button" 
+					 				style="float: right;"/>
+					 		</p:column>
+						</p:row>
+					</div>
+				</p:panelGrid>
+			</p:panel>
+		</h:form>
+	</p:dialog>
+	
+	<p:dialog header="#{msg['consulta.aforeMovil.title']}"
+			id="resultRechazar"
+			widgetVar="rechazarDialog" modal="true"
+			showEffect="fade" hideEffect="fade" resizable="false"
+			draggable="false" appendTo="@(body)" closable="false">
+		<h:form id="idFormRechazarDialog">
+			<p:panel id="pnlDetalle">
+				<div align="center">
+					<center>
+						<h:outputText value="#{msg['consulta.aforeMovil.rechazo.pregunta']}"/>					
+					</center>
+					<br/>
+					<p:column style="text-align:right">
+						<p:commandButton onclick="PF('rechazarDialog').hide()" process="@this" value="#{msg['consulta.aforeMovil.cerrar']}"
+							styleClass="gray-button" style="float: right;"/>
+						
+						<p:spacer width="10" style="float: right;"/>
+						<p:commandButton onclick="PF('resultRechazar').hide();PF('cargandoDialog').show();" process="@this" 
+						value="#{msg['domiciliacion.traspasos.monSol.btnAceptar']}" styleClass="blue-button"
+						oncomplete="PF('cargandoDialog').hide();"
+						update=":idFormConsultaAforeMovil" 
+						actionListener="#{monitoreoAforeMovilView.rechazarRegistros}" style="float: right;"/>
+					</p:column>
+				</div>
+			</p:panel>
+		</h:form>
+	</p:dialog>
+
+	<p:dialog header="#{msg['consulta.aforeMovil.title']}"
+			id="liberarDialog"
+			widgetVar="liberarDialog" modal="true"
+			showEffect="fade" hideEffect="fade" resizable="false"
+			draggable="false" appendTo="@(body)" closable="false">
+		<h:form id="idFormLiberarDialog">
+			<p:panel id="pnlDetalle">
+				<div align="center">
+					<center>
+						<h:outputText value="#{msg['consulta.aforeMovil.liberar.pregunta']}"/>					
+					</center>
+					<br/>
+					<p:column style="text-align:right">
+						<p:commandButton onclick="PF('liberarDialog').hide()" process="@this" value="#{msg['consulta.aforeMovil.cerrar']}"
+							styleClass="gray-button" style="float: right;"/>
+						
+						<p:spacer width="10" style="float: right;"/>
+						<p:commandButton onclick="PF('liberarDialog').hide();PF('cargandoDialog').show();" process="@this" 
+						value="#{msg['domiciliacion.traspasos.monSol.btnAceptar']}" styleClass="blue-button"
+						oncomplete="PF('cargandoDialog').hide();"
+						update=":idFormConsultaAforeMovil" 
+						actionListener="#{monitoreoAforeMovilView.liberarRegistros}" style="float: right;"/>
+					</p:column>
+				</div>
+			</p:panel>
+		</h:form>
+	</p:dialog>
+
+	<p:dialog header="#{msg['consulta.aforeMovil.title']}"
+			id="dlgExitoBtnRechazar"
+			widgetVar="dlgExitoRechazar" modal="true"
+			showEffect="fade" hideEffect="fade" resizable="false"
+			draggable="false" appendTo="@(body)" closable="false">
+		<h:form id="idFormRechazarExitoResultDialog">
+			<p:panel id="pnlDetalle">
+				<div align="center">
+					<center>
+						<h:outputText value="#{msg['consulta.aforeMovil.error.rechazo.exito']}"/>					
+					</center>
+					<br/>
+					<p:commandButton onclick="PF('dlgExitoRechazar').hide()" process="@this" value="#{msg['consulta.aforeMovil.cerrar']}"
+						styleClass="gray-button"/>
+				</div>
+			</p:panel>
+		</h:form>
+	</p:dialog>
+
+	<p:dialog header="#{msg['consulta.aforeMovil.title']}"
+			id="dlgErrorRechazar"
+			widgetVar="dlgErrorRechazar" modal="true"
+			showEffect="fade" hideEffect="fade" resizable="false"
+			draggable="false" appendTo="@(body)" closable="false">
+		<h:form id="idFormRechazarErrorResultDialog">
+			<p:panel id="pnlDetalle">
+				<div align="center">
+					<center>
+						<h:outputText value="#{msg['consulta.aforeMovil.error.rechazo.error']}"/>					
+					</center>
+					<br/>
+					<p:commandButton onclick="PF('dlgErrorRechazar').hide()" process="@this" value="#{msg['consulta.aforeMovil.cerrar']}"
+						styleClass="gray-button" style="float: right;"/>
+				</div>
+			</p:panel>
+		</h:form>
+	</p:dialog>
+
+	<p:dialog header="#{msg['consulta.aforeMovil.title']}"
+			id="dlgExitoBtnLiberar"
+			widgetVar="dlgExitoLiberar" modal="true"
+			showEffect="fade" hideEffect="fade" resizable="false"
+			draggable="false" appendTo="@(body)" closable="false">
+		<h:form id="idFormLiberarExitoResultDialog">
+			<p:panel id="pnlDetalle">
+				<div align="center">
+					<center>
+						<h:outputText value="#{msg['consulta.aforeMovil.error.liberar.exito']}"/>					
+					</center>
+					<br/>
+					<p:commandButton onclick="PF('dlgExitoLiberar').hide()" process="@this" value="#{msg['consulta.aforeMovil.cerrar']}"
+						styleClass="gray-button"/>
+				</div>
+			</p:panel>
+		</h:form>
+	</p:dialog>
+
+	<p:dialog header="#{msg['consulta.aforeMovil.title']}"
+			id="dlgErrorLiberar"
+			widgetVar="dlgErrorLiberar" modal="true"
+			showEffect="fade" hideEffect="fade" resizable="false"
+			draggable="false" appendTo="@(body)" closable="false">
+		<h:form id="idFormLiberarErrorResultDialog">
+			<p:panel id="pnlDetalle">
+				<div align="center">
+					<center>
+						<h:outputText value="#{msg['consulta.aforeMovil.error.liberar.error']}"/>					
+					</center>
+					<br/>
+					<p:commandButton onclick="PF('dlgErrorLiberar').hide()" process="@this" value="#{msg['consulta.aforeMovil.cerrar']}"
+						styleClass="gray-button" style="float: right;"/>
+				</div>
+			</p:panel>
+		</h:form>
+	</p:dialog>
+
+	
+	<h:form id="idFormDlgErrorMessage"> 
+		<p:dialog id="idDlgErrorMessage" header="#{msg['consulta.aforeMovil.title']}" widgetVar="dlgErrorMessage" modal="true" 
+				appendTo="@(body)" resizable="false" maximizable="false" closable="false" draggable="false">
+			<center>
+				<p:spacer height="10px" width="0px"/>
+			  	<br/>
+				<h:outputText id="errorMessage" value="#{monitoreoAforeMovilView.errorMessage}" />
+				<br/>
+				<br/>
+				<p:commandButton value="Cerrar" onclick="PF('dlgErrorMessage').hide();" styleClass="gray-button" style="float: right;"/>
+				<br/>
+				<p:spacer height="10px"/>
+			</center>	
+		</p:dialog>
+	</h:form>
+	
+	
+</ui:define>
+</ui:composition>
+</html>

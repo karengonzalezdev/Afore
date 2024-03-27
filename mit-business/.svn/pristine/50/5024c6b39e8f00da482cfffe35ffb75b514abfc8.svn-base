@@ -1,0 +1,9 @@
+
+local.test.pu.jdbc.driverClassName=oracle.jdbc.driver.OracleDriver
+local.test.pu.jdbc.url=jdbc:oracle:thin:@//172.16.60.94:1521/mitafore
+
+
+
+test.pu.jdbc.driverClassName=oracle.jdbc.driver.OracleDriver
+test.pu.jdbc.url=jdbc:oracle:thin:@//172.16.60.94:1521/mitafore
+

@@ -1,0 +1,363 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<ui:composition template="../../core/desktop/desktop.xhtml">
+	<ui:define name="body">
+		<h:form id="formInversioDomiciliacion" styleClass="form-general"
+			enctype="multipart/form-data">
+<style>
+li {
+	margin-top: 21px !important;
+	list-style-image: none !important;
+}
+
+.ui-datalist-content {
+	background: #ffffff;
+	text-align: left  !important;
+}
+
+.ui-selectmanycheckbox tbody tr td {
+	background: #fff;
+	border: 1px solid #ffffff !important;
+	height: 30px;
+}
+
+.table-style tbody tr:nth-child(even) {
+	background: #fff;/*e6f3fd*/
+	/*border-bottom: 1px solid #ffffff !important;*/ 
+	
+}
+
+.estilo-nuevo tr[data-ri='1'] {
+	display: none;
+}
+
+.estilo-nuevo tr[data-ri='2'] {
+	display: none;
+}
+
+td.selectionDisabled .ui-chkbox {
+	display: none;
+}
+
+.domiFileDateRange{
+	background: #fff;
+	border: 1px solid #ffffff !important;
+	height:30px;
+	vertical-align:middle;
+	text-align:center  !important;
+}
+
+.cebraPanelGrid2 {
+	width: 100% !important;
+}
+.cebraPanelGrid2 thead tr {
+  background: #9d9d9d !important;
+}
+.cebraPanelGrid2 thead tr td {
+  border: 0 none !important;
+  background: #00427a !important
+  color: #ffffff !important;
+  font-size: 13px !important;
+  font-weight: bold !important;
+  text-align: center !important;
+  padding: 10px 0 !important;
+  text-shadow: none !important;
+}
+
+.cebraPanelGrid2 tbody tr:nth-child(even),
+.cebraPanelGrid2 tbody .fila-impar {
+  border-top: 1px solid #9d9d9d !important;
+  border-bottom: 1px solid #9d9d9d !important;
+}
+.cebraPanelGrid2 tbody tr:nth-child(odd),
+.cebraPanelGrid2 tbody .fila-impar {
+  border-top: 1px solid #9d9d9d !important;
+  border-bottom: 1px solid #9d9d9d !important;
+}
+</style>	
+	<p:panel id="idpanelPrincipal" header="#{msg['domiciliacion.traspasos.inversion.titulo']}" style="margin-top: 56px;">
+		<p:panelGrid id="encabezado" style="margin-top: 15px; width: 100%;vertical-align:middle; !important;" styleClass="cebraPanelGrid2" >
+			<p:row  style="text-left !important;">
+				<p:column style="vertical-align: left !important;text-align:rigth !important; font-weight: bold">
+					<p:outputLabel value="#{msg['domiciliacion.traspasos.inversion.subtitulo']}"/>
+					<p:outputLabel value="#{inversionDomiciliacionView.fechaConsulta}"/>
+				</p:column>
+			</p:row>
+		</p:panelGrid>
+	</p:panel>
+	
+	<p:panel id="idDatos">
+    <p:tabView dynamic="false" cache="false" style="vertical-align:middle;width:100%;font-size:16px;" >
+        <p:tab title="#{msg['domiciliacion.traspasos.inversion.recursosAcreditar']}" >
+            <p:panelGrid id="datosPorAcreditar" 
+				style="margin-top: 15px; width: 100%;vertical-align:middle; !important;" styleClass="cebraPanelGrid2" >
+				<f:facet name="header">
+				  <p:row>
+					<p:column style="width:75px;text-align:center">
+						<h:outputText value="#{msg['domiciliacion.traspasos.inversion.siefore']}" />
+					</p:column>
+					<p:column style="width:200px;text-align:center">
+						<h:outputText value="#{msg['domiciliacion.traspasos.inversion.subcuenta']}"/>
+					</p:column>
+					<p:column style="width:500px;text-align:center">
+						<h:outputText value="#{msg['domiciliacion.traspasos.inversion.tipoMovimiento']}"/>
+					</p:column>
+					<p:column style="width:100px;text-align:center">
+						<h:outputText value="#{msg['domiciliacion.traspasos.inversion.pesos']}"/>
+					</p:column>
+					<p:column style="width:100px;text-align:center">
+						<h:outputText value="#{msg['domiciliacion.traspasos.inversion.registros']}"/>
+					</p:column>
+				  </p:row>
+				</f:facet>
+				
+				<c:if test="#{!empty inversionDomiciliacionView.porAcreditar.lstRecurrencias}">
+					<c:forEach items="#{inversionDomiciliacionView.porAcreditar.lstRecurrencias}" var="_lstPorAcreditar">
+						<p:row>
+							<p:column style="vertical-align:middle;">
+								<h:outputText value="#{_lstPorAcreditar.siefore}"/>
+							</p:column>
+							<p:column style="vertical-align:middle;">
+								<h:outputText value="#{_lstPorAcreditar.subcuenta}"/>
+							</p:column>
+							<p:column style="vertical-align:middle;">
+								<h:outputText value="#{_lstPorAcreditar.tipoMovimiento}"/>
+							</p:column>
+							<p:column style="vertical-align:middle;">
+								<h:outputText value="#{_lstPorAcreditar.importe}">
+									<f:convertNumber pattern="$#,###,##0.00" locale="es_MX"/>
+								</h:outputText>
+							</p:column>
+							<p:column style="vertical-align:middle;">
+								<h:outputText value="#{_lstPorAcreditar.registros}">
+									<f:convertNumber pattern="#,###,##0" locale="es_MX"/>
+								</h:outputText>
+							</p:column>
+						</p:row>
+					</c:forEach>
+				</c:if>
+				<p:row  style="font-weight: bold">
+					<p:column colspan="3" style="vertical-align:middle;">
+						<h:outputText value="#{msg['domiciliacion.traspasos.inversion.totales']}"/>
+					</p:column>
+					<p:column style="vertical-align:middle;">
+						<h:outputText value="#{inversionDomiciliacionView.porAcreditar.importeTot}">
+							<f:convertNumber pattern="$#,###,##0.00" locale="es_MX"/>
+						</h:outputText>
+					</p:column>
+					<p:column style="vertical-align:middle;">
+						<h:outputText value="#{inversionDomiciliacionView.porAcreditar.registrosTot}">
+							<f:convertNumber pattern="#,###,##0" locale="es_MX"/>
+						</h:outputText>
+					</p:column>
+				</p:row>
+			</p:panelGrid>
+        </p:tab>
+        <p:tab title="#{msg['domiciliacion.traspasos.inversion.recursosPendTraspaso']}">
+            <p:panelGrid id="datosPendTraspaso" 
+				style="margin-top: 15px; width: 100%;vertical-align:middle; !important;" styleClass="cebraPanelGrid2" >
+				<f:facet name="header">
+				  <p:row>
+					<p:column style="width:75px;text-align:center">
+						<h:outputText value="#{msg['domiciliacion.traspasos.inversion.siefore']}" />
+					</p:column>
+					<p:column style="width:200px;text-align:center">
+						<h:outputText value="#{msg['domiciliacion.traspasos.inversion.subcuenta']}"/>
+					</p:column>
+					<p:column style="width:500px;text-align:center">
+						<h:outputText value="#{msg['domiciliacion.traspasos.inversion.tipoMovimiento']}"/>
+					</p:column>
+					<p:column style="width:100px;text-align:center">
+						<h:outputText value="#{msg['domiciliacion.traspasos.inversion.pesos']}"/>
+					</p:column>
+					<p:column style="width:100px;text-align:center">
+						<h:outputText value="#{msg['domiciliacion.traspasos.inversion.registros']}"/>
+					</p:column>
+				  </p:row>
+				</f:facet>
+				
+				<c:if test="#{!empty inversionDomiciliacionView.pendientesTraspaso.lstRecurrencias}">
+					<c:forEach items="#{inversionDomiciliacionView.pendientesTraspaso.lstRecurrencias}" var="_lstPendientes">
+						<p:row>
+							<p:column style="vertical-align:middle;">
+								<h:outputText value="#{_lstPendientes.siefore}"/>
+							</p:column>
+							<p:column style="vertical-align:middle;">
+								<h:outputText value="#{_lstPendientes.subcuenta}"/>
+							</p:column>
+							<p:column style="vertical-align:middle;">
+								<h:outputText value="#{_lstPendientes.tipoMovimiento}"/>
+							</p:column>
+							<p:column style="vertical-align:middle;">
+								<h:outputText value="#{_lstPendientes.importe}">
+									<f:convertNumber pattern="$#,###,##0.00" locale="es_MX"/>
+								</h:outputText>
+							</p:column>
+							<p:column style="vertical-align:middle;">
+								<h:outputText value="#{_lstPendientes.registros}">
+									<f:convertNumber pattern="#,###,##0" locale="es_MX"/>
+								</h:outputText>
+							</p:column>
+						</p:row>
+					</c:forEach>
+				</c:if>
+				<p:row  style="font-weight: bold">
+					<p:column colspan="3" style="vertical-align:middle;">
+						<h:outputText value="#{msg['domiciliacion.traspasos.inversion.totales']}"/>
+					</p:column>
+					<p:column style="vertical-align:middle;">
+						<h:outputText value="#{inversionDomiciliacionView.pendientesTraspaso.importeTot}">
+							<f:convertNumber pattern="$#,###,##0.00" locale="es_MX"/>
+						</h:outputText>
+					</p:column>
+					<p:column style="vertical-align:middle;">
+						<h:outputText value="#{inversionDomiciliacionView.pendientesTraspaso.registrosTot}">
+							<f:convertNumber pattern="#,###,##0" locale="es_MX"/>
+						</h:outputText>
+					</p:column>
+				</p:row>
+			</p:panelGrid>
+        </p:tab>
+        <p:tab title="#{msg['domiciliacion.traspasos.inversion.devolucionRecursos']}">
+            <p:panelGrid id="datosDevoluciones" 
+				style="margin-top: 15px; width: 100%;vertical-align:middle; !important;" styleClass="cebraPanelGrid2" >
+				<f:facet name="header">
+				  <p:row>
+					<p:column style="width:75px;text-align:center">
+						<h:outputText value="#{msg['domiciliacion.traspasos.inversion.siefore']}" />
+					</p:column>
+					<p:column style="width:200px;text-align:center">
+						<h:outputText value="#{msg['domiciliacion.traspasos.inversion.subcuenta']}"/>
+					</p:column>
+					<p:column style="width:500px;text-align:center">
+						<h:outputText value="#{msg['domiciliacion.traspasos.inversion.tipoMovimiento']}"/>
+					</p:column>
+					<p:column style="width:100px;text-align:center">
+						<h:outputText value="#{msg['domiciliacion.traspasos.inversion.pesos']}"/>
+					</p:column>
+					<p:column style="width:100px;text-align:center">
+						<h:outputText value="#{msg['domiciliacion.traspasos.inversion.registros']}"/>
+					</p:column>
+				  </p:row>
+				</f:facet>
+				
+				<c:if test="#{!empty inversionDomiciliacionView.devolucion.lstRecurrencias}">
+					<c:forEach items="#{inversionDomiciliacionView.devolucion.lstRecurrencias}" var="_lstPorDevolucion">
+						<p:row>
+							<p:column style="vertical-align:middle;">
+								<h:outputText value="#{_lstPorDevolucion.siefore}"/>
+							</p:column>
+							<p:column style="vertical-align:middle;">
+								<h:outputText value="#{_lstPorDevolucion.subcuenta}"/>
+							</p:column>
+							<p:column style="vertical-align:middle;">
+								<h:outputText value="#{_lstPorDevolucion.tipoMovimiento}"/>
+							</p:column>
+							<p:column style="vertical-align:middle;">
+								<h:outputText value="#{_lstPorDevolucion.importe}">
+									<f:convertNumber pattern="$#,###,##0.00" locale="es_MX"/>
+								</h:outputText>
+							</p:column>
+							<p:column style="vertical-align:middle;">
+								<h:outputText value="#{_lstPorDevolucion.registros}">
+									<f:convertNumber pattern="#,###,##0" locale="es_MX"/>
+								</h:outputText>
+							</p:column>
+						</p:row>
+					</c:forEach>
+				</c:if>
+				<p:row  style="font-weight: bold">
+					<p:column colspan="3" style="vertical-align:middle;">
+						<h:outputText value="#{msg['domiciliacion.traspasos.inversion.totales']}"/>
+					</p:column>
+					<p:column style="vertical-align:middle;">
+						<h:outputText value="#{inversionDomiciliacionView.devolucion.importeTot}">
+							<f:convertNumber pattern="$#,###,##0.00" locale="es_MX"/>
+						</h:outputText>
+					</p:column>
+					<p:column style="vertical-align:middle;">
+						<h:outputText value="#{inversionDomiciliacionView.devolucion.registrosTot}">
+							<f:convertNumber pattern="#,###,##0" locale="es_MX"/>
+						</h:outputText>
+					</p:column>
+				</p:row>
+			</p:panelGrid>
+        </p:tab>
+        <p:tab title="#{msg['domiciliacion.traspasos.inversion.recursosAcreditados']}">
+            <p:panelGrid id="datosAcreditados" 
+				style="margin-top: 15px; width: 100%;vertical-align:middle; !important;" styleClass="cebraPanelGrid2" >
+				<f:facet name="header">
+				  <p:row>
+					<p:column style="width:75px;text-align:center">
+						<h:outputText value="#{msg['domiciliacion.traspasos.inversion.siefore']}" />
+					</p:column>
+					<p:column style="width:200px;text-align:center">
+						<h:outputText value="#{msg['domiciliacion.traspasos.inversion.subcuenta']}"/>
+					</p:column>
+					<p:column style="width:500px;text-align:center">
+						<h:outputText value="#{msg['domiciliacion.traspasos.inversion.tipoMovimiento']}"/>
+					</p:column>
+					<p:column style="width:100px;text-align:center">
+						<h:outputText value="#{msg['domiciliacion.traspasos.inversion.pesos']}"/>
+					</p:column>
+					<p:column style="width:100px;text-align:center">
+						<h:outputText value="#{msg['domiciliacion.traspasos.inversion.registros']}"/>
+					</p:column>
+				  </p:row>
+				</f:facet>
+				
+				<c:if test="#{!empty inversionDomiciliacionView.acreditados.lstRecurrencias}">
+					<c:forEach items="#{inversionDomiciliacionView.acreditados.lstRecurrencias}" var="_lstAcreditados">
+						<p:row>
+							<p:column style="vertical-align:middle;">
+								<h:outputText value="#{_lstAcreditados.siefore}"/>
+							</p:column>
+							<p:column style="vertical-align:middle;">
+								<h:outputText value="#{_lstAcreditados.subcuenta}"/>
+							</p:column>
+							<p:column style="vertical-align:middle;">
+								<h:outputText value="#{_lstAcreditados.tipoMovimiento}"/>
+							</p:column>
+							<p:column style="vertical-align:middle;">
+								<h:outputText value="#{_lstAcreditados.importe}">
+									<f:convertNumber pattern="$#,###,##0.00" locale="es_MX"/>
+								</h:outputText>
+							</p:column>
+							<p:column style="vertical-align:middle;">
+								<h:outputText value="#{_lstAcreditados.registros}">
+									<f:convertNumber pattern="#,###,##0" locale="es_MX"/>
+								</h:outputText>
+							</p:column>
+						</p:row>
+					</c:forEach>
+				</c:if>
+				<p:row  style="font-weight: bold">
+					<p:column colspan="3" style="vertical-align:middle;">
+						<h:outputText value="#{msg['domiciliacion.traspasos.inversion.totales']}"/>
+					</p:column>
+					<p:column style="vertical-align:middle;">
+						<h:outputText value="#{inversionDomiciliacionView.acreditados.importeTot}">
+							<f:convertNumber pattern="$#,###,##0.00" locale="es_MX"/>
+						</h:outputText>
+					</p:column>
+					<p:column style="vertical-align:middle;">
+						<h:outputText value="#{inversionDomiciliacionView.acreditados.registrosTot}">
+							<f:convertNumber pattern="#,###,##0" locale="es_MX"/>
+						</h:outputText>
+					</p:column>
+				</p:row>
+			</p:panelGrid>
+        </p:tab>
+    </p:tabView>
+    </p:panel>
+
+	</h:form>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,819 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<ui:composition template="../../core/desktop/desktop.xhtml">
+
+	<ui:define name="body">
+	
+		<h:form id="formPrincipalArchivo" styleClass="form-general">
+		<style>
+			li {
+				margin-top: 21px !important;
+				list-style-image: none !important;
+			}
+			
+			.ui-datalist-content {
+				background: #ffffff;
+				text-align: left  !important;
+			}
+			
+			.ui-selectmanycheckbox tbody tr td {
+				background: #fff;
+				border: 1px solid #ffffff !important;
+				height: 30px;
+			}
+			
+			.table-style tbody tr:nth-child(even) {
+				background: #fff;/*e6f3fd*/
+				/*border-bottom: 1px solid #ffffff !important;*/ 
+				
+			}
+			
+			.estilo-nuevo tr[data-ri='1'] {
+				display: none;
+			}
+			
+			.estilo-nuevo tr[data-ri='2'] {
+				display: none;
+			}
+			
+			td.selectionDisabled .ui-chkbox {
+				display: none;
+			}
+			
+			.domiFileDateRange{
+				background: #fff;
+				border: 1px solid #ffffff !important;
+				height:30px;
+				vertical-align:middle;
+				text-align:center  !important;
+			}
+			
+			.cebraPanelGrid2 {
+				width: 100% !important;
+			}
+			.cebraPanelGrid2 thead tr {
+			  background: #9d9d9d !important;
+			}
+			.cebraPanelGrid2 thead tr td {
+			  border: 0 none !important;
+			  background: #00427a !important
+			  color: #ffffff !important;
+			  font-size: 13px !important;
+			  font-weight: bold !important;
+			  text-align: center !important;
+			  padding: 10px 0 !important;
+			  text-shadow: none !important;
+			}
+			
+			.cebraPanelGrid2 tbody tr:nth-child(even),
+			.cebraPanelGrid2 tbody .fila-impar {
+			  border-top: 1px solid #9d9d9d !important;
+			  border-bottom: 1px solid #9d9d9d !important;
+			}
+			.cebraPanelGrid2 tbody tr:nth-child(odd),
+			.cebraPanelGrid2 tbody .fila-impar {
+			  border-top: 1px solid #9d9d9d !important;
+			  border-bottom: 1px solid #9d9d9d !important;
+			}
+			.ui-selectmanycheckbox label, .ui-selectoneradio label{
+				margin-top: 0px !important;
+			}
+		</style>
+			<p:panel id="idpanelPrincipal" header="#{msg['domiciliacion.archivo.title']}" style="margin-top:56px;">
+				<p:panelGrid>
+					<p:row style="text-align:left !important;">
+						<p:column style="padding-left:0 !important;">
+							<p:outputLabel value="#{msg['domiciliacion.archivo.principal.origen.aportacion']}"/>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column style="padding-left:0 !important; text-align:left !important;">
+							<p:selectOneMenu id="idOrigenDomiciliacion" value= "#{archivoDomiciliacionView.paramBean.idOrigenDomiciliacion}">
+								<f:selectItem itemLabel="#{msg['msg.selectOne']}" noSelectionOption="true" 	itemValue="-1" />
+<!-- 								<f:selectItem itemLabel="#{msg['domiciliacion.archivo.principal.tipo.domiciliaciones']}" itemValue="0" /> -->
+								<f:selectItems value="#{archivoDomiciliacionService.tiposOrigen}" var="_origenes" 
+										itemValue="#{_origenes.id}" itemLabel="#{_origenes.valor}" />
+									<p:ajax event="change" listener="#{archivoDomiciliacionView.changeOrigen()}" 
+											update="filtrosArchivosDomi,idpanelPrincipal,idGenCifrasButton"/>
+							</p:selectOneMenu>
+						</p:column>
+					</p:row>
+					<p:row  style="text-align:left !important;">
+						<p:column style="padding-left:0 !important; padding-bottom:0 !important; padding-top:3% !important;">
+							<p:outputLabel value="#{msg['domiciliacion.archivo.principal.fecha.inicio']}" />
+						</p:column>
+						<p:column style="textalign:left !important;  padding-bottom:0 !important; padding-top:3% !important;">
+							<p:outputLabel value="#{msg['domiciliacion.archivo.principal.fecha.final']}"/>
+						</p:column>
+						
+					</p:row>
+					<p:row>
+						<p:column style="padding-left:0 !important; text-align:left;">
+							<p:calendar id="idFechaIni" showOn="button" readonlyInput="true"
+								value="#{archivoDomiciliacionView.paramBean.fechaInicio}" locale="es"
+								pattern="dd/MM/yyyy" timeZone="America/Mexico_City"
+								maxdate="#{archivoDomiciliacionView.fechaInicioMax}"
+								mindate="#{archivoDomiciliacionView.fechamin}"	>
+								<p:ajax event="dateSelect" update="banamexTiposCuenta" />
+							</p:calendar>
+						</p:column>
+						<p:column style="vertical-align: middle !important;">
+							<p:calendar id="idFechaFin" showOn="button" pattern="dd/MM/yyyy" disabled="true"
+								timeZone="America/Mexico_City" readonly="true" readonlyInput="true"
+								value="#{archivoDomiciliacionView.paramBean.fechaFin}" locale="es"
+								maxdate="#{archivoDomiciliacionView.fechaFinMax}"
+								mindate="#{archivoDomiciliacionView.fechaFinMax}" />
+						</p:column>
+						
+					</p:row>
+				</p:panelGrid>	
+			</p:panel>
+
+			<p:panel id="idpanelDatos" >
+					<p:panelGrid id="filtrosArchivosDomi" 
+							style="margin-top: 15px; width: 100%;vertical-align:middle; !important;" styleClass="cebraPanelGrid2" >
+			<ui:remove><!-- Encabezados --></ui:remove>
+						<f:facet name="header">
+						  <p:row>
+							<p:column>
+								<h:outputText value="#{msg['domiciliacion.archivo.principal.tabla.columna.cuentas']}" />
+							</p:column>
+							<p:column >
+								<h:outputText value="#{msg['domiciliacion.archivo.principal.tabla.columna.archivo.generar']}" />
+							</p:column>
+							<p:column>
+								<h:outputText value="#{msg['domiciliacion.archivo.principal.tabla.columna.tipo.cuenta']}" />
+							</p:column>
+							<p:column>
+								<h:outputText value="#{msg['domiciliacion.archivo.principal.tabla.columna.fecha.archivo.generado']}" />
+							</p:column>
+							<p:column >
+								<p:spacer/>
+							</p:column>
+						  </p:row>
+						</f:facet>
+						
+			<ui:remove><!-- Renglon Banamex --></ui:remove>
+					   <p:row>
+						<p:column style="vertical-align:middle; padding-left:0;">
+							<p:selectManyCheckbox id="banamexCuentasBanco" value="#{archivoDomiciliacionView.paramBean.registros[0].idBanco}" 
+										style="border: 1px solid #ffffff !important;"  disabled="#{archivoDomiciliacionView.paramBean.idOrigenDomiciliacion eq null or archivoDomiciliacionView.paramBean.idOrigenDomiciliacion==-1}">
+								<f:selectItem itemValue="#{archivoDomiciliacionView.idBanamex}" 
+										itemLabel="#{msg['domiciliacion.archivo.principal.cuenta.incluir.banamex']}" />
+								<p:ajax event="change" listener="#{archivoDomiciliacionView.test()}" 
+											update="banamexTipoArchivo,banamexTiposCuenta,banamexArchivoGenFechas,banamexTipoArchivo,banamexArchivoUnico,idGenCifrasButton" />
+							</p:selectManyCheckbox>
+						</p:column>
+						<p:column style="vertical-align:middle;">
+							<p:selectOneMenu id="banamexTipoArchivo"  style="vertical-align:middle;" value="#{archivoDomiciliacionView.paramBean.registros[0].tipoArchivo}" 
+							disabled="#{archivoDomiciliacionView.paramBean.registros[0].idBanco[0]==0 or archivoDomiciliacionView.paramBean.registros[0].idBanco[0] ==null}">
+								<f:selectItem itemLabel="Seleccione uno" noSelectionOption="true" itemValue="" />
+								<f:selectItem itemLabel="#{msg['domiciliacion.archivo.principal.cuenta.incluir.banamex']}" 
+												itemValue="#{archivoDomiciliacionView.idBanamex}" />
+								<f:selectItem itemLabel="#{msg['domiciliacion.archivo.principal.cuenta.incluir.bancomer']}"  
+												itemValue="#{archivoDomiciliacionView.idBancomer}" />
+								<p:ajax event="change" listener="#{archivoDomiciliacionView.selectTipoArchivo()}" update="banamexArchivoGenFechas,banamexCuentasBanco,banamexTiposCuenta" />
+							</p:selectOneMenu>
+						</p:column>
+						<p:column  style="vertical-align:middle;">
+							<p:selectManyCheckbox id="banamexTiposCuenta"  value="#{archivoDomiciliacionView.paramBean.registros[0].idsTiposCuenta}"
+												 columns="1" layout="grid" 
+												 disabled="#{archivoDomiciliacionView.paramBean.registros[0].tipoArchivo==null or archivoDomiciliacionView.paramBean.registros[0].tipoArchivo==''}">
+								<f:selectItem name="banamexTipoCuentaCLABE" 
+									itemDisabled="#{archivoDomiciliacionView.rangosUltimoGenerado.get(
+															archivoDomiciliacionView.paramBean.registros[0].tipoArchivo,
+															archivoDomiciliacionView.paramBean.registros[0].idBanco[0],
+															archivoDomiciliacionView.idCuentaClabe
+														).fechaFin 
+														>= archivoDomiciliacionView.paramBean.fechaInicio}"
+									itemLabel="#{msg['domiciliacion.archivo.principal.tipo.cuenta.clabe']}" itemValue = "#{archivoDomiciliacionView.idCuentaClabe}"/>
+								<f:selectItem name="banamexTipoCuentaDebito" 
+									itemDisabled="#{archivoDomiciliacionView.rangosUltimoGenerado.get(
+															archivoDomiciliacionView.paramBean.registros[0].tipoArchivo,
+															archivoDomiciliacionView.paramBean.registros[0].idBanco[0],
+															archivoDomiciliacionView.idCuentaDebito
+														).fechaFin 
+														>= archivoDomiciliacionView.paramBean.fechaInicio}"
+									itemLabel="#{msg['domiciliacion.archivo.principal.tipo.cuenta.debito']}" itemValue = "#{archivoDomiciliacionView.idCuentaDebito}"/>
+								<f:selectItem name="banamexTipoCuentaChequera" 
+									itemDisabled="#{archivoDomiciliacionView.rangosUltimoGenerado.get(
+															archivoDomiciliacionView.paramBean.registros[0].tipoArchivo,
+															archivoDomiciliacionView.paramBean.registros[0].idBanco[0],
+															archivoDomiciliacionView.idCuentaChequera
+														).fechaFin 
+														>= archivoDomiciliacionView.paramBean.fechaInicio}"
+									itemLabel="#{msg['domiciliacion.archivo.principal.tipo.cuenta.chequera']}" itemValue = "#{archivoDomiciliacionView.idCuentaChequera}"/>
+									<p:ajax event="change" update="banamexArchivoUnico,idGenCifrasButton" />
+							</p:selectManyCheckbox>
+						</p:column>
+						<p:column   style="vertical-align:middle;">
+							<p:panelGrid id="banamexArchivoGenFechas" style="width:100%" >
+								<ui:remove><!-- Fechas cuenta CLABE --></ui:remove>
+								<p:row>
+								<p:column styleClass="domiFileDateRange">
+									<h:outputText id="banamexClabeArchivoGenFechaIni" 
+											value="#{archivoDomiciliacionView.rangosUltimoGenerado.get(
+															archivoDomiciliacionView.paramBean.registros[0].tipoArchivo,
+															archivoDomiciliacionView.paramBean.registros[0].idBanco[0],
+															archivoDomiciliacionView.idCuentaClabe
+														).fechaIni}">
+										<f:convertDateTime type="date" pattern="dd/MM/yyyy" timeZone="America/Mexico_City" />
+									</h:outputText>
+									-
+									<h:outputText id="banamexClabeArchivoGenFechaFin" 
+											value="#{archivoDomiciliacionView.rangosUltimoGenerado.get(
+															archivoDomiciliacionView.paramBean.registros[0].tipoArchivo,
+															archivoDomiciliacionView.paramBean.registros[0].idBanco[0],
+															archivoDomiciliacionView.idCuentaClabe
+														).fechaFin}">
+										<f:convertDateTime type="date" pattern="dd/MM/yyyy" timeZone="America/Mexico_City" />
+									</h:outputText>
+								</p:column>
+								</p:row>
+								<ui:remove><!-- Fechas cuenta DEBITO --></ui:remove>
+								<p:row>
+								<p:column styleClass="domiFileDateRange">
+									<h:outputText id="banamexDebitoArchivoGenFechaIni" 
+											value="#{archivoDomiciliacionView.rangosUltimoGenerado.get(
+															archivoDomiciliacionView.paramBean.registros[0].tipoArchivo,
+															archivoDomiciliacionView.paramBean.registros[0].idBanco[0],
+															archivoDomiciliacionView.idCuentaDebito
+														).fechaIni}">
+										<f:convertDateTime type="date" pattern="dd/MM/yyyy" timeZone="America/Mexico_City" />
+									</h:outputText>
+									-
+									<h:outputText id="banamexDebitoArchivoGenFechaFin" 
+											value="#{archivoDomiciliacionView.rangosUltimoGenerado.get(
+															archivoDomiciliacionView.paramBean.registros[0].tipoArchivo,
+															archivoDomiciliacionView.paramBean.registros[0].idBanco[0],
+															archivoDomiciliacionView.idCuentaDebito
+														).fechaFin}">
+										<f:convertDateTime type="date" pattern="dd/MM/yyyy" timeZone="America/Mexico_City" />
+									</h:outputText>
+								</p:column>
+								</p:row>	
+								<ui:remove><!-- Fechas cuenta Chequera --></ui:remove>
+								<p:row>
+								<p:column styleClass="domiFileDateRange">
+									<h:outputText id="banamexChequeraArchivoGenFechaIni" 
+											value="#{archivoDomiciliacionView.rangosUltimoGenerado.get(
+															archivoDomiciliacionView.paramBean.registros[0].tipoArchivo,
+															archivoDomiciliacionView.paramBean.registros[0].idBanco[0],
+															archivoDomiciliacionView.idCuentaChequera
+														).fechaIni}">
+										<f:convertDateTime type="date" pattern="dd/MM/yyyy" timeZone="America/Mexico_City" />
+									</h:outputText>
+									-
+									<h:outputText id="banamexChequeraArchivoGenFechaFin" 
+											value="#{archivoDomiciliacionView.rangosUltimoGenerado.get(
+															archivoDomiciliacionView.paramBean.registros[0].tipoArchivo,
+															archivoDomiciliacionView.paramBean.registros[0].idBanco[0],
+															archivoDomiciliacionView.idCuentaChequera
+														).fechaFin}">
+										<f:convertDateTime type="date" pattern="dd/MM/yyyy" timeZone="America/Mexico_City" />
+									</h:outputText>
+									</p:column>
+									</p:row>	
+							</p:panelGrid>
+						</p:column>
+						<p:column  style="vertical-align:middle;" >
+							<p:selectBooleanCheckbox id="banamexArchivoUnico" value="#{archivoDomiciliacionView.paramBean.registros[0].archivoUnico}"
+								disabled="#{archivoDomiciliacionView.paramBean.registros[0].idsTiposCuenta[0] == null}">
+							</p:selectBooleanCheckbox>
+							<h:outputText value="Un solo archivo " />
+						</p:column>
+					</p:row>
+			<ui:remove><!-- Renglon Bancomer --></ui:remove>
+					<p:row>
+						<p:column  style="vertical-align:middle; padding-left:0;">
+							<p:selectManyCheckbox id="bancomerCuentasBanco" value="#{archivoDomiciliacionView.paramBean.registros[1].idBanco}" 
+									disabled="#{archivoDomiciliacionView.paramBean.idOrigenDomiciliacion eq null  or archivoDomiciliacionView.paramBean.idOrigenDomiciliacion==-1}">
+								<f:selectItem itemValue="#{archivoDomiciliacionView.idBancomer}" 
+										itemLabel="#{msg['domiciliacion.archivo.principal.cuenta.incluir.bancomer']}" />
+								<p:ajax event="change" listener="#{archivoDomiciliacionView.testBancomer()}" update="@this,bancomerTipoArchivo,bancomerTiposCuenta,bancomerArchivoGenFechas,bancomerTipoArchivo,bancomerArchivoUnico,idGenCifrasButton" />
+							</p:selectManyCheckbox>
+						</p:column>
+						<p:column  style="vertical-align:middle;">
+							<p:selectOneMenu id="bancomerTipoArchivo" style="width:125px" value="#{archivoDomiciliacionView.paramBean.registros[1].tipoArchivo}" 
+							disabled="#{archivoDomiciliacionView.paramBean.registros[1].idBanco[0]==0 or archivoDomiciliacionView.paramBean.registros[1].idBanco[0] ==null}">
+								<f:selectItem itemLabel="Seleccione uno" noSelectionOption="true" itemValue="" />
+								<f:selectItem itemLabel="#{msg['domiciliacion.archivo.principal.cuenta.incluir.banamex']}" 
+												itemValue="#{archivoDomiciliacionView.idBanamex}" />
+								<f:selectItem itemLabel="#{msg['domiciliacion.archivo.principal.cuenta.incluir.bancomer']}"  
+												itemValue="#{archivoDomiciliacionView.idBancomer}" />
+								<p:ajax event="change" update="bancomerArchivoGenFechas,bancomerCuentasBanco,bancomerTiposCuenta" />
+							</p:selectOneMenu>
+						</p:column>
+						<p:column  style="vertical-align:middle;">
+							<p:selectManyCheckbox id="bancomerTiposCuenta"   value="#{archivoDomiciliacionView.paramBean.registros[1].idsTiposCuenta}"
+												 columns="1" layout="grid"  disabled="#{archivoDomiciliacionView.paramBean.registros[1].tipoArchivo==null or archivoDomiciliacionView.paramBean.registros[1].tipoArchivo==''}">
+								<f:selectItem name="bancomerTipoCuentaCLABE" 
+									itemDisabled="#{archivoDomiciliacionView.rangosUltimoGenerado.get(
+															archivoDomiciliacionView.paramBean.registros[1].tipoArchivo,
+															archivoDomiciliacionView.paramBean.registros[1].idBanco[0],
+															archivoDomiciliacionView.idCuentaClabe
+														).fechaFin 
+														>= archivoDomiciliacionView.paramBean.fechaInicio}"
+									itemLabel="#{msg['domiciliacion.archivo.principal.tipo.cuenta.clabe']}" itemValue = "#{archivoDomiciliacionView.idCuentaClabe}"/>
+								<f:selectItem name="bancomerTipoCuentaDebito" 
+									itemDisabled="#{archivoDomiciliacionView.rangosUltimoGenerado.get(
+															archivoDomiciliacionView.paramBean.registros[1].tipoArchivo,
+															archivoDomiciliacionView.paramBean.registros[1].idBanco[0],
+															archivoDomiciliacionView.idCuentaDebito
+														).fechaFin 
+														>= archivoDomiciliacionView.paramBean.fechaInicio}"
+									itemLabel="#{msg['domiciliacion.archivo.principal.tipo.cuenta.debito']}" itemValue = "#{archivoDomiciliacionView.idCuentaDebito}"/>
+								<f:selectItem name="bancomerTipoCuentaChequera" 
+									itemDisabled="#{archivoDomiciliacionView.rangosUltimoGenerado.get(
+															archivoDomiciliacionView.paramBean.registros[1].tipoArchivo,
+															archivoDomiciliacionView.paramBean.registros[1].idBanco[0],
+															archivoDomiciliacionView.idCuentaChequera
+														).fechaFin 
+														>= archivoDomiciliacionView.paramBean.fechaInicio}"
+									itemLabel="#{msg['domiciliacion.archivo.principal.tipo.cuenta.chequera']}" itemValue = "#{archivoDomiciliacionView.idCuentaChequera}"/>
+									<p:ajax event="change" update="bancomerArchivoUnico,idGenCifrasButton" />
+							</p:selectManyCheckbox>
+						</p:column>
+						<p:column  style="vertical-align:middle;">
+							<p:panelGrid id="bancomerArchivoGenFechas"  style="width:100%" >
+								<ui:remove><!-- Fechas cuenta CLABE --></ui:remove>
+								<p:row>
+								<p:column styleClass="domiFileDateRange">
+									<h:outputText id="bancomerClabeArchivoGenFechaIni" 
+											value="#{archivoDomiciliacionView.rangosUltimoGenerado.get(
+															archivoDomiciliacionView.paramBean.registros[1].tipoArchivo,
+															archivoDomiciliacionView.paramBean.registros[1].idBanco[0],
+															archivoDomiciliacionView.idCuentaClabe
+														).fechaIni}">
+										<f:convertDateTime type="date" pattern="dd/MM/yyyy" timeZone="America/Mexico_City" />
+									</h:outputText>
+									-
+									<h:outputText id="bancomerClabeArchivoGenFechaFin" 
+											value="#{archivoDomiciliacionView.rangosUltimoGenerado.get(
+															archivoDomiciliacionView.paramBean.registros[1].tipoArchivo,
+															archivoDomiciliacionView.paramBean.registros[1].idBanco[0],
+															archivoDomiciliacionView.idCuentaClabe
+														).fechaFin}">
+										<f:convertDateTime type="date" pattern="dd/MM/yyyy" timeZone="America/Mexico_City" />
+									</h:outputText>
+								</p:column>
+								</p:row>
+								<ui:remove><!-- Fechas cuenta DEBITO --></ui:remove>
+								<p:row>
+									<p:column styleClass="domiFileDateRange">
+									<h:outputText id="bancomerDebitoArchivoGenFechaIni" 
+											value="#{archivoDomiciliacionView.rangosUltimoGenerado.get(
+															archivoDomiciliacionView.paramBean.registros[1].tipoArchivo,
+															archivoDomiciliacionView.paramBean.registros[1].idBanco[0],
+															archivoDomiciliacionView.idCuentaDebito
+														).fechaIni}">
+										<f:convertDateTime type="date" pattern="dd/MM/yyyy" timeZone="America/Mexico_City" />
+									</h:outputText>
+									-
+									<h:outputText id="bancomerDebitoArchivoGenFechaFin" 
+											value="#{archivoDomiciliacionView.rangosUltimoGenerado.get(
+															archivoDomiciliacionView.paramBean.registros[1].tipoArchivo,
+															archivoDomiciliacionView.paramBean.registros[1].idBanco[0],
+															archivoDomiciliacionView.idCuentaDebito
+														).fechaFin}">
+										<f:convertDateTime type="date" pattern="dd/MM/yyyy" timeZone="America/Mexico_City" />
+									</h:outputText>	
+									</p:column>
+								</p:row>
+								<ui:remove><!-- Fechas cuenta Chequera --></ui:remove>
+								<p:row>
+								<p:column styleClass="domiFileDateRange">
+									<h:outputText id="bancomerChequeraArchivoGenFechaIni" 
+											value="#{archivoDomiciliacionView.rangosUltimoGenerado.get(
+															archivoDomiciliacionView.paramBean.registros[1].tipoArchivo,
+															archivoDomiciliacionView.paramBean.registros[1].idBanco[0],
+															archivoDomiciliacionView.idCuentaChequera
+														).fechaIni}">
+										<f:convertDateTime type="date" pattern="dd/MM/yyyy" timeZone="America/Mexico_City" />
+									</h:outputText>
+									-
+									<h:outputText id="bancomerChequeraArchivoGenFechaFin" 
+											value="#{archivoDomiciliacionView.rangosUltimoGenerado.get(
+															archivoDomiciliacionView.paramBean.registros[1].tipoArchivo,
+															archivoDomiciliacionView.paramBean.registros[1].idBanco[0],
+															archivoDomiciliacionView.idCuentaChequera
+														).fechaFin}">
+										<f:convertDateTime type="date" pattern="dd/MM/yyyy" timeZone="America/Mexico_City" />
+									</h:outputText>	
+								</p:column>
+								</p:row>
+							</p:panelGrid>
+						</p:column>
+						<p:column  style="vertical-align:middle;">
+							<p:selectBooleanCheckbox id="bancomerArchivoUnico" value="#{archivoDomiciliacionView.paramBean.registros[1].archivoUnico}"
+								disabled="#{archivoDomiciliacionView.paramBean.registros[1].idsTiposCuenta[0] == null}">
+							</p:selectBooleanCheckbox>
+							<h:outputText value="Un solo archivo " />
+						</p:column>
+					</p:row>	
+			<ui:remove><!-- Renglon Otro   registros[2] --></ui:remove>
+					<p:row >
+						<p:column  style="vertical-align:middle; padding-left:0;">
+							<p:selectManyCheckbox id="otroCuentasBanco" value="#{archivoDomiciliacionView.paramBean.registros[2].idBanco}" 
+							disabled="#{archivoDomiciliacionView.paramBean.idOrigenDomiciliacion eq null  or archivoDomiciliacionView.paramBean.idOrigenDomiciliacion==-1}">
+								<f:selectItem itemValue="#{archivoDomiciliacionView.idOtrosBancos}" 
+										itemLabel="#{msg['domiciliacion.archivo.principal.cuenta.incluir.otro']}" />
+								<p:ajax event="change" listener="#{archivoDomiciliacionView.testOtro()}" update="@this,otroTipoArchivo,otroTiposCuenta,otroArchivoGenFechas,otroTipoArchivo,otroArchivoUnico,idGenCifrasButton" />
+							</p:selectManyCheckbox>
+						</p:column>
+						<p:column  style="vertical-align:middle;">
+							<p:selectOneMenu id="otroTipoArchivo" style="width:125px" value="#{archivoDomiciliacionView.paramBean.registros[2].tipoArchivo}" 
+							disabled="#{archivoDomiciliacionView.paramBean.registros[2].idBanco[0]==0 or archivoDomiciliacionView.paramBean.registros[2].idBanco[0] ==null}">
+								<f:selectItem itemLabel="Seleccione uno" noSelectionOption="true" itemValue="" />
+								<f:selectItem itemLabel="#{msg['domiciliacion.archivo.principal.cuenta.incluir.banamex']}" 
+												itemValue="#{archivoDomiciliacionView.idBanamex}" />
+								<f:selectItem itemLabel="#{msg['domiciliacion.archivo.principal.cuenta.incluir.bancomer']}"  
+												itemValue="#{archivoDomiciliacionView.idBancomer}" />
+								<p:ajax event="change" update="otroArchivoGenFechas,otroCuentasBanco,otroTiposCuenta" />
+							</p:selectOneMenu>
+						</p:column>
+						<p:column  style="vertical-align:middle;">
+							<p:selectManyCheckbox id="otroTiposCuenta"   value="#{archivoDomiciliacionView.paramBean.registros[2].idsTiposCuenta}"
+												 columns="1" layout="grid"  disabled="#{archivoDomiciliacionView.paramBean.registros[2].tipoArchivo==null or archivoDomiciliacionView.paramBean.registros[2].tipoArchivo==''}">
+								<f:selectItem name="otroTipoCuentaCLABE" 
+									itemDisabled="#{archivoDomiciliacionView.rangosUltimoGenerado.get(
+															archivoDomiciliacionView.paramBean.registros[2].tipoArchivo,
+															archivoDomiciliacionView.paramBean.registros[2].idBanco[0],
+															archivoDomiciliacionView.idCuentaClabe
+														).fechaFin 
+														>= archivoDomiciliacionView.paramBean.fechaInicio}"
+									itemLabel="#{msg['domiciliacion.archivo.principal.tipo.cuenta.clabe']}" itemValue = "#{archivoDomiciliacionView.idCuentaClabe}"/>
+								<f:selectItem name="otroTipoCuentaDebito" 
+									itemDisabled="#{archivoDomiciliacionView.rangosUltimoGenerado.get(
+															archivoDomiciliacionView.paramBean.registros[2].tipoArchivo,
+															archivoDomiciliacionView.paramBean.registros[2].idBanco[0],
+															archivoDomiciliacionView.idCuentaDebito
+														).fechaFin 
+														>= archivoDomiciliacionView.paramBean.fechaInicio}"
+									itemLabel="#{msg['domiciliacion.archivo.principal.tipo.cuenta.debito']}" itemValue = "#{archivoDomiciliacionView.idCuentaDebito}"/>
+								<f:selectItem name="otroTipoCuentaChequera" 
+									itemDisabled="#{archivoDomiciliacionView.rangosUltimoGenerado.get(
+															archivoDomiciliacionView.paramBean.registros[2].tipoArchivo,
+															archivoDomiciliacionView.paramBean.registros[2].idBanco[0],
+															archivoDomiciliacionView.idCuentaChequera
+														).fechaFin 
+														>= archivoDomiciliacionView.paramBean.fechaInicio}"
+									itemLabel="#{msg['domiciliacion.archivo.principal.tipo.cuenta.chequera']}" itemValue = "#{archivoDomiciliacionView.idCuentaChequera}"/>
+									<p:ajax event="change" update="otroArchivoUnico,idGenCifrasButton" />
+							</p:selectManyCheckbox>
+						</p:column>
+						<p:column style="vertical-align:middle;" >
+							<p:panelGrid id="otroArchivoGenFechas"  style="width:100%" >
+								<ui:remove><!-- Fechas cuenta CLABE --></ui:remove>
+								<p:row >
+								<p:column styleClass="domiFileDateRange">
+									<h:outputText id="otroClabeArchivoGenFechaIni" 
+											value="#{archivoDomiciliacionView.rangosUltimoGenerado.get(
+															archivoDomiciliacionView.paramBean.registros[2].tipoArchivo,
+															archivoDomiciliacionView.paramBean.registros[2].idBanco[0],
+															archivoDomiciliacionView.idCuentaClabe
+														).fechaIni}">
+										<f:convertDateTime type="date" pattern="dd/MM/yyyy" timeZone="America/Mexico_City" />
+									</h:outputText>
+									-
+									<h:outputText id="otroClabeArchivoGenFechaFin" 
+											value="#{archivoDomiciliacionView.rangosUltimoGenerado.get(
+															archivoDomiciliacionView.paramBean.registros[2].tipoArchivo,
+															archivoDomiciliacionView.paramBean.registros[2].idBanco[0],
+															archivoDomiciliacionView.idCuentaClabe
+														).fechaFin}">
+										<f:convertDateTime type="date" pattern="dd/MM/yyyy" timeZone="America/Mexico_City" />
+									</h:outputText>
+								</p:column>
+								</p:row>
+								<ui:remove><!-- Fechas cuenta DEBITO --></ui:remove>
+								<p:row >
+								<p:column styleClass="domiFileDateRange">
+									<h:outputText id="otroDebitoArchivoGenFechaIni" 
+											value="#{archivoDomiciliacionView.rangosUltimoGenerado.get(
+															archivoDomiciliacionView.paramBean.registros[2].tipoArchivo,
+															archivoDomiciliacionView.paramBean.registros[2].idBanco[0],
+															archivoDomiciliacionView.idCuentaDebito
+														).fechaIni}">
+										<f:convertDateTime type="date" pattern="dd/MM/yyyy" timeZone="America/Mexico_City" />
+									</h:outputText>
+									-
+									<h:outputText id="otroDebitoArchivoGenFechaFin" 
+											value="#{archivoDomiciliacionView.rangosUltimoGenerado.get(
+															archivoDomiciliacionView.paramBean.registros[2].tipoArchivo,
+															archivoDomiciliacionView.paramBean.registros[2].idBanco[0],
+															archivoDomiciliacionView.idCuentaDebito
+														).fechaFin}">
+										<f:convertDateTime type="date" pattern="dd/MM/yyyy" timeZone="America/Mexico_City" />
+									</h:outputText>	
+								</p:column>
+								</p:row>
+								<ui:remove><!-- Fechas cuenta Chequera --></ui:remove>
+								<p:row >
+								<p:column styleClass="domiFileDateRange">
+									<h:outputText id="otroChequeraArchivoGenFechaIni" 
+											value="#{archivoDomiciliacionView.rangosUltimoGenerado.get(
+															archivoDomiciliacionView.paramBean.registros[2].tipoArchivo,
+															archivoDomiciliacionView.paramBean.registros[2].idBanco[0],
+															archivoDomiciliacionView.idCuentaChequera
+														).fechaIni}">
+										<f:convertDateTime type="date" pattern="dd/MM/yyyy" timeZone="America/Mexico_City" />
+									</h:outputText>
+									-
+									<h:outputText id="otroChequeraArchivoGenFechaFin" 
+											value="#{archivoDomiciliacionView.rangosUltimoGenerado.get(
+															archivoDomiciliacionView.paramBean.registros[2].tipoArchivo,
+															archivoDomiciliacionView.paramBean.registros[2].idBanco[0],
+															archivoDomiciliacionView.idCuentaChequera
+														).fechaFin}">
+										<f:convertDateTime type="date" pattern="dd/MM/yyyy" timeZone="America/Mexico_City" />
+									</h:outputText>	
+								</p:column>
+								</p:row>
+							</p:panelGrid>
+						</p:column>
+						<p:column style="vertical-align:middle;" >
+							<p:selectBooleanCheckbox id="otroArchivoUnico" value="#{archivoDomiciliacionView.paramBean.registros[2].archivoUnico}"
+								disabled="#{archivoDomiciliacionView.paramBean.registros[2].idsTiposCuenta[0] == null}">
+							</p:selectBooleanCheckbox>
+							<h:outputText value="#{msg['domiciliacion.archivo.principal.un.solo.archivo']}" />
+						</p:column>
+					</p:row>
+					</p:panelGrid>
+				<p:commandButton id="idGenCifrasButton"
+					value="#{msg['domiciliacion.archivo.principal.button.buscar']}"
+					actionListener="#{archivoDomiciliacionView.clickGenerarCifras}"
+					onstart="PF('dialogDepositandoBar').show();"
+					oncomplete="setTimeout(function(){ PF('dialogDepositandoBar').hide()},1000); PF('dialogCifrasControl').show();" 
+					update=":formCifras:iddialogCifrasControl,:formCifras:idCifrasPorBancoBMX"
+					disabled="#{    (empty archivoDomiciliacionView.paramBean.registros[0].idsTiposCuenta)
+								and (empty archivoDomiciliacionView.paramBean.registros[1].idsTiposCuenta)
+								and (empty archivoDomiciliacionView.paramBean.registros[2].idsTiposCuenta)}"
+					styleClass="blue-button"/>
+					<p:spacer width="10"/>
+				<p:commandButton id="idLimpiarFiltros" 	value="#{msg['domiciliacion.archivo.principal.boton.limpiar']}"
+					actionListener="#{archivoDomiciliacionView.resetForm()}" update="filtrosArchivosDomi,idpanelPrincipal,idGenCifrasButton"
+					styleClass="gray-button"/>
+			</p:panel>
+			
+		</h:form>			
+		<h:form id="formDialogoWait" styleClass="form-general">
+			<p:dialog id="idDialogDepositandoBar" modal="true"
+				widgetVar="dialogDepositandoBar" draggable="false" closable="false"
+				resizable="false" appendTo="@(body)" width="300" height="25"
+				showHeader="false">
+
+				<div align="center">
+					<h:outputText value="#{msg['general.ventana.espera']}"
+						styleClass="outputTextGeneric" />
+					<br />
+					<h:graphicImage value="/core/static/images/loading-bar.gif" width="150" />
+				</div>
+			</p:dialog>
+		</h:form>
+		<h:form id="formCifras" styleClass="form-general">
+			<p:dialog id="iddialogCifrasControl" closable="false"
+				header="#{msg['domiciliacion.archivo.title.general']}" widgetVar="dialogCifrasControl" modal="true" draggable="false"
+				resizable="false" appendTo="@(body)" width="1000" >
+				<p:panel id="panelCifras" >
+				<p:panelGrid id="panelCifrasTotalesCont" columns="1" style="width: 30%;">
+					<p:panelGrid styleClass="table-style"  style="width: 100%;" >
+						<f:facet name="header">
+							<p:row>
+								<p:column>
+										<h:outputText value="#{msg['domiciliacion.archivo.principal.cifras.totales.titulo']}" />
+								</p:column>
+							</p:row>
+						</f:facet>
+					</p:panelGrid>
+					<p:panelGrid id="panelCifrasImportes"  width="100%" styleClass="cebraPanelGrid" >
+					<c:if test="#{!empty archivoDomiciliacionView.cifrasTotales}">
+						<c:forEach  items="#{archivoDomiciliacionView.cifrasTotales}"  var="_cifrasTotales"   >
+							<p:row>
+								<p:column style="text-align:left">
+									<h:outputText value="IMPORTE #{_cifrasTotales.descripcion}"/>
+								</p:column>
+								<p:column style="text-align:right">
+									<h:outputText value="#{_cifrasTotales.importe}">
+										<f:convertNumber pattern="$#,###,##0.00" locale="es_MX" />
+									</h:outputText>
+								</p:column>
+							</p:row>
+						</c:forEach>
+						<p:row>
+							<p:column  style="text-align:left">
+								<b>	<h:outputText value="#{msg['domiciliacion.archivo.principal.cifras.totales.importe.total']}"/></b>
+							</p:column>
+							<p:column style="text-align:right">
+								<b><h:outputText value="#{archivoDomiciliacionView.cifrasTotales[0].total}" >
+	                       			<f:convertNumber pattern="$#,###,##0.00" locale="es_MX" />
+	                       		</h:outputText></b>
+	                   		</p:column>
+						</p:row>
+						<p:row>
+	                   		<p:column style="text-align:left" >
+	                   			<b> <h:outputText value="#{msg['domiciliacion.archivo.principal.cifras.totales.total.registros']}"/> </b>
+							</p:column>
+							<p:column style="text-align:right">
+								<b>  	<h:outputText value="#{archivoDomiciliacionView.cifrasTotales[0].totalRegistros}"/> </b>
+	                       	</p:column>
+						</p:row>
+					</c:if>
+					<c:if test="#{empty archivoDomiciliacionView.cifrasTotales}">
+						<p:row>
+	                   		<p:column >
+	                   			<h:outputText value="#{msg['general.table.rows.empty']}"/> 
+							</p:column>
+						</p:row>
+					</c:if>
+					</p:panelGrid>
+					</p:panelGrid>
+
+					<br></br>
+					<p:panelGrid style="margin-top: 15px; width: 100%;vertical-align:middle; !important;" styleClass="table-style">
+						<f:facet name="header">
+							<p:row>
+								<p:column>
+									<p:outputLabel value="#{msg['domiciliacion.archivo.principal.cifras.por.banco.titulo']}"/>
+								</p:column>
+							</p:row>	
+						</f:facet>
+					</p:panelGrid>
+					
+					<p:panelGrid id="idCifrasPorBancoBMX"  tableStyleClass="cebraPanelGrid estilo-nuevo" styleClass="cebraPanelGrid" >
+						<c:forEach  items="#{archivoDomiciliacionView.cifrasBanco}" var="_cifrasBanco">
+							<c:if test="#{!empty _cifrasBanco.listaBancos}" >
+								<p:row>
+										<c:forEach  items="#{_cifrasBanco.listaBancos}" 	var="_Bancos"   >
+												<p:column value="#{_cifrasBanco.tipocuenta.valor}">
+													<p:panelGrid style="width: 50%;vertical-align:middle; !important;" styleClass="cebraPanelGrid">
+														<f:facet name="header">
+															<p:row>
+																<p:column>
+																	<b><h:outputText value="#{_Bancos.banco.valor}"/></b>
+																</p:column>
+															</p:row>	
+														</f:facet>
+														<p:column>
+															<b><h:outputText value="#{_cifrasBanco.tipocuenta.valor}"/> - <h:outputText value="#{_Bancos.bancoIncluir.valor}"/></b>
+														</p:column>
+													</p:panelGrid>
+													<p:panelGrid style="width: 100%;vertical-align:middle; !important;" styleClass="cebraPanelGrid">
+														<p:row>
+															<p:column style="text-align:left" headerText="#{_cifrasBanco.tipocuenta.valor}XX">
+																<h:outputText value="#{msg['domiciliacion.archivo.principal.cifras.totales.total.registros']}"/> 
+															</p:column>
+															<p:column style="text-align:right">
+																<h:outputText value="#{_Bancos.totalRegistros}"/>
+															</p:column>
+														</p:row>
+														<p:row>
+															<p:column style="text-align:left">
+																<h:outputText value="#{msg['domiciliacion.archivo.principal.cifras.totales.importe.total']}"/>
+															</p:column>
+															<p:column style="text-align:right">
+																<h:outputText value="#{_Bancos.importeTotal}">
+																	<f:convertNumber pattern="$#,###,##0.00" locale="es_MX" />
+																</h:outputText> 
+															</p:column>
+														</p:row>	
+													</p:panelGrid>
+												</p:column>
+										</c:forEach>
+								</p:row>
+							</c:if>
+						</c:forEach>
+					</p:panelGrid>
+						
+		<ui:remove>				
+<!-- 				<p:dataTable id="idCifrasPorBancoBBVA" -->
+<!-- 						value="#{archivoDomiciliacionView.cifrasBanco}" var="_cifrasBanco" -->
+<!-- 						 tableStyleClass="cebraPanelGrid estilo-nuevo" emptyMessage=" " -->
+<!-- 						styleClass="cebraPanelGrid" rowIndexVar="_rowIndexBanco"> -->
+<!-- 						<p:columns value="#{archivoDomiciliacionView.cifrasBanco}" 	var="headerCuenta" columnIndexVar="colIndex"> -->
+<!-- 							<f:facet name="header"> -->
+<!-- 								<b><h:outputText value="00#{headerCuenta.tipocuenta.valor}" /></b> -->
+<!-- 							</f:facet> -->
+<!-- 							<p:dataList id="listaCifrasBancoBBVA" value="#{headerCuenta.listaBancos}"  -->
+<!-- 										var="_Bancos" type="definition" rowIndexVar="listRowIndex" emptyMessage="EEE"> -->
+<!-- 								<p:row > -->
+<!-- 										<p:column > -->
+<!-- 											<p:panelGrid style="width: 100%;vertical-align:middle; !important;" styleClass="cebraPanelGrid"> -->
+<!-- 												<f:facet name="header"> -->
+<!-- 													<p:row> -->
+<!-- 														<p:column colspan="3"> -->
+<!-- 															<b><h:outputText value="#{_Bancos.banco.valor}"/></b> -->
+<!-- 														</p:column> -->
+<!-- 													</p:row>	 -->
+<!-- 												</f:facet> -->
+<!-- 											</p:panelGrid> -->
+<!-- 										</p:column> -->
+<!-- 										<p:column> -->
+<!-- 											<p:panelGrid style="width: 100%;vertical-align:middle; !important;" styleClass="cebraPanelGrid"> -->
+<!-- 												<p:row> -->
+<!-- 													<p:column style="text-align:left"> -->
+<!-- 														<h:outputText value="#{msg['domiciliacion.archivo.principal.cifras.totales.total.registros']}"/>  -->
+<!-- 													</p:column> -->
+<!-- 													<p:column style="text-align:right"> -->
+<!-- 														<h:outputText value="#{_Bancos.totalRegistros}"/> -->
+<!-- 													</p:column> -->
+<!-- 												</p:row> -->
+<!-- 												<p:row> -->
+<!-- 													<p:column  style="text-align:left"> -->
+<!-- 														<h:outputText value="#{msg['domiciliacion.archivo.principal.cifras.totales.importe.total']}"/> -->
+<!-- 													</p:column> -->
+<!-- 													<p:column  style="text-align:right"> -->
+<!-- 														<h:outputText value="#{_Bancos.importeTotal}"> -->
+<!-- 															<f:convertNumber pattern="$#,###,##0.00" locale="es_MX" /> -->
+<!-- 														</h:outputText>  -->
+<!-- 													</p:column> -->
+<!-- 												</p:row>	 -->
+<!-- 											</p:panelGrid> -->
+<!-- 										</p:column> -->
+<!-- 								</p:row> -->
+
+<!-- 							</p:dataList> -->
+<!-- 						</p:columns> -->
+<!-- 						</p:dataTable> -->
+			</ui:remove>
+					<p:panel style="text-align:right;">
+						<p:commandButton value="#{msg['domiciliacion.archivo.principal.boton.generar.archivo']}" styleClass="blue-button"
+							onstart="PF('dialogDepositandoBar').show();" process="@this"
+							oncomplete="setTimeout(function(){ PF('dialogDepositandoBar').hide()},1000); PF('dialogResultado').show();PF('dialogConfirmNew').hide(); "
+							update=":formResultado:archivosGeneradosResult"
+							actionListener="#{archivoDomiciliacionView.clickGenerarArchivo}" 
+							disabled="#{empty archivoDomiciliacionView.cifrasTotales}"/>
+						<p:spacer width="10" />	
+						<p:commandButton process="@this" value="#{msg['domiciliacion.archivo.principal.boton.cancelar']}" styleClass="gray-button"
+							onclick="PF('dialogCifrasControl').hide();" />
+					</p:panel>
+				</p:panel>
+			</p:dialog>
+			
+			
+		</h:form>
+		<h:form id="formConfirma" styleClass="form-general">
+			<p:dialog id="dialogConfirmNew" closable="false" header="#{msg['domiciliacion.archivo.title.general']}"
+				widgetVar="dialogConfirmNew" modal="true" resizable="false" >
+
+				<p:panel id="panelGeneracionArchivos">
+					<h:outputLabel 	value="#{msg['domiciliacion.archivo.principal.msg.confirmar']}" />
+					<br></br>
+					<br></br>
+					<p:dataList value="#{archivoDomiciliacionView.listaFinal}"
+						var="_archivosCuenta" type="ordered">
+						Archivo 
+						<h:outputText value="#{_archivosCuenta.archivoGenerar}" />
+						con cuentas 
+						<h:outputText value="#{_archivosCuenta.idBanco == 460 ? 'BANCOMER' : _archivosCuenta.idBanco == 459 ? 'BANAMEX' :'OTRO'}" />
+						con tipo de cuenta
+						<h:outputText value="#{_archivosCuenta.tipoCuenta.valor}" />
+					</p:dataList>
+					<p:commandButton value="Aceptar" styleClass="blue-button"
+						onstart="PF('dialogDepositandoBar').show();" process="@this"
+						oncomplete="setTimeout(function(){ PF('dialogDepositandoBar').hide()},1000); PF('dialogResultado').show();PF('dialogConfirmNew').hide(); "
+						update=":formResultado:archivosGeneradosResult"
+						actionListener="#{archivoDomiciliacionView.clickGenerarArchivo}" />
+					<p:spacer width="10" />
+					<p:commandButton value="Cancelar" styleClass="blue-button"
+						onclick="PF('dialogConfirmNew').hide(); " process="@this" />
+				</p:panel>
+			</p:dialog>
+		</h:form>
+		<h:form id="formResultado" styleClass="form-general">
+			<p:dialog id="idDialogResultado" widgetVar="dialogResultado" header="#{msg['domiciliacion.archivo.title.general']}"
+				 draggable="false" closable="false" resizable="false" showHeader="true" modal="true" 
+				 appendTo="@(body)" >
+				<p:panel id="archivosGeneradosResult">
+					<h:outputLabel 	value="Resultados de generación de archivo de domiciliaciones "/>
+					<p:spacer height="20"/>
+					<p:panelGrid columns="2">
+						<p:dataGrid value="#{archivoDomiciliacionView.listaResultado}" columns="1" var="_archivos" styleClass="cebraPanelGrid" style="text-align:left  !important;">
+							<p:row  style="text-align:left  !important;">
+								<p:column  style="text-align:left  !important;">
+									<h:outputText value="#{_archivos.nombreArchivo}" style="text-align:left  !important;"/> 
+									<p:dataGrid value="#{_archivos.errors}" var="err" style="text-align:left  !important;"  >
+										<h:outputText value="#{err}" style="text-align:left  !important;"/>
+									</p:dataGrid>
+								</p:column>
+							</p:row>
+						</p:dataGrid>
+					</p:panelGrid>
+					<p:panel style="text-align:right;">
+						<p:commandButton value="#{msg['general.button.cerrar']}" styleClass="gray-button" 
+								onclick="PF('dialogResultado').hide();PF('dialogCifrasControl').hide();"
+								update=":formPrincipalArchivo:idpanelPrincipal"/>
+					</p:panel>
+				</p:panel>
+			</p:dialog>
+		</h:form>
+		
+	</ui:define>
+</ui:composition>
+</html>

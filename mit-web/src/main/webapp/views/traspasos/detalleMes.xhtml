@@ -1,0 +1,497 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<ui:composition template="../../core/desktop/desktop.xhtml">
+	<ui:define name="body">
+		<h:form id="formDetalleMes" styleClass="form-general"
+			enctype="multipart/form-data">
+<style>
+.cebraPanelGrid2 {
+	width: 100% !important;
+}
+.cebraPanelGrid2 thead tr {
+  background: #9d9d9d !important;
+}
+.cebraPanelGrid2 thead tr td {
+  border: 2px solid #9d9d9d !important;
+  background: #00427a !important
+  color: #ffffff !important;
+  font-size: 13px !important;
+  font-weight: bold !important;
+  text-align: center !important;
+  padding: 10px 2 !important;
+  text-shadow: none !important;
+}
+
+.cebraPanelGrid2 tbody tr:nth-child(even),
+.cebraPanelGrid2 tbody .fila-impar {
+  border-top: 1px solid #9d9d9d !important;
+  border-bottom: 1px solid #9d9d9d !important;
+}
+.cebraPanelGrid2 tbody tr:nth-child(odd),
+.cebraPanelGrid2 tbody .fila-impar {
+  border-top: 1px solid #9d9d9d !important;
+  border-bottom: 1px solid #9d9d9d !important;
+}
+</style>	
+	<div style="padding-left: 8px;">
+	<p:panel id="idpanelPrincipal" header="#{msg['domiciliacion.traspasos.detalleMes.titulo']}" style="margin-top: 56px;">
+		<p:panelGrid id="encabezado" style="margin-top: 5px; width: 100%;vertical-align:middle; !important;" styleClass="cebraPanelGrid2" >
+			<p:row  style="text-left !important;">
+
+			</p:row>
+		</p:panelGrid>
+	</p:panel>
+	</div>
+	<p:panel id="idpanelFormularioUno">	
+		<p:panelGrid style="padding-left: 15px;">
+				<p:column style="vertical-align: middle !important;text-align:left !important;">
+					<p:outputLabel value="#{msg['domiciliacion.traspasos.detalleMes.mes']}" />
+				</p:column>
+				<p:column style="vertical-align: middle !important;text-align:left !important;">
+					<p:selectOneMenu inlineStyle="height: 5px;padding-right: -15px;" id="selecMeses" style=" font-size: 35px; height: 20px; width: 180px;" value="#{detalleMesView.mesBusqueda}">
+					<p:ajax event="change" update="idpanelFormularioUno" listener="#{detalleMesView.seleccionMenu}" />
+						<f:selectItem itemLabel="Seleccionar Mes" noSelectionOption="true" itemValue="" />
+						<f:selectItems value="#{detalleMesView.mesesBusqueda}"/>
+					</p:selectOneMenu>
+				</p:column>
+				<p:column style="vertical-align: middle !important;textalign:left !important;" >
+					<p:commandButton id="idbuscarDatos" value="#{msg['domiciliacion.traspasos.detalleMes.buscar']}"
+						actionListener="#{detalleMesView.obtenerMonitoreo}" update="formDetalleMes"
+						styleClass="blue-button" disabled="#{!detalleMesView.muestraBoton}"/>
+				</p:column>
+		</p:panelGrid>	
+	</p:panel>
+			
+	<p:panel id="idpanelDatos" rendered="#{detalleMesView.busquedaValida}">
+		<p:panelGrid>
+			<p:row style="text-align:left; font-weight:bold !important;">
+				<p:column style="vertical-align: middle !important;text-align:left !important;">
+					<p:outputLabel value="#{msg['domiciliacion.traspasos.detalleMes.mes']}" />
+				</p:column>
+				<p:column style="vertical-align: middle !important;textalign:left !important;">
+					<p:outputLabel value="#{detalleMesView.mesBusquedaTxt}" />
+				</p:column>
+			</p:row>
+		</p:panelGrid>
+		<div style="padding-left: 8px;">  
+		<p:panelGrid id="datosPendTabla" 
+				style=" width: 95%;vertical-align:middle; !important;" styleClass="cebraPanelGrid2">
+			<f:facet name="header">
+				<p:row>
+					<p:column rowspan="2" style="vertical-align:middle;" border="1">
+						<h:outputText value="#{msg['domiciliacion.traspasos.detalleMes.recurrencia']}" style="center"/>
+					</p:column>
+					<p:column colspan="3" style="vertical-align:middle;">
+						<h:outputText value="#{msg['domiciliacion.traspasos.detalleMes.solicitudes']}" style="center"/>
+					</p:column>
+					<p:column colspan="2" style="vertical-align:middle;">
+						<h:outputText value="#{msg['domiciliacion.traspasos.detalleMes.solConAlMenosUnCargo']}" style="center"/>
+					</p:column>
+					<p:column colspan="2" style="vertical-align:middle;">
+						<h:outputText value="#{msg['domiciliacion.traspasos.detalleMes.recursos']}" style="center"/>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column style="vertical-align:middle;">
+						<h:outputText value="#{msg['domiciliacion.traspasos.detalleMes.ingresadas']}" style="center"/>
+					</p:column>
+					<p:column style="vertical-align:middle;">
+						<h:outputText value="#{msg['domiciliacion.traspasos.detalleMes.aceptadas']}" style="center"/>
+					</p:column>
+					<p:column style="vertical-align:middle;">
+						<h:outputText value="#{msg['domiciliacion.traspasos.detalleMes.canceladas']}" style="center"/>
+					</p:column>
+					<p:column style="vertical-align:middle;">
+						<h:outputText value="#{msg['domiciliacion.traspasos.detalleMes.aceptado']}" style="center"/>
+					</p:column>
+					<p:column style="vertical-align:middle;">
+						<h:outputText value="#{msg['domiciliacion.traspasos.detalleMes.rechazado']}" style="center"/>
+					</p:column>
+					<p:column style="vertical-align:middle;">
+						<h:outputText value="#{msg['domiciliacion.traspasos.detalleMes.acreditados']}" style="center"/>
+					</p:column>
+					<p:column style="vertical-align:middle;">
+						<h:outputText value="#{msg['domiciliacion.traspasos.detalleMes.devolucionPorTesoreria']}" style="center"/>
+					</p:column>
+				</p:row>
+			</f:facet>
+			
+			<c:if test="#{!empty detalleMesView.solicitudes.lstSolicitudes}">
+				<c:forEach items="#{detalleMesView.solicitudes.lstSolicitudes}" var="_lstSolicitudes">
+					<p:row>
+						<p:column style="vertical-align:middle;">
+							<h:outputText value="#{_lstSolicitudes.recurrencia}"/>
+						</p:column>
+						<p:column style="vertical-align:middle;">
+							<h:outputText value="#{_lstSolicitudes.solIngresadas}">
+								<f:convertNumber pattern="#,###,##0" locale="es_MX"/>
+							</h:outputText>
+						</p:column>
+						<p:column style="vertical-align:middle;">
+							<h:outputText value="#{_lstSolicitudes.solAceptadas}">
+								<f:convertNumber pattern="#,###,##0" locale="es_MX"/>
+							</h:outputText>
+						</p:column>
+						<p:column style="vertical-align:middle;">
+							<h:outputText value="#{_lstSolicitudes.solCanceladas}">
+								<f:convertNumber pattern="#,###,##0" locale="es_MX"/>
+							</h:outputText>
+						</p:column>
+						<p:column style="vertical-align:middle;">
+							<h:outputText value="#{_lstSolicitudes.solUnCargoAceptadas}">
+								<f:convertNumber pattern="#,###,##0" locale="es_MX"/>
+							</h:outputText>
+						</p:column>
+						<p:column style="vertical-align:middle;">
+							<h:outputText value="#{_lstSolicitudes.solUnCargoRechazadas}">
+								<f:convertNumber pattern="#,###,##0" locale="es_MX"/>
+							</h:outputText>
+						</p:column>
+						<p:column style="vertical-align:middle;">
+							<h:outputText value="#{_lstSolicitudes.recursosAcreditados}">
+								<f:convertNumber pattern="$#,###,##0.00" locale="es_MX"/>
+							</h:outputText>
+						</p:column>
+						<p:column style="vertical-align:middle;">
+							<h:outputText value="#{_lstSolicitudes.recursosDevoPorTesoreria}">
+								<f:convertNumber pattern="$#,###,##0.00" locale="es_MX"/>
+							</h:outputText>
+						</p:column>
+					</p:row>
+				</c:forEach>
+			</c:if>
+			<p:row style="font-weight: bold">
+				<p:column style="vertical-align:middle;">
+					<h:outputText value="#{msg['domiciliacion.traspasos.detalleMes.total']}"/>
+				</p:column>
+				<p:column style="vertical-align:middle;">
+					<h:outputText value="#{detalleMesView.solicitudes.totSolIngresadas}">
+						<f:convertNumber pattern="#,###,##0" locale="es_MX"/>
+					</h:outputText>
+				</p:column>
+				<p:column style="vertical-align:middle;">
+					<h:outputText value="#{detalleMesView.solicitudes.totSolAceptadas}">
+						<f:convertNumber pattern="#,###,##0" locale="es_MX"/>
+					</h:outputText>
+				</p:column>
+				<p:column style="vertical-align:middle;">
+					<h:outputText value="#{detalleMesView.solicitudes.totSolCanceladas}">
+						<f:convertNumber pattern="#,###,##0" locale="es_MX"/>
+					</h:outputText>
+				</p:column>
+				<p:column style="vertical-align:middle;">
+					<h:outputText value="#{detalleMesView.solicitudes.totSolUnCargoAceptadas}">
+						<f:convertNumber pattern="#,###,##0" locale="es_MX"/>
+					</h:outputText>
+				</p:column>
+				<p:column style="vertical-align:middle;">
+					<h:outputText value="#{detalleMesView.solicitudes.totSolUnCargoRechazadas}">
+						<f:convertNumber pattern="#,###,##0" locale="es_MX"/>
+					</h:outputText>
+				</p:column>
+				<p:column style="vertical-align:middle;">
+					<h:outputText value="#{detalleMesView.solicitudes.totRecursosAcreditados}">
+						<f:convertNumber pattern="$#,###,##0.00" locale="es_MX"/>
+					</h:outputText>
+				</p:column>
+				<p:column style="vertical-align:middle;">
+					<h:outputText value="#{detalleMesView.solicitudes.totRecursosDevoporTesoreria}">
+						<f:convertNumber pattern="$#,###,##0.00" locale="es_MX"/>
+					</h:outputText>
+				</p:column>
+			</p:row>
+			  
+		</p:panelGrid>
+		</div>	
+	</p:panel>	
+	
+	<p:panel id="idpanelDatosDSL" rendered="#{detalleMesView.busquedaValidaDSL}">
+		<p:panelGrid>
+			<p:row style="text-align:left; font-weight:bold !important;">
+				<p:column style="vertical-align: middle !important;text-align:left !important;">
+					<p:outputLabel value="#{msg['domiciliacion.traspasos.detalleMes.titulo.DSL']} - #{detalleMesView.mesBusquedaTxt}" />
+				</p:column>
+			</p:row>
+		</p:panelGrid>
+		<div style="padding-left: 8px;">  
+		<p:panelGrid id="datosPendTablaDSL" 
+				style=" width: 95%;vertical-align:middle; !important;" styleClass="cebraPanelGrid2">
+			<f:facet name="header">
+				<p:row>
+					<p:column rowspan="2" style="vertical-align:middle;" border="1">
+						<h:outputText value="#{msg['domiciliacion.traspasos.detalleMes.recurrencia']}" style="center"/>
+					</p:column>
+					<p:column colspan="3" style="vertical-align:middle;">
+						<h:outputText value="#{msg['domiciliacion.traspasos.detalleMes.solicitudes']}" style="center"/>
+					</p:column>
+					<p:column colspan="2" style="vertical-align:middle;">
+						<h:outputText value="#{msg['domiciliacion.traspasos.detalleMes.solConAlMenosUnCargo']}" style="center"/>
+					</p:column>
+					<p:column colspan="2" style="vertical-align:middle;">
+						<h:outputText value="#{msg['domiciliacion.traspasos.detalleMes.recursos']}" style="center"/>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column style="vertical-align:middle;">
+						<h:outputText value="#{msg['domiciliacion.traspasos.detalleMes.ingresadas']}" style="center"/>
+					</p:column>
+					<p:column style="vertical-align:middle;">
+						<h:outputText value="#{msg['domiciliacion.traspasos.detalleMes.aceptadas']}" style="center"/>
+					</p:column>
+					<p:column style="vertical-align:middle;">
+						<h:outputText value="#{msg['domiciliacion.traspasos.detalleMes.canceladas']}" style="center"/>
+					</p:column>
+					<p:column style="vertical-align:middle;">
+						<h:outputText value="#{msg['domiciliacion.traspasos.detalleMes.aceptado']}" style="center"/>
+					</p:column>
+					<p:column style="vertical-align:middle;">
+						<h:outputText value="#{msg['domiciliacion.traspasos.detalleMes.rechazado']}" style="center"/>
+					</p:column>
+					<p:column style="vertical-align:middle;">
+						<h:outputText value="#{msg['domiciliacion.traspasos.detalleMes.acreditados']}" style="center"/>
+					</p:column>
+					<p:column style="vertical-align:middle;">
+						<h:outputText value="#{msg['domiciliacion.traspasos.detalleMes.devolucionPorTesoreria']}" style="center"/>
+					</p:column>
+				</p:row>
+			</f:facet>
+			
+			<c:if test="#{!empty detalleMesView.solicitudesDSL.lstSolicitudes}">
+				<c:forEach items="#{detalleMesView.solicitudesDSL.lstSolicitudes}" var="_lstSolicitudes">
+					<p:row>
+						<p:column style="vertical-align:middle;">
+							<h:outputText value="#{_lstSolicitudes.recurrencia}"/>
+						</p:column>
+						<p:column style="vertical-align:middle;">
+							<h:outputText value="#{_lstSolicitudes.solIngresadas}">
+								<f:convertNumber pattern="#,###,##0" locale="es_MX"/>
+							</h:outputText>
+						</p:column>
+						<p:column style="vertical-align:middle;">
+							<h:outputText value="#{_lstSolicitudes.solAceptadas}">
+								<f:convertNumber pattern="#,###,##0" locale="es_MX"/>
+							</h:outputText>
+						</p:column>
+						<p:column style="vertical-align:middle;">
+							<h:outputText value="#{_lstSolicitudes.solCanceladas}">
+								<f:convertNumber pattern="#,###,##0" locale="es_MX"/>
+							</h:outputText>
+						</p:column>
+						<p:column style="vertical-align:middle;">
+							<h:outputText value="#{_lstSolicitudes.solUnCargoAceptadas}">
+								<f:convertNumber pattern="#,###,##0" locale="es_MX"/>
+							</h:outputText>
+						</p:column>
+						<p:column style="vertical-align:middle;">
+							<h:outputText value="#{_lstSolicitudes.solUnCargoRechazadas}">
+								<f:convertNumber pattern="#,###,##0" locale="es_MX"/>
+							</h:outputText>
+						</p:column>
+						<p:column style="vertical-align:middle;">
+							<h:outputText value="#{_lstSolicitudes.recursosAcreditados}">
+								<f:convertNumber pattern="$#,###,##0.00" locale="es_MX"/>
+							</h:outputText>
+						</p:column>
+						<p:column style="vertical-align:middle;">
+							<h:outputText value="#{_lstSolicitudes.recursosDevoPorTesoreria}">
+								<f:convertNumber pattern="$#,###,##0.00" locale="es_MX"/>
+							</h:outputText>
+						</p:column>
+					</p:row>
+				</c:forEach>
+			</c:if>
+			<p:row style="font-weight: bold">
+				<p:column style="vertical-align:middle;">
+					<h:outputText value="#{msg['domiciliacion.traspasos.detalleMes.total']}"/>
+				</p:column>
+				<p:column style="vertical-align:middle;">
+					<h:outputText value="#{detalleMesView.solicitudesDSL.totSolIngresadas}">
+						<f:convertNumber pattern="#,###,##0" locale="es_MX"/>
+					</h:outputText>
+				</p:column>
+				<p:column style="vertical-align:middle;">
+					<h:outputText value="#{detalleMesView.solicitudesDSL.totSolAceptadas}">
+						<f:convertNumber pattern="#,###,##0" locale="es_MX"/>
+					</h:outputText>
+				</p:column>
+				<p:column style="vertical-align:middle;">
+					<h:outputText value="#{detalleMesView.solicitudesDSL.totSolCanceladas}">
+						<f:convertNumber pattern="#,###,##0" locale="es_MX"/>
+					</h:outputText>
+				</p:column>
+				<p:column style="vertical-align:middle;">
+					<h:outputText value="#{detalleMesView.solicitudesDSL.totSolUnCargoAceptadas}">
+						<f:convertNumber pattern="#,###,##0" locale="es_MX"/>
+					</h:outputText>
+				</p:column>
+				<p:column style="vertical-align:middle;">
+					<h:outputText value="#{detalleMesView.solicitudesDSL.totSolUnCargoRechazadas}">
+						<f:convertNumber pattern="#,###,##0" locale="es_MX"/>
+					</h:outputText>
+				</p:column>
+				<p:column style="vertical-align:middle;">
+					<h:outputText value="#{detalleMesView.solicitudesDSL.totRecursosAcreditados}">
+						<f:convertNumber pattern="$#,###,##0.00" locale="es_MX"/>
+					</h:outputText>
+				</p:column>
+				<p:column style="vertical-align:middle;">
+					<h:outputText value="#{detalleMesView.solicitudesDSL.totRecursosDevoporTesoreria}">
+						<f:convertNumber pattern="$#,###,##0.00" locale="es_MX"/>
+					</h:outputText>
+				</p:column>
+			</p:row>
+			  
+		</p:panelGrid>
+		</div>	
+	</p:panel>	
+	
+	<p:panel id="idpanelDatosDCL" rendered="#{detalleMesView.busquedaValidaDCL}">
+		<p:panelGrid>
+			<p:row style="text-align:left; font-weight:bold !important;">
+				<p:column style="vertical-align: middle !important;text-align:left !important;">
+					<p:outputLabel value="#{msg['domiciliacion.traspasos.detalleMes.titulo.DCL']} - #{detalleMesView.mesBusquedaTxt}" />
+				</p:column>
+			</p:row>
+		</p:panelGrid>
+		<div style="padding-left: 8px;">  
+		<p:panelGrid id="datosPendTablaDCL" 
+				style=" width: 95%;vertical-align:middle; !important;" styleClass="cebraPanelGrid2">
+			<f:facet name="header">
+				<p:row>
+					<p:column rowspan="2" style="vertical-align:middle;" border="1">
+						<h:outputText value="#{msg['domiciliacion.traspasos.detalleMes.recurrencia']}" style="center"/>
+					</p:column>
+					<p:column colspan="3" style="vertical-align:middle;">
+						<h:outputText value="#{msg['domiciliacion.traspasos.detalleMes.solicitudes']}" style="center"/>
+					</p:column>
+					<p:column colspan="2" style="vertical-align:middle;">
+						<h:outputText value="#{msg['domiciliacion.traspasos.detalleMes.solConAlMenosUnCargo']}" style="center"/>
+					</p:column>
+					<p:column colspan="2" style="vertical-align:middle;">
+						<h:outputText value="#{msg['domiciliacion.traspasos.detalleMes.recursos']}" style="center"/>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column style="vertical-align:middle;">
+						<h:outputText value="#{msg['domiciliacion.traspasos.detalleMes.ingresadas']}" style="center"/>
+					</p:column>
+					<p:column style="vertical-align:middle;">
+						<h:outputText value="#{msg['domiciliacion.traspasos.detalleMes.aceptadas']}" style="center"/>
+					</p:column>
+					<p:column style="vertical-align:middle;">
+						<h:outputText value="#{msg['domiciliacion.traspasos.detalleMes.canceladas']}" style="center"/>
+					</p:column>
+					<p:column style="vertical-align:middle;">
+						<h:outputText value="#{msg['domiciliacion.traspasos.detalleMes.aceptado']}" style="center"/>
+					</p:column>
+					<p:column style="vertical-align:middle;">
+						<h:outputText value="#{msg['domiciliacion.traspasos.detalleMes.rechazado']}" style="center"/>
+					</p:column>
+					<p:column style="vertical-align:middle;">
+						<h:outputText value="#{msg['domiciliacion.traspasos.detalleMes.acreditados']}" style="center"/>
+					</p:column>
+					<p:column style="vertical-align:middle;">
+						<h:outputText value="#{msg['domiciliacion.traspasos.detalleMes.devolucionPorTesoreria']}" style="center"/>
+					</p:column>
+				</p:row>
+			</f:facet>
+			
+			<c:if test="#{!empty detalleMesView.solicitudesDCL.lstSolicitudes}">
+				<c:forEach items="#{detalleMesView.solicitudesDCL.lstSolicitudes}" var="_lstSolicitudes">
+					<p:row>
+						<p:column style="vertical-align:middle;">
+							<h:outputText value="#{_lstSolicitudes.recurrencia}"/>
+						</p:column>
+						<p:column style="vertical-align:middle;">
+							<h:outputText value="#{_lstSolicitudes.solIngresadas}">
+								<f:convertNumber pattern="#,###,##0" locale="es_MX"/>
+							</h:outputText>
+						</p:column>
+						<p:column style="vertical-align:middle;">
+							<h:outputText value="#{_lstSolicitudes.solAceptadas}">
+								<f:convertNumber pattern="#,###,##0" locale="es_MX"/>
+							</h:outputText>
+						</p:column>
+						<p:column style="vertical-align:middle;">
+							<h:outputText value="#{_lstSolicitudes.solCanceladas}">
+								<f:convertNumber pattern="#,###,##0" locale="es_MX"/>
+							</h:outputText>
+						</p:column>
+						<p:column style="vertical-align:middle;">
+							<h:outputText value="#{_lstSolicitudes.solUnCargoAceptadas}">
+								<f:convertNumber pattern="#,###,##0" locale="es_MX"/>
+							</h:outputText>
+						</p:column>
+						<p:column style="vertical-align:middle;">
+							<h:outputText value="#{_lstSolicitudes.solUnCargoRechazadas}">
+								<f:convertNumber pattern="#,###,##0" locale="es_MX"/>
+							</h:outputText>
+						</p:column>
+						<p:column style="vertical-align:middle;">
+							<h:outputText value="#{_lstSolicitudes.recursosAcreditados}">
+								<f:convertNumber pattern="$#,###,##0.00" locale="es_MX"/>
+							</h:outputText>
+						</p:column>
+						<p:column style="vertical-align:middle;">
+							<h:outputText value="#{_lstSolicitudes.recursosDevoPorTesoreria}">
+								<f:convertNumber pattern="$#,###,##0.00" locale="es_MX"/>
+							</h:outputText>
+						</p:column>
+					</p:row>
+				</c:forEach>
+			</c:if>
+			<p:row style="font-weight: bold">
+				<p:column style="vertical-align:middle;">
+					<h:outputText value="#{msg['domiciliacion.traspasos.detalleMes.total']}"/>
+				</p:column>
+				<p:column style="vertical-align:middle;">
+					<h:outputText value="#{detalleMesView.solicitudesDCL.totSolIngresadas}">
+						<f:convertNumber pattern="#,###,##0" locale="es_MX"/>
+					</h:outputText>
+				</p:column>
+				<p:column style="vertical-align:middle;">
+					<h:outputText value="#{detalleMesView.solicitudesDCL.totSolAceptadas}">
+						<f:convertNumber pattern="#,###,##0" locale="es_MX"/>
+					</h:outputText>
+				</p:column>
+				<p:column style="vertical-align:middle;">
+					<h:outputText value="#{detalleMesView.solicitudesDCL.totSolCanceladas}">
+						<f:convertNumber pattern="#,###,##0" locale="es_MX"/>
+					</h:outputText>
+				</p:column>
+				<p:column style="vertical-align:middle;">
+					<h:outputText value="#{detalleMesView.solicitudesDCL.totSolUnCargoAceptadas}">
+						<f:convertNumber pattern="#,###,##0" locale="es_MX"/>
+					</h:outputText>
+				</p:column>
+				<p:column style="vertical-align:middle;">
+					<h:outputText value="#{detalleMesView.solicitudesDCL.totSolUnCargoRechazadas}">
+						<f:convertNumber pattern="#,###,##0" locale="es_MX"/>
+					</h:outputText>
+				</p:column>
+				<p:column style="vertical-align:middle;">
+					<h:outputText value="#{detalleMesView.solicitudesDCL.totRecursosAcreditados}">
+						<f:convertNumber pattern="$#,###,##0.00" locale="es_MX"/>
+					</h:outputText>
+				</p:column>
+				<p:column style="vertical-align:middle;">
+					<h:outputText value="#{detalleMesView.solicitudesDCL.totRecursosDevoporTesoreria}">
+						<f:convertNumber pattern="$#,###,##0.00" locale="es_MX"/>
+					</h:outputText>
+				</p:column>
+			</p:row>
+			  
+		</p:panelGrid>
+		</div>	
+	</p:panel>	
+			
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

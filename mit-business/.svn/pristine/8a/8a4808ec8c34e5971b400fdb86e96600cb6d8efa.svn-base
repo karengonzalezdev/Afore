@@ -1,0 +1,83 @@
+package mx.profuturo.nci.business.vo;
+
+import java.io.Serializable;
+import java.util.List;
+
+
+public class DevolucionesApovolCifVO implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+	
+	private String folio;
+	private String tipoDevolucionApovol;
+	private String transaccionId;
+	private String statusCif;
+	private List<String>listaEstatusCIF;
+	
+	
+	public DevolucionesApovolCifVO () {}
+
+	public DevolucionesApovolCifVO (String folio, String tipoDevolucionApovol, List<String>listaEstatusCIF) {
+		this.folio = folio;
+		this.tipoDevolucionApovol = tipoDevolucionApovol;
+		this.listaEstatusCIF = listaEstatusCIF;
+	}
+
+	public String getFolio() {
+		return folio;
+	}
+
+
+	public void setFolio(String folio) {
+		this.folio = folio;
+	}
+
+
+	public String getTipoDevolucionApovol() {
+		return tipoDevolucionApovol;
+	}
+
+
+	public void setTipoDevolucionApovol(String tipoDevolucionApovol) {
+		this.tipoDevolucionApovol = tipoDevolucionApovol;
+	}
+
+
+	public String getTransaccionId() {
+		return transaccionId;
+	}
+
+
+	public void setTransaccionId(String transaccionId) {
+		this.transaccionId = transaccionId;
+	}
+
+
+	public String getStatusCif() {
+		return statusCif;
+	}
+
+
+	public void setStatusCif(String statusCif) {
+		this.statusCif = statusCif;
+	}
+
+	public List<String> getListaEstatusCIF() {
+		return listaEstatusCIF;
+	}
+
+	public void setListaEstatusCIF(List<String> listaEstatusCIF) {
+		this.listaEstatusCIF = listaEstatusCIF;
+	}
+	
+
+	
+	
+	
+	
+	
+	
+	
+
+	
+}

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mx.profuturo.nci.persistence.ConfigSubprocesoOrigenPersistence">
+
+
+
+  <resultMap id="BaseResultMap" type="mx.profuturo.nci.business.vo.ConfigSubprocesoOrigenVO">
+    
+    <result column="FFC_CF_SUP_OR_MAS_ARCH" 	jdbcType="VARCHAR" 		javaType="string" 		property="mascaraArchivo" 			/>
+    <result column="FFN_INDICE_FEH" 			jdbcType="DECIMAL" 		javaType="short"		property="indiceFecha" 				/>
+    <result column="FFC_FORMATO_FEH" 			jdbcType="VARCHAR" 		javaType="string"		property="formatoFecha" 			/>
+    <result column="FFB_VIGENCIA" 				jdbcType="CHAR" 		javaType="boolean"		property="vigencia" 				/>    
+    <result column="FFD_CF_SUP_OR_FEH_CRE"  	jdbcType="TIMESTAMP" 	javaType="date" 		property="fechaCreacion" 			/>
+    <result column="FFC_CF_SUP_OR_USU_CRE" 		jdbcType="VARCHAR" 		javaType="string"		property="usuarioCreacion" 			/>
+    <result column="FFD_CF_SUP_OR_FEH_ACT" 		jdbcType="TIMESTAMP" 	javaType="date" 		property="fechaActualizacion" 		/>
+    <result column="FFC_CF_SUP_OR_USU_ACT" 		jdbcType="VARCHAR" 		javaType="string"		property="usuarioActualizacion" 	/>
+  
+  
+  	<association property="subproceso" 
+  				 resultMap="mx.profuturo.nci.persistence.ConfigSubprocesoOrigenPersistence.BaseResultMapConfiguracionSubproceso" />
+	
+  	<association property="origenArchivo" 
+  				 resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resultMapGenericCatalogoVOOrigenArchivo" />
+  	
+  	<association property="detalleOrigen" 
+  				 resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resultMapGenericCatalogoVODetalleOrigen" />
+  	
+  	<association property="archivoMovBancario" 
+  				 resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resultMapGenericCatalogoVOArcivoMovBancario" />
+  
+  </resultMap>
+  
+  <resultMap id="BaseResultMapConfiguracionSubproceso"
+		type="mx.profuturo.nci.business.vo.ConfiguracionSubprocesoVO">
+
+		<result column="FFC_MASCARA_ARCHIVO" jdbcType="VARCHAR"
+			property="mascaraArchivo" />
+		<result column="FFC_RUTA_FILESYSTEM" jdbcType="VARCHAR"
+			property="rutaFilesystem" />
+
+		<result column="FFD_FEH_CRE" jdbcType="TIMESTAMP" property="fechaCreacion" />
+		<result column="FFC_USU_CRE" jdbcType="VARCHAR" property="usuarioCreacion" />
+		<result column="FFD_FEH_ACT" jdbcType="TIMESTAMP" property="fechaActualizacion" />
+		<result column="FFC_USU_ACT" jdbcType="VARCHAR" property="usuarioActualizacion" />
+
+
+		<association property="subproceso"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resultMapSubprocesoVO" />
+
+		<association property="proceso"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resultMapProcesoVO" />
+
+		<association property="saldoOpera"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resultMapSaldoOperaVO" />
+
+	</resultMap>
+  
+  
+  
+  
+    <sql id="Base_Column_List">
+		CNFSUB.FCN_ID_PROCESO,
+		CTPRO.FCC_VALOR AS FCC_VALOR_PROCESO,
+		CSO.FCN_ID_SUBPROCESO,
+		CTSUB.FCC_VALOR AS FCC_VALOR_SUBPROCESO,
+		CSO.FTN_ID_ORIGEN_ARCHIVO,
+		CTOA.FCC_VALOR AS FCC_VALOR_ORIGEN_ARCHIVO,
+		CSO.FTN_ID_DETALLE_ORIGEN,
+		CTDO.FCC_VALOR AS FCC_VALOR_DETALLE_ORIGEN,
+		CSO.FFN_ID_ARCH_MOV_BANC,
+		CTAMB.FCC_VALOR AS FCC_VALOR_ARCH_MOV_BANC,
+		CSO.FFC_MASCARA_ARCHIVO AS FFC_CF_SUP_OR_MAS_ARCH,
+		CSO.FFN_INDICE_FEH,
+		CSO.FFC_FORMATO_FEH,
+		CSO.FFB_VIGENCIA,
+		CNFSUB.FFC_RUTA_FILESYSTEM,
+		CSO.FFD_FEH_CRE AS FFD_CF_SUP_OR_FEH_CRE,
+		CSO.FFC_USU_CRE AS FFC_CF_SUP_OR_USU_CRE,
+		CSO.FFD_FEH_ACT AS FFD_CF_SUP_OR_FEH_ACT,
+		CSO.FFC_USU_ACT AS FFC_CF_SUP_OR_USU_ACT
+  </sql>
+  
+  
+  
+    <select id="selectAll"
+          resultMap="BaseResultMap">
+          
+          
+		SELECT 
+		<include refid="Base_Column_List" />	
+		FROM  TFAFOGRAL_CONFIG_SUBP_ORIGEN CSO
+		INNER JOIN TFAFOGRAL_CONFIG_SUBPROCESO CNFSUB
+		ON CSO.FCN_ID_SUBPROCESO = CNFSUB.FCN_ID_SUBPROCESO
+		INNER JOIN TCCRXGRAL_CAT_CATALOGO CTSUB
+		ON  CSO.FCN_ID_SUBPROCESO = CTSUB.FCN_ID_CAT_CATALOGO
+		INNER JOIN TCCRXGRAL_CAT_CATALOGO CTPRO
+		ON  CNFSUB.FCN_ID_PROCESO = CTPRO.FCN_ID_CAT_CATALOGO
+		INNER JOIN TCCRXGRAL_CAT_CATALOGO CTOA
+		ON CSO.FTN_ID_ORIGEN_ARCHIVO = CTOA.FCN_ID_CAT_CATALOGO
+		LEFT JOIN TCCRXGRAL_CAT_CATALOGO CTDO
+		ON CSO.FTN_ID_DETALLE_ORIGEN = CTDO.FCN_ID_CAT_CATALOGO
+		LEFT JOIN TCCRXGRAL_CAT_CATALOGO CTAMB
+		ON CSO.FFN_ID_ARCH_MOV_BANC = CTAMB.FCN_ID_CAT_CATALOGO
+	    WHERE CSO.FFB_VIGENCIA = 1
+  
+          
+    </select>      
+  
+  
+</mapper>

@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="consultaApoVol" pageWidth="1935" pageHeight="600" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="1895" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="189c4517-5f7a-482a-99bd-5a4790e567d3">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="net.sf.jasperreports.export.html.remove.empty.space.between.rows" value="true"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#E0E0E0"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#E0E0E0"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#E0E0E0"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#E0E0E0"/>
+		</box>
+	</style>
+	<parameter name="encabezado" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<field name="claveSolicitud" class="java.lang.String"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="fechaSolicitud" class="java.util.Date"/>
+	<field name="origen" class="java.lang.String"/>
+	<field name="cuenta" class="java.lang.Long"/>
+	<field name="importe" class="java.math.BigDecimal"/>
+	<field name="banco" class="java.lang.String"/>
+	<field name="cuentaBanco" class="java.lang.String"/>
+	<field name="periodo" class="java.lang.String"/>
+	<field name="estatus" class="java.lang.String"/>
+	<field name="fechaModificacion" class="java.util.Date"/>
+	<field name="usuario" class="java.lang.String"/>
+	<title>
+		<band height="105" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="-1" width="260" height="67" uuid="4be976b3-fca4-42ed-a3a1-965b833b2f42"/>
+				<imageExpression><![CDATA["reports/imagenes/logo-profuruto-afore.png"]]></imageExpression>
+			</image>
+			<textField isBlankWhenNull="false">
+				<reportElement x="390" y="0" width="1505" height="66" uuid="d77f4513-dfbb-4606-92fd-aa7c5efe2691"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{encabezado}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="72" width="390" height="20" uuid="5ecb6302-e1d1-435e-b122-10bec69a17a0"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="1220" y="0" width="155" height="30" forecolor="#FEFEFE" backcolor="#244162" uuid="98bf86c7-5b44-4dd8-81c3-8e1f4d3f2bfa"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[CUENTA BANCARIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1375" y="0" width="130" height="30" forecolor="#FEFEFE" backcolor="#244162" uuid="357723ab-9cd6-4081-a2e9-bd3c0fe283e4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PERIODO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1505" y="0" width="130" height="30" forecolor="#FEFEFE" backcolor="#244162" uuid="5c9a9cc7-92a2-4757-96fc-527686b059c3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ESTATUS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1635" y="0" width="130" height="30" forecolor="#FEFEFE" backcolor="#244162" uuid="529d4f07-fb15-4a95-b929-28b4fc65b510"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA MODIFICACION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1765" y="0" width="130" height="30" forecolor="#FEFEFE" backcolor="#244162" uuid="db0a675b-65dc-4a64-a7d7-ba808ef7266e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[USUARIO MODIFICACION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1070" y="0" width="150" height="30" forecolor="#FEFEFE" backcolor="#244162" uuid="ffcca074-57cf-4dce-967e-644734a2d708"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[BANCO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="130" y="0" width="130" height="30" forecolor="#FEFEFE" backcolor="#244162" uuid="17b3ca51-34ea-41df-956c-26de1e9bafc8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA SOLICITUD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="260" y="0" width="130" height="30" forecolor="#FEFEFE" backcolor="#244162" uuid="d85593ab-5fd4-4d1a-a8c2-ca526ca1b74e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ORIGEN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="390" y="0" width="130" height="30" forecolor="#FEFEFE" backcolor="#244162" uuid="0b996073-ba2b-4b1a-9b5c-1ae7b2810a48"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[CUENTA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="520" y="0" width="400" height="30" forecolor="#FEFEFE" backcolor="#244162" uuid="40341d68-f270-41bc-ba58-13a17326cc2a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOMBRE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="920" y="0" width="150" height="30" forecolor="#FEFEFE" backcolor="#244162" uuid="1e98aa7c-053c-4624-985f-1420415bfa77"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[IMPORTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="130" height="30" forecolor="#FEFEFE" backcolor="#244162" uuid="154df200-fe10-4f33-ba22-7accdc04efa8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[CLAVE SOLICITUD]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<elementGroup>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" x="1070" y="0" width="150" height="17" isPrintWhenDetailOverflows="true" uuid="272412b4-3614-479f-bb5b-6c7f745a60b9"/>
+					<textFieldExpression><![CDATA[$F{banco}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="¤ #,##0.00" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" x="920" y="0" width="150" height="17" isPrintWhenDetailOverflows="true" uuid="92da7e1f-06fa-4870-80dd-4c8f8ca1aefd"/>
+					<textFieldExpression><![CDATA[$F{importe}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" x="1375" y="0" width="130" height="17" isPrintWhenDetailOverflows="true" uuid="04544970-1f3c-4184-8eaf-7241e30b9ae8"/>
+					<textFieldExpression><![CDATA[$F{periodo}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" x="260" y="0" width="130" height="17" isPrintWhenDetailOverflows="true" uuid="5f0ac8cc-3eb4-4e55-848f-684f55a61d32"/>
+					<textFieldExpression><![CDATA[$F{origen}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" x="1765" y="0" width="130" height="17" isPrintWhenDetailOverflows="true" uuid="a02d888a-73fc-4bbd-be1c-435264373ed3"/>
+					<textFieldExpression><![CDATA[$F{usuario}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" x="520" y="0" width="400" height="17" isPrintWhenDetailOverflows="true" uuid="6127a8c6-602a-4208-86e8-6aa44ee5b4a4"/>
+					<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" x="390" y="0" width="130" height="17" isPrintWhenDetailOverflows="true" uuid="8b449a98-fbe7-4236-b7e0-179db3d38764"/>
+					<textFieldExpression><![CDATA[$F{cuenta}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" x="1505" y="0" width="130" height="17" isPrintWhenDetailOverflows="true" uuid="0d55c4cb-76a6-4049-ab48-180223852611"/>
+					<textFieldExpression><![CDATA[$F{estatus}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" x="1220" y="0" width="155" height="17" isPrintWhenDetailOverflows="true" uuid="fdb27402-3d94-4eeb-a35e-5782aa6787e7"/>
+					<textFieldExpression><![CDATA[$F{cuentaBanco}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="yyyy-MM-dd HH:mm" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" x="130" y="0" width="130" height="17" isPrintWhenDetailOverflows="true" uuid="fc476382-f710-4a19-ac1c-15a5b8000c7c"/>
+					<textFieldExpression><![CDATA[$F{fechaSolicitud}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="130" height="17" isPrintWhenDetailOverflows="true" uuid="0a8509e2-c2ba-4984-a5c9-c69b4ea9c4ea"/>
+					<textFieldExpression><![CDATA[$F{claveSolicitud}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="yyyy-MM-dd HH:mm" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" x="1635" y="0" width="130" height="17" isPrintWhenDetailOverflows="true" uuid="9fe4ebdc-0a4b-4ad8-a958-6db90caac986"/>
+					<textFieldExpression><![CDATA[$F{fechaModificacion}]]></textFieldExpression>
+				</textField>
+			</elementGroup>
+		</band>
+	</detail>
+</jasperReport>

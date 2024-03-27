@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mx.profuturo.nci.persistence.SumConciliacionPersistence">
+
+	<resultMap id="BaseResultMap"
+		type="mx.profuturo.nci.business.vo.SumConciliacionVO">
+		<id column="ROW_ID" property="rowId" />
+		<id column="FTC_FOLIO" property="folio" />
+		<id column="FTN_IMPORTE" property="importe" />
+		<id column="FTN_REG_CONCILIADO" property="regConciliado" />
+		<association property="origen"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericOrigenAportacion" />
+		<association property="empresa"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericEmpresa" />
+		<association property="detalleOrigen" 
+  				 resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resultMapGenericCatalogoVODetalleOrigen" />
+	</resultMap>
+	
+	<select id="selectAconciliar"
+		parameterType="mx.profuturo.nci.business.wrapped.SumConciliacionFilter"
+		resultMap="BaseResultMap">
+
+		select ROWNUM as ROW_ID, CON.FTC_FOLIO AS FTC_FOLIO, CON.FTN_ORIGEN_APORTACION AS FTN_ORIGEN_APORTACION, OAPO.FCC_VALOR AS
+		FCC_VALOR_ORIGEN_APORTACION,CON.FTN_REG_CONCILIADO AS FTN_REG_CONCILIADO,
+		CON.FTN_IMPORTE AS FTN_IMPORTE,
+		NVL(CON.FTN_ID_EMPRESA,0) as FTN_ID_EMPRESA, EMP.FCC_VALOR AS FCC_VALOR_EMPRESA, 
+		TA.FTN_ID_DETALLE_ORIGEN as FTN_ID_DETALLE_ORIGEN, DET.FCC_VALOR as FCC_VALOR_DETALLE_ORIGEN
+		FROM TLAFOAVOL_SUM_CONCILIACION CON
+		JOIN TRAFOGRAL_ARCHIVO_FOLIO TAF ON CON.FTC_FOLIO = TAF.FTC_FOLIO
+  		JOIN TTAFOGRAL_ARCHIVO TA ON TA.FTN_ID_ARCHIVO = TAF.FTN_ID_ARCHIVO
+		left join TCCRXGRAL_CAT_CATALOGO OAPO on CON.FTN_ORIGEN_APORTACION = OAPO.FCN_ID_CAT_CATALOGO
+		LEFT JOIN TCCRXGRAL_CAT_CATALOGO EMP ON CON.FTN_ID_EMPRESA = EMP.FCN_ID_CAT_CATALOGO 
+		LEFT JOIN TCCRXGRAL_CAT_CATALOGO DET ON TA.FTN_ID_DETALLE_ORIGEN = DET.FCN_ID_CAT_CATALOGO
+		INNER JOIN TTCRXGRAL_BITACORA_PROCESO BITPRO ON TAF.FTC_FOLIO = BITPRO.FTC_FOLIO
+		<where>
+			<if test="folio != null">
+				AND CON.FTC_FOLIO = #{folio}
+			</if>
+			<if test="origen != null and origen.id != null">
+				AND CON.FTN_ORIGEN_APORTACION = #{origen.id}
+			</if>
+			<if test="empresa != null and empresa.id != null">
+				AND CON.FTN_ID_EMPRESA = #{empresa.id}
+			</if>
+			<if test="regConciliado != null">
+				AND CON.FTN_REG_CONCILIADO = #{regConciliado}
+			</if>
+			<if test="importe != null">
+				AND TA.FTN_ID_ORIGEN_ARCHIVO NOT IN (436)
+			</if>
+			AND CON.FTC_FOLIO IN (SELECT DISTINCT FTC_FOLIO FROM TTAFOAVOL_CONCILIACION)
+			AND BITPRO.FCN_ID_SUBETAPA = 424 
+			AND BITPRO.FCN_ID_ESTATUS = 33
+		</where>
+	</select>
+	
+	<select id="select"
+		parameterType="mx.profuturo.nci.business.wrapped.SumConciliacionFilter"
+		resultMap="BaseResultMap">
+
+		select 
+		ROWNUM as ROW_ID,
+		FTC_FOLIO,
+		FTN_ORIGEN_APORTACION,
+		FCC_VALOR_ORIGEN_APORTACION,
+		FTN_REG_CONCILIADO,
+		FTN_IMPORTE,
+		FTN_ID_EMPRESA,	
+		FCC_VALOR_EMPRESA
+		from (
+			select CON.FTC_FOLIO AS FTC_FOLIO, CON.FTN_ORIGEN_APORTACION AS FTN_ORIGEN_APORTACION, OAPO.FCC_VALOR AS
+			FCC_VALOR_ORIGEN_APORTACION,CON.FTN_REG_CONCILIADO AS FTN_REG_CONCILIADO,
+			CON.FTN_IMPORTE AS FTN_IMPORTE,
+			CASE 
+				WHEN CON.FTN_ID_EMPRESA = 841 THEN   TA.FTN_ID_DETALLE_ORIGEN
+				ELSE NVL(CON.FTN_ID_EMPRESA,0)
+			END FTN_ID_EMPRESA,										
+			CASE 
+				WHEN CON.FTN_ID_EMPRESA = 841 THEN  BAN.FCC_VALOR
+				ELSE NVL(EMP.FCC_VALOR,'')
+			END
+			 AS FCC_VALOR_EMPRESA
+			FROM TLAFOAVOL_SUM_CONCILIACION CON
+			JOIN TRAFOGRAL_ARCHIVO_FOLIO TAF ON CON.FTC_FOLIO = TAF.FTC_FOLIO
+	  		JOIN TTAFOGRAL_ARCHIVO TA ON TA.FTN_ID_ARCHIVO = TAF.FTN_ID_ARCHIVO
+			left join TCCRXGRAL_CAT_CATALOGO OAPO on CON.FTN_ORIGEN_APORTACION = OAPO.FCN_ID_CAT_CATALOGO
+			LEFT JOIN TCCRXGRAL_CAT_CATALOGO EMP ON CON.FTN_ID_EMPRESA = EMP.FCN_ID_CAT_CATALOGO 
+			LEFT JOIN TCCRXGRAL_CAT_CATALOGO BAN ON BAN.FCN_ID_CAT_CATALOGO = TA.FTN_ID_DETALLE_ORIGEN
+			inner join TTCRXGRAL_BITACORA_PROCESO BIT on CON.FTC_FOLIO = BIT.FTC_FOLIO 
+			<where>
+				<if test="folio != null">
+					AND CON.FTC_FOLIO = #{folio}
+				</if>
+				<if test="origen != null and origen.id != null">
+					AND CON.FTN_ORIGEN_APORTACION = #{origen.id}
+				</if>
+				<if test="empresa != null and empresa.id != null">
+					AND CON.FTN_ID_EMPRESA = #{empresa.id}
+				</if>
+				<if test="regConciliado != null">
+					AND CON.FTN_REG_CONCILIADO = #{regConciliado}
+				</if>
+				<if test="importe != null">
+					AND TA.FTN_ID_ORIGEN_ARCHIVO NOT IN (436)
+				</if>
+				AND CON.FTN_REG_CONCILIADO = 0
+				AND CON.FTC_FOLIO IN (SELECT DISTINCT FTC_FOLIO FROM TTAFOAVOL_CONCILIACION)
+				AND CON.FTN_ORIGEN_APORTACION NOT IN (1097)
+				and BIT.FCN_ID_SUBETAPA = 424
+	      		and BIT.FCN_ID_ESTATUS = 33
+			</where>
+			UNION
+			select CON.FTC_FOLIO AS FTC_FOLIO, CON.FTN_ORIGEN_APORTACION AS FTN_ORIGEN_APORTACION, OAPO.FCC_VALOR AS
+			FCC_VALOR_ORIGEN_APORTACION,CON.FTN_REG_CONCILIADO AS FTN_REG_CONCILIADO,
+			CON.FTN_IMPORTE AS FTN_IMPORTE,
+			CASE 
+				WHEN CON.FTN_ID_EMPRESA = 841 THEN   TA.FTN_ID_DETALLE_ORIGEN
+				ELSE NVL(CON.FTN_ID_EMPRESA,0)
+			END FTN_ID_EMPRESA,										
+			CASE 
+				WHEN CON.FTN_ID_EMPRESA = 841 THEN  BAN.FCC_VALOR
+				ELSE NVL(EMP.FCC_VALOR,'')
+			END
+			 AS FCC_VALOR_EMPRESA
+			FROM TLAFOAVOL_SUM_CONCILIACION CON
+			LEFT JOIN TRAFOGRAL_ARCHIVO_FOLIO TAF ON CON.FTC_FOLIO = TAF.FTC_FOLIO
+	  		LEFT JOIN TTAFOGRAL_ARCHIVO TA ON TA.FTN_ID_ARCHIVO = TAF.FTN_ID_ARCHIVO
+			left join TCCRXGRAL_CAT_CATALOGO OAPO on CON.FTN_ORIGEN_APORTACION = OAPO.FCN_ID_CAT_CATALOGO
+			LEFT JOIN TCCRXGRAL_CAT_CATALOGO EMP ON CON.FTN_ID_EMPRESA = EMP.FCN_ID_CAT_CATALOGO 
+			LEFT JOIN TCCRXGRAL_CAT_CATALOGO BAN ON BAN.FCN_ID_CAT_CATALOGO = TA.FTN_ID_DETALLE_ORIGEN
+			inner join TTCRXGRAL_BITACORA_PROCESO BIT on CON.FTC_FOLIO = BIT.FTC_FOLIO 
+			<where>
+				<if test="folio != null">
+					AND CON.FTC_FOLIO = #{folio}
+				</if>
+				<if test="origen != null and origen.id != null">
+					AND CON.FTN_ORIGEN_APORTACION = #{origen.id}
+				</if>
+				<if test="empresa != null and empresa.id != null">
+					AND CON.FTN_ID_EMPRESA = #{empresa.id}
+				</if>
+				<if test="regConciliado != null">
+					AND CON.FTN_REG_CONCILIADO = #{regConciliado}
+				</if>
+				AND CON.FTN_ORIGEN_APORTACION = 1097
+				AND CON.FTN_REG_CONCILIADO = 0
+				AND CON.FTC_FOLIO IN (SELECT DISTINCT FTC_FOLIO FROM TTAFOAVOL_CONCILIACION)
+				and BIT.FCN_ID_SUBETAPA = 424
+	      		and BIT.FCN_ID_ESTATUS = 33
+			</where>		
+			)		
+	</select>
+	<update id="actualizar" parameterType="mx.profuturo.nci.business.vo.SumConciliacionVO"
+		keyColumn="FTC_FOLIO">
+		update TLAFOAVOL_SUM_CONCILIACION set FTD_FEH_ACT = sysdate
+		<if test="importe != null">
+			,FTN_IMPORTE = #{importe}
+		</if>
+		<if test="empresa != null and empresa.id != null">
+			,FTN_ID_EMPRESA = #{empresa.id}
+		</if>
+		<if test="usuarioActualizacion != null">
+			,FTC_USU_ACT = #{usuarioActualizacion}
+		</if>
+		<if test="regConciliado != null">
+			,FTN_REG_CONCILIADO = #{regConciliado}
+		</if>
+		<where>
+			<if test="folio != null">
+				AND FTC_FOLIO = #{folio}
+			</if>
+			<if test="origen != null and origen.id != null">
+				AND FTN_ORIGEN_APORTACION = #{origen.id}
+			</if>
+		</where>
+	</update>
+	<update id="actualizarConciliado" parameterType="mx.profuturo.nci.business.vo.SumConciliacionVO"
+		keyColumn="FTC_FOLIO">
+		update TLAFOAVOL_SUM_CONCILIACION set FTD_FEH_ACT = sysdate
+		<if test="regConciliado != null">
+			,FTN_REG_CONCILIADO = #{regConciliado}
+		</if>
+		<if test="usuarioActualizacion != null">
+			,FTC_USU_ACT = #{usuarioActualizacion}
+		</if>
+		<where>
+			<if test="folio != null">
+				AND FTC_FOLIO = #{folio}
+			</if>
+			<if test="origen != null and origen.id != null">
+				AND FTN_ORIGEN_APORTACION = #{origen.id}
+			</if>
+			<if test="empresa != null and empresa.id != null">
+				AND FTN_ID_EMPRESA = #{empresa.id}
+			</if>
+		</where>
+	</update>
+</mapper>

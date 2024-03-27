@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mx.profuturo.nci.persistence.CalendarioPersistence">
+
+	<select id="selectNextLaborDay" parameterType="java.util.Date" resultType="java.util.Date">
+		SELECT FECHA_DIA_HABIL_SIGUIENTE
+		FROM(
+				SELECT tabla.FTD_FECHA AS FECHA_ACTUAL, lead(tabla.FTD_FECHA,1) over(ORDER BY tabla.FTD_FECHA ) AS FECHA_DIA_HABIL_SIGUIENTE, lead(tabla.FTN_DIA_HABIL,1) over(ORDER BY FTD_FECHA ) AS HABIL_SIGUIENTE
+					FROM TTAFOGRAL_CALENDARIO tabla)
+		WHERE  FECHA_ACTUAL >= trunc(#{fecha})
+				AND HABIL_SIGUIENTE = 1
+				AND ROWNUM = 1
+		ORDER BY FECHA_DIA_HABIL_SIGUIENTE ASC
+	
+	</select>
+	
+	<select id="isDiaHabil" parameterType="java.util.Date" resultType="java.lang.Short">
+		SELECT FTN_DIA_HABIL
+		FROM TTAFOGRAL_CALENDARIO
+		WHERE FTD_FECHA = trunc(#{fecha})
+	</select>
+
+</mapper>

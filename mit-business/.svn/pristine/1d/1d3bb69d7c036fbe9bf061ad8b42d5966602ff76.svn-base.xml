@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mx.profuturo.nci.persistence.ConfigIntentosCargaApoVolPersistence">
+	<resultMap id="BaseResultMap" type="mx.profuturo.nci.business.vo.CatalogoVO">
+		<id property="idCatCatalogo" javaType="short" column="FCN_ID_CAT_CATALOGO"
+			jdbcType="DECIMAL" />
+		<result property="idCatPadre" javaType="short" column="FCN_ID_CAT_PADRE"
+			jdbcType="DECIMAL" />
+		<result property="valor" javaType="string" column="FCC_VALOR"
+			jdbcType="VARCHAR" />
+		<result property="desc" javaType="string" column="FCC_CAT_DESC"
+			jdbcType="VARCHAR" />
+		<result property="vigencia" javaType="boolean" column="FCB_CAT_VIGENCIA"
+			jdbcType="CHAR" />
+		<result property="fehCre" javaType="date" column="FCD_CAT_FEH_CRE"
+			jdbcType="TIMESTAMP" />
+		<result property="usuCre" javaType="string" column="FCC_CAT_USU_CRE"
+			jdbcType="VARCHAR" />
+		<result property="fehAct" javaType="date" column="FCD_CAT_FEH_ACT"
+			jdbcType="TIMESTAMP" />
+		<result property="usuAct" javaType="string" column="FCC_CAT_USU_ACT"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap id="ConsultarIntentosCargApoVolResultMap" type="mx.profuturo.nci.business.vo.ConfigIntentosApoVolVO">
+        <result	column="FTN_ID_CONFIG_INTEN_APOVOL"     jdbcType="NUMERIC" 		property="idConfigIntentosApoVol"/>
+        <result	column="FTN_ID_ORIGEN_DOMICILIACION"    jdbcType="NUMERIC" 		property="idOrigenDomiciliacion"/>
+        <result	column="FTC_ORIGEN_DOMICILIACION"       jdbcType="VARCHAR" 		property="descOrigenDomiciliacion"/>
+        <result	column="FTN_ID_PERIODO"                 jdbcType="NUMERIC" 		property="idPeriodo"/>
+        <result	column="FTC_PERIODO" 			        jdbcType="VARCHAR" 		property="descPeriodo"/>
+        <result column="FTN_NUM_INTENTOS" 		        jdbcType="NUMERIC"      property="numIntentos"/>
+        <result column="FTN_ESTATUS" 		            jdbcType="NUMERIC"      property="estatus"/>
+        <result column="FTD_FEH_CRE" 		            jdbcType="TIMESTAMP"    property="fehCre"/>
+        <result	column="FTC_USU_CRE" 			        jdbcType="VARCHAR" 		property="usuCre"/>
+        <result	column="FTD_FEH_ACT" 			        jdbcType="TIMESTAMP" 	property="fehAct"/>
+        <result	column="FTC_USU_ACT" 			        jdbcType="VARCHAR" 		property="usuAct"/>       
+    </resultMap>
+    
+    <select id="consultaConfigIntentosApoVol" parameterType="mx.profuturo.nci.business.wrapped.DomiIntentosCargaFilter"
+		resultMap="ConsultarIntentosCargApoVolResultMap">
+		SELECT * FROM TTAFOTRAS_CONFIG_INTEN_APOVOL
+			WHERE 1=1
+	        <if test="idOrigenDomiciliacion != 0 and idOrigenDomiciliacion != null">
+	            AND FTN_ID_ORIGEN_DOMICILIACION = #{idOrigenDomiciliacion,jdbcType=NUMERIC}
+	        </if>
+	        <if test="idPeriodo != 0 and idPeriodo != null">
+	            AND FTN_ID_PERIODO = #{idPeriodo,jdbcType=NUMERIC}
+	        </if>
+			order by FTC_ORIGEN_DOMICILIACION, FTC_PERIODO desc
+	</select>
+	
+
+	<select id="consultaCatOrigenDomi" parameterType="mx.profuturo.nci.business.vo.CatalogoVO"
+		resultMap="BaseResultMap">
+
+		SELECT * FROM CIERREN.TCCRXGRAL_CAT_CATALOGO 
+			WHERE FCN_ID_TIPO_CAT = 48
+			and FCB_VIGENCIA = 1 
+			order by FCC_VALOR
+	</select>
+
+	<select id="consultaCatPeriodo" parameterType="mx.profuturo.nci.business.vo.CatalogoVO"
+		resultMap="BaseResultMap">
+
+		SELECT * FROM CIERREN.TCCRXGRAL_CAT_CATALOGO 
+			where FCN_ID_TIPO_CAT=51
+	</select>
+	
+	<insert id="insertConfIntentosCarga"
+		parameterType="java.util.List">
+		INSERT ALL
+		 <foreach item="confIntentosCarga" collection="list" index="index">
+			INTO TTAFOTRAS_CONFIG_INTEN_APOVOL
+			(
+				FTN_ID_ORIGEN_DOMICILIACION,
+		        FTC_ORIGEN_DOMICILIACION,
+		        FTN_ID_PERIODO,
+		        FTC_PERIODO,
+		        FTN_NUM_INTENTOS,
+		        FTN_ESTATUS,
+		        FTD_FEH_CRE,
+		        FTC_USU_CRE,
+		        FTD_FEH_ACT,
+		        FTC_USU_ACT
+			) VALUES (	
+				#{confIntentosCarga.idOrigenDomiciliacion, jdbcType = NUMERIC},
+        		#{confIntentosCarga.descOrigenDomiciliacion,jdbcType=VARCHAR},
+                #{confIntentosCarga.idPeriodo,jdbcType=NUMERIC},
+                #{confIntentosCarga.descPeriodo,jdbcType=VARCHAR},
+                #{confIntentosCarga.numIntentos,jdbcType=NUMERIC},
+                #{confIntentosCarga.estatus,jdbcType=NUMERIC},
+                #{confIntentosCarga.fehCre,jdbcType=TIMESTAMP},
+                #{confIntentosCarga.usuCre,jdbcType=VARCHAR},
+                #{confIntentosCarga.fehAct,jdbcType=TIMESTAMP},
+                #{confIntentosCarga.usuAct,jdbcType=VARCHAR}
+		    )
+		  </foreach>
+		  	
+		SELECT * FROM DUAL
+				  
+	</insert>
+	
+	
+	<update id="editaConfIntentosCarga"
+		parameterType="mx.profuturo.nci.business.vo.ConfigIntentosApoVolVO">
+		UPDATE TTAFOTRAS_CONFIG_INTEN_APOVOL
+			SET FTN_NUM_INTENTOS = #{numIntentos,jdbcType=NUMERIC}
+		<where>
+			FTN_ID_CONFIG_INTEN_APOVOL = #{idConfigIntentosApoVol,jdbcType=NUMERIC}
+		</where>
+	</update>
+
+
+</mapper>

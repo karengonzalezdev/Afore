@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="mx.profuturo.nci.persistence.DiversificacionConciliacionPersistence">
+
+
+	<resultMap id="ResultMapDiversiConciliacion"
+		type="mx.profuturo.nci.business.vo.DiversificacionConciliacionVO">
+
+		<result column="FTN_ID_CONCILIACION" 		property="idConciliacion" 	jdbcType="DECIMAL" />				
+		<result column="FTN_DIVCONCI_MONTO" 		property="monto" 			jdbcType="DECIMAL" />		
+		<result column="FTN_DIVCONCI_PORCENTAJE" 	property="porcentaje" 		jdbcType="DECIMAL" />
+		
+		<result column="FTD_DIVCONCI_FEH_CRE" 	property="fechaCreacion" 			jdbcType="TIMESTAMP" 	javaType="date" />
+		<result column="FTC_DIVCONCI_USU_CRE" 	property="usuarioCreacion" 			jdbcType="VARCHAR" 		javaType="string" />
+		<result column="FTD_DIVCONCI_FEH_ACT" 	property="fechaActualizacion" 		jdbcType="TIMESTAMP" 	javaType="date" />
+		<result column="FTC_DIVCONCI_USU_ACT" 	property="usuarioActualizacion" 	jdbcType="VARCHAR" 		javaType="string" />
+
+		<association property="fondoApovol"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericCtFondoApovol" />
+
+	</resultMap>
+
+
+	<insert id="insert" parameterType="mx.profuturo.nci.business.vo.DiversificacionConciliacionVO">
+		INSERT INTO TTAFOAVOL_DIVERSIF_CONC
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+				FTN_ID_CONCILIACION,
+				FTN_FONDO_APOVOL,
+				FTN_MONTO,
+			<if test="porcentaje != null">
+				FTN_PORCENTAJE,
+			</if>
+				FTC_USU_CRE,
+				FTD_FEH_CRE,
+		</trim>
+
+		<trim prefix="values (" suffix=")" suffixOverrides="">
+				#{idConciliacion,jdbcType=VARCHAR},
+				#{fondoApovol.id,jdbcType=DECIMAL},
+				#{monto,jdbcType=DECIMAL},
+			<if test="porcentaje != null">
+				#{porcentaje,jdbcType=DECIMAL},
+			</if>
+				#{usuarioCreacion,jdbcType=VARCHAR},
+			SYSTIMESTAMP
+
+		</trim>
+	</insert>
+
+	<insert id="insertAll" parameterType="java.util.List">
+  
+  
+	  <if test="list != null and list.size() > 0" >
+	  
+	  	INSERT ALL
+
+		<foreach item="diverConciliacion" collection="list">
+
+		  		INTO TTAFOAVOL_DIVERSIF_CONC
+		  		
+		  		<trim prefix="(" suffix=")" suffixOverrides="," >
+		  		
+		  			<if test="diverConciliacion.idConciliacion != null">
+		  				FTN_ID_CONCILIACION,
+		  			</if>
+	
+		  			<if test="diverConciliacion.fondoApovol != null and diverConciliacion.fondoApovol.id != null">
+		  				FTN_FONDO_APOVOL,
+		  			</if>
+		  			
+		  			<if test="diverConciliacion.monto != null">
+		  				FTN_MONTO,
+		  			</if>	  			
+	
+		  			<if test="diverConciliacion.porcentaje != null">
+		  				FTN_PORCENTAJE,
+		  			</if>	  			
+	
+		  			<if test="diverConciliacion.usuarioCreacion != null">
+		  				FTC_USU_CRE,
+		  			</if>	  			
+		  			
+		  			FTD_FEH_CRE,
+		  			  		
+		  		</trim> 
+		  		
+		  		<trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+		  		
+		  			<if test="diverConciliacion.idConciliacion != null">
+		  				#{diverConciliacion.idConciliacion,jdbcType=DECIMAL},
+		  			</if>
+	
+		  			<if test="diverConciliacion.fondoApovol != null and diverConciliacion.fondoApovol.id != null">
+		  				#{diverConciliacion.fondoApovol.id,jdbcType=DECIMAL},
+		  			</if>
+		  			
+		  			<if test="diverConciliacion.monto != null">
+		  				#{diverConciliacion.monto,jdbcType=DECIMAL},
+		  			</if>	  			
+	
+		  			<if test="diverConciliacion.porcentaje != null">
+		  				#{diverConciliacion.porcentaje,jdbcType=DECIMAL},
+		  			</if>	  			
+	
+		  			<if test="diverConciliacion.usuarioCreacion != null">
+		  				#{diverConciliacion.usuarioCreacion,jdbcType=VARCHAR},
+		  			</if>	  			
+		  			
+		  			SYSTIMESTAMP,	  		
+		  		
+		  		</trim>
+	  	  
+	  	
+	  	</foreach>
+	  	
+	  	
+	  	SELECT 1 FROM DUAL
+	  
+	  
+	  </if>
+    
+  
+  </insert>
+
+	<update id="update"
+		parameterType="mx.profuturo.nci.business.vo.DiversificacionConciliacionVO">
+		
+		UPDATE TTAFOAVOL_DIVERSIF_CONC 
+		<set>
+			<if test="monto != null">
+				FTN_MONTO = #{monto,jdbcType=DECIMAL},
+			</if>
+			<if test="porcentaje != null">
+				FTN_PORCENTAJE = #{porcentaje,jdbcType=DECIMAL},
+			</if>
+			<if test="usuarioActualizacion != null">
+				FTC_USU_ACT = #{usuarioActualizacion,jdbcType=VARCHAR},
+			</if>
+			
+				FTD_FEH_ACT = SYSTIMESTAMP,
+			
+		</set>		
+		
+		<where>
+				FTN_ID_CONCILIACION = #{idConciliacion,jdbcType=VARCHAR}
+				AND FTN_FONDO_APOVOL = #{fondoApovol.id,jdbcType=DECIMAL}
+		</where>
+		
+	</update>
+
+</mapper>

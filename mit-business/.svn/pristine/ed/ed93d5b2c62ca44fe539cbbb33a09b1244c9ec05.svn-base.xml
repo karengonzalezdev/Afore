@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.2.2.final using JasperReports Library version 6.2.2  -->
+<!-- 2023-05-07T21:08:58 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteDetalleIdc" pageWidth="1361" pageHeight="6150" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="1321" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="86fc3990-8041-48cc-bb95-f29947ca15f7">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+	<subDataset name="reporteCsvDetalleIdc" uuid="ac7279f9-b2e8-461d-91d6-d50e192fede5">
+		<field name="numConsecutivo" class="java.lang.Integer"/>
+		<field name="nss" class="java.lang.String"/>
+		<field name="curp" class="java.lang.String"/>
+		<field name="numeroCuenta" class="java.lang.String"/>
+		<field name="nombreCompleto" class="java.lang.String"/>
+		<field name="diagnosticoIdc" class="java.lang.String"/>
+		<field name="subProcesoNoVigencia" class="java.lang.String"/>
+		<field name="fechaCertificacion" class="java.util.Date"/>
+	</subDataset>
+	<parameter name="lstDetalleIdc" class="java.util.List"/>
+	<summary>
+		<band height="100">
+			<componentElement>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="1212" height="20" isRemoveLineWhenBlank="true" uuid="23a310a5-a232-4284-ac47-e2c8be528fe1"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="reporteCsvDetalleIdc" uuid="58024883-0c82-4e2b-9e35-ce3d3e4bdea7">
+						<datasetParameter name="REPORT_DATA_SOURCE">
+							<datasetParameterExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{lstDetalleIdc})]]></datasetParameterExpression>
+						</datasetParameter>
+					</datasetRun>
+					<jr:column width="45" uuid="e5745ccc-fb47-4fb6-a0b5-00949e6f2315">
+						<jr:columnHeader height="26" rowSpan="1">
+							<staticText>
+								<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="45" height="26" uuid="c903a27f-641c-463a-af47-5f08204c8f54"/>
+								<text><![CDATA[Consecutivo]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="22" rowSpan="1">
+							<textField isStretchWithOverflow="false" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="45" height="22" uuid="aac086d9-9bf7-47cf-9c95-9d23d9a97624"/>
+								<textFieldExpression><![CDATA[$F{numConsecutivo}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="163" uuid="8e6c5393-715f-427a-9415-693080982c5b">
+						<jr:columnHeader height="26" rowSpan="1">
+							<staticText>
+								<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="163" height="26" uuid="dad8535d-b09c-4c95-85e8-731d51857ba2"/>
+								<text><![CDATA[NSS]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="22" rowSpan="1">
+							<textField isStretchWithOverflow="false" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="163" height="22" uuid="f6092f1a-f003-48de-9cca-9978dd638dc7"/>
+								<textFieldExpression><![CDATA[$F{nss}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="210" uuid="a6d45145-adc9-4346-9754-24c535484a11">
+						<jr:columnHeader height="26" rowSpan="1">
+							<staticText>
+								<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="210" height="26" uuid="72573698-22c1-4329-b38c-a2ababe46a23"/>
+								<text><![CDATA[CURP]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="22" rowSpan="1">
+							<textField isStretchWithOverflow="false" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="210" height="22" uuid="07923aa6-3bf4-4626-b307-990543c4b74e"/>
+								<textFieldExpression><![CDATA[$F{curp}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="106" uuid="fe2ee3ea-99cb-434a-9451-06a06283bc85">
+						<jr:columnHeader height="26" rowSpan="1">
+							<staticText>
+								<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="106" height="26" uuid="ea94dd18-3257-468c-b32f-71bf8e462c9d"/>
+								<text><![CDATA[Número de Cuenta]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="22" rowSpan="1">
+							<textField isStretchWithOverflow="false" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="106" height="22" uuid="1c3809c0-cb3f-4186-a254-6393614a6dce"/>
+								<textFieldExpression><![CDATA[$F{numeroCuenta}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="134" uuid="5ca3c44d-1d81-409c-baa2-680a3ed5fcc0">
+						<jr:columnHeader height="26" rowSpan="1">
+							<staticText>
+								<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="134" height="26" uuid="d235e1f4-6525-4f09-b3b1-1665d3a4af25"/>
+								<text><![CDATA[Nombre Completo]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="22" rowSpan="1">
+							<textField isStretchWithOverflow="false" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="134" height="22" uuid="b19ac019-992b-444e-9565-48b74196ec98"/>
+								<textFieldExpression><![CDATA[$F{nombreCompleto}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="101" uuid="cf131ba1-bc3a-41f8-bd1c-e6b7cf7e80b7">
+						<jr:columnHeader height="26" rowSpan="1">
+							<staticText>
+								<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="101" height="26" uuid="a0f91daa-4e03-49cc-8e9e-957449f63cd8"/>
+								<text><![CDATA[Diagnóstico]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="22" rowSpan="1">
+							<textField isStretchWithOverflow="false" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="101" height="22" uuid="7253cf24-5a4f-4b05-ab2e-b59157117d53"/>
+								<textFieldExpression><![CDATA[$F{diagnosticoIdc}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="101" uuid="93065ebc-a698-4552-a12e-b0d7ce6be0a3">
+						<jr:columnHeader height="26" rowSpan="1">
+							<staticText>
+								<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="101" height="26" uuid="087d150c-de2d-454b-a558-83cc4c1c9679"/>
+								<text><![CDATA[Subproceso de no vigencia]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="22" rowSpan="1">
+							<textField isStretchWithOverflow="false" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="101" height="22" uuid="25f7f0ac-ae31-4138-9edd-8d0cb0a2d1a4"/>
+								<textFieldExpression><![CDATA[$F{subProcesoNoVigencia}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="106" uuid="4ea47f5a-4976-4941-95f1-4ad056d67090">
+						<jr:columnHeader height="26" rowSpan="1">
+							<staticText>
+								<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="106" height="26" uuid="b310de1c-7f89-4c03-913e-4888681318b6"/>
+								<text><![CDATA[Fecha de Certificación]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="22" rowSpan="1">
+							<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="106" height="22" uuid="ee23b2d2-21ee-4fa3-b921-9f64bea9d084"/>
+								<textFieldExpression><![CDATA[$F{fechaCertificacion}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</summary>
+</jasperReport>

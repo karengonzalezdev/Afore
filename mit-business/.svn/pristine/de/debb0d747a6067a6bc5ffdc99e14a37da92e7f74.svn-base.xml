@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap11="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsp200409="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsp200607="http://www.w3.org/2006/07/ws-policy" xmlns:ns0="http://www.profuturo-gnp.com.mx/ws/sso/controlacceso" targetNamespace="http://www.profuturo-gnp.com.mx/ws/sso/controlacceso">
+<wsdl:types xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<xsd:schema>
+<xsd:import schemaLocation="ControlAccesoSSOService.xsd2.xsd" namespace="http://www.profuturo-gnp.com.mx/ws/sso/controlacceso"/></xsd:schema></wsdl:types>
+<wsdl:message name="autenticarUsuarioSSO">
+<wsdl:part name="parameters" element="xsns:autenticarUsuarioSSO" xmlns:xsns="http://www.profuturo-gnp.com.mx/ws/sso/controlacceso"/></wsdl:message>
+<wsdl:message name="autenticarUsuarioSSOResponse">
+<wsdl:part name="parameters" element="xsns:autenticarUsuarioSSOResponse" xmlns:xsns="http://www.profuturo-gnp.com.mx/ws/sso/controlacceso"/></wsdl:message>
+<wsdl:message name="autorizarUsuarioSSO">
+<wsdl:part name="parameters" element="xsns:autorizarUsuarioSSO" xmlns:xsns="http://www.profuturo-gnp.com.mx/ws/sso/controlacceso"/></wsdl:message>
+<wsdl:message name="autorizarUsuarioSSOResponse">
+<wsdl:part name="parameters" element="xsns:autorizarUsuarioSSOResponse" xmlns:xsns="http://www.profuturo-gnp.com.mx/ws/sso/controlacceso"/></wsdl:message>
+<wsdl:message name="confirmarAccesoUsuarioSSO">
+<wsdl:part name="parameters" element="xsns:confirmarAccesoUsuarioSSO" xmlns:xsns="http://www.profuturo-gnp.com.mx/ws/sso/controlacceso"/></wsdl:message>
+<wsdl:message name="confirmarAccesoUsuarioSSOResponse">
+<wsdl:part name="parameters" element="xsns:confirmarAccesoUsuarioSSOResponse" xmlns:xsns="http://www.profuturo-gnp.com.mx/ws/sso/controlacceso"/></wsdl:message>
+<wsdl:message name="SSOFault">
+<wsdl:part name="fault" element="xsns:excepcionMsgFault" xmlns:xsns="http://www.profuturo-gnp.com.mx/ws/sso/controlacceso"/></wsdl:message>
+<wsdl:portType name="ControlAccesoSSOPortType">
+<wsdl:operation name="autenticarUsuarioSSO">
+<wsdl:input name="autenticarUsuarioSSORequest" message="ns0:autenticarUsuarioSSO"/>
+<wsdl:output name="autenticarUsuarioSSOResponse" message="ns0:autenticarUsuarioSSOResponse"/>
+<wsdl:fault name="SSOFault" message="ns0:SSOFault"/></wsdl:operation>
+<wsdl:operation name="autorizarUsuarioSSO">
+<wsdl:input name="autorizarUsuarioSSORequest" message="ns0:autorizarUsuarioSSO"/>
+<wsdl:output name="autorizarUsuarioSSOResponse" message="ns0:autorizarUsuarioSSOResponse"/>
+<wsdl:fault name="SSOFault" message="ns0:SSOFault"/></wsdl:operation>
+<wsdl:operation name="confirmarAccesoUsuarioSSO">
+<wsdl:input name="confirmarAccesoUsuarioSSORequest" message="ns0:confirmarAccesoUsuarioSSO"/>
+<wsdl:output name="confirmarAccesoUsuarioSSOResponse" message="ns0:confirmarAccesoUsuarioSSOResponse"/>
+<wsdl:fault name="SSOFault" message="ns0:SSOFault"/></wsdl:operation></wsdl:portType>
+<wsdl:binding name="ControlAccesoSSOPortTypeBinding" type="ns0:ControlAccesoSSOPortType">
+<soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+<wsdl:operation name="autenticarUsuarioSSO">
+<soap12:operation soapAction="http://www.profuturo-gnp.com.mx/ws/sso/controlacceso/autenticarUsuarioSSO" soapActionRequired="false" style="document"/>
+<wsdl:input name="autenticarUsuarioSSORequest">
+<soap12:body use="literal"/></wsdl:input>
+<wsdl:output name="autenticarUsuarioSSOResponse">
+<soap12:body use="literal"/></wsdl:output>
+<wsdl:fault name="SSOFault">
+<soap12:fault name="SSOFault" use="literal"/></wsdl:fault></wsdl:operation>
+<wsdl:operation name="autorizarUsuarioSSO">
+<soap12:operation soapAction="http://www.profuturo-gnp.com.mx/ws/sso/controlacceso/autorizarUsuarioSSO" soapActionRequired="false" style="document"/>
+<wsdl:input name="autorizarUsuarioSSORequest">
+<soap12:body use="literal"/></wsdl:input>
+<wsdl:output name="autorizarUsuarioSSOResponse">
+<soap12:body use="literal"/></wsdl:output>
+<wsdl:fault name="SSOFault">
+<soap12:fault name="SSOFault" use="literal"/></wsdl:fault></wsdl:operation>
+<wsdl:operation name="confirmarAccesoUsuarioSSO">
+<soap12:operation soapAction="http://www.profuturo-gnp.com.mx/ws/sso/controlacceso/confirmarAccesoUsuarioSSO" soapActionRequired="false" style="document"/>
+<wsdl:input name="confirmarAccesoUsuarioSSORequest">
+<soap12:body use="literal"/></wsdl:input>
+<wsdl:output name="confirmarAccesoUsuarioSSOResponse">
+<soap12:body use="literal"/></wsdl:output>
+<wsdl:fault name="SSOFault">
+<soap12:fault name="SSOFault" use="literal"/></wsdl:fault></wsdl:operation></wsdl:binding>
+<wsdl:service name="ControlAccesoSSOService">
+<wsdl:port name="ControlAccesoSSOPortType" binding="ns0:ControlAccesoSSOPortTypeBinding">
+<soap12:address location="http://172.16.50.251:8020/intranet/ws/ControlAccesoSSOService"/></wsdl:port></wsdl:service></wsdl:definitions>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="mx.profuturo.nci.persistence.CatalogoConfiguracionPersistence" >
+
+	<resultMap id="ResultMapCatConfiguracion" type="mx.profuturo.nci.business.vo.CatalogoConfiguracionVO">
+	
+	    <id 		column="FFN_ID_CAT_CONFIG" 				property="idCatalogoConfiguracion" 	jdbcType="DECIMAL"      javaType="Short" 	/>
+	    <result 	column="FFC_VALOR_CAT_CONFIG" 			property="valor" 					jdbcType="VARCHAR"		javaType="String" 	/>
+	    <result 	column="FFC_DESC_CAT_CONFIG" 			property="descripcion" 				jdbcType="VARCHAR"		javaType="String" 	/>
+	    <result 	column="FFB_VIGENCIA_CAT_CONFIG" 		property="vigencia" 				jdbcType="CHAR"			javaType="Boolean" 	/>
+	    <result 	column="FFD_FEH_CRE_CAT_CONFIG"     	property="fechaCreacion" 			jdbcType="TIMESTAMP"	javaType="Date"  	/>
+	    <result 	column="FFC_USU_CRE_CAT_CONFIG"     	property="usuarioCreacion" 			jdbcType="VARCHAR" 		javaType="String" 	/>
+	    <result 	column="FFD_FEH_ACT_CAT_CONFIG"     	property="fechaActualizacion" 		jdbcType="TIMESTAMP"	javaType="Date" 	/>
+	    <result 	column="FFC_USU_ACT_CAT_CONFIG"     	property="usuarioActualizacion" 	jdbcType="VARCHAR" 		javaType="String" 	/>
+	    
+	    <association property="tipoCatalogo" resultMap="mx.profuturo.nci.persistence.TipoCatalogoPersistence.BaseResultMap" />
+	    	
+	</resultMap>	
+  
+  <select id="selectById" resultMap="ResultMapCatConfiguracion" >
+  		    		  
+		SELECT 
+			CAT_CN.FFN_ID_CAT_CONFIG,
+			CAT_CN.FFC_VALOR AS FFC_VALOR_CAT_CONFIG, 
+			CAT_CN.FFC_DESC AS FFC_DESC_CAT_CONFIG,
+			CAT_CN.FFB_VIGENCIA AS FFB_VIGENCIA_CAT_CONFIG,
+			CAT_CN.FFD_FEH_CRE AS FFD_FEH_CRE_CAT_CONFIG, 
+			CAT_CN.FFC_USU_CRE AS FFC_USU_CRE_CAT_CONFIG,
+			CAT_CN.FFD_FEH_ACT AS FFD_FEH_ACT_CAT_CONFIG,
+			CAT_CN.FFC_USU_ACT AS FFC_USU_ACT_CAT_CONFIG, 
+			CAT_CN.FCN_ID_TIPO_CAT
+		FROM TFCRXGRAL_CAT_CONFIG CAT_CN
+		WHERE CAT_CN.FFN_ID_CAT_CONFIG =  #{idCatalogoConfiguracion,jdbcType=DECIMAL}		  
+		AND CAT_CN.FFB_VIGENCIA = 1
+  		      
+	</select>
+
+
+ 	<update id="updateByIdCatalogo"
+         parameterType="mx.profuturo.nci.business.wrapped.CatalogoConfiguracionFilter" >
+         
+	    UPDATE TFCRXGRAL_CAT_CONFIG CAT_CN
+	    SET CAT_CN.FFC_VALOR = #{valor,jdbcType=VARCHAR},	    
+	    CAT_CN.FFC_USU_ACT = #{usuarioActualizacion,jdbcType=VARCHAR},
+	    CAT_CN.FFD_FEH_ACT = SYSTIMESTAMP	    
+	    WHERE CAT_CN.FFN_ID_CAT_CONFIG = #{idCatalogoConfiguracion,jdbcType=DECIMAL}
+	    AND CAT_CN.FFB_VIGENCIA = 1          
+	    
+ </update>
+ 
+ 
+
+</mapper>

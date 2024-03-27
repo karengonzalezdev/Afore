@@ -1,0 +1,5606 @@
+.registro h5 {
+    font-size: 2em!important;
+    margin-bottom: 20px!important
+}
+.registro h4 {
+    color: #666;
+    font-size: .9em!important;
+    text-align: left;
+    margin: 5px 0 10px!important;
+    font-weight: 500!important
+}
+.registro .campos-obligatorios {
+    margin-bottom: 30px;
+    margin-top: 5px;
+    font-size: .8em!important;
+    color: #777
+}
+.registro .numero-paso {
+    margin-top: 7px
+}
+.registro .h4-label {
+    font-weight: 700!important;
+    font-family: "Calibri", sans-serif;
+    font-size: 1em!important;
+    color: #494949
+}
+.registro h3 {
+    color: #00427a;
+    font-size: 1.3em!important;
+    margin-bottom: 0!important
+}
+.registro .correo-usuario {
+    border-top: 1px solid #dbdbdb;
+    padding: 0 0 25px 0
+}
+.registro .informacion-usuario {
+    margin: -25px 0;
+    padding-bottom: 25px
+}
+.registro .mensajes {
+    padding-top: 75px
+}
+.registro .mensajes .msj-container {
+    margin-top: 21px;
+    min-height: 60px
+}
+.registro .mensajes .msj-container .msj-error {
+    display: none;
+    color: #cd3737;
+    font-family: "Times", "Garamond", serif;
+    font-style: italic;
+    font-size: 1.1em
+}
+.registro .mensajes2 {
+    padding-top: 95px!important
+}
+.registro .campos .img-success,
+.registro .campos .img-error {
+    display: none;
+    width: 36px;
+    height: 36px;
+    float: left;
+    margin-left: 40px;
+    background: url("../img/transaccional/sprite-msj.png") no-repeat
+}
+.registro .campos .img-success {
+    background-position: -36px center
+}
+.registro .campos .img-error {
+    background-position: -1px center
+}
+.registro .campos fieldset input {
+    float: left;
+    margin-bottom: 5px
+}
+.registro .campos fieldset label {
+    font-size: 1em;
+    clear: both;
+    margin: 15px 0 5px
+}
+.registro .servicio {
+    margin-top: 20px;
+    border: 1px solid #dbdbdb;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -o-border-radius: 4px;
+    -ms-border-radius: 4px;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px #dbdbdb;
+    -moz-box-shadow: 0 1px 2px #dbdbdb;
+    -webkit-box-shadow: 0 1px 2px #dbdbdb;
+    -o-box-shadow: 0 1px 2px #dbdbdb;
+    height: 100px;
+    cursor: pointer;
+    background-position: 10px 15px!important;
+    margin-bottom: 25px
+}
+.registro .servicio a {
+    display: block
+}
+.registro .servicio a span {
+    line-height: 95px;
+    color: #00427a;
+    font-size: 1.3em;
+    font-weight: bold
+}
+.registro .servicio-afore {
+    clear: both;
+    background: url("../img/transaccional/cerdo-banco.png") no-repeat
+}
+.registro .servicio-afore span {
+    margin-left: 85px
+}
+.registro .servicio-fondos {
+    margin-right: 40px!important;
+    margin-left: 40px!important;
+    background: url("../img/transaccional/caja-dinero.png") no-repeat
+}
+.registro .servicio-fondos span {
+    margin-left: 80px;
+    font-size: 1.25em
+}
+.registro .servicio-prestamos {
+    background: url("../img/transaccional/dinero.png") no-repeat
+}
+.registro .servicio-prestamos span {
+    margin-left: 90px
+}
+.registro .submit {
+    clear: both;
+    margin-top: 30px;
+    padding-top: 30px!important;
+    border-top: 1px solid #dbdbdb;
+    margin-bottom: 30px
+}
+.registro .submit .msj-rojo {
+    color: #cd3737;
+    font-size: 1.2em;
+    font-weight: bold;
+    float: left
+}
+.registro .submit .continuar {
+    font-size: 1.5em!important;
+    padding: 9px 25px!important;
+    margin-left: 13%;
+    width: 150px
+}
+@media only screen and (min-width: 768px) and (max-width: 959px) {
+    .registro .campos fieldset input {
+        width: 70%
+    }
+    .registro .mensajes .msj-error {
+        margin-top: 5px;
+        height: 70px
+    }
+    .submit .continuar {
+        margin-left: 10%
+    }
+    .servicio a span {
+        font-size: 1.2em!important
+    }
+    .servicio-fondos a span {
+        font-size: .9em!important
+    }
+}
+@media only screen and (max-width: 767px) {
+    .registro h4 {
+        margin-left: 0!important;
+        text-align: left;
+        padding-right: 25px
+    }
+    .registro .arriba {
+        margin-top: 0!important
+    }
+    .registro h5 {
+        text-align: left;
+        margin-left: 20px!important
+    }
+    .registro .informacion-usuario {
+        margin: -25px 0!important
+    }
+    .registro .correo-usuario,
+    .registro .informacion-usuario {
+        margin-bottom: -50px!important;
+        margin-left: 20px!important
+    }
+    .registro .campos fieldset input {
+        width: 70%
+    }
+    .registro .mensajes .msj-error,
+    .registro .mensajes .msj-container {
+        display: none
+    }
+    .registro .mensajes2 {
+        margin-top: -40px!important
+    }
+    .registro .servicio {
+        width: 25%!important;
+        margin-left: 30px!important;
+        margin-top: 25px!important;
+        margin-bottom: 25px!important;
+        text-align: center;
+        padding-top: 30px;
+        height: 70px;
+        background-position: center 5px!important
+    }
+    .registro .servicio span {
+        margin-left: 0!important;
+        font-size: 1em
+    }
+    .registro .servicio-fondos,
+    .registro .servicio-afore {
+        margin-left: 30px!important;
+        margin-right: 0!important
+    }
+    .registro .servicio-fondos span,
+    .registro .servicio-afore span {
+        font-size: .8em!important
+    }
+    .registro .espacio h3,
+    .registro .espacio h4 {
+        margin-left: 20px!important
+    }
+    .registro .submit .msj-rojo {
+        display: none
+    }
+    .registro .submit .continuar {
+        margin-left: 38%
+    }
+    .registro .submit {
+        padding-top: 10px!important
+    }
+    .registro .submit .msj-rojo {
+        display: inline;
+        font-size: .9em
+    }
+    .registro .submit .continuar {
+        margin-top: 25px
+    }
+}
+@media only screen and (max-width: 480px) {
+    .registro h5 {
+        font-size: 1.1em!important;
+        margin-left: 0!important
+    }
+    .registro h3 {
+        font-size: 1.5em!important
+    }
+    .registro h4 {
+        font-size: 1.2em!important
+    }
+    .registro .correo-usuario,
+    .registro .informacion-usuario {
+        margin-left: 0!important
+    }
+    .registro .campos input {
+        width: 65%!important
+    }
+    .registro .campos label {
+        font-size: .9em!important
+    }
+    .registro .espacio h3,
+    .registro .espacio h4 {
+        margin-left: 0!important
+    }
+    .registro .servicio {
+        padding-top: 63px!important;
+        height: 43px!important;
+        margin-left: 20px!important
+    }
+    .registro .servicio a span {
+        line-height: 5px!important
+    }
+    .registro .servicio-afore a span,
+    .registro .servicio-prestamos a span {
+        font-size: .9em!important
+    }
+    .registro .servicio-afore {
+        margin-left: 15px!important
+    }
+    .registro .servicio-fondos a span,
+    .registro .servicio-afore a span {
+        font-size: .8em!important
+    }
+    .registro .submit {
+        padding-top: 10px!important
+    }
+    .registro .submit .msj-rojo {
+        display: inline;
+        font-size: .8em
+    }
+    .registro .submit .continuar {
+        margin-left: 30%!important
+    }
+}
+.checkup hr {
+    background: #bbdcff!important;
+    color: #bbdcff!important
+}
+.checkup .titulo-checkup h3 {
+    color: #000;
+    font-weight: 700;
+    font-size: 22px!important;
+    margin-bottom: 5px
+}
+.checkup .titulo-checkup p {
+    color: #666;
+    font-size: 17px
+}
+.checkup .titulo-checkup p .texto-azul {
+    font-weight: 700
+}
+.checkup .avance {
+    width: 960px;
+    height: 74px
+}
+.checkup .avance li {
+    width: 192px;
+    height: 64px;
+    float: left;
+    left: 0;
+    padding: 10px 0 0 0;
+    background: url("/img/transaccional/nav-normal.jpg") 0 0 no-repeat
+}
+.checkup .avance li span {
+    font-family: Arial, san-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: #9f9f9f;
+    margin: 10px 0 0 10px
+}
+.checkup .avance li.primero {
+    background: url("/img/transaccional/nav-normal-inicio.jpg") 0 0 no-repeat
+}
+.checkup .avance li.primero span {
+    color: #004792
+}
+.checkup .avance li.primero-active {
+    background: url("/img/transaccional/nav-active.jpg") 0 0 no-repeat
+}
+.checkup .avance li.primero-active span {
+    color: #004792
+}
+.checkup .avance li.ultimo {
+    background: url("/img/transaccional/nav-normal-final.jpg") 0 0 no-repeat
+}
+.checkup .avance li.medio {
+    background: url("/img/transaccional/nav-active.jpg") 0 0 no-repeat
+}
+.checkup .avance li.active span {
+    color: #004792
+}
+.checkup .avance li.last {
+    background: url("/img/transaccional/nav-active-last.jpg") 0 0 no-repeat
+}
+.checkup .avance li.ultimo-active {
+    background: url("/img/transaccional/nav-active-final.jpg") 0 0 no-repeat
+}
+.checkup .porcentaje {
+    color: #90c6ff;
+    font-size: 18px;
+    font-weight: 700;
+    margin-top: -32px;
+    position: absolute
+}
+.checkup .pasos {
+    color: #004792;
+    font-size: 28px;
+    font-weight: 700;
+    font-family: Arial, san-serif;
+    margin: 20px 0 -5px 0
+}
+.checkup .aux {
+    color: #004792;
+    font-size: 14px;
+    margin-bottom: 15px
+}
+.checkup form fieldset {
+    width: 100%
+}
+.checkup form fieldset p {
+    float: left;
+    background: #d8ebff;
+    width: 330px;
+    height: 25px;
+    padding: 5px 10px!important;
+    border: 1px solid #bbdcff;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -o-border-radius: 5px;
+    -ms-border-radius: 5px;
+    border-radius: 5px
+}
+.checkup form fieldset p label {
+    font-size: 13px;
+    color: #000;
+    margin-left: 11px
+}
+.checkup form fieldset p input {
+    border: 1px solid #bbdcff;
+    border-radius: 0;
+    color: #999;
+    font-size: 13px;
+    padding: 0 10px!important;
+    width: 310px!important;
+    height: 22px
+}
+.checkup form fieldset p select {
+    width: auto;
+    padding: 2px 3px 2px 5px
+}
+.checkup form fieldset .yellow-button {
+    float: left;
+    margin: 0 0 0 20px
+}
+.checkup form .fieldset-fecha p {
+    width: 220px
+}
+.checkup form .encimado {
+    position: absolute
+}
+.checkup form .logos {
+    float: left;
+    margin-right: 40px
+}
+.checkup form .aviso {
+    font-style: italic;
+    font-size: 12px;
+    color: #999
+}
+.checkup .paso3 fieldset input {
+    width: 49px!important;
+    text-align: center
+}
+.checkup .paso4 fieldset p {
+    width: 100px
+}
+.checkup .paso4 fieldset p input {
+    width: 80px!important;
+    text-align: center
+}
+.checkup .paso5 fieldset p {
+    width: 150px
+}
+.checkup .paso5 fieldset p input {
+    width: 130px!important;
+    text-align: center
+}
+.checkup .espacio {
+    height: 20px
+}
+.checkup .editar {
+    padding-top: 38px
+}
+.checkup .editar span {
+    color: #06f;
+    text-decoration: underline;
+    font-size: 13px
+}
+.checkup .resumen label {
+    font-size: 14px;
+    color: #000
+}
+.checkup .resumen input {
+    color: #999;
+    background: #eee;
+    background: 1px solid #444;
+    margin: 0;
+    font-size: 14px;
+    width: 80%;
+    padding: 10px
+}
+.checkup .resumen input[disabled="disabled"] {
+    color: #999;
+    border: 0;
+    background: 0;
+    padding: 0;
+    width: 100%
+}
+.checkup .ayuda-btn {
+    width: 133px;
+    height: 65px;
+    border: 1px solid #c6c4c4;
+    float: left;
+    background: url("/img/transaccional/ayuda-btn_bg.jpg") repeat-x 0 0;
+    text-align: center;
+    cursor: pointer;
+    padding-top: 20px;
+    position: relative
+}
+.checkup .ayuda-btn .triangulito {
+    position: absolute;
+    bottom: -1px;
+    left: 50%;
+    margin-left: -8px
+}
+.checkup .ayuda-btn.active {
+    border: 1px solid #448fba;
+    background: url("/img/transaccional/ayuda-btn_active-bg.jpg") repeat-x 0 0
+}
+.checkup .ayuda-content {
+    position: relative;
+    display: none;
+    min-height: 435px
+}
+.checkup .ayuda-content .left {
+    padding-top: 40px;
+    text-align: center
+}
+.checkup .ayuda-content .right {
+    padding-top: 50px
+}
+.checkup .ayuda-content .right .card .numero-paso {
+    position: relative
+}
+.checkup .ayuda-content .flechas {
+    width: 19px;
+    height: 26px;
+    position: absolute
+}
+.checkup .ayuda-content .izq {
+    margin-left: -20px;
+    top: 200px;
+    background: url("/img/transaccional/izquierda.png") no-repeat 0 0
+}
+.checkup .ayuda-content .der {
+    right: 0;
+    top: 200px;
+    background: url("/img/transaccional/derecha.png") no-repeat 0 0
+}
+.checkup .texto-error {
+    color: #d74949;
+    position: relative;
+    margin: -20px 0 10px 0
+}
+.checkup .regresar {
+    padding: 7px 10px!important;
+    margin: 3px 0 0 10px!important
+}
+.texto-azul {
+    color: #00427a
+}
+.hide {
+    display: none!important
+}
+input.observable {
+    border-radius: 5px;
+    color: #787878;
+    background-color: transparent;
+    background: url("inc/inc/../../../img/afore/input-bg.png") repeat-x;
+    border: 1px solid #d7d7d7;
+    height: 20px;
+    padding: 5px;
+    margin-top: 4px;
+    -webkit-appearance: textfield;
+    width: 60px!important;
+    float: left!important
+}
+.jslider {
+    width: 200px!important
+}
+.layout-slider {
+    width: 235px!important
+}
+.transaccional {
+    color: #999;
+    background: url("../img/afore/afore3-bg.png") repeat-x
+}
+.transaccional p {
+    font-family: "Arial", sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.5em;
+    margin: 0 0 10px
+}
+.transaccional li,
+.transaccional label {
+    font-family: "Arial", sans-serif;
+    font-size: 15.400000000000002px;
+    font-weight: normal;
+    line-height: 1.1em
+}
+.transaccional li ol li,
+.transaccional li ul li {
+    font-family: "Arial", sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.1em
+}
+.transaccional a {
+    text-decoration: none;
+    text-transform: none
+}
+.transaccional address {
+    font-style: italic
+}
+.transaccional blockquote {
+    font-family: "Arial", sans-serif;
+    font-style: italic
+}
+.transaccional dl {
+    font-weight: bold
+}
+.transaccional dl dt {
+    font-weight: bold
+}
+.transaccional dl dd {
+    font-family: "Arial", sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.1em
+}
+.transaccional em {
+    font-style: italic;
+    font-weight: normal
+}
+.transaccional h1,
+.transaccional h2,
+.transaccional h3,
+.transaccional h4,
+.transaccional h5,
+.transaccional h6 {
+    margin: 0;
+    font-weight: bold;
+    letter-spacing: -0.05em;
+    line-height: 1em;
+    font-family: "Arial", sans-serif
+}
+.transaccional h1 {
+    font-size: 3.2em
+}
+.transaccional h2 {
+    font-size: 1.6em
+}
+.transaccional h3 {
+    font-size: 2.2em
+}
+.transaccional h4 {
+    font-size: 1.8em
+}
+.transaccional h5 {
+    font-size: 1.4em
+}
+.transaccional h6 {
+    font-size: 1em
+}
+.transaccional small {
+    font-size: .75em
+}
+.transaccional strong {
+    font-weight: bold
+}
+.transaccional header,
+.transaccional nav,
+.transaccional footer,
+.transaccional aside,
+.transaccional article,
+.transaccional figure,
+.transaccional section {
+    display: block
+}
+.transaccional a {
+    border: 0;
+    color: #005eae
+}
+.transaccional a img {
+    border: 0;
+    cursor: pointer;
+    outline: 0;
+    margin: 0;
+    padding: 0
+}
+.transaccional a:visited {
+    cursor: pointer;
+    outline: 0
+}
+.transaccional a:hover {
+    cursor: pointer;
+    outline: 0;
+    color: #00427b
+}
+.transaccional a:active {
+    cursor: pointer;
+    outline: 0
+}
+.transaccional::-moz-selection {
+    background: #999;
+    color: #fff;
+    text-shadow: none
+}
+.transaccional::selection {
+    background: #999;
+    color: #fff;
+    text-shadow: none
+}
+.transaccional blockquote {
+    border-left: .5em #999 solid;
+    line-height: 1.5em;
+    margin: 1.5em .5 1.5em 1.5em;
+    padding: 1.5em
+}
+.transaccional dl {
+    margin: 0
+}
+.transaccional dl dt {
+    margin: 0 0 0 10px;
+    padding-bottom: 5px
+}
+.transaccional dl dd {
+    margin: 0 0 0 20px;
+    padding-bottom: 5px
+}
+.transaccional mark {
+    background-color: #fffce1;
+    padding: 0 5px
+}
+.transaccional ol {
+    list-style-position: inside;
+    list-style-type: decimal;
+    margin: 0
+}
+.transaccional ol li {
+    margin: 0
+}
+.transaccional pre {
+    border: .1em #999 solid;
+    border-left: .5em #999 solid;
+    line-height: 1.2em;
+    margin: 0;
+    padding: 1.5em;
+    font-weight: 300
+}
+.transaccional ul {
+    list-style-position: inside;
+    list-style-type: none;
+    margin: 0;
+    padding: 0
+}
+.transaccional ul ul {
+    list-style-type: none
+}
+.transaccional ul ul ul {
+    list-style-type: none
+}
+.transaccional ul li {
+    margin: 0
+}
+.transaccional hr {
+    background: #d1d1d1;
+    color: #d1d1d1;
+    border: 0;
+    clear: both;
+    float: none;
+    height: 1px;
+    margin: 0 0 1.45em;
+    width: 100%
+}
+.transaccional .clear,
+.transaccional br {
+    zoom: 1
+}
+.transaccional .clear:after,
+.transaccional br {
+    display: block;
+    visibility: hidden;
+    height: 0;
+    clear: both;
+    content: ""
+}
+.transaccional .oldbrowser,
+.transaccional noscript {
+    margin: .2em 0;
+    background: #f00;
+    color: #fff;
+    padding: .2em 0;
+    display: block
+}
+.transaccional .button,
+.transaccional .boton,
+.transaccional input[type="submit"],
+.transaccional button {
+    display: inline-block;
+    padding: 7px 15px;
+    color: #fff;
+    line-height: 20px;
+    border: 1px solid #003461;
+    margin: 3px 0;
+    font-size: 14px;
+    font-family: "Arial", sans-serif;
+    background-image: none;
+    width: auto;
+    background: #00315b, none;
+    -o-background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    -webkit-background-size: auto auto!important;
+    background-size: 100% 100%;
+    background: none, -webkit-gradient(linear, left top, left bottom, from(#004884), to(#00315b));
+    background: none, -webkit-linear-gradient(#004884, #00315b);
+    background: none, -moz-linear-gradient(#004884, #00315b);
+    background: none, -ms-linear-gradient(#004884, #00315b);
+    background: none, -o-linear-gradient(top, #004884, #00315b);
+    background: none, -khtml-gradient(linear, left top, left bottom, from(#004884), to(#00315b));
+    filter: progid: DXImageTransform.Microsoft.Gradient(StartColorStr='#004884', EndColorStr='#00315b', GradientType=0);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#004884', EndColorStr='#00315b', GradientType=0))";
+    text-shadow: 0 1px 0 #003461;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -o-border-radius: 3px;
+    -ms-border-radius: 3px;
+    border-radius: 3px;
+    -moz-box-shadow: 0 1px 2px rgba(255, 255, 255, 0.5), 0 1px 0 rgba(255, 255, 255, 0.4) inset;
+    -webkit-box-shadow: 0 1px 2px rgba(255, 255, 255, 0.5), 0 1px 0 rgba(255, 255, 255, 0.4) inset;
+    -o-box-shadow: 0 1px 2px rgba(255, 255, 255, 0.5), 0 1px 0 rgba(255, 255, 255, 0.4) inset;
+    -box-shadow: 0 1px 2px rgba(255, 255, 255, 0.5), 0 1px 0 rgba(255, 255, 255, 0.4) inset;
+    font-weight: 700;
+    cursor: pointer;
+    *overflow: visible
+}
+.transaccional .button:hover,
+.transaccional .boton:hover,
+.transaccional input[type="submit"]:hover,
+.transaccional button:hover,
+.transaccional .button:focus,
+.transaccional .boton:focus,
+.transaccional input[type="submit"]:focus,
+.transaccional button:focus {
+    background: #00427a, none;
+    -o-background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    -webkit-background-size: auto auto!important;
+    background-size: 100% 100%;
+    background: none, -webkit-gradient(linear, left top, left bottom, from(#003461), to(#00427a));
+    background: none, -webkit-linear-gradient(#003461, #00427a);
+    background: none, -moz-linear-gradient(#003461, #00427a);
+    background: none, -ms-linear-gradient(#003461, #00427a);
+    background: none, -o-linear-gradient(top, #003461, #00427a);
+    background: none, -khtml-gradient(linear, left top, left bottom, from(#003461), to(#00427a));
+    filter: progid: DXImageTransform.Microsoft.Gradient(StartColorStr='#003461', EndColorStr='#00427a', GradientType=0);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#003461', EndColorStr='#00427a', GradientType=0))";
+    -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 2px rgba(32, 32, 32, 0.1) inset;
+    -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 2px rgba(32, 32, 32, 0.1) inset;
+    -o-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 2px rgba(32, 32, 32, 0.1) inset;
+    -box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 2px rgba(32, 32, 32, 0.1) inset;
+    color: #fff;
+    text-decoration: none
+}
+.transaccional .bigger {
+    padding: 15px 27px!important;
+    font-size: 23px!important
+}
+.transaccional .gray-button {
+    display: inline-block;
+    padding: 11px 20px;
+    color: #00427a;
+    line-height: 20px;
+    border: 1px solid #eaeaea;
+    margin: 3px 0;
+    font-size: 14px;
+    font-family: "Arial", sans-serif;
+    background-image: none;
+    width: auto;
+    background: #efefef, none;
+    -o-background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    -webkit-background-size: auto auto!important;
+    background-size: 100% 100%;
+    background: none, -webkit-gradient(linear, left top, left bottom, from(#fff), to(#efefef));
+    background: none, -webkit-linear-gradient(#fff, #efefef);
+    background: none, -moz-linear-gradient(#fff, #efefef);
+    background: none, -ms-linear-gradient(#fff, #efefef);
+    background: none, -o-linear-gradient(top, #fff, #efefef);
+    background: none, -khtml-gradient(linear, left top, left bottom, from(#fff), to(#efefef));
+    filter: progid: DXImageTransform.Microsoft.Gradient(StartColorStr='#ffffff', EndColorStr='#efefef', GradientType=0);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff', EndColorStr='#efefef', GradientType=0))";
+    text-shadow: 0 1px 2px #ddd;
+    -moz-border-radius: 1px;
+    -webkit-border-radius: 1px;
+    -o-border-radius: 1px;
+    -ms-border-radius: 1px;
+    border-radius: 1px;
+    -moz-box-shadow: 0 1px 2px rgba(255, 255, 255, 0.5), 0 1px 0 rgba(255, 255, 255, 0.4) inset;
+    -webkit-box-shadow: 0 1px 2px rgba(255, 255, 255, 0.5), 0 1px 0 rgba(255, 255, 255, 0.4) inset;
+    -o-box-shadow: 0 1px 2px rgba(255, 255, 255, 0.5), 0 1px 0 rgba(255, 255, 255, 0.4) inset;
+    -box-shadow: 0 1px 2px rgba(255, 255, 255, 0.5), 0 1px 0 rgba(255, 255, 255, 0.4) inset;
+    font-weight: 700;
+    cursor: pointer;
+    *overflow: visible;
+    text-transform: uppercase;
+    border: 1px solid #d1d1d1;
+    letter-spacing: .05em;
+    -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 0 0 transparent;
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 0 0 transparent;
+    -o-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 0 0 transparent;
+    -box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 0 0 transparent
+}
+.transaccional .gray-button:hover,
+.transaccional .gray-button:focus {
+    background: #fefefe, none;
+    -o-background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    -webkit-background-size: auto auto!important;
+    background-size: 100% 100%;
+    background: none, -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#fefefe));
+    background: none, -webkit-linear-gradient(#f2f2f2, #fefefe);
+    background: none, -moz-linear-gradient(#f2f2f2, #fefefe);
+    background: none, -ms-linear-gradient(#f2f2f2, #fefefe);
+    background: none, -o-linear-gradient(top, #f2f2f2, #fefefe);
+    background: none, -khtml-gradient(linear, left top, left bottom, from(#f2f2f2), to(#fefefe));
+    filter: progid: DXImageTransform.Microsoft.Gradient(StartColorStr='#f2f2f2', EndColorStr='#fefefe', GradientType=0);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#f2f2f2', EndColorStr='#fefefe', GradientType=0))";
+    -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 2px rgba(32, 32, 32, 0.1) inset;
+    -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 2px rgba(32, 32, 32, 0.1) inset;
+    -o-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 2px rgba(32, 32, 32, 0.1) inset;
+    -box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 2px rgba(32, 32, 32, 0.1) inset;
+    color: #00427a;
+    text-decoration: none
+}
+.transaccional .white-button,
+.transaccional input[type="submit"].white-button {
+    display: inline-block;
+    padding: 7px 15px;
+    color: #00427a;
+    line-height: 20px;
+    border: 1px solid #c4c4c4;
+    margin: 3px 0;
+    font-size: 14px;
+    font-family: "Arial", sans-serif;
+    background-image: none;
+    width: auto;
+    background: #efefef, none;
+    -o-background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    -webkit-background-size: auto auto!important;
+    background-size: 100% 100%;
+    background: none, -webkit-gradient(linear, left top, left bottom, from(#fff), to(#efefef));
+    background: none, -webkit-linear-gradient(#fff, #efefef);
+    background: none, -moz-linear-gradient(#fff, #efefef);
+    background: none, -ms-linear-gradient(#fff, #efefef);
+    background: none, -o-linear-gradient(top, #fff, #efefef);
+    background: none, -khtml-gradient(linear, left top, left bottom, from(#fff), to(#efefef));
+    filter: progid: DXImageTransform.Microsoft.Gradient(StartColorStr='#ffffff', EndColorStr='#efefef', GradientType=0);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff', EndColorStr='#efefef', GradientType=0))";
+    text-shadow: 0 1px 0 transparent;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -o-border-radius: 3px;
+    -ms-border-radius: 3px;
+    border-radius: 3px;
+    -moz-box-shadow: 0 1px 2px rgba(255, 255, 255, 0.5), 0 1px 0 rgba(255, 255, 255, 0.4) inset;
+    -webkit-box-shadow: 0 1px 2px rgba(255, 255, 255, 0.5), 0 1px 0 rgba(255, 255, 255, 0.4) inset;
+    -o-box-shadow: 0 1px 2px rgba(255, 255, 255, 0.5), 0 1px 0 rgba(255, 255, 255, 0.4) inset;
+    -box-shadow: 0 1px 2px rgba(255, 255, 255, 0.5), 0 1px 0 rgba(255, 255, 255, 0.4) inset;
+    font-weight: 700;
+    cursor: pointer;
+    *overflow: visible;
+    -moz-box-shadow: 0 1px 2px #c4c4c4, 0 0 0 transparent;
+    -webkit-box-shadow: 0 1px 2px #c4c4c4, 0 0 0 transparent;
+    -o-box-shadow: 0 1px 2px #c4c4c4, 0 0 0 transparent;
+    -box-shadow: 0 1px 2px #c4c4c4, 0 0 0 transparent
+}
+.transaccional .white-button:hover,
+.transaccional input[type="submit"].white-button:hover,
+.transaccional .white-button:focus,
+.transaccional input[type="submit"].white-button:focus {
+    background: #fefefe, none;
+    -o-background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    -webkit-background-size: auto auto!important;
+    background-size: 100% 100%;
+    background: none, -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#fefefe));
+    background: none, -webkit-linear-gradient(#f2f2f2, #fefefe);
+    background: none, -moz-linear-gradient(#f2f2f2, #fefefe);
+    background: none, -ms-linear-gradient(#f2f2f2, #fefefe);
+    background: none, -o-linear-gradient(top, #f2f2f2, #fefefe);
+    background: none, -khtml-gradient(linear, left top, left bottom, from(#f2f2f2), to(#fefefe));
+    filter: progid: DXImageTransform.Microsoft.Gradient(StartColorStr='#f2f2f2', EndColorStr='#fefefe', GradientType=0);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#f2f2f2', EndColorStr='#fefefe', GradientType=0))";
+    -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 2px rgba(32, 32, 32, 0.1) inset;
+    -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 2px rgba(32, 32, 32, 0.1) inset;
+    -o-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 2px rgba(32, 32, 32, 0.1) inset;
+    -box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 2px rgba(32, 32, 32, 0.1) inset;
+    color: #00427a;
+    text-decoration: none
+}
+.transaccional .yellow-button,
+.transaccional input[type="submit"].yellow-button {
+    display: inline-block;
+    padding: 7px 15px;
+    color: #5d4201;
+    line-height: 20px;
+    border: 1px solid #c28902;
+    margin: 3px 0;
+    font-size: 14px;
+    font-family: "Arial", sans-serif;
+    background-image: none;
+    width: auto;
+    background: #efa902, none;
+    -o-background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    -webkit-background-size: auto auto!important;
+    background-size: 100% 100%;
+    background: none, -webkit-gradient(linear, left top, left bottom, from(#fdbb1d), to(#efa902));
+    background: none, -webkit-linear-gradient(#fdbb1d, #efa902);
+    background: none, -moz-linear-gradient(#fdbb1d, #efa902);
+    background: none, -ms-linear-gradient(#fdbb1d, #efa902);
+    background: none, -o-linear-gradient(top, #fdbb1d, #efa902);
+    background: none, -khtml-gradient(linear, left top, left bottom, from(#fdbb1d), to(#efa902));
+    filter: progid: DXImageTransform.Microsoft.Gradient(StartColorStr='#fdbb1d', EndColorStr='#efa902', GradientType=0);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#fdbb1d', EndColorStr='#efa902', GradientType=0))";
+    text-shadow: 0 1px 0 transparent;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -o-border-radius: 3px;
+    -ms-border-radius: 3px;
+    border-radius: 3px;
+    -moz-box-shadow: 0 1px 2px rgba(255, 255, 255, 0.5), 0 1px 0 rgba(255, 255, 255, 0.4) inset;
+    -webkit-box-shadow: 0 1px 2px rgba(255, 255, 255, 0.5), 0 1px 0 rgba(255, 255, 255, 0.4) inset;
+    -o-box-shadow: 0 1px 2px rgba(255, 255, 255, 0.5), 0 1px 0 rgba(255, 255, 255, 0.4) inset;
+    -box-shadow: 0 1px 2px rgba(255, 255, 255, 0.5), 0 1px 0 rgba(255, 255, 255, 0.4) inset;
+    font-weight: 700;
+    cursor: pointer;
+    *overflow: visible;
+    -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 0 #fede91 inset;
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 0 #fede91 inset;
+    -o-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 0 #fede91 inset;
+    -box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 0 #fede91 inset;
+    margin: 0
+}
+.transaccional .yellow-button:hover,
+.transaccional input[type="submit"].yellow-button:hover,
+.transaccional .yellow-button:focus,
+.transaccional input[type="submit"].yellow-button:focus {
+    background: #fdb813, none;
+    -o-background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    -webkit-background-size: auto auto!important;
+    background-size: 100% 100%;
+    background: none, -webkit-gradient(linear, left top, left bottom, from(#f4ad02), to(#fdb813));
+    background: none, -webkit-linear-gradient(#f4ad02, #fdb813);
+    background: none, -moz-linear-gradient(#f4ad02, #fdb813);
+    background: none, -ms-linear-gradient(#f4ad02, #fdb813);
+    background: none, -o-linear-gradient(top, #f4ad02, #fdb813);
+    background: none, -khtml-gradient(linear, left top, left bottom, from(#f4ad02), to(#fdb813));
+    filter: progid: DXImageTransform.Microsoft.Gradient(StartColorStr='#f4ad02', EndColorStr='#fdb813', GradientType=0);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#f4ad02', EndColorStr='#fdb813', GradientType=0))";
+    -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 2px rgba(32, 32, 32, 0.1) inset;
+    -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 2px rgba(32, 32, 32, 0.1) inset;
+    -o-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 2px rgba(32, 32, 32, 0.1) inset;
+    -box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 2px rgba(32, 32, 32, 0.1) inset;
+    color: #5d4201;
+    text-decoration: none
+}
+.transaccional .boton.right,
+.transaccional .button.right {
+    float: right;
+    clear: both;
+    margin: 0
+}
+.transaccional .no-clear {
+    clear: none!important;
+    margin: 3px 0
+}
+.transaccional .centered {
+    margin: 0 auto;
+    width: 160px;
+    display: block;
+    text-align: center
+}
+.transaccional .centered.mini {
+    width: 80px
+}
+.transaccional .nueva-domiciliacion {
+    margin-bottom: 20px
+}
+.transaccional .sub-btn {
+    background: #00427a;
+    color: #fff;
+    font-weight: bold;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -o-border-radius: 3px;
+    -ms-border-radius: 3px;
+    border-radius: 3px;
+    padding: 8px;
+    display: block;
+    float: right;
+    font-size: 12px
+}
+.transaccional .sub-btn:hover {
+    background: #fdb813;
+    color: #fff
+}
+.transaccional .sbutton {
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 4px 15px 0
+}
+.transaccional h1 a.button,
+.transaccional h2 a.button,
+.transaccional h3 a.button {
+    padding: 25px 30px 20px!important;
+    font-weight: bold
+}
+.transaccional .highcharts-container {
+    max-width: 480px
+}
+.transaccional .s0 {
+    width: 60%
+}
+.transaccional .c0 {
+    width: 40%
+}
+.transaccional .mitad {
+    width: 50%
+}
+.transaccional form fieldset {
+    margin: 0;
+    padding: 0;
+    overflow: hidden
+}
+.transaccional form fieldset legend {
+    color: #999;
+    padding: 0 10px
+}
+.transaccional form input,
+.transaccional form select,
+.transaccional form textarea {
+    border: 1px solid #d1d1d1;
+    display: initial;
+    background: #f7f7f7;
+    -moz-box-shadow: 0 1px 2px #eaeaea inset, 0 0 0 transparent;
+    -webkit-box-shadow: 0 1px 2px #eaeaea inset, 0 0 0 transparent;
+    -o-box-shadow: 0 1px 2px #eaeaea inset, 0 0 0 transparent;
+    -box-shadow: 0 1px 2px #eaeaea inset, 0 0 0 transparent;
+    padding: 10px;
+    width: 80%;
+    color: #999;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -o-border-radius: 3px;
+    -ms-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-transition: all linear .2s;
+    -moz-transition: all linear .2s;
+    -o-transition: all linear .2s;
+    -ms-transition: all linear .2s;
+    transition: all linear .2s
+}
+.transaccional form input:focus,
+.transaccional form select:focus,
+.transaccional form textarea:focus {
+    -moz-box-shadow: 0 1px 3px #d1d1d1, 0 2px 4px rgba(88, 175, 242, 0.19999999999999996) inset;
+    -webkit-box-shadow: 0 1px 3px #d1d1d1, 0 2px 4px rgba(88, 175, 242, 0.19999999999999996) inset;
+    -o-box-shadow: 0 1px 3px #d1d1d1, 0 2px 4px rgba(88, 175, 242, 0.19999999999999996) inset;
+    -box-shadow: 0 1px 3px #d1d1d1, 0 2px 4px rgba(88, 175, 242, 0.19999999999999996) inset;
+    border: 1px solid #b7dcf9;
+    color: #00427a;
+    background: #e6f3fd
+}
+.transaccional form input[type="checkbox"] {
+    margin: 3px 4px 0 2px;
+    border: 0 none;
+    background: transparent
+}
+.transaccional form input[type="radio"] {
+    margin: 3px 4px 0 0;
+    border: 0 none;
+    background: transparent
+}
+.transaccional form input[type="search"] {
+    -webkit-appearance: textfield;
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box
+}
+.transaccional form input[type="submit"],
+.transaccional form input[type="radio"],
+.transaccional form input[type="checkbox"] {
+    width: auto
+}
+.transaccional form label {
+    font-family: "Arial", sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1em;
+    display: block;
+    cursor: pointer;
+    margin: 5px 0 20px;
+    padding: 0
+}
+.transaccional form label span {
+    color: #f00
+}
+.transaccional form label input {
+    display: inline-block
+}
+.transaccional form label .error {
+    width: auto!important;
+    height: auto!important
+}
+.transaccional form button,
+.transaccional form input[type="button"],
+.transaccional form input[type="reset"],
+.transaccional form input[type="submit"] {
+    display: inline-block;
+    padding: 7px 15px;
+    color: #fff;
+    line-height: 20px;
+    border: 1px solid #003461;
+    margin: 3px 0;
+    font-size: 14px;
+    font-family: "Arial", sans-serif;
+    background-image: none;
+    width: auto;
+    background: #00315b, none;
+    -o-background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    -webkit-background-size: auto auto!important;
+    background-size: 100% 100%;
+    background: none, -webkit-gradient(linear, left top, left bottom, from(#004884), to(#00315b));
+    background: none, -webkit-linear-gradient(#004884, #00315b);
+    background: none, -moz-linear-gradient(#004884, #00315b);
+    background: none, -ms-linear-gradient(#004884, #00315b);
+    background: none, -o-linear-gradient(top, #004884, #00315b);
+    background: none, -khtml-gradient(linear, left top, left bottom, from(#004884), to(#00315b));
+    filter: progid: DXImageTransform.Microsoft.Gradient(StartColorStr='#004884', EndColorStr='#00315b', GradientType=0);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#004884', EndColorStr='#00315b', GradientType=0))";
+    text-shadow: 0 1px 0 #003461;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -o-border-radius: 3px;
+    -ms-border-radius: 3px;
+    border-radius: 3px;
+    -moz-box-shadow: 0 1px 2px rgba(255, 255, 255, 0.5), 0 1px 0 rgba(255, 255, 255, 0.4) inset;
+    -webkit-box-shadow: 0 1px 2px rgba(255, 255, 255, 0.5), 0 1px 0 rgba(255, 255, 255, 0.4) inset;
+    -o-box-shadow: 0 1px 2px rgba(255, 255, 255, 0.5), 0 1px 0 rgba(255, 255, 255, 0.4) inset;
+    -box-shadow: 0 1px 2px rgba(255, 255, 255, 0.5), 0 1px 0 rgba(255, 255, 255, 0.4) inset;
+    font-weight: 700;
+    cursor: pointer;
+    *overflow: visible
+}
+.transaccional form button:hover,
+.transaccional form input[type="button"]:hover,
+.transaccional form input[type="reset"]:hover,
+.transaccional form input[type="submit"]:hover,
+.transaccional form button:focus,
+.transaccional form input[type="button"]:focus,
+.transaccional form input[type="reset"]:focus,
+.transaccional form input[type="submit"]:focus {
+    background: #00427a, none;
+    -o-background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    -webkit-background-size: auto auto!important;
+    background-size: 100% 100%;
+    background: none, -webkit-gradient(linear, left top, left bottom, from(#003461), to(#00427a));
+    background: none, -webkit-linear-gradient(#003461, #00427a);
+    background: none, -moz-linear-gradient(#003461, #00427a);
+    background: none, -ms-linear-gradient(#003461, #00427a);
+    background: none, -o-linear-gradient(top, #003461, #00427a);
+    background: none, -khtml-gradient(linear, left top, left bottom, from(#003461), to(#00427a));
+    filter: progid: DXImageTransform.Microsoft.Gradient(StartColorStr='#003461', EndColorStr='#00427a', GradientType=0);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#003461', EndColorStr='#00427a', GradientType=0))";
+    -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 2px rgba(32, 32, 32, 0.1) inset;
+    -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 2px rgba(32, 32, 32, 0.1) inset;
+    -o-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 2px rgba(32, 32, 32, 0.1) inset;
+    -box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 2px rgba(32, 32, 32, 0.1) inset;
+    color: #fff;
+    text-decoration: none
+}
+.transaccional form button[disabled],
+.transaccional form input[disabled] {
+    cursor: default
+}
+.transaccional form input:invalid,
+.transaccional form textarea:invalid {
+    background-color: "#fff";
+}
+.transaccional form textarea {
+    resize: none
+}
+.transaccional form input,
+.transaccional form textarea,
+.transaccional form select {
+    font-family: "Arial", sans-serif;
+    font-size: 1em;
+    font-weight: normal;
+    line-height: 1.1em
+}
+.transaccional form .error {
+    -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.30000000000000004) inset, 0 0 0 transparent;
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.30000000000000004) inset, 0 0 0 transparent;
+    -o-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.30000000000000004) inset, 0 0 0 transparent;
+    -box-shadow: 0 1px 2px rgba(0, 0, 0, 0.30000000000000004) inset, 0 0 0 transparent
+}
+.transaccional form label.error {
+    float: right;
+    clear: both!important;
+    background: transparent!important;
+    border: 0 none!important;
+    -moz-box-shadow: 0 0 0 transparent, 0 0 0 transparent;
+    -webkit-box-shadow: 0 0 0 transparent, 0 0 0 transparent;
+    -o-box-shadow: 0 0 0 transparent, 0 0 0 transparent;
+    -box-shadow: 0 0 0 transparent, 0 0 0 transparent
+}
+.transaccional form input.valid {
+    background: #e5ffe8;
+    border: 1px solid #acd2af;
+    color: #6aaf70;
+    -moz-box-shadow: 0 1px 2px #adebb3 inset, 0 0 0 transparent;
+    -webkit-box-shadow: 0 1px 2px #adebb3 inset, 0 0 0 transparent;
+    -o-box-shadow: 0 1px 2px #adebb3 inset, 0 0 0 transparent;
+    -box-shadow: 0 1px 2px #adebb3 inset, 0 0 0 transparent;
+    -webkit-transition: all ease-in .2s;
+    -moz-transition: all ease-in .2s;
+    -o-transition: all ease-in .2s;
+    -ms-transition: all ease-in .2s;
+    transition: all ease-in .2s
+}
+.transaccional form input.valid:focus {
+    background: #ccffd0;
+    border: 1px solid #9cc99f;
+    color: #509556;
+    -moz-box-shadow: 0 1px 3px #d1d1d1, 0 2px 4px rgba(0, 153, 13, 0.19999999999999996) inset;
+    -webkit-box-shadow: 0 1px 3px #d1d1d1, 0 2px 4px rgba(0, 153, 13, 0.19999999999999996) inset;
+    -o-box-shadow: 0 1px 3px #d1d1d1, 0 2px 4px rgba(0, 153, 13, 0.19999999999999996) inset;
+    -box-shadow: 0 1px 3px #d1d1d1, 0 2px 4px rgba(0, 153, 13, 0.19999999999999996) inset;
+    -webkit-transition: all ease-in .2s;
+    -moz-transition: all ease-in .2s;
+    -o-transition: all ease-in .2s;
+    -ms-transition: all ease-in .2s;
+    transition: all ease-in .2s
+}
+.transaccional form .required-fields {
+    color: #f00;
+    display: block;
+    clear: both;
+    font-size: 14px;
+    font-family: "Arial", sans-serif
+}
+.transaccional table {
+    border-collapse: collapse;
+    margin: 0 auto;
+    font-size: 100%
+}
+.transaccional table th,
+.transaccional table td {
+    padding: 3px
+}
+.transaccional table thead tr th {
+    background-color: inherit;
+    padding: 3px 10px;
+    text-align: center
+}
+.transaccional table thead tr td {
+    background-color: inherit;
+    padding: 3px 10px;
+    text-align: center
+}
+.transaccional table tbody a {
+    text-decoration: none
+}
+.transaccional table tbody tr th {
+    padding: 3px 10px;
+    text-align: center
+}
+.transaccional table tbody tr td {
+    padding: 3px 10px;
+    text-align: left
+}
+.transaccional table tfoot {
+    font-size: 90%
+}
+.transaccional table tfoot tr th {
+    padding: 3px 10px;
+    text-align: center
+}
+.transaccional table tfoot tr td {
+    padding: 3px 10px;
+    text-align: left
+}
+.transaccional .verifica {
+    margin: 10px auto;
+    width: 100%
+}
+.transaccional .verifica thead {
+    background-color: #00427a;
+    color: #FFF
+}
+.transaccional .verifica thead tr th {
+    padding: 10px 7px;
+    text-align: left
+}
+.transaccional .verifica tbody {
+    background: #e6f3fd
+}
+.transaccional .verifica tbody tr {
+    border: 1px solid #FFF
+}
+.transaccional .verifica tbody tr td {
+    padding: 11px 5px;
+    color: #454545;
+    font-size: 15px;
+    font-weight: 500;
+    font-family: "Arial", sans-serif
+}
+.saldo-title {
+    font-family: "Arial", sans-serif
+}
+.saldo-table {
+    border-collapse: collapse;
+    margin: 0 auto 20px;
+    font-size: 14px;
+    text-align: center;
+    font-family: "Arial", sans-serif!important;
+    width: 100%
+}
+.saldo-table th,
+.saldo-table td {
+    padding: 5px 10px;
+    vertical-align: middle
+}
+.saldo-table thead tr th,
+.saldo-table thead tr td {
+    color: #00427a;
+    font-weight: bold
+}
+.saldo-table thead tr th {
+    background-color: #00427a!important;
+    color: #fff;
+    font-weight: normal
+}
+.saldo-table thead tr .subtitle {
+    text-align: left;
+    text-transform: uppercase
+}
+.saldo-table thead tr td {
+    background: #fff;
+    text-transform: uppercase;
+    text-align: left
+}
+.saldo-table tbody a {
+    text-decoration: none
+}
+.saldo-table tbody .na {
+    color: #f00
+}
+.saldo-table tbody tr {
+    background: #eaf2ff;
+    border-bottom: 1px solid #fff;
+    vertical-align: middle
+}
+.saldo-table tbody tr th {
+    text-align: left;
+    font-weight: normal
+}
+.saldo-table tbody tr td {
+    text-align: center
+}
+.saldo-table tbody tr .top {
+    background: #00427a;
+    color: #fff;
+    border-bottom: 1px solid #00427a
+}
+.saldo-table tbody tr .top2 {
+    background: rgba(0, 68, 173, 0.8);
+    color: #fff
+}
+.saldo-table tbody tr .top3 {
+    background: rgba(0, 88, 173, 0.6);
+    color: #fff
+}
+.saldo-table .subtotal {
+    background: #fed1ab
+}
+.saldo-table tfoot,
+.saldo-table .total {
+    background: #fdb813
+}
+.saldo-table tfoot tr th,
+.saldo-table .total tr th {
+    text-align: left;
+    font-weight: normal
+}
+.saldo-table tfoot tr td,
+.saldo-table .total tr td {
+    text-align: center
+}
+.saldo-title {
+    text-align: center;
+    text-transform: uppercase;
+    margin: 0 auto 20px
+}
+.small {
+    width: 300px!important
+}
+.small thead {
+    font-size: 12px
+}
+.small tbody input[type="text"] {
+    width: 70px
+}
+.small tbody input.spinner {
+    width: 8px!important
+}
+.small tbody input[type="checkbox"] {
+    width: 20px!important
+}
+.msj-rojo {
+    color: #cd3737;
+    font-size: .85em;
+    float: right;
+    margin-right: 25px;
+    margin-top: 9px
+}
+.transaccional .add img {
+    margin-top: 3px
+}
+.transaccional .edit {
+    background: url("../img/transaccional/edit.png") no-repeat 10px 8px #00427a;
+    padding-left: 32px
+}
+.transaccional .edit:hover {
+    background: url("../img/transaccional/edit.png") no-repeat 10px 8px #fdb813
+}
+.transaccional {
+    font-size: 14px
+}
+.transaccional .container {
+    padding: 15px 0
+}
+.transaccional .banner {
+    border: 1px solid #d1d1d1;
+    margin-bottom: 20px;
+    background: #eaf1f6
+}
+.transaccional .banner h3 {
+    color: #00427a
+}
+.transaccional .banner .mensaje-bienvenida {
+    text-align: center;
+    float: left;
+    margin: 10% 0 0 7%
+}
+.transaccional .banner .banner-close {
+    position: absolute;
+    top: 25px;
+    right: 15px
+}
+.transaccional table.registros {
+    margin-bottom: 20px
+}
+.transaccional table.registros thead tr th {
+    background: #00427a!important;
+    color: #fff;
+    font-size: 1.1em;
+    font-weight: bold;
+    height: 30px;
+    text-align: left;
+    min-width: auto
+}
+.transaccional table.registros tbody tr:nth-child(odd) {
+    background: #e6f3fd
+}
+.transaccional table.registros tbody tr:nth-child(even) {
+    background: #fafafa
+}
+.transaccional table.registros tbody tr td,
+.transaccional table.registros tbody tr th {
+    height: 35px;
+    padding-top: 15px!important;
+    font-weight: bold;
+    font-size: 1.1em;
+    width: 240px;
+    text-align: center!important;
+    border-top: 3px solid #fff;
+    vertical-align: middle;
+    min-width: auto
+}
+.transaccional table.registros tbody tr td .eliminar,
+.transaccional table.registros tbody tr th .eliminar {
+    background: #00427a url("../img/transaccional/close.png") no-repeat;
+    background-position: 5px center;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -o-border-radius: 4px;
+    -ms-border-radius: 4px;
+    border-radius: 4px;
+    color: #fff;
+    padding: 5px 10px 5px 25px;
+    font-size: .8em!important
+}
+.transaccional table.registros tbody tr td .eliminar:hover,
+.transaccional table.registros tbody tr th .eliminar:hover {
+    color: #fff
+}
+.transaccional table.registros tbody tr td .eliminar-small,
+.transaccional table.registros tbody tr th .eliminar-small {
+    display: none
+}
+.transaccional table.registros tbody tr td .radio,
+.transaccional table.registros tbody tr th .radio {
+    font-weight: bold;
+    font-family: sans-serif
+}
+.transaccional table.registros tbody tr td .radio input[type="radio"],
+.transaccional table.registros tbody tr th .radio input[type="radio"] {
+    margin-right: 5px
+}
+.transaccional table.registros tbody tr td input[type="text"],
+.transaccional table.registros tbody tr th input[type="text"],
+.transaccional table.registros tbody tr td select,
+.transaccional table.registros tbody tr th select,
+.transaccional table.registros tbody tr td textarea,
+.transaccional table.registros tbody tr th textarea {
+    border: 1px solid #d1d1d1;
+    display: block;
+    background: #f7f7f7;
+    -moz-box-shadow: 0 1px 2px #eaeaea inset, 0 0 0 transparent;
+    -webkit-box-shadow: 0 1px 2px #eaeaea inset, 0 0 0 transparent;
+    -o-box-shadow: 0 1px 2px #eaeaea inset, 0 0 0 transparent;
+    -box-shadow: 0 1px 2px #eaeaea inset, 0 0 0 transparent;
+    padding: 10px;
+    color: #fff;
+    width: 80px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -o-border-radius: 3px;
+    -ms-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-transition: all linear .2s;
+    -moz-transition: all linear .2s;
+    -o-transition: all linear .2s;
+    -ms-transition: all linear .2s;
+    transition: all linear .2s;
+    margin: 0 auto 10px
+}
+.transaccional table.registros tbody tr td input[type="text"]:focus,
+.transaccional table.registros tbody tr th input[type="text"]:focus,
+.transaccional table.registros tbody tr td select:focus,
+.transaccional table.registros tbody tr th select:focus,
+.transaccional table.registros tbody tr td textarea:focus,
+.transaccional table.registros tbody tr th textarea:focus {
+    -moz-box-shadow: 0 1px 3px #d1d1d1, 0 2px 4px rgba(88, 175, 242, 0.19999999999999996) inset;
+    -webkit-box-shadow: 0 1px 3px #d1d1d1, 0 2px 4px rgba(88, 175, 242, 0.19999999999999996) inset;
+    -o-box-shadow: 0 1px 3px #d1d1d1, 0 2px 4px rgba(88, 175, 242, 0.19999999999999996) inset;
+    -box-shadow: 0 1px 3px #d1d1d1, 0 2px 4px rgba(88, 175, 242, 0.19999999999999996) inset;
+    border: 1px solid #b7dcf9;
+    color: #00427a;
+    background: #e6f3fd
+}
+.transaccional table.registros tbody tr th {
+    text-align: left!important
+}
+.transaccional table.registros tbody tr .columna-servicio {
+    color: #00427a!important;
+    text-align: left!important;
+    padding-left: 5%
+}
+.transaccional table.registros tbody tr .columna-afore,
+.transaccional table.registros tbody tr .columna-fondos,
+.transaccional table.registros tbody tr .columna-prestamos {
+    width: 28px;
+    height: 24px;
+    background: url("../img/transaccional/menu.png") no-repeat;
+    background-position-y: -24px!important;
+    display: inline-table;
+    margin-right: 5px;
+    margin-top: -3px
+}
+.transaccional table.registros tbody tr .columna-afore {
+    background-position: -21px bottom
+}
+.transaccional table.registros tbody tr .columna-fondos {
+    background-position: -48px bottom;
+    width: 24px!important
+}
+.transaccional table.registros tbody tr .columna-prestamos {
+    background-position: -71px bottom
+}
+.transaccional table.registros .columna-alert {
+    background: #fcc!important;
+    color: #900
+}
+.transaccional table.registros tfoot tr {
+    background: #00427a
+}
+.transaccional table.registros tfoot tr th {
+    color: #fff;
+    text-align: left
+}
+.transaccional table.registros tfoot tr td {
+    color: #fdb813;
+    text-align: right
+}
+.transaccional table.registros tfoot tr th,
+.transaccional table.registros tfoot tr td {
+    padding: 15px 10px;
+    font-weight: bold;
+    font-family: sans-serif;
+    font-size: 1.1em
+}
+.transaccional table.registros tfoot tr th .radio,
+.transaccional table.registros tfoot tr td .radio {
+    font-size: 1.1em;
+    font-weight: bold;
+    font-family: sans-serif;
+    margin: 0
+}
+.transaccional table.registros tfoot tr th .radio input,
+.transaccional table.registros tfoot tr td .radio input {
+    margin-right: 10px
+}
+.transaccional #tabla-servicios {
+    display: none
+}
+.transaccional .error-servicio {
+    float: left;
+    font-size: 1em!important;
+    display: none
+}
+.transaccional .tabla-resumen {
+    border-top: 1px solid #d1d1d1
+}
+.transaccional .tabla-resumen .saldo-tabla {
+    padding: 10px 20px
+}
+.transaccional .tabla-resumen .saldo-tabla .fila-saldo {
+    clear: both;
+    height: 25px
+}
+.transaccional .tabla-resumen .saldo-tabla .fila-saldo .tipo-saldo {
+    float: left;
+    width: 75%
+}
+.transaccional .tabla-resumen .saldo-tabla .fila-saldo .tipo-saldo .principal {
+    font-weight: bold
+}
+.transaccional .tabla-resumen .saldo-tabla .fila-saldo .cantidad-saldo {
+    float: left;
+    width: 25%;
+    text-align: right
+}
+.transaccional .tabla-resumen .saldo-tabla:nth-child(even) {
+    background: #fcfcfc
+}
+.transaccional .tabla-resumen .saldo-tabla:nth-child(odd) {
+    background: #eaf1f6;
+    border-top: 1px solid #fff
+}
+.transaccional .saldos-estados {
+    margin-left: 44px!important
+}
+.transaccional .saldo-actual {
+    margin-top: 10px
+}
+.transaccional .saldo-actual .tipo-saldo,
+.transaccional .saldo-actual .cantidad-saldo2 {
+    float: left;
+    background: #00427a;
+    padding-top: 10px
+}
+.transaccional .saldo-actual .tipo-saldo p,
+.transaccional .saldo-actual .cantidad-saldo2 p {
+    color: #fff;
+    font-weight: bold
+}
+.transaccional .saldo-actual .tipo-saldo {
+    width: 75%
+}
+.transaccional .saldo-actual .cantidad-saldo2 {
+    width: 25%;
+    text-align: right
+}
+.transaccional .saldo-actual .cantidad-saldo2 p {
+    margin-right: 15px
+}
+.transaccional .imprimir {
+    float: right;
+    margin-top: 15px
+}
+.transaccional .tarjetas {
+    margin-top: 30px;
+    text-align: center;
+    border-right: 1px solid #d1d1d1;
+    background: #f7f7f7
+}
+.transaccional .tarjetas img {
+    margin-top: 33px
+}
+.transaccional .tarjetas p {
+    font-weight: bold;
+    width: 80%;
+    margin: 20px auto 55px auto
+}
+.transaccional .formulario-certificar {
+    margin-left: 30px;
+    padding: 15px 30px;
+    border: 1px solid #d1d1d1
+}
+.transaccional .formulario-certificar fieldset {
+    margin-bottom: 7px
+}
+.transaccional .formulario-certificar fieldset .etiqueta {
+    width: 40%;
+    float: left
+}
+.transaccional .formulario-certificar fieldset .etiqueta label {
+    padding-top: 5px;
+    font-weight: normal;
+    text-align: right;
+    padding-right: 25px
+}
+.transaccional .formulario-certificar fieldset .campo {
+    width: 60%;
+    float: left
+}
+.transaccional .formulario-certificar fieldset .campo select {
+    width: 90%;
+    height: 35px!important;
+    padding: 5px 10px;
+    background: #fff;
+    color: #999
+}
+.transaccional .formulario-certificar fieldset .campo input {
+    width: 83.5%!important;
+    height: 15px!important
+}
+.transaccional .nueva-cuenta {
+    margin-top: 10px
+}
+.transaccional .detalle-container,
+.transaccional .estados-container {
+    border: 1px solid #d1d1d1;
+    height: 80px;
+    -moz-box-shadow: 0 1px 3px #ddd, 0 -1px 0 #f4f4f4 inset;
+    -webkit-box-shadow: 0 1px 3px #ddd, 0 -1px 0 #f4f4f4 inset;
+    -o-box-shadow: 0 1px 3px #ddd, 0 -1px 0 #f4f4f4 inset;
+    -box-shadow: 0 1px 3px #ddd, 0 -1px 0 #f4f4f4 inset;
+    margin-left: 10px
+}
+.transaccional .detalle-container .detalle-descripcion,
+.transaccional .estados-container .detalle-descripcion {
+    float: left;
+    width: 50%
+}
+.transaccional .detalle-container .detalle-descripcion p,
+.transaccional .estados-container .detalle-descripcion p {
+    margin: 15px 20px;
+    font-weight: bold;
+    font-size: 1.1em
+}
+.transaccional .detalle-container .links-detalle,
+.transaccional .estados-container .links-detalle {
+    float: left;
+    width: 50%;
+    height: 65px;
+    padding-top: 12px;
+    background: url("../img/transaccional/pdf.png") no-repeat left
+}
+.transaccional .detalle-container .links-detalle div,
+.transaccional .estados-container .links-detalle div {
+    margin: 18px 0 0 80px
+}
+.transaccional .detalle-container .links-detalle div a,
+.transaccional .estados-container .links-detalle div a {
+    color: #999!important;
+    font-weight: bold;
+    text-decoration: underline;
+    margin-top: 25px!important
+}
+.transaccional .detalle-container .links-detalle div a:hover,
+.transaccional .estados-container .links-detalle div a:hover {
+    color: #00427a!important
+}
+.transaccional .estados-container {
+    height: 200px;
+    text-align: center
+}
+.transaccional .estados-container .estado-actual,
+.transaccional .estados-container .estado-anterior {
+    width: 50%;
+    margin: 0 auto
+}
+.transaccional .estados-container p {
+    margin-top: 10px;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 0
+}
+.transaccional .estados-container img {
+    margin: 20px 0 5px
+}
+.transaccional .estados-container span {
+    color: #00427a
+}
+.transaccional .estados-container a {
+    font-size: .8em;
+    font-weight: bold
+}
+.transaccional .estados-container a.unavailable {
+    color: #999;
+    cursor: default
+}
+.transaccional .estados-container p.unavailable {
+    color: red;
+    margin: 5px 0 0;
+    line-height: 100%;
+    font-size: .8em
+}
+.transaccional .estados-container .date {
+    margin-top: 5px;
+    font-size: .8em
+}
+.transaccional .nav,
+.transaccional .subnav,
+.transaccional .profile ul {
+    overflow: hidden;
+    width: 950px;
+    font-size: 14px;
+    float: left
+}
+.transaccional .nav>li,
+.transaccional .subnav>li,
+.transaccional .profile ul>li {
+    float: left;
+    font-size: 12px
+}
+.transaccional .nav>li a,
+.transaccional .subnav>li a,
+.transaccional .profile ul>li a {
+    display: block
+}
+.transaccional .central-afore p {
+    font-weight: bold
+}
+.transaccional .nav {
+    margin: 16px 0 24px;
+    background: #f2f2f2, none;
+    -o-background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    -webkit-background-size: auto auto!important;
+    background-size: 100% 100%;
+    background: none, -webkit-gradient(linear, left top, left bottom, from(#f7f7f7), to(#f2f2f2));
+    background: none, -webkit-linear-gradient(#f7f7f7, #f2f2f2);
+    background: none, -moz-linear-gradient(#f7f7f7, #f2f2f2);
+    background: none, -ms-linear-gradient(#f7f7f7, #f2f2f2);
+    background: none, -o-linear-gradient(top, #f7f7f7, #f2f2f2);
+    background: none, -khtml-gradient(linear, left top, left bottom, from(#f7f7f7), to(#f2f2f2));
+    filter: progid: DXImageTransform.Microsoft.Gradient(StartColorStr='#f7f7f7', EndColorStr='#f2f2f2', GradientType=0);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#f7f7f7', EndColorStr='#f2f2f2', GradientType=0))";
+    border: 1px solid #d1d1d1;
+    padding: 0;
+    -moz-box-shadow: 0 0 1px #ddd, 0 1px 0 #fff inset;
+    -webkit-box-shadow: 0 0 1px #ddd, 0 1px 0 #fff inset;
+    -o-box-shadow: 0 0 1px #ddd, 0 1px 0 #fff inset;
+    -box-shadow: 0 0 1px #ddd, 0 1px 0 #fff inset;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -o-border-radius: 3px;
+    -ms-border-radius: 3px;
+    border-radius: 3px;
+    overflow: visible;
+    float: left;
+    position: relative;
+    width: 950px;
+    height: 31px
+}
+.transaccional .nav>li {
+    width: 150px;
+    text-align: center;
+    background: #f2f2f2, none;
+    -o-background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    -webkit-background-size: auto auto!important;
+    background-size: 100% 100%;
+    background: none, -webkit-gradient(linear, left top, left bottom, from(#f7f7f7), to(#f2f2f2));
+    background: none, -webkit-linear-gradient(#f7f7f7, #f2f2f2);
+    background: none, -moz-linear-gradient(#f7f7f7, #f2f2f2);
+    background: none, -ms-linear-gradient(#f7f7f7, #f2f2f2);
+    background: none, -o-linear-gradient(top, #f7f7f7, #f2f2f2);
+    background: none, -khtml-gradient(linear, left top, left bottom, from(#f7f7f7), to(#f2f2f2));
+    filter: progid: DXImageTransform.Microsoft.Gradient(StartColorStr='#f7f7f7', EndColorStr='#f2f2f2', GradientType=0);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#f7f7f7', EndColorStr='#f2f2f2', GradientType=0))";
+    border-right: 1px solid #d1d1d1;
+    border-left: 1px solid #fff
+}
+.transaccional .nav>li .arrow {
+    width: 11px;
+    height: 7px;
+    float: left;
+    margin-top: 10px;
+    background: url("../img/transaccional/arrow_blue.png") no-repeat
+}
+.transaccional .nav>li>a {
+    font-weight: bold;
+    color: #00427a;
+    padding: 3px 8px;
+    font-size: 12px;
+    text-shadow: -1px -1px 0 #fff;
+    letter-spacing: -0.05em;
+    line-height: 210%;
+    display: block
+}
+.transaccional .nav>li>a:hover {
+    color: #fff
+}
+.transaccional .nav>li>a img {
+    margin-right: 8px;
+    display: block;
+    float: left
+}
+.transaccional .nav>li>a .icon {
+    display: block;
+    float: left;
+    width: 24px;
+    height: 24px;
+    background: url("../img/transaccional/menu.png") no-repeat transparent;
+    margin: 0 8px 0 0
+}
+.transaccional .nav>li>a .home {
+    background-position: 1px -25px
+}
+.transaccional .nav>li>a .afore {
+    background-position: -24px -25px
+}
+.transaccional .nav>li>a .fondos {
+    background-position: -48px -25px
+}
+.transaccional .nav>li>a .prestamos {
+    background-position: -72px -25px
+}
+.transaccional .nav>li .selected {
+    color: #00427a;
+    -moz-box-shadow: 0 0 8px #ddd inset, 0 0 0 transparent;
+    -webkit-box-shadow: 0 0 8px #ddd inset, 0 0 0 transparent;
+    -o-box-shadow: 0 0 8px #ddd inset, 0 0 0 transparent;
+    -box-shadow: 0 0 8px #ddd inset, 0 0 0 transparent
+}
+.transaccional .nav>li .selected .home {
+    background-position: 1px -25px
+}
+.transaccional .nav>li .selected .afore {
+    background-position: -24px -25px
+}
+.transaccional .nav>li .selected .fondos {
+    background-position: -48px -24px
+}
+.transaccional .nav>li .selected .prestamos {
+    background-position: -72px -25px
+}
+.transaccional .nav>li:hover {
+    background: #00427a, none;
+    -o-background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    -webkit-background-size: auto auto!important;
+    background-size: 100% 100%;
+    background: none, -webkit-gradient(linear, left top, left bottom, from(#004d8e), to(#00427a));
+    background: none, -webkit-linear-gradient(#004d8e, #00427a);
+    background: none, -moz-linear-gradient(#004d8e, #00427a);
+    background: none, -ms-linear-gradient(#004d8e, #00427a);
+    background: none, -o-linear-gradient(top, #004d8e, #00427a);
+    background: none, -khtml-gradient(linear, left top, left bottom, from(#004d8e), to(#00427a));
+    filter: progid: DXImageTransform.Microsoft.Gradient(StartColorStr='#004d8e', EndColorStr='#00427a', GradientType=0);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#004d8e', EndColorStr='#00427a', GradientType=0))";
+    color: #fff;
+    border-right: 1px solid #00427a;
+    border-left: 1px solid #00427a;
+    text-shadow: -1px -1px 0 #003c70
+}
+.transaccional .nav>li:hover>a {
+    text-shadow: -1px -1px 0 #003c70;
+    color: #fff;
+    display: block
+}
+.transaccional .nav>li:hover .home {
+    background-position: 1px -50px
+}
+.transaccional .nav>li:hover .afore {
+    background-position: -24px -50px
+}
+.transaccional .nav>li:hover .fondos {
+    background-position: -48px -50px
+}
+.transaccional .nav>li:hover .prestamos {
+    background-position: -72px -50px
+}
+.transaccional .nav>li:hover>ul li {
+    display: block
+}
+.transaccional .nav>li:hover .arrow {
+    background: url("../img/transaccional/arrow_white.png") no-repeat
+}
+.transaccional .nav>li>.active {
+    color: #00427a
+}
+.transaccional .nav>li>.active .home {
+    background-position: 1px -50px
+}
+.transaccional .nav>li>.active .afore {
+    background-position: -24px -50px
+}
+.transaccional .nav>li>.active .fondos {
+    background-position: -48px -50px
+}
+.transaccional .nav>li>.active .prestamos {
+    background-position: -72px -50px
+}
+.transaccional .nav>li>.active:hover .home {
+    background-position: 1px -50px
+}
+.transaccional .nav>li>.active:hover .afore {
+    background-position: -24px -50px
+}
+.transaccional .nav>li>.active:hover .fondos {
+    background-position: -48px -50px
+}
+.transaccional .nav>li>.active:hover .prestamos {
+    background-position: -72px -50px
+}
+.transaccional .nav .add {
+    float: right;
+    border: 0 none
+}
+.transaccional .nav .add a {
+    color: #999;
+    border-left: 0 none
+}
+.transaccional .nav .add a:hover {
+    background: #f7f7f7, none;
+    -o-background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    -webkit-background-size: auto auto!important;
+    background-size: 100% 100%;
+    background: none, -webkit-gradient(linear, left top, left bottom, from(#eaeaea), to(#f7f7f7));
+    background: none, -webkit-linear-gradient(#eaeaea, #f7f7f7);
+    background: none, -moz-linear-gradient(#eaeaea, #f7f7f7);
+    background: none, -ms-linear-gradient(#eaeaea, #f7f7f7);
+    background: none, -o-linear-gradient(top, #eaeaea, #f7f7f7);
+    background: none, -khtml-gradient(linear, left top, left bottom, from(#eaeaea), to(#f7f7f7));
+    filter: progid: DXImageTransform.Microsoft.Gradient(StartColorStr='#eaeaea', EndColorStr='#f7f7f7', GradientType=0);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#eaeaea', EndColorStr='#f7f7f7', GradientType=0))";
+    -moz-box-shadow: 0 0 8px #ddd inset, 0 0 0 transparent;
+    -webkit-box-shadow: 0 0 8px #ddd inset, 0 0 0 transparent;
+    -o-box-shadow: 0 0 8px #ddd inset, 0 0 0 transparent;
+    -box-shadow: 0 0 8px #ddd inset, 0 0 0 transparent;
+    color: #00427a;
+    text-shadow: -1px -1px 0 #fff;
+    border-right: 0 none;
+    border-left: 0 none
+}
+.transaccional .nav .add:hover {
+    border: 0 none
+}
+.transaccional .nav .first {
+    border-left: 0 none;
+    margin-left: -20px
+}
+.transaccional .nav .first a {
+    border: 0 none
+}
+.transaccional .nav .first a:hover {
+    border: 0 none
+}
+.transaccional .nav .first:hover {
+    border-right: 0 none
+}
+.transaccional .nav .options,
+.transaccional .nav .options:hover {
+    width: 120px;
+    height: 31px;
+    background: url("../img/transaccional/servicios.png") no-repeat left center transparent;
+    border: 0 none;
+    position: relative;
+    z-index: 2
+}
+.transaccional .nav .options p,
+.transaccional .nav .options:hover p {
+    display: block;
+    padding: 5px 20px 10px 15px;
+    margin: 0;
+    font-weight: bold;
+    text-shadow: -1px -1px 0 #e6e6e6
+}
+.transaccional .lt-ie10 .nav>li {
+    position: inherit
+}
+.transaccional .subnav {
+    padding: 0;
+    background: #00427a;
+    overflow: visible;
+    position: absolute;
+    width: 150px!important
+}
+.transaccional .subnav li {
+    text-align: center!important;
+    border-top: 1px solid #fff;
+    float: none;
+    width: 150px;
+    display: none
+}
+.transaccional .subnav li a {
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    white-space: nowrap
+}
+.transaccional .subnav li a:hover {
+    color: #fdb813
+}
+.transaccional .profile img {
+    float: left;
+    margin-right: 16px;
+    border: 1px solid #d1d1d1;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -o-border-radius: 3px;
+    -ms-border-radius: 3px;
+    border-radius: 3px
+}
+.transaccional .profile h2 {
+    color: #00427a;
+    line-height: 190%
+}
+.transaccional .profile h2 span {
+    color: #fdb813;
+    margin-right: 4px
+}
+.transaccional .profile ul {
+    width: auto
+}
+.transaccional .profile ul li {
+    border-left: 1px solid #ccc
+}
+.transaccional .profile ul li a {
+    color: #999;
+    text-decoration: underline;
+    padding: 0 8px
+}
+.transaccional .profile ul li a:hover {
+    color: #00427a
+}
+.transaccional .profile ul .first {
+    border: 0 none
+}
+.transaccional .profile ul .first a {
+    padding-left: 0
+}
+.transaccional .fb-login form {
+    padding: 32px 0;
+    border-right: 1px solid #d1d1d1
+}
+.transaccional .fb-login form .profile-pic {
+    -moz-box-shadow: 0 0 8px #d1d1d1, 0 0 0 transparent;
+    -webkit-box-shadow: 0 0 8px #d1d1d1, 0 0 0 transparent;
+    -o-box-shadow: 0 0 8px #d1d1d1, 0 0 0 transparent;
+    -box-shadow: 0 0 8px #d1d1d1, 0 0 0 transparent;
+    width: 135px;
+    padding: 8px;
+    margin-right: 16px!important;
+    border: 1px solid #efefef
+}
+.transaccional .fb-login form label {
+    color: #00427a;
+    clear: both;
+    font-weight: bold;
+    cursor: default
+}
+.transaccional .fb-login form label,
+.transaccional .fb-login form span {
+    font-family: "Arial", sans-serif;
+    display: inline;
+    float: left;
+    margin: 10px 0;
+    line-height: 100%;
+    width: 49%
+}
+.transaccional .fb-login form input {
+    float: left;
+    width: 43%
+}
+.transaccional .fb-login form input[type="submit"] {
+    width: auto;
+    float: right;
+    margin-top: 16px
+}
+.transaccional .fb-login form .white-button {
+    margin-top: 16px
+}
+.transaccional .fb-login form label.error {
+    margin-left: 49%
+}
+.transaccional .fb-login>div {
+    padding: 32px 15px
+}
+.transaccional .fb-login>div p {
+    text-align: center;
+    margin: 0 16px 24px;
+    font-weight: bold
+}
+.transaccional .resumen-registro h5 {
+    padding: 10px 0 7px 0;
+    border-bottom: 1px solid #d1d1d1;
+    font-size: 1.6em
+}
+.transaccional .resumen-registro h3 {
+    padding: 0;
+    font-size: 1.3em
+}
+.transaccional .resumen-registro .profile-pic {
+    -moz-box-shadow: 0 0 8px #d1d1d1, 0 0 0 transparent;
+    -webkit-box-shadow: 0 0 8px #d1d1d1, 0 0 0 transparent;
+    -o-box-shadow: 0 0 8px #d1d1d1, 0 0 0 transparent;
+    -box-shadow: 0 0 8px #d1d1d1, 0 0 0 transparent;
+    width: 135px;
+    padding: 8px;
+    margin-right: 16px!important;
+    margin-top: 12px;
+    border: 1px solid #efefef
+}
+.transaccional .resumen-registro .datos span,
+.transaccional .resumen-registro .valores span {
+    font-size: 1em;
+    clear: both;
+    line-height: 35px;
+    font-family: "Arial", sans-serif;
+    font-weight: bold
+}
+.transaccional .resumen-registro .valores {
+    margin-left: 75px!important
+}
+.transaccional .resumen-registro .valores span {
+    font-size: 1em;
+    font-weight: normal
+}
+.transaccional .servicios-unificar h3,
+.transaccional .aviso-privacidad h3 {
+    padding: 0 0 10px 0;
+    font-size: 1.3em
+}
+.transaccional .aviso-privacidad p {
+    float: left;
+    margin-left: 10px;
+    margin-top: -3px
+}
+.transaccional .aviso-privacidad input[type="checkbox"] {
+    float: left
+}
+.transaccional .aviso-privacidad .error-aviso {
+    clear: both;
+    float: left;
+    display: none
+}
+.transaccional .botones .finalizar {
+    float: right
+}
+.transaccional .botones .editar {
+    float: left
+}
+.transaccional .login-attemp {
+    margin: 25px 0;
+    padding: 30px 50px;
+    border: 1px solid #d1d1d1;
+    background: #fafafa, none;
+    -o-background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    -webkit-background-size: auto auto!important;
+    background-size: 100% 100%;
+    background: none, -webkit-gradient(linear, left top, left bottom, from(#fff), to(#fafafa));
+    background: none, -webkit-linear-gradient(#fff, #fafafa);
+    background: none, -moz-linear-gradient(#fff, #fafafa);
+    background: none, -ms-linear-gradient(#fff, #fafafa);
+    background: none, -o-linear-gradient(top, #fff, #fafafa);
+    background: none, -khtml-gradient(linear, left top, left bottom, from(#fff), to(#fafafa));
+    filter: progid: DXImageTransform.Microsoft.Gradient(StartColorStr='#ffffff', EndColorStr='#fafafa', GradientType=0);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff', EndColorStr='#fafafa', GradientType=0))";
+    width: NaNpx;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -o-border-radius: 5px;
+    -ms-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow: 0 1px px #ddd, 0 0 0 transparent;
+    -webkit-box-shadow: 0 1px px #ddd, 0 0 0 transparent;
+    -o-box-shadow: 0 1px px #ddd, 0 0 0 transparent;
+    -box-shadow: 0 1px px #ddd, 0 0 0 transparent
+}
+.transaccional .login-attemp h2,
+.transaccional .login-attemp p,
+.transaccional .login-attemp em,
+.transaccional .login-attemp strong {
+    font-size: 15.400000000000002px;
+    font-family: "Arial", sans-serif
+}
+.transaccional .login-attemp h2,
+.transaccional .login-attemp p {
+    margin: 0 0 25px
+}
+.transaccional .login-attemp em {
+    font-style: normal;
+    display: block
+}
+.transaccional .connected {
+    display: none
+}
+.transaccional .connected img {
+    display: none;
+    float: right;
+    margin-top: 8px
+}
+.transaccional section {
+    clear: both;
+    padding: 10px 0
+}
+.transaccional section h2 {
+    border-bottom: 1px solid #d1d1d1;
+    padding: 10px;
+    color: #00427a;
+    overflow: hidden;
+    line-height: 150%
+}
+.transaccional section h2 img {
+    float: left;
+    margin-right: 10px
+}
+.transaccional section h3 {
+    color: #00427a;
+    margin: 10px 0;
+    font-size: 2.8em
+}
+.transaccional section p {
+    font-weight: 500
+}
+.transaccional section .sin_borde {
+    border-bottom: 0
+}
+.transaccional section .tablero {
+    position: relative
+}
+.transaccional section .tablero .gris {
+    background: #f2f2f2;
+    height: 100%;
+    position: relative;
+    min-height: 100%;
+    right: 0
+}
+.transaccional section .tablero .gris ul li {
+    background: 0;
+    padding: 2px 0
+}
+.transaccional section .tablero .gris .porcentajes {
+    position: relative;
+    height: 140px;
+    bottom: 0
+}
+.transaccional section .tablero .gris .porcentajes .porcentajes-wrapper {
+    position: relative;
+    text-align: center;
+    margin-top: 500px
+}
+.transaccional section .tablero .gris .porcentajes .porcentajes-wrapper .uno,
+.transaccional section .tablero .gris .porcentajes .porcentajes-wrapper .dos {
+    margin: 20px 15px;
+    width: 100px;
+    height: 100px;
+    background: #FFF;
+    font-size: 15px;
+    font-weight: 700;
+    position: relative
+}
+.transaccional section .tablero .gris .porcentajes .porcentajes-wrapper .uno {
+    color: #00427a
+}
+.transaccional section .tablero .gris .porcentajes .porcentajes-wrapper .dos {
+    color: #eea100
+}
+.transaccional section .tablero .gris .porcentajes .porcentajes-wrapper p.numero {
+    font-size: 40px;
+    line-height: 48px;
+    font-weight: 700;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    bottom: 0
+}
+.transaccional section .tablero .gris .resumen {
+    height: 500px;
+    overflow-y: auto
+}
+.transaccional section ul li {
+    padding: 10px;
+    margin: 10px 0;
+    background: #e6f3fd;
+    overflow: hidden
+}
+.transaccional section ul li strong,
+.transaccional section ul li span {
+    display: block;
+    float: left;
+    margin-top: 8px;
+    overflow: hidden
+}
+.transaccional section ul li strong {
+    width: 40%
+}
+.transaccional section ul li span {
+    width: 35%
+}
+.transaccional section ol li {
+    margin: 10px 0
+}
+.transaccional section .linea {
+    clear: both;
+    padding: 20px 0
+}
+.transaccional section .linea span.left {
+    padding-top: 5px;
+    margin-left: 10px;
+    margin-right: 30px
+}
+.transaccional section .linea label {
+    display: inline;
+    float: left;
+    margin-right: 20px
+}
+.transaccional section .linea input[type="radio"] {
+    width: 20px;
+    margin: 0 5px!important
+}
+.transaccional section .linea input,
+.transaccional section .linea select {
+    width: 150px;
+    float: right;
+    margin-right: 20px
+}
+.transaccional section .linea input.spinner {
+    width: 150px;
+    margin-right: 20px!important
+}
+.transaccional section .sub {
+    width: 380px
+}
+.transaccional section .radios {
+    position: absolute;
+    margin-left: 280px;
+    min-width: 130px
+}
+.transaccional section .radios-big {
+    margin-left: 220px
+}
+.transaccional section .tabs li {
+    background-color: #f0f0f0;
+    float: left;
+    display: inline-block;
+    margin: 0 10px 0 0
+}
+.transaccional section .tabs li.active-tab {
+    background-color: #e6f3fd!important
+}
+.transaccional section .tab-container {
+    min-height: 100px;
+    height: auto;
+    background-color: #e6f3fd;
+    padding: 10px;
+    display: inline-block;
+    width: 95%
+}
+.transaccional section p.resultado {
+    text-align: center;
+    font-size: 30px
+}
+.transaccional section p.resultado span {
+    font-size: 48px
+}
+.transaccional section .resultados {
+    width: 80%;
+    padding: 20px 0
+}
+.transaccional section .resultados br.space {
+    height: 20px
+}
+.transaccional section .regresiva {
+    background-color: #f2f2f2;
+    padding: 2%;
+    height: 265px;
+    text-align: center
+}
+.transaccional section .regresiva h3 {
+    font-size: 30px
+}
+.transaccional section .checkup {
+    padding: 2%
+}
+.transaccional section .checkup h3 {
+    font-size: 26px
+}
+.transaccional section ul.circulo-azul li {
+    background-color: #FFF;
+    margin: 0;
+    padding: 7px;
+    font-weight: 200;
+    list-style-image: url('../../img/transaccional/lista-azul.png')
+}
+.transaccional section .border-shadow {
+    border: 1px solid #c6c6c6;
+    margin: 10px 0;
+    -moz-box-shadow: 0 3px 5px #e3e3e3;
+    -webkit-box-shadow: 0 3px 5px #e3e3e3;
+    box-shadow: 0 3px 5px #e3e3e3
+}
+.transaccional section #error-attemps fieldset {
+    padding: 25px 1px;
+    border-bottom: 1px solid #d1d1d1;
+    margin-bottom: 25px;
+    position: relative
+}
+.transaccional section #error-attemps p {
+    padding-bottom: 15px;
+    margin: 0
+}
+.transaccional section #error-attemps input[type="submit"] {
+    margin: 0 auto;
+    display: block;
+    width: 100px
+}
+.transaccional section #error-attemps .radio,
+.transaccional section #error-attemps .checkbox {
+    float: none;
+    font-weight: bold;
+    width: auto
+}
+.transaccional section #error-attemps .radio input,
+.transaccional section #error-attemps .checkbox input {
+    margin-right: 8px
+}
+.transaccional section #error-attemps .radio label,
+.transaccional section #error-attemps .checkbox label {
+    float: right;
+    display: inline;
+    margin-left: 0;
+    width: auto
+}
+.transaccional section #error-attemps label {
+    float: left;
+    font-weight: normal;
+    margin-right: 12.5px;
+    clear: both;
+    width: 15%
+}
+.transaccional section #error-attemps input[type="text"],
+.transaccional section #error-attemps input[type="password"],
+.transaccional section #error-attemps input[type="email"] {
+    float: left;
+    width: 15%;
+    margin-bottom: 12.5px
+}
+.transaccional section #error-attemps .mail,
+.transaccional section #error-attemps .user,
+.transaccional section #error-attemps .phone {
+    margin: 0 0 15px 24px;
+    display: none
+}
+.transaccional section #error-attemps .mail input,
+.transaccional section #error-attemps .user input,
+.transaccional section #error-attemps .phone input {
+    width: auto
+}
+.transaccional section #error-attemps label.error {
+    margin-left: 16%;
+    width: auto
+}
+.transaccional section #error-attemps label[for="access"].error,
+.transaccional section #error-attemps label[for="retrieve"].error {
+    position: absolute;
+    bottom: 0;
+    margin-left: 0;
+    margin-top: 10px
+}
+.transaccional section .contador {
+    background: url("../img/transaccional/contador.jpg") no-repeat;
+    margin: 60px 0 0 16px;
+    padding: 35px 10px 25px 25px
+}
+.transaccional section .contador .cntSeparator {
+    font-size: 30px;
+    color: #FFF
+}
+.transaccional section .border {
+    margin-top: 10px;
+    border: 1px solid #d1d1d1
+}
+.transaccional section .centrado {
+    margin: 0 auto
+}
+.transaccional section.columns {
+    clear: none
+}
+.transaccional #recaptcha_area {
+    margin: 0 auto
+}
+.transaccional .attemp-message {
+    width: 665px;
+    overflow: hidden;
+    margin: 0 auto 25px
+}
+.transaccional .attemp-message .message {
+    margin: 25px auto 0;
+    overflow: hidden
+}
+.transaccional .attemp-message .message img {
+    margin-right: 16px;
+    float: left
+}
+.transaccional .attemp-message .message p {
+    font-weight: bold;
+    display: block;
+    float: left;
+    font-size: 16.8px;
+    max-width: 539px
+}
+.transaccional .attemp-message .message .eins {
+    margin-top: 40px
+}
+.transaccional .attemp-message .message .zwei {
+    margin-top: 20px
+}
+.transaccional .attemp-message .message .drei {
+    margin-top: 15px
+}
+.transaccional .attemp-message .message .vier {
+    margin-top: 5px
+}
+.transaccional .attemp-message .recover-password {
+    width: 430px
+}
+.transaccional .attemp-message .change-mail,
+.transaccional .attemp-message .change-data {
+    width: 480px
+}
+.transaccional .attemp-message .change-mail p,
+.transaccional .attemp-message .change-data p {
+    font-size: 14px;
+    font-style: normal;
+    margin-bottom: 25px;
+    display: block;
+    font-weight: bold
+}
+.transaccional .attemp-message fieldset.change-data {
+    padding-top: 25px;
+    margin-top: 0
+}
+.transaccional .attemp-message form label {
+    float: left;
+    font-weight: bold;
+    margin-right: 12.5px;
+    clear: both;
+    width: 45%;
+    cursor: default
+}
+.transaccional .attemp-message form label.error {
+    background: transparent!important;
+    border: 0 none!important;
+    -moz-box-shadow: 0 0 0 transparent, 0 0 0 transparent;
+    -webkit-box-shadow: 0 0 0 transparent, 0 0 0 transparent;
+    -o-box-shadow: 0 0 0 transparent, 0 0 0 transparent;
+    -box-shadow: 0 0 0 transparent, 0 0 0 transparent;
+    margin-left: 48%
+}
+.transaccional .attemp-message form input[type="text"],
+.transaccional .attemp-message form input[type="password"],
+.transaccional .attemp-message form input[type="email"] {
+    float: left;
+    width: 45%;
+    margin-bottom: 12.5px
+}
+.transaccional .attemp-message .message-nav {
+    border-top: 1px solid #d1d1d1;
+    overflow: hidden;
+    padding: 25px 0;
+    margin-top: 25px
+}
+.transaccional .attemp-message .message-nav .center-button {
+    margin: 0 auto;
+    width: 80px!important;
+    text-align: center;
+    display: block
+}
+.transaccional .attemp-message .message-nav .left-button {
+    float: left
+}
+.transaccional .attemp-message .message-nav .right-button {
+    float: right
+}
+.transaccional .sidebar {
+    background: #f2f2f2;
+    margin-left: 0!important;
+    margin-right: 10px!important
+}
+.transaccional .sidebar ul,
+.transaccional .sidebar>div {
+    margin: 25px
+}
+.transaccional .sidebar strong {
+    font-family: "Arial", sans-serif
+}
+.transaccional .sidebar ul {
+    padding-left: 25px
+}
+.transaccional .sidebar ul li {
+    list-style-image: url("../img/afore/blue-arrow.png");
+    list-style-position: outside
+}
+.transaccional .sidebar ul li a {
+    color: #999;
+    font-weight: bold;
+    display: block;
+    font-size: 12px;
+    padding: 12.5px 0
+}
+.transaccional .sidebar ul li a:hover {
+    color: #00427a
+}
+.transaccional .estado-tramite-sar {
+    text-align: left
+}
+.transaccional .estado-tramite-sar .procesando {
+    color: #00427a
+}
+.transaccional .estado-tramite-sar .liquidado {
+    color: #fdb813
+}
+.transaccional .deposit {
+    width: auto;
+    overflow: hidden;
+    margin: 0 0 25px;
+    clear: both
+}
+.transaccional .deposit p,
+.transaccional .deposit select {
+    width: 45%;
+    float: left
+}
+.transaccional .deposit label {
+    width: 30%;
+    float: left;
+    clear: both
+}
+.transaccional #aviso {
+    display: none;
+    clear: both;
+    padding: 0;
+    overflow: hidden;
+    margin: 15px 0;
+    float: left;
+    width: 100%
+}
+.transaccional #aviso p {
+    margin: 8px 0
+}
+.transaccional .subacciones {
+    border-bottom: 1px solid #d1d1d1;
+    border-left: 1px solid #d1d1d1;
+    border-right: 1px solid #d1d1d1;
+    padding: 25px;
+    overflow: hidden
+}
+.transaccional .subacciones hr {
+    background: #d1d1d1;
+    height: 1px;
+    margin: 25px 0
+}
+.transaccional .subacciones form {
+    overflow: hidden
+}
+.transaccional .subacciones form .group,
+.transaccional .subacciones form input,
+.transaccional .subacciones form select {
+    float: left;
+    width: 50%
+}
+.transaccional .subacciones form .group label[generated="true"],
+.transaccional .subacciones form input label[generated="true"],
+.transaccional .subacciones form select label[generated="true"] {
+    margin-left: 0;
+    display: none!important
+}
+.transaccional .subacciones form .group .unvalid,
+.transaccional .subacciones form input .unvalid,
+.transaccional .subacciones form select .unvalid {
+    color: #d8000c;
+    font-weight: bold
+}
+.transaccional .subacciones form .group,
+.transaccional .subacciones form select,
+.transaccional .subacciones form fieldset>input {
+    width: 48%!important;
+    height: auto!important
+}
+.transaccional .subacciones form .min-select {
+    width: auto!important;
+    margin-right: 10px;
+    padding: 8px 2px
+}
+.transaccional .subacciones form .min-select.last {
+    margin-right: 0
+}
+.transaccional .subacciones form label {
+    width: 30%;
+    float: left;
+    line-height: 120%;
+    clear: left
+}
+.transaccional .subacciones form fieldset {
+    width: 70%;
+    margin: 0 auto;
+    padding: 0
+}
+.transaccional .subacciones form fieldset p {
+    margin: 0 0 10px;
+    font-weight: bold;
+    display: block;
+    clear: both
+}
+.transaccional .subacciones form input[type="submit"] {
+    text-align: center;
+    width: auto;
+    float: none
+}
+.transaccional .subacciones form .radio,
+.transaccional .subacciones form .radio input {
+    font-weight: normal;
+    width: auto;
+    float: none;
+    margin-bottom: 5px
+}
+.transaccional .subacciones form select,
+.transaccional .subacciones form .group {
+    margin-bottom: 5px
+}
+.transaccional .subacciones form .selecciona-cuenta,
+.transaccional .subacciones form .selecciona-label {
+    margin-bottom: 2px
+}
+.transaccional .subacciones form label.error {
+    margin-left: 30%;
+    width: 60%;
+    height: auto!important
+}
+.transaccional .subacciones form a {
+    display: block;
+    margin: 0 0 15px 30%;
+    clear: both;
+    font-size: 14px;
+    font-family: "Arial", sans-serif
+}
+.transaccional .subacciones form a:hover {
+    text-decoration: underline
+}
+.transaccional .subacciones form .button,
+.transaccional .subacciones form .yellow-button,
+.transaccional .subacciones form .white-button {
+    margin: auto
+}
+.transaccional .subacciones form .button:hover,
+.transaccional .subacciones form .yellow-button:hover,
+.transaccional .subacciones form .white-button:hover {
+    text-decoration: none
+}
+.transaccional .subacciones form .lineal {
+    overflow: hidden;
+    margin-bottom: 25px
+}
+.transaccional .subacciones form .lineal label {
+    float: left;
+    width: 20%;
+    clear: none
+}
+.transaccional .subacciones form .lineal .radio {
+    width: 40%
+}
+.transaccional .subacciones form .extra-info {
+    padding: 20px;
+    border: 1px solid #e6e6e6;
+    overflow: hidden;
+    clear: both;
+    margin-bottom: 25px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -o-border-radius: 3px;
+    -ms-border-radius: 3px;
+    border-radius: 3px;
+    display: none
+}
+.transaccional .subacciones form .extra-info .boton {
+    width: auto;
+    display: inline-block;
+    margin: 20px 0;
+    float: left
+}
+.transaccional .subacciones form .extra-info .boton:hover {
+    text-decoration: none
+}
+.transaccional .subacciones form .extra-info table {
+    clear: both;
+    width: 100%
+}
+.transaccional .subacciones form #nuevas-cuentas label.error {
+    margin-left: 0
+}
+.transaccional .subacciones .required-fields {
+    padding-top: 15px
+}
+.transaccional .subacciones #domiciliacion input[type="submit"] {
+    display: block;
+    margin: 0 auto;
+    width: 125px
+}
+.transaccional .subacciones .centered {
+    display: block;
+    clear: both;
+    margin: 0 auto;
+    text-align: center
+}
+.transaccional .subacciones ul {
+    margin: 20px 0;
+    padding: 0;
+    list-style-position: inside;
+    list-style-image: url("../img/pensiones/lista-azul.png")
+}
+.transaccional .subacciones ul li {
+    background: transparent;
+    margin: 10px 0;
+    line-height: 170%;
+    padding: 0;
+    font-size: 14px
+}
+.transaccional .unificacion-sar {
+    text-align: center;
+    font-weight: bold
+}
+.transaccional .unificacion-sar strong {
+    color: #00427a
+}
+.transaccional .unificacion-sar h3 {
+    color: #999;
+    font-size: 35px;
+    margin-bottom: 125px
+}
+.transaccional input.file {
+    background: #fff!important;
+    border: 0!important;
+    width: 50%!important;
+    margin-left: 0;
+    margin-top: -10px!important;
+    height: 40px!important;
+    padding-left: 100px!important;
+    margin-bottom: 5px!important
+}
+.transaccional input.file:focus {
+    border: 0!important;
+    -moz-box-shadow: 0 0 0, 0 0 0 transparent;
+    -webkit-box-shadow: 0 0 0, 0 0 0 transparent;
+    -o-box-shadow: 0 0 0, 0 0 0 transparent;
+    -box-shadow: 0 0 0, 0 0 0 transparent
+}
+.transaccional .error-message {
+    overflow: hidden;
+    padding: 20px;
+    border: 1px solid #f00;
+    background: #fcc;
+    margin-bottom: 20px
+}
+.transaccional .error-message img {
+    float: left;
+    margin-right: 20px
+}
+.transaccional .error-message p {
+    float: left;
+    width: 90%;
+    color: #900;
+    margin-top: 10px
+}
+.transaccional .fecha-cargo,
+.transaccional .span-unico {
+    display: none
+}
+.transaccional .fecha-cargo {
+    overflow: hidden;
+    float: left
+}
+.transaccional .fecha-cargo label.error {
+    margin: 0!important;
+    display: block
+}
+.transaccional .fecha-cargo .min-select.error {
+    clear: both
+}
+.transaccional .contactanos .texto-contrato {
+    height: 300px;
+    margin-top: 20px;
+    border: 1px solid #d1d1d1
+}
+.transaccional .contactanos .texto-contrato p {
+    margin: 10px
+}
+.transaccional .contactanos .formulario-contrato {
+    height: 300px
+}
+.transaccional .contactanos .formulario-contrato h3 {
+    margin: 20px 0 20px 20px!important;
+    font-size: 2.1em
+}
+.transaccional .contactanos .formulario-contrato fieldset {
+    border: 0
+}
+.transaccional .contactanos .formulario-contrato fieldset label {
+    margin-left: 20px;
+    margin-top: 20px;
+    margin-bottom: 5px
+}
+.transaccional .contactanos .formulario-contrato fieldset .iniciar {
+    float: right;
+    margin-top: 20px
+}
+.transaccional #nuevas-cuentas {
+    clear: both;
+    overflow: hidden;
+    margin-left: 30%
+}
+.transaccional #nuevas-cuentas select {
+    width: 69%!important;
+    margin: 2px 0
+}
+.transaccional .error-centrado {
+    margin: 0 auto!important;
+    float: none!important;
+    margin-bottom: 10px!important
+}
+.transaccional #deducibles-yes>a {
+    margin: 0;
+    text-align: center
+}
+.transaccional .isfbconnected {
+    width: 10%
+}
+.transaccional .cancel-button,
+.transaccional .modify-button {
+    background: url("../img/transaccional/close.png") no-repeat center center #00427a;
+    display: block;
+    float: left;
+    width: 30px;
+    height: 30px;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -o-border-radius: 50%;
+    -ms-border-radius: 50%;
+    border-radius: 50%;
+    text-indent: -9999em
+}
+.transaccional .modify-button {
+    background: url("../img/transaccional/edit.png") no-repeat center center #00427a;
+    margin-left: 5px
+}
+.lt-ie10 input.file {
+    margin-top: 10px!important;
+    margin-left: 0!important;
+    padding-top: 20px!important;
+    height: 40px!important;
+    margin-bottom: 0!important;
+    padding-left: 100px!important
+}
+.lt-ie10 .tarjetas img {
+    margin-top: 45px
+}
+.lt-ie9 input.file {
+    margin-top: 0!important;
+    margin-left: 0!important;
+    padding-top: 0!important;
+    height: 40px!important;
+    margin-bottom: 0!important;
+    padding-left: 100px!important
+}
+.lt-ie9 .nueva-cuenta h2 {
+    margin-top: -15px!important
+}
+.lt-ie9 .tarjetas img {
+    margin-top: 33px
+}
+.lt-ie8 .nav {
+    background: #f7f7f7
+}
+.lt-ie8 .cantidad-saldo {
+    float: right!important;
+    margin-top: -20px!important
+}
+.lt-ie8 .cantidad-saldo2 {
+    float: right!important;
+    margin-top: -41px!important
+}
+.lt-ie8 .subacciones ul li {
+    padding-left: 10px
+}
+.lt-ie8 .subacciones form fieldset {
+    padding: 0 0 25px
+}
+.lt-ie8 input.file {
+    margin-top: 0!important;
+    margin-left: -20px!important;
+    padding-left: 125px!important;
+    padding-top: 20px!important;
+    height: 40px!important
+}
+.lt-ie8 .finalizar {
+    padding: 4px 20px
+}
+.lt-ie8 .tarjetas {
+    margin-top: 43px!important
+}
+.lt-ie8 .tarjetas img {
+    margin-top: 43px!important
+}
+@media only screen and (min-width: 768px) and (max-width: 959px) {
+    .transaccional .nav,
+    .transaccional .subnav {
+        width: 768px;
+        font-size: 12px;
+        font-family: "Arial", sans-serif
+    }
+    .transaccional .nav li a,
+    .transaccional .subnav li a {
+        font-size: 10px
+    }
+    .transaccional .error-message p {
+        width: 80%
+    }
+    .transaccional .nav>li>a {
+        padding: 10px 6px
+    }
+    .transaccional .nav .options p,
+    .transaccional .nav .options:hover p {
+        padding: 13px 10px 12px 5px;
+        font-size: 11px
+    }
+    .transaccional section ul li strong {
+        width: 32%;
+        font-size: 12.6px
+    }
+    .transaccional section ul li span {
+        width: 38%;
+        font-size: 12.6px
+    }
+    .transaccional section #error-attemps input[type="text"],
+    .transaccional section #error-attemps input[type="password"],
+    .transaccional section #error-attemps input[type="email"] {
+        width: 25%
+    }
+    .transaccional section #error-attemps label {
+        width: 20%
+    }
+    .transaccional section .checkup {
+        padding: 1%;
+        width: 250px!important
+    }
+    .transaccional section .regresiva {
+        height: 348px;
+        width: 450px!important
+    }
+    .transaccional section .twentythree {
+        width: 740px!important
+    }
+    .transaccional section .contador {
+        margin: 100px 0 0 6px
+    }
+    .transaccional section .gris .porcentajes .uno,
+    .transaccional section .gris .porcentajes .dos {
+        margin: 20px 10px!important;
+        width: 85px!important;
+        height: 85px!important
+    }
+    .transaccional section .gris .porcentajes .uno span,
+    .transaccional section .gris .porcentajes .dos span {
+        font-size: 13px!important
+    }
+    .transaccional section .gris .porcentajes .uno p,
+    .transaccional section .gris .porcentajes .dos p {
+        font-size: 33px!important
+    }
+    .transaccional section ul.tabs li {
+        padding: 6px;
+        margin: 0 2px 0 0
+    }
+    .transaccional .login-attemp {
+        width: NaNpx
+    }
+    .transaccional .detalle-container {
+        background: url("../img/transaccional/pdf.png") no-repeat center
+    }
+    .transaccional .detalle-container .detalle-descripcion p {
+        font-size: .9em
+    }
+    .transaccional .detalle-container .links-detalle {
+        background: 0
+    }
+    .transaccional .detalle-container .links-detalle div {
+        margin: 18px 0 0 38px
+    }
+    .transaccional .sidebar {
+        margin-left: 0!important;
+        margin-right: 8px!important
+    }
+    .transaccional .sidebar ul,
+    .transaccional .sidebar>div {
+        margin: 12.5px
+    }
+    .transaccional .subacciones form fieldset {
+        width: 100%
+    }
+    .transaccional .last-field {
+        margin-top: -15px
+    }
+    .transaccional table.registros thead tr th {
+        font-size: .8em
+    }
+    .transaccional table.registros tbody tr td {
+        font-size: .8em
+    }
+    .transaccional .modify-button,
+    .transaccional .cancel-button {
+        width: 24px;
+        height: 24px
+    }
+}
+@media only screen and (max-width: 767px) {
+    .transaccional .error-message p {
+        width: 80%
+    }
+    .transaccional .nav,
+    .transaccional .subnav,
+    .transaccional .profile ul {
+        width: 480px
+    }
+    .transaccional .nav li,
+    .transaccional .subnav li,
+    .transaccional .profile ul li {
+        width: 100%;
+        text-align: center;
+        border: 0 none
+    }
+    .transaccional .nav li a,
+    .transaccional .subnav li a,
+    .transaccional .profile ul li a {
+        border: 0 none
+    }
+    .transaccional .nav li a img,
+    .transaccional .subnav li a img,
+    .transaccional .profile ul li a img {
+        float: none;
+        display: inline
+    }
+    .transaccional .nav>li {
+        background: transparent;
+        border-left: 0 none;
+        border-right: 0 none
+    }
+    .transaccional .nav>li>a {
+        line-height: 200%
+    }
+    .transaccional .nav>li>a .icon {
+        float: none;
+        display: inline-block
+    }
+    .transaccional .nav .options,
+    .transaccional .nav .options:hover {
+        background: #e6e6e6;
+        color: #999;
+        border-bottom: 1px solid #d9d9d9
+    }
+    .transaccional .subnav {
+        -moz-border-radius: 0 0 5px 5px;
+        -webkit-border-radius: 0 0 5px 5px;
+        -o-border-radius: 0 0 5px 5px;
+        -ms-border-radius: 0 0 5px 5px;
+        border-radius: 0 0 5px 5px;
+        border-left: 1px solid #00427a;
+        border-right: 1px solid #00427a;
+        -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 0 0 transparent;
+        -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 0 0 transparent;
+        -o-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 0 0 transparent;
+        -box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 0 0 transparent
+    }
+    .transaccional .subnav li:hover ul {
+        left: -9999em
+    }
+    .transaccional .profile h2 {
+        line-height: 100%;
+        margin-top: 24px
+    }
+    .transaccional .profile ul {
+        clear: both;
+        border: 1px solid #d1d1d1;
+        margin-top: 10px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        -o-border-radius: 3px;
+        -ms-border-radius: 3px;
+        border-radius: 3px
+    }
+    .transaccional .profile ul li {
+        width: 239px;
+        text-align: center;
+        border-left: 1px solid #d1d1d1
+    }
+    .transaccional .profile ul li a {
+        padding: 8px;
+        text-decoration: none;
+        background: #f2f2f2, none;
+        -o-background-size: 100% 100%;
+        -moz-background-size: 100% 100%;
+        -webkit-background-size: auto auto!important;
+        background-size: 100% 100%;
+        background: none, -webkit-gradient(linear, left top, left bottom, from(#fcfcfc), to(#f2f2f2));
+        background: none, -webkit-linear-gradient(#fcfcfc, #f2f2f2);
+        background: none, -moz-linear-gradient(#fcfcfc, #f2f2f2);
+        background: none, -ms-linear-gradient(#fcfcfc, #f2f2f2);
+        background: none, -o-linear-gradient(top, #fcfcfc, #f2f2f2);
+        background: none, -khtml-gradient(linear, left top, left bottom, from(#fcfcfc), to(#f2f2f2));
+        filter: progid: DXImageTransform.Microsoft.Gradient(StartColorStr='#fcfcfc', EndColorStr='#f2f2f2', GradientType=0);
+        -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#fcfcfc', EndColorStr='#f2f2f2', GradientType=0))"
+    }
+    .transaccional .profile ul li a:hover {
+        background: #fff, none;
+        -o-background-size: 100% 100%;
+        -moz-background-size: 100% 100%;
+        -webkit-background-size: auto auto!important;
+        background-size: 100% 100%;
+        background: none, -webkit-gradient(linear, left top, left bottom, from(#efefef), to(#fff));
+        background: none, -webkit-linear-gradient(#efefef, #fff);
+        background: none, -moz-linear-gradient(#efefef, #fff);
+        background: none, -ms-linear-gradient(#efefef, #fff);
+        background: none, -o-linear-gradient(top, #efefef, #fff);
+        background: none, -khtml-gradient(linear, left top, left bottom, from(#efefef), to(#fff));
+        filter: progid: DXImageTransform.Microsoft.Gradient(StartColorStr='#efefef', EndColorStr='#ffffff', GradientType=0);
+        -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#efefef', EndColorStr='#ffffff', GradientType=0))"
+    }
+    .transaccional .login-attemp {
+        width: NaNpx
+    }
+    .transaccional section ul li strong,
+    .transaccional section ul li span {
+        width: 35%
+    }
+    .transaccional section #error-attemps input[type="text"],
+    .transaccional section #error-attemps input[type="password"],
+    .transaccional section #error-attemps input[type="email"] {
+        width: 35%
+    }
+    .transaccional section #error-attemps label {
+        width: 30%
+    }
+    .transaccional section .twentythree {
+        width: 480px!important
+    }
+    .transaccional section .gris {
+        position: relative!important
+    }
+    .transaccional section .gris .six {
+        width: 440px!important;
+        padding: 20px
+    }
+    .transaccional section .gris .porcentajes {
+        width: 250px;
+        margin: 0 auto;
+        position: relative
+    }
+    .transaccional section .gris .porcentajes .uno,
+    .transaccional section .gris .porcentajes .dos {
+        margin: 20px 10px!important;
+        width: 85px!important;
+        height: 85px!important
+    }
+    .transaccional section .gris .porcentajes .uno span,
+    .transaccional section .gris .porcentajes .dos span {
+        font-size: 13px!important
+    }
+    .transaccional section .gris .porcentajes .uno p,
+    .transaccional section .gris .porcentajes .dos p {
+        font-size: 40px!important
+    }
+    .transaccional .connected {
+        display: none
+    }
+    .transaccional .fb-login form {
+        border-right: 0 none;
+        border-bottom: 1px solid #d1d1d1
+    }
+    .transaccional .fb-login form label,
+    .transaccional .fb-login form span {
+        margin: 8px 0
+    }
+    .transaccional .fb-login form input[type="submit"] {
+        margin: 16px 0;
+        width: 100%
+    }
+    .transaccional .fb-login form .nine {
+        width: 300px
+    }
+    .transaccional .fb-login>div {
+        padding: 32px 15px
+    }
+    .transaccional .fb-login>div p {
+        text-align: center;
+        margin: 0 16px 24px;
+        font-weight: bold
+    }
+    .transaccional .attemp-message {
+        width: 480px;
+        overflow: hidden
+    }
+    .transaccional .attemp-message .message {
+        width: 100%
+    }
+    .transaccional .attemp-message .message img {
+        display: block;
+        margin: 0 auto 16px;
+        float: none
+    }
+    .transaccional .attemp-message .message p {
+        width: 90%;
+        margin: 0 auto;
+        text-align: center;
+        float: none
+    }
+    .transaccional .attemp-message .message-nav .center-button,
+    .transaccional .attemp-message .message-nav .left-button,
+    .transaccional .attemp-message .message-nav .right-button {
+        width: 95%!important;
+        padding: 10px 0;
+        float: none;
+        text-align: center
+    }
+    .transaccional table.registros {
+        float: none;
+        margin: 10px 0!important
+    }
+    .transaccional table.registros thead tr th {
+        font-size: .65em
+    }
+    .transaccional table.registros tbody tr {
+        font-size: .65em
+    }
+    .transaccional table.registros tbody tr .columna-servicio {
+        color: #00427a!important;
+        background: none!important
+    }
+    .transaccional table.registros tbody tr .radio {
+        font-size: .8em
+    }
+    .transaccional table.registros tbody tr td {
+        padding: 3px!important
+    }
+    .transaccional .saldos-estados {
+        margin-left: 0!important
+    }
+    .transaccional .cancel-button,
+    .transaccional .modify-button {
+        width: 22px;
+        height: 22px
+    }
+    .transaccional .deposit {
+        margin: 25px 0
+    }
+    .transaccional .deposit p,
+    .transaccional .deposit select {
+        width: 45%
+    }
+    .transaccional .deposit label {
+        width: 45%
+    }
+    .transaccional .subacciones form fieldset {
+        width: 100%
+    }
+    .transaccional .subacciones form fieldset label,
+    .transaccional .subacciones form fieldset label.error {
+        width: 45%;
+        clear: left
+    }
+    .transaccional .subacciones form fieldset label.error {
+        margin-left: 45%
+    }
+    .transaccional .subacciones form fieldset label.full {
+        width: 100%
+    }
+    .transaccional .subacciones form fieldset a {
+        margin-left: 45%
+    }
+    .transaccional .resumen-registro .profile-pic {
+        margin: 20px 0 20px 35%!important
+    }
+    .transaccional .resumen-registro .datos {
+        float: left;
+        clear: both
+    }
+    .transaccional .resumen-registro .datos span {
+        font-size: 1.1em;
+        font-weight: bold
+    }
+    .transaccional .resumen-registro .valores {
+        float: left;
+        margin-left: 0!important
+    }
+    .transaccional .tarjetas {
+        margin-top: 30px!important;
+        border-right: 0;
+        border-bottom: 1px solid #d1d1d1
+    }
+    .transaccional .last-field {
+        margin-top: -15px
+    }
+    .transaccional #nuevas-cuentas {
+        margin-left: 45%
+    }
+    .transaccional #nuevas-cuentas select {
+        width: 91%
+    }
+}
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+    #reporte img {
+        width: 100%
+    }
+    .transaccional .error-message img {
+        margin-top: 40px
+    }
+    .transaccional .error-message p {
+        width: 70%
+    }
+    .transaccional .banner {
+        background: #eaf1f6;
+        margin-bottom: 20px!important
+    }
+    .transaccional .banner .mensaje-bienvenida {
+        margin: 12% 2% 0 2%
+    }
+    .transaccional .banner .mensaje-bienvenida h5 {
+        margin-top: 25px
+    }
+    .transaccional .tablero .tabs li {
+        float: none;
+        clear: both;
+        display: block;
+        text-align: center
+    }
+    .transaccional table.registros tbody tr .columna-afore,
+    .transaccional table.registros tbody tr .columna-fondos,
+    .transaccional table.registros tbody tr .columna-prestamos {
+        display: none
+    }
+    .transaccional .linea {
+        clear: both;
+        margin: 20px 0
+    }
+    .transaccional .linea label {
+        display: inline;
+        margin-right: 20px
+    }
+    .transaccional .linea input[type="radio"] {
+        width: 20px;
+        margin: 0 5px!important
+    }
+    .transaccional .linea input,
+    .transaccional .linea select {
+        width: 100px
+    }
+    .transaccional .regresiva {
+        padding: 0!important
+    }
+    .transaccional ul.tabs li {
+        padding: 5px;
+        margin: 0 1px 0 0
+    }
+}
+@media only screen and (max-width: 480px) {
+    .transaccional .nav,
+    .transaccional .subnav,
+    .transaccional .profile ul {
+        width: 320px
+    }
+    .transaccional .button.right,
+    .transaccional .boton.right,
+    .transaccional .button.left,
+    .transaccional .boton.left,
+    .transaccional .white-button.left,
+    .transaccional .yellow-button,
+    .transaccional .yellow-button.left,
+    .transaccional .button.no-clear {
+        width: 100%;
+        display: block;
+        float: none;
+        clear: both;
+        text-align: center;
+        min-width: 100%;
+        padding: 7px 0;
+        margin-bottom: 5px
+    }
+    .transaccional .hidden-row {
+        display: none!important
+    }
+    .transaccional .linea {
+        clear: both;
+        margin: 20px 0;
+        font-size: 11px
+    }
+    .transaccional .linea label {
+        display: inline;
+        margin-right: 20px
+    }
+    .transaccional .linea input[type="radio"] {
+        width: 15px!important;
+        margin: 0 5px!important
+    }
+    .transaccional .linea input,
+    .transaccional .linea select {
+        width: 70px!important
+    }
+    .transaccional .linea .sub {
+        width: 280px!important
+    }
+    .transaccional .linea .radios {
+        margin-left: 210px
+    }
+    .transaccional .linea .radios-big {
+        min-width: 190px!important;
+        margin-left: 155px!important
+    }
+    .transaccional .profile h2 {
+        margin-top: 16px
+    }
+    .transaccional .profile ul li {
+        width: 159px
+    }
+    .transaccional #ver-proyeccion {
+        margin: 0 0 20px 100px
+    }
+    .transaccional .fb-login form .profile-pic {
+        margin: 0 auto 16px!important;
+        float: none;
+        display: block
+    }
+    .transaccional .fb-login>div {
+        padding: 16px 0
+    }
+    .transaccional .fb-login>div p {
+        width: 95%;
+        margin: 0 auto 8px
+    }
+    .transaccional section ul li strong {
+        width: 28%
+    }
+    .transaccional section ul li span {
+        width: 32%
+    }
+    .transaccional section #error-attemps label {
+        width: 40%
+    }
+    .transaccional section #error-attemps input[type="text"],
+    .transaccional section #error-attemps input[type="password"],
+    .transaccional section #error-attemps input[type="email"] {
+        width: 40%
+    }
+    .transaccional section h3 {
+        font-size: 1.8em
+    }
+    .transaccional section .regresiva {
+        height: 180px
+    }
+    .transaccional section .regresiva {
+        width: 100%!important
+    }
+    .transaccional section .regresiva .contador {
+        zoom: .6;
+        -moz-transform: scale(0.6);
+        -o-transform: scale(0.6);
+        margin: 30px 0 0 50px
+    }
+    .transaccional section .twentythree {
+        width: 320px!important
+    }
+    .transaccional section .verifica td {
+        padding: 3px!important;
+        font-size: 10px!important
+    }
+    .transaccional section .gris {
+        position: relative!important
+    }
+    .transaccional section .gris .six {
+        width: 280px!important;
+        padding: 20px
+    }
+    .transaccional section .gris .porcentajes {
+        width: 220px;
+        margin-top: 450px!important;
+        margin-left: 50px
+    }
+    .transaccional section .gris .porcentajes .uno,
+    .transaccional section .gris .porcentajes .dos {
+        margin: 20px 10px!important;
+        width: 85px!important;
+        height: 85px!important
+    }
+    .transaccional section .gris .porcentajes .uno span,
+    .transaccional section .gris .porcentajes .dos span {
+        font-size: 13px!important
+    }
+    .transaccional section .gris .porcentajes .uno p,
+    .transaccional section .gris .porcentajes .dos p {
+        font-size: 38px!important
+    }
+    .transaccional .login-attemp {
+        width: NaNpx
+    }
+    .transaccional .attemp-message {
+        width: 320px
+    }
+    .transaccional .attemp-message form label {
+        width: 40%
+    }
+    .transaccional .attemp-message form label.error {
+        margin-left: 44%;
+        margin-bottom: 15px;
+        height: auto!important
+    }
+    .transaccional .attemp-message form input[type="text"],
+    .transaccional .attemp-message form input[type="password"],
+    .transaccional .attemp-message form input[type="email"] {
+        width: 49%!important
+    }
+    .transaccional .saldo {
+        font-size: 11.200000000000001px
+    }
+    .transaccional table.registros {
+        font-size: .8em!important
+    }
+    .transaccional table.registros thead th {
+        font-family: "Arial", sans-serif;
+        font-size: .8em!important
+    }
+    .transaccional table.registros tbody tr td .eliminar {
+        display: none
+    }
+    .transaccional table.registros tbody tr td .eliminar-small {
+        display: inline;
+        background: #00427a;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+        -o-border-radius: 4px;
+        -ms-border-radius: 4px;
+        border-radius: 4px;
+        color: #fff;
+        padding: 5px 10px;
+        font-size: 1.1em!important;
+        font-weight: bold
+    }
+    .transaccional table.registros tbody tr td input[type="text"] {
+        width: 45px;
+        padding: 8px 2px
+    }
+    .transaccional .detalle-container {
+        background: url("../img/transaccional/pdf.png") no-repeat center
+    }
+    .transaccional .detalle-container .detalle-descripcion p {
+        font-size: .9em
+    }
+    .transaccional .detalle-container .links-detalle {
+        background: 0
+    }
+    .transaccional .detalle-container .links-detalle div {
+        margin: 18px 0 0 38px
+    }
+    .transaccional .banner {
+        background: #eaf1f6;
+        margin-bottom: 20px!important
+    }
+    .transaccional .banner .mensaje-bienvenida {
+        margin: 18% 2% 0 2%
+    }
+    .transaccional .banner .mensaje-bienvenida h5 {
+        margin-top: 25px
+    }
+    .transaccional .subacciones form fieldset label {
+        width: 40%
+    }
+    .transaccional .subacciones form fieldset label.error {
+        margin-left: 40%
+    }
+    .transaccional .subacciones form fieldset label.full {
+        width: 100%
+    }
+    .transaccional .subacciones form fieldset input.full {
+        width: 91%
+    }
+    .transaccional .subacciones form fieldset a {
+        margin-left: 40%
+    }
+    .transaccional .subacciones form .ap-unica {
+        width: 40px
+    }
+    .transaccional .checkup .yellow-button {
+        width: 90%;
+        display: block;
+        text-align: center
+    }
+    .transaccional .resumen-registro .profile-pic {
+        margin: 20px 0 20px 27%!important
+    }
+    .transaccional .resumen-registro .datos {
+        float: left;
+        clear: both
+    }
+    .transaccional .resumen-registro .datos span {
+        font-size: .9em;
+        font-weight: bold
+    }
+    .transaccional .resumen-registro .datos .ultimo-dato {
+        line-height: 10px
+    }
+    .transaccional .resumen-registro .valores {
+        float: left;
+        margin-left: 0!important
+    }
+    .transaccional .resumen-registro .valores span {
+        font-size: .85em
+    }
+    .transaccional .bigger {
+        padding: 12px 10px!important;
+        margin: 0!important
+    }
+    .transaccional #nuevas-cuentas {
+        margin-left: 40%
+    }
+    .transaccional #nuevas-cuentas select {
+        width: 84%
+    }
+    .transaccional table.registros thead tr th {
+        padding: 3px 1px!important
+    }
+    .transaccional table.registros tbody tr td {
+        padding: 3px 1px!important
+    }
+    .transaccional .modify-button {
+        margin-left: 0;
+        margin-top: 3px
+    }
+    .transaccional .modify-button,
+    .transaccional .cancel-button {
+        clear: both;
+        float: none;
+        margin: 0 auto
+    }
+}
+@media only print {
+    #detalle-tabla {
+        font-family: "Arial", sans-serif
+    }
+    .saldo-title {
+        font-size: 14px;
+        margin: 0 0 10px
+    }
+    .saldo-table td,
+    .saldo-table th {
+        border: 1px solid #eee;
+        color: #666
+    }
+    .saldo-table thead tr th,
+    .saldo-table thead tr td {
+        color: #000!important
+    }
+    .saldo-table tbody tr .top {
+        border-bottom: 1px solid #fff
+    }
+    .saldo-table tbody tr .na {
+        color: #999
+    }
+}
+.traspaso-h1 {
+    color: #00427a;
+    font-size: 2em!important;
+    padding-bottom: .7em
+}
+.message-container {
+    padding-bottom: 20px
+}
+.message-container img {
+    vertical-align: middle
+}
+.message-container .message-text {
+    vertical-align: middle
+}
+.message-container .message-text h5 {
+    font-size: 1.25em!important;
+    line-height: 1.25em
+}
+.message-container .message-text h5 a {
+    font-size: 85%;
+    text-decoration: underline
+}
+.message-container .message-text .message-spaced {
+    margin-bottom: 15px
+}
+.message-container .message-text h5 {
+    color: #00427a
+}
+.message-container form {
+    display: block;
+    width: 100%;
+    background: #eaf1f6
+}
+.message-container form label {
+    width: 30%
+}
+.message-container form input {
+    width: 30%
+}
+.message-nav {
+    text-align: center
+}
+.recuadro-azul {
+    width: 94%;
+    padding: 15px 3%;
+    background: rgb(250, 198, 198);
+    font-size: 13px;
+    color: rgb(255, 0, 0);
+    font-weight: 700
+}
+.transaccional section .small-text {
+    font-size: .85em
+}
+.transaccional section .recuadro-azul {
+    width: 90%;
+    padding: 15px 5%
+}
+.transaccional .white-button {
+    display: inline-block
+}
+.transaccional .traspaso-cuenta {
+    font-size: 1.25em;
+    margin-bottom: 25px
+}
+.transaccional #recaptcha_area {
+    margin: 0
+}
+.transaccional .light-link {
+    color: #0078e0;
+    text-decoration: underline;
+    font-weight: normal;
+    padding-left: 5px
+}
+.transaccional form label {
+    margin: 15px 0 10px
+}
+.transaccional form label a {
+    font-size: 100%;
+    text-decoration: underline
+}
+.transaccional form .radioinline label {
+    display: inline-block;
+    width: 10%;
+    vertical-align: top
+}
+.transaccional form .radioinline label.error {
+    width: 100%
+}
+.transaccional form label.checkbox {
+    font-weight: normal
+}
+.transaccional form .disabled {
+    border: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -o-box-shadow: none;
+    padding: 0 10px;
+    background: white;
+    display: none!important
+}
+.transaccional form .boton.oculto {
+    opacity: .7
+}
+.transaccional form input,
+.transaccional form select,
+.transaccional form textarea {
+    width: 60%;
+    padding: 9px 10px
+}
+.transaccional form input.extra-large {
+    width: 81%
+}
+.transaccional form input.extra-short {
+    width: 41%
+}
+.transaccional form .error {
+    color: red!important;
+    font-weight: normal
+}
+.transaccional form .error.extra-large {
+    width: 81%!important
+}
+.transaccional form .error.extra-short {
+    width: 41%
+}
+.transaccional form select {
+    width: 64%;
+    text-ident: 10px;
+    line-height: 30px
+}
+.transaccional form select.extra-short {
+    width: 44%
+}
+.transaccional form label.error {
+    float: none!important;
+    clear: none!important
+}
+.transaccional form input.error,
+.transaccional form textarea.error {
+    width: 60%;
+    height: auto!important
+}
+.transaccional form input[type="submit"],
+.transaccional form input[type="radio"],
+.transaccional form input[type="checkbox"] {
+    width: auto!important
+}
+.transaccional form select.error {
+    width: 64%!important
+}
+.transaccional form select.error.extra-short {
+    width: 44%!important
+}
+.transaccional .attemp-message {
+    width: 960px
+}
+.transaccional .attemp-message form label {
+    width: auto
+}
+.transaccional .attemp-message form .container-form {
+    padding: 15px 25px
+}
+.transaccional .attemp-message form label.error {
+    margin-left: 0
+}
+.transaccional .attemp-message form #folio {
+    float: none;
+    margin-bottom: 0
+}
+.transaccional .attemp-message form #send {
+    margin-left: 15px
+}
+.transaccional .attemp-message .message-top {
+    margin-top: 0;
+    padding: 0
+}
+.transaccional .flecha {
+    width: 10px;
+    height: 5px
+}
+.transaccional .doscolumnas {
+    margin: 10px 0
+}
+.transaccional .doscolumnas .half {
+    width: 270px;
+    padding: 20px 20px 20px 0;
+    margin: 0
+}
+.transaccional .doscolumnas .half ol {
+    padding: 0
+}
+.transaccional .doscolumnas .half ol li {
+    color: #515151;
+    font-size: 14px;
+    line-height: 150%
+}
+.transaccional .doscolumnas .border-left {
+    border-left: 1px solid #d1d1d1;
+    padding: 20px 0 20px 20px
+}
+.top-bordered {
+    border-top: 1px solid #d1d1d1
+}
+.traspaso-title {
+    border-bottom: 1px solid #d1d1d1;
+    padding: 25px 0;
+    display: block;
+    color: #00427a
+}
+.traspaso-title img {
+    margin-right: 5px;
+    vertical-align: middle
+}
+.traspaso-important {
+    color: #00427a;
+    margin-bottom: 25px
+}
+.message-nav {
+    border-top: 1px solid #d1d1d1;
+    overflow: hidden;
+    padding: 10px 0;
+    margin-top: 25px
+}
+.message-top {
+    margin-top: 0;
+    padding: 0
+}
+.message-middle {
+    padding: 10px 0
+}
+h2 img {
+    margin-right: 5px
+}
+.larger-button {
+    padding: 7px 50px!important
+}
+.boxed {
+    border: 1px solid #dadada;
+    background: #f3f3f3;
+    padding: 15px 20px;
+    padding-bottom: 30px;
+    border-bottom: 0
+}
+.boxed input {
+    width: 70%!important
+}
+.boxed input.error {
+    width: 70%!important
+}
+.boxed a {
+    text-decoration: underline
+}
+.boxed h5 {
+    margin-bottom: 10px
+}
+.traspaso-resalted {
+    background: #004e90;
+    color: white
+}
+.traspaso-resalted h5 {
+    color: #fdb813
+}
+.traspaso-resalted p {
+    color: white
+}
+.traspaso-resalted a {
+    color: #8ec3f1
+}
+.another-boxed {
+    border: 1px solid #dadada;
+    border-top: 0;
+    padding: 15px 10px;
+    background: #e7e7e7;
+    text-align: center;
+    line-height: 1em
+}
+.another-boxed p {
+    margin-bottom: 0
+}
+.another-boxed a {
+    text-decoration: underline
+}
+.second-row {
+    margin-bottom: 20px
+}
+.displayed-block .columns {
+    float: none;
+    display: inline-block;
+    vertical-align: top
+}
+.displayed-block .columns ul {
+    margin-left: 20px;
+    margin-top: 20px
+}
+.displayed-block .columns ul li {
+    color: #dadada;
+    font-weight: bold;
+    margin-bottom: 15px;
+    vertical-align: bottom
+}
+.displayed-block .columns ul li img {
+    margin-right: 10px;
+    vertical-align: text-top
+}
+.displayed-block .columns ul .active {
+    color: #00427a
+}
+.displayed-block .columns form {
+    margin: 15px
+}
+.displayed-block .columns form h3 {
+    font-size: 1.2em;
+    margin-bottom: 10px
+}
+.displayed-block .columns.eighteen {
+    margin-left: 0!important;
+    border-left: 1px solid #d1d1d1
+}
+.dnss {
+    display: none
+}
+.texted {
+    border: 0!important;
+    background: white!important;
+    box-shadow: none!important;
+    -moz-box-shadow: none!important;
+    -webkit-box-shadow: none!important;
+    -o-box-shadow: none!important
+}
+#calroot {
+    z-index: 10000;
+    margin: -10px 0 0 -18px;
+    width: 198px;
+    padding: 2px;
+    background-color: #fff;
+    font-size: 11px;
+    border: 1px solid #ccc;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-box-shadow: 0 0 15px #666;
+    -webkit-box-shadow: 0 0 15px #666
+}
+#calhead {
+    padding: 2px 0;
+    height: 22px
+}
+#caltitle {
+    font-size: 14px;
+    color: #0150d1;
+    float: left;
+    text-align: center;
+    width: 155px;
+    line-height: 20px;
+    text-shadow: 0 1px 0 #ddd
+}
+#calnext,
+#calprev {
+    display: block;
+    width: 20px;
+    height: 20px;
+    background: transparent url(/media/img/dateinput/prev.gif) no-repeat scroll center center;
+    float: left;
+    cursor: pointer
+}
+#calnext {
+    background-image: url(/media/img/dateinput/next.gif);
+    float: right
+}
+#calprev.caldisabled,
+#calnext.caldisabled {
+    visibility: hidden
+}
+#caltitle select {
+    font-size: 10px
+}
+#caldays {
+    height: 14px;
+    border-bottom: 1px solid #ddd
+}
+#caldays span {
+    display: block;
+    float: left;
+    width: 28px;
+    text-align: center
+}
+#calweeks {
+    background-color: #fff;
+    margin-top: 4px
+}
+.calweek {
+    clear: left;
+    height: 22px
+}
+.calweek a {
+    display: block;
+    float: left;
+    width: 27px;
+    height: 20px;
+    text-decoration: none;
+    font-size: 11px;
+    margin-left: 1px;
+    text-align: center;
+    line-height: 20px;
+    color: #666;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px
+}
+.calweek a:hover,
+.calfocus {
+    background-color: #ddd
+}
+a.calsun {
+    color: red
+}
+a.caloff {
+    color: #ccc
+}
+a.caloff:hover {
+    background-color: #f5f5fa
+}
+a.caldisabled {
+    background-color: #efefef!important;
+    color: #ccc!important;
+    cursor: default
+}
+#calcurrent {
+    background-color: #498ce2;
+    color: #fff
+}
+#caltoday {
+    background-color: #333;
+    color: #fff
+}
+.ui-datepicker {
+    width: 225px
+}
+.account {
+    width: 50%;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -o-border-radius: 5px;
+    -ms-border-radius: 5px;
+    border-radius: 5px;
+    border-bottom: 1px solid #dadada;
+    margin-bottom: 10px;
+    background: #fff;
+    background-image: linear-gradient(bottom, #fff 100%, #f3f3f3 8%);
+    background-image: -o-linear-gradient(bottom, #fff 100%, #f3f3f3 8%);
+    background-image: -moz-linear-gradient(bottom, #fff 100%, #f3f3f3 8%);
+    background-image: -webkit-linear-gradient(bottom, #fff 100%, #f3f3f3 8%);
+    background-image: -ms-linear-gradient(bottom, #fff 100%, #f3f3f3 8%);
+    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(1, #fff), color-stop(0.08, #f3f3f3));
+    padding-bottom: 10px
+}
+.underlined {
+    border-bottom: 1px solid #dadada
+}
+#cancel,
+.ajaxSpinnerContainer {
+    display: none
+}
+#send-login {
+    margin-top: 10px
+}
+@media only screen and (max-width: 767px) {
+    .primary {
+        padding-bottom: 30px
+    }
+    .transaccional .attemp-message {
+        width: 480px
+    }
+    .transaccional .attemp-message .message-container {
+        text-align: center;
+        padding-bottom: 0
+    }
+    .transaccional .attemp-message .message-nav .center-button {
+        width: 120px!important
+    }
+    .transaccional form input.extra-short,
+    .transaccional form input.extra-large {
+        width: 61%
+    }
+    .transaccional form .error.extra-short,
+    .transaccional form .error-extra-large {
+        width: 61%
+    }
+}
+@media only screen and (max-width: 480px) {
+    #cancel {
+        display: block;
+        max-width: 90%;
+        min-width: 90%
+    }
+    .transaccional .attemp-message {
+        width: 320px
+    }
+    .transaccional .attemp-message form .container-form {
+        padding: 15px 5px
+    }
+    .transaccional .attemp-message form .container-form label {
+        width: 100%
+    }
+    .transaccional .larger-button {
+        padding: 7px!important;
+        max-width: 90%!important;
+        min-width: 90%
+    }
+    .transaccional .profile ul li {
+        width: 100%
+    }
+    .transaccional .account {
+        width: 100%
+    }
+    .transaccional form input,
+    .transaccional form input.extra-short,
+    .transaccional form input.extra-large {
+        width: 91%
+    }
+    .transaccional form .error,
+    .transaccional form .error.extra-short,
+    .transaccional form .error-extra-large {
+        width: 91%
+    }
+    .transaccional form select {
+        width: 67%
+    }
+    .transaccional form select.error {
+        width: 67%
+    }
+}
+.lt-ie10 .transaccional form input[type="checkbox"].error,
+.lt-ie10 .transaccional form input[type="radio"].error {
+    color: white;
+    background: transparent;
+    padding: 0
+}
+.lt-ie9 .transaccional .yellow-button,
+.lt-ie9 .transaccional input[type="submit"].yellow-button,
+.lt-ie9 .transaccional .boton,
+.lt-ie9 .transaccional .center-button {
+    height: auto!important;
+    height: 36px
+}
+.lt-ie8 .transaccional .attemp-message form #send {
+    margin-left: 10px
+}
+.lt-ie8 .transaccional form select {
+    font-size: 1em
+}
+.lt-ie8 .transaccional form option {
+    font-size: .5em
+}
+.lt-ie8 .transaccional .confirma-form #send {
+    margin-top: -20px
+}
+.lt-ie8 .transaccional .confirma-form #cancel {
+    padding: 9px 50px!important
+}
+.lt-ie8 .displayed-block .columns {
+    zoom: 1;
+    display: inline
+}
+ul.pdf {
+    margin-left: 35px;
+    padding-left: 0
+}
+ul.pdf li {
+    list-style: none;
+    background: url("../img/pdf.png") no-repeat;
+    padding-left: 55px;
+    height: 55px;
+    margin: 0 0 15px
+}
+ul.pdf li h5 {
+    padding-top: 3px;
+    line-height: 14px;
+    margin: 0;
+    font-size: .8em
+}
+ul.pdf li a {
+    color: #cf4347;
+    font-weight: bold;
+    font-size: .8em
+}
+ul.pdf li a:hover {
+    text-decoration: underline
+}
+ul.verimagen {
+    margin-left: 35px;
+    padding-left: 0
+}
+ul.verimagen li {
+    list-style: none;
+    background: url("../img/ver_imagen.jpg") no-repeat;
+    padding-left: 55px;
+    height: 55px;
+    margin: 0 0 15px
+}
+ul.verimagen li h5 {
+    padding-top: 3px;
+    line-height: 14px;
+    margin: 0;
+    font-size: .8em
+}
+ul.verimagen li a {
+    color: #00427b;
+    font-weight: bold;
+    font-size: .8em
+}
+ul.verimagen li a:hover {
+    text-decoration: underline
+}
+.boxedasesor {
+    border: 1px solid #dadada;
+    background: #f3f3f3;
+    padding: 19px 20px;
+    padding-bottom: 46px;
+    width: inherit
+}
+.boxedasesor input {
+    width: 70%!important
+}
+.boxedasesorboxedasesor input.error {
+    width: 70%!important
+}
+.boxedasesor a {
+    text-decoration: underline
+}
+.boxedasesor h5 {
+    margin-bottom: 10px
+}
+.input-style:focus,
+select-style:focus,
+textarea-style:focus {
+    -moz-box-shadow: 0 1px 3px #d1d1d1, 0 2px 4px rgba(88, 175, 242, 0.19999999999999996) inset !important;
+    -webkit-box-shadow: 0 1px 3px #d1d1d1, 0 2px 4px rgba(88, 175, 242, 0.19999999999999996) inset !important;
+    -o-box-shadow: 0 1px 3px #d1d1d1, 0 2px 4px rgba(88, 175, 242, 0.19999999999999996) inset !important;
+    -box-shadow: 0 1px 3px #d1d1d1, 0 2px 4px rgba(88, 175, 242, 0.19999999999999996) inset !important;
+    border: 1px solid #b7dcf9 !important;
+    color: #00427a !important;
+    background: #e6f3fd !important
+}
+.input-style,
+select-style,
+.textarea-style {
+    border: 1px solid #d1d1d1 !important;
+    display: initial !important;
+    background: #f7f7f7 !important;
+    -moz-box-shadow: 0 1px 2px #eaeaea inset, 0 0 0 transparent !important;
+    -webkit-box-shadow: 0 1px 2px #eaeaea inset, 0 0 0 transparent !important;
+    -o-box-shadow: 0 1px 2px #eaeaea inset, 0 0 0 transparent !important;
+    -box-shadow: 0 1px 2px #eaeaea inset, 0 0 0 transparent !important;
+    padding: 10px;
+    width: 80%;
+    color: #999;
+    -moz-border-radius: 3px !important;
+    -webkit-border-radius: 3px !important;
+    -o-border-radius: 3px !important;
+    -ms-border-radius: 3px !important;
+    border-radius: 3px !important;
+    -webkit-transition: all linear .2s !important;
+    -moz-transition: all linear .2s !important;
+    -o-transition: all linear .2s !important;
+    -ms-transition: all linear .2s !important;
+    transition: all linear .2s !important
+}
+.input-style,
+.textarea-style,
+.select-style {
+    font-family: "Arial", sans-serif !important;
+    font-size: 1em!important;
+    font-weight: normal !important;
+    line-height: 1.1em !important;
+    border: 1px solid #d1d1d1 !important;
+    display: initial;
+    background: #f7f7f7 !important;
+    -moz-box-shadow: 0 1px 2px #eaeaea inset, 0 0 0 transparent !important;
+    -webkit-box-shadow: 0 1px 2px #eaeaea inset, 0 0 0 transparent !important;
+    -o-box-shadow: 0 1px 2px #eaeaea inset, 0 0 0 transparent !important;
+    -box-shadow: 0 1px 2px #eaeaea inset, 0 0 0 transparent !important;
+    padding: 10px;
+    width: 80%;
+    color: #2f2f2f !important;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -o-border-radius: 3px !important;
+    -ms-border-radius: 3px !important;
+    border-radius: 3px !important;
+    -webkit-transition: all linear .2s !important;
+    -moz-transition: all linear .2s !important;
+    -o-transition: all linear .2s !important;
+    -ms-transition: all linear .2s !important;
+    transition: all linear .2s !important;
+    /*font-weight: bold !important;*/
+}
+.yellow-button {
+    display: inline-block;
+    padding: 7px 15px;
+    color: #5d4201 !important;
+    line-height: 20px;
+    border: 1px solid #c28902 !important;
+    margin: 3px 0;
+    font-size: 14px;
+    font-family: "Arial", sans-serif !important;
+    background-image: none;
+    width: auto;
+    background: #efa902, none !important;
+    -o-background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    -webkit-background-size: auto auto!important;
+    background-size: 100% 100%;
+    background: none, -webkit-gradient(linear, left top, left bottom, from(#fdbb1d), to(#efa902)) !important;
+    background: none, -webkit-linear-gradient(#fdbb1d, #efa902) !important;
+    background: none, -moz-linear-gradient(#fdbb1d, #efa902) !important;
+    background: none, -ms-linear-gradient(#fdbb1d, #efa902) !important;
+    background: none, -o-linear-gradient(top, #fdbb1d, #efa902) !important;
+    background: none, -khtml-gradient(linear, left top, left bottom, from(#fdbb1d), to(#efa902)) !important;
+    filter: progid: DXImageTransform.Microsoft.Gradient(StartColorStr='#fdbb1d', EndColorStr='#efa902', GradientType=0);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#fdbb1d', EndColorStr='#efa902', GradientType=0))";
+    text-shadow: 0 1px 0 transparent !important;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -o-border-radius: 3px;
+    -ms-border-radius: 3px;
+    border-radius: 3px;
+    -moz-box-shadow: 0 1px 2px rgba(255, 255, 255, 0.5), 0 1px 0 rgba(255, 255, 255, 0.4) inset;
+    -webkit-box-shadow: 0 1px 2px rgba(255, 255, 255, 0.5), 0 1px 0 rgba(255, 255, 255, 0.4) inset;
+    -o-box-shadow: 0 1px 2px rgba(255, 255, 255, 0.5), 0 1px 0 rgba(255, 255, 255, 0.4) inset;
+    -box-shadow: 0 1px 2px rgba(255, 255, 255, 0.5), 0 1px 0 rgba(255, 255, 255, 0.4) inset;
+    font-weight: 700;
+    cursor: pointer;
+    *overflow: visible;
+    -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 0 #fede91 inset;
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 0 #fede91 inset;
+    -o-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 0 #fede91 inset;
+    -box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 0 #fede91 inset;
+    margin: 0
+}
+.yellow-button:hover,
+..yellow-button:focus {
+    background: #fdb813, none !important;
+    -o-background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    -webkit-background-size: auto auto!important;
+    background-size: 100% 100%;
+    background: none, -webkit-gradient(linear, left top, left bottom, from(#f4ad02), to(#fdb813)) !important;
+    background: none, -webkit-linear-gradient(#f4ad02, #fdb813) !important;
+    background: none, -moz-linear-gradient(#f4ad02, #fdb813) !important;
+    background: none, -ms-linear-gradient(#f4ad02, #fdb813) !important;
+    background: none, -o-linear-gradient(top, #f4ad02, #fdb813) !important;
+    background: none, -khtml-gradient(linear, left top, left bottom, from(#f4ad02), to(#fdb813)) !important;
+    filter: progid: DXImageTransform.Microsoft.Gradient(StartColorStr='#f4ad02', EndColorStr='#fdb813', GradientType=0);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#f4ad02', EndColorStr='#fdb813', GradientType=0))";
+    -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 2px rgba(32, 32, 32, 0.1) inset;
+    -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 2px rgba(32, 32, 32, 0.1) inset;
+    -o-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 2px rgba(32, 32, 32, 0.1) inset;
+    -box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 2px rgba(32, 32, 32, 0.1) inset;
+    color: #5d4201;
+    text-decoration: none
+}
+.gray-button {
+    display: inline-block;
+    padding: 7px 15px;
+    color: #00427a !important;
+    line-height: 20px;
+    border: 1px solid #eaeaea !important;
+    margin: 3px 0;
+    font-size: 14px;
+    font-family: "Arial", sans-serif !important;
+    background-image: none;
+    width: auto;
+    background: #efefef, none !important;
+    -o-background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    -webkit-background-size: auto auto!important;
+    background-size: 100% 100%;
+    background: none, -webkit-gradient(linear, left top, left bottom, from(#fff), to(#efefef));
+    background: none, -webkit-linear-gradient(#fff, #efefef) !important;
+    background: none, -moz-linear-gradient(#fff, #efefef) !important;
+    background: none, -ms-linear-gradient(#fff, #efefef) !important;
+    background: none, -o-linear-gradient(top, #fff, #efefef) !important;
+    background: none, -khtml-gradient(linear, left top, left bottom, from(#fff), to(#efefef)) !important;
+    filter: progid: DXImageTransform.Microsoft.Gradient(StartColorStr='#ffffff', EndColorStr='#efefef', GradientType=0);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff', EndColorStr='#efefef', GradientType=0))";
+    text-shadow: 0 1px 2px #ddd !important;
+    -moz-border-radius: 1px;
+    -webkit-border-radius: 1px;
+    -o-border-radius: 1px;
+    -ms-border-radius: 1px;
+    border-radius: 1px;
+    -moz-box-shadow: 0 1px 2px rgba(255, 255, 255, 0.5), 0 1px 0 rgba(255, 255, 255, 0.4) inset;
+    -webkit-box-shadow: 0 1px 2px rgba(255, 255, 255, 0.5), 0 1px 0 rgba(255, 255, 255, 0.4) inset;
+    -o-box-shadow: 0 1px 2px rgba(255, 255, 255, 0.5), 0 1px 0 rgba(255, 255, 255, 0.4) inset;
+    -box-shadow: 0 1px 2px rgba(255, 255, 255, 0.5), 0 1px 0 rgba(255, 255, 255, 0.4) inset;
+    font-weight: 700;
+    cursor: pointer;
+    *overflow: visible;
+    border: 1px solid #d1d1d1;
+    letter-spacing: .05em;
+    -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 0 0 transparent;
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 0 0 transparent;
+    -o-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 0 0 transparent;
+    -box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 0 0 transparent
+}
+.gray-button:hover,
+.gray-button:focus {
+    background: #fefefe, none !important;
+    -o-background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    -webkit-background-size: auto auto!important;
+    background-size: 100% 100%;
+    background: none, -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#fefefe)) !important;
+    background: none, -webkit-linear-gradient(#f2f2f2, #fefefe) !important;
+    background: none, -moz-linear-gradient(#f2f2f2, #fefefe) !important;
+    background: none, -ms-linear-gradient(#f2f2f2, #fefefe);
+    background: none, -o-linear-gradient(top, #f2f2f2, #fefefe) !important;
+    background: none, -khtml-gradient(linear, left top, left bottom, from(#f2f2f2), to(#fefefe)) !important;
+    filter: progid: DXImageTransform.Microsoft.Gradient(StartColorStr='#f2f2f2', EndColorStr='#fefefe', GradientType=0);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#f2f2f2', EndColorStr='#fefefe', GradientType=0))";
+    -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 2px rgba(32, 32, 32, 0.1) inset;
+    -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 2px rgba(32, 32, 32, 0.1) inset;
+    -o-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 2px rgba(32, 32, 32, 0.1) inset;
+    -box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 2px rgba(32, 32, 32, 0.1) inset;
+    color: #00427a;
+    text-decoration: none
+}
+.transaccional .white-button,
+.transaccional input[type="submit"].white-button {
+    display: inline-block;
+    padding: 7px 15px;
+    color: #00427a;
+    line-height: 20px;
+    border: 1px solid #c4c4c4;
+    margin: 3px 0;
+    font-size: 14px;
+    font-family: "Arial", sans-serif;
+    background-image: none;
+    width: auto;
+    background: #efefef, none;
+    -o-background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    -webkit-background-size: auto auto!important;
+    background-size: 100% 100%;
+    background: none, -webkit-gradient(linear, left top, left bottom, from(#fff), to(#efefef));
+    background: none, -webkit-linear-gradient(#fff, #efefef);
+    background: none, -moz-linear-gradient(#fff, #efefef);
+    background: none, -ms-linear-gradient(#fff, #efefef);
+    background: none, -o-linear-gradient(top, #fff, #efefef);
+    background: none, -khtml-gradient(linear, left top, left bottom, from(#fff), to(#efefef));
+    filter: progid: DXImageTransform.Microsoft.Gradient(StartColorStr='#ffffff', EndColorStr='#efefef', GradientType=0);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff', EndColorStr='#efefef', GradientType=0))";
+    text-shadow: 0 1px 0 transparent;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -o-border-radius: 3px;
+    -ms-border-radius: 3px;
+    border-radius: 3px;
+    -moz-box-shadow: 0 1px 2px rgba(255, 255, 255, 0.5), 0 1px 0 rgba(255, 255, 255, 0.4) inset;
+    -webkit-box-shadow: 0 1px 2px rgba(255, 255, 255, 0.5), 0 1px 0 rgba(255, 255, 255, 0.4) inset;
+    -o-box-shadow: 0 1px 2px rgba(255, 255, 255, 0.5), 0 1px 0 rgba(255, 255, 255, 0.4) inset;
+    -box-shadow: 0 1px 2px rgba(255, 255, 255, 0.5), 0 1px 0 rgba(255, 255, 255, 0.4) inset;
+    font-weight: 700;
+    cursor: pointer;
+    *overflow: visible;
+    -moz-box-shadow: 0 1px 2px #c4c4c4, 0 0 0 transparent;
+    -webkit-box-shadow: 0 1px 2px #c4c4c4, 0 0 0 transparent;
+    -o-box-shadow: 0 1px 2px #c4c4c4, 0 0 0 transparent;
+    -box-shadow: 0 1px 2px #c4c4c4, 0 0 0 transparent
+}
+.transaccional .white-button:hover,
+.transaccional input[type="submit"].white-button:hover,
+.transaccional .white-button:focus,
+.transaccional input[type="submit"].white-button:focus {
+    background: #fefefe, none;
+    -o-background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    -webkit-background-size: auto auto!important;
+    background-size: 100% 100%;
+    background: none, -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#fefefe));
+    background: none, -webkit-linear-gradient(#f2f2f2, #fefefe);
+    background: none, -moz-linear-gradient(#f2f2f2, #fefefe);
+    background: none, -ms-linear-gradient(#f2f2f2, #fefefe);
+    background: none, -o-linear-gradient(top, #f2f2f2, #fefefe);
+    background: none, -khtml-gradient(linear, left top, left bottom, from(#f2f2f2), to(#fefefe));
+    filter: progid: DXImageTransform.Microsoft.Gradient(StartColorStr='#f2f2f2', EndColorStr='#fefefe', GradientType=0);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#f2f2f2', EndColorStr='#fefefe', GradientType=0))";
+    -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 2px rgba(32, 32, 32, 0.1) inset;
+    -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 2px rgba(32, 32, 32, 0.1) inset;
+    -o-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 2px rgba(32, 32, 32, 0.1) inset;
+    -box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 2px rgba(32, 32, 32, 0.1) inset;
+    color: #00427a;
+    text-decoration: none
+}
+
+.blue-button {
+    display: inline-block;
+    padding: 7px 15px;
+    color: #fff !important;
+    line-height: 20px;
+    border: 1px solid #003461 !important;
+    margin: 3px 0;
+    font-size: 14px;
+    font-family: "Arial", sans-serif !important;
+    background-image: none;
+    width: auto;
+    background: #00315b, none !important;
+    -o-background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    -webkit-background-size: auto auto !important;
+    background-size: 100% 100%;
+    background: none, -webkit-gradient(linear, left top, left bottom, from(#004884), to(#00315b))!important;
+    background: none, -webkit-linear-gradient(#004884, #00315b) !important;
+    background: none, -moz-linear-gradient(#004884, #00315b)!important;
+    background: none, -ms-linear-gradient(#004884, #00315b) !important;
+    background: none, -o-linear-gradient(top, #004884, #00315b) !important;
+    background: none, -khtml-gradient(linear, left top, left bottom, from(#004884), to(#00315b)) !important;
+    filter: progid: DXImageTransform.Microsoft.Gradient(StartColorStr='#004884', EndColorStr='#00315b', GradientType=0) !important;
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#004884', EndColorStr='#00315b', GradientType=0)) ";
+    text-shadow: 0 1px 0 #003461 !important;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -o-border-radius: 3px;
+    -ms-border-radius: 3px;
+    border-radius: 3px;
+    -moz-box-shadow: 0 1px 2px rgba(255, 255, 255, .5), 0 1px 0 rgba(255, 255, 255, .4) inset;
+    -webkit-box-shadow: 0 1px 2px rgba(255, 255, 255, .5), 0 1px 0 rgba(255, 255, 255, .4) inset;
+    -o-box-shadow: 0 1px 2px rgba(255, 255, 255, .5), 0 1px 0 rgba(255, 255, 255, .4) inset;
+    -box-shadow: 0 1px 2px rgba(255, 255, 255, .5), 0 1px 0 rgba(255, 255, 255, .4) inset;
+    font-weight: 700;
+    cursor: pointer;
+    height: auto!important;
+}
+
+.ui-selectonemenu-panel div ul li{
+	    border: 0px none;
+    margin: 1px 0;
+    padding: 3px 5px;
+    text-align: left;
+    white-space: nowrap;
+    font-size: 12px;
+}
+
+.ui-widget {
+    font-family: Arial,sans-serif;
+    font-size: 12px !important;
+}
+
+.blue-button:hover {
+    background: #00427a, none !important;
+    -o-background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    -webkit-background-size: auto auto!important;
+    background-size: 100% 100%;
+    background: none, -webkit-gradient(linear, left top, left bottom, from(#003461), to(#00427a)) !important;
+    background: none, -webkit-linear-gradient(#003461, #00427a) !important;
+    background: none, -moz-linear-gradient(#003461, #00427a) !important;
+    background: none, -ms-linear-gradient(#003461, #00427a) !important;
+    background: none, -o-linear-gradient(top, #003461, #00427a) !important;
+    background: none, -khtml-gradient(linear, left top, left bottom, from(#003461), to(#00427a)) !important;
+    filter: progid: DXImageTransform.Microsoft.Gradient(StartColorStr='#003461', EndColorStr='#00427a', GradientType=0) !important;
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#003461', EndColorStr='#00427a', GradientType=0)) !important";
+    -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, .4), 0 1px 2px rgba(32, 32, 32, .1) inset !important;
+    -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, .4), 0 1px 2px rgba(32, 32, 32, .1) inset !important;
+    -o-box-shadow: 0 1px 0 rgba(255, 255, 255, .4), 0 1px 2px rgba(32, 32, 32, .1) inset !important;
+    -box-shadow: 0 1px 0 rgba(255, 255, 255, .4), 0 1px 2px rgba(32, 32, 32, .1) inset !important;
+    color: #fff !important;
+    text-decoration: none!important;
+}
+
+.ui-datatable .ui-paginator {
+    background: #e2e2e2 repeat scroll 0 0;
+    color: #616161;
+}
+.table-style tbody tr td .ui-radiobutton .ui-radiobutton-box {
+    border: 1px solid #1b1a1a;
+    background: rgb(23, 22, 22);
+    background: #c4c4c4 linear-gradient(top, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
+    background: #151414 -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.8)), to(rgba(255, 255, 255, 0)));
+    background: #c4c4c4 -moz-linear-gradient(top, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
+    font-weight: bold;
+    color: #2b2b2b;
+    text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.7);
+}
+.table-style thead tr th {
+    background: #00427a !important;
+    color: #fff !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    height: 20px !important;
+    padding-top: 10px;
+    min-width: auto !important;
+	max-width:inherit !important;
+    border: 0px !important;
+}
+.table-style tbody tr:nth-child(even) {
+    background: #fafafa;
+}
+.table-style tbody tr:nth-child(odd) {
+    background: #e6f3fd;
+}
+.table-style tbody tr td,
+.table-style tbody tr th {
+    height: 30px;
+    
+    font-size: 12px;
+    text-align: center!important;
+    border-top: 3px solid #fff;
+    vertical-align: middle;
+    min-width: auto;
+        max-width:inherit !important;
+}
+
+
+.table-style2 thead tr th {
+    background: #00427a !important;
+    color: #fff !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    height: 20px !important;
+    padding-top: 10px;
+    min-width: auto !important;
+    border: 0px !important;
+}
+.table-style2 tbody tr td .ui-chkbox .ui-chkbox-box	 {
+    border: 1px solid #1b1a1a;
+    background: rgb(23, 22, 22);
+    background: #c4c4c4 linear-gradient(top, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
+    background: #151414 -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.8)), to(rgba(255, 255, 255, 0)));
+    background: #c4c4c4 -moz-linear-gradient(top, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
+    font-weight: bold;
+    color: #2b2b2b;
+    text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.7);
+}
+.table-style2 tbody tr td,
+.table-style2 tbody tr th {
+    height: 30px;
+    
+    font-size: 14px;
+    text-align: center!important;
+    border-top: 3px solid #fff;
+    vertical-align: middle;
+    min-width: auto;
+}
+
+.table-style2{
+	whidth: 100%;
+}
+.table-style3{
+	whidth: 100%;
+}
+
+.table-style3 div table tbody tr:nth-child(odd){
+    background: #e6f3fd !important;
+
+}
+
+.table-style3 div table tbody tr:nth-child(even){
+    background: #fafafa !important;
+
+}
+
+.table-style3 thead tr td {
+    background: #00427a !important;
+    color: #fff !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    height: 20px !important;
+    padding-top: 10px;
+    min-width: auto !important;
+    border: 0px !important;
+}
+
+.table-style3 thead tr td,
+.table-style3 thead tr th {
+    height: 30px;
+    
+    font-size: 14px;
+    text-align: center!important;
+    border-top: 3px solid #fff;
+    vertical-align: middle;
+    min-width: auto;
+}
+.autenticacion select {
+    width: 70%!important;
+}
+ul.pdf li.irn a {
+    color: #00427A;
+}
+ul.pdf li.irn {
+    background: url("../img/ver.jpg") no-repeat scroll 0 0 transparent!important;
+}
+.box_form {
+    background: #F3F3F3;
+    border: 1px solid #DADADA;
+    padding: 0px;
+    width: 390px;
+    float: left;
+    margin: 0 15px 15px 0;
+    min-height: 510px
+}
+.box_form h5 {
+    font-size: 16px;
+    margin: 12px 0!important;
+}
+.box_form p {
+    overflow: hidden;
+    display: block;
+    margin: 4px 0 0px!important;
+}
+.box_form p label {
+    width: 35%;
+    display: block;
+    margin: 5px 0 0 0!important;
+    font-weight: normal!important;
+    line-height: 1.3em !important
+}
+.box_form p label.solo_lectura {
+    color: #515151 !important;
+    font-weight: bold !important;
+    width: 35% !important;
+}
+.box_form p label.error,
+.box_form p label.question {
+    width: 100%!important;
+    clear: both!important;
+    margin: 8px 0 0 0!important;
+}
+.box_form p label.question {
+    margin: 8px 0 6px 0!important;
+}
+.box_form p input {
+    float: right!important;
+    width: 55%!important;
+}
+.box_form p input,
+.box_form p select {
+    float: right!important;
+    width: 55%!important;
+}
+.box_form p select {
+    width: 60%!important;
+    margin-bottom: 10px;
+}
+.box_form p span {
+    display: inline-block!important;
+    margin-right: 0px;
+    margin-bottom: 6px;
+    margin-left: 0px;
+    float: none !important;
+    margin-top: 3px;
+}
+.box_form p label span {
+    margin-bottom: 0px;
+}
+.box_form2 p span {
+    display: inline-block!important;
+    margin: 8px 0 8px 5px;
+}
+.box_form p span input {
+    float: none !important;
+}
+form#autenticacion input[type=submit] {
+    margin: 0 auto!important;
+    display: block!important;
+    clear: both!important;
+}
+.explain_box {
+    width: 100%;
+    margin: 15px 30px 15px 60px;
+    float: left;
+}
+.explain_box ul li {
+    background: none!important;
+    padding: 0 3px 0 15px!important;
+    margin: 0 0 8px 0!important;
+    font-size: 12px;
+    background: url(../img/lista-azul.png) no-repeat center left !important;
+}
+@media only screen and (max-width: 767px) {
+    #candado {
+        width: 50px !important;
+        margin: 0 0 30px 45% !important;
+    }
+}
+#candado {
+    width: 50px !important;
+}
+#container_responsive .box_form {
+    padding: 0px;
+    width: 45%;
+    float: left;
+    margin: 0 15px 0px 0;
+    min-height: 510px
+}
+.transaccional #container_responsive .box_form_crediticio p.textobold label {
+    color: #515151 !important;
+    font-weight: bold !important;
+    width: 100% !important;
+}
+#container_responsive .box_form p input {
+    float: right !important;
+    width: 55%!important;
+}
+#container_responsive .offset-by-one {
+    padding: 0 !important;
+}
+@media only screen and (max-width: 767px) {
+    #container_responsive .transaccional .attemp-message {
+        width: 80%;
+        margin: 0px 0 0 0;
+    }
+    #pasos_mover {
+        padding: 100px 0 0 0;
+    }
+    #container_responsive .box_form {
+        padding: 0px;
+        width: 100%;
+        float: left;
+        margin: 0 0 0;
+        min-height: 510px
+    }
+    #container_responsive .box_form p label {
+        width: 38%!important;
+        display: block;
+        margin: 5px 0 0 0!important;
+        font-weight: normal!important;
+        line-height: 1.3em !important;
+    }
+    #container_responsive .box_form p input {
+        float: right !important;
+        width: 52%!important;
+    }
+    #container_responsive {
+        width: 100% !important;
+    }
+    .transaccional .progreso.position_absoluta {
+        margin-top: 10px;
+        position: absolute;
+        margin-right: 60px;
+    }
+}
+@media only screen and (max-width: 480px) {
+    #container_responsive .box_form p input {
+        float: right !important;
+        width: 55%!important;
+        font-size: 12px;
+    }
+    .transaccional .progreso.position_absoluta {
+        margin-top: 10px;
+        position: absolute;
+        margin-right: 0px;
+    }
+    #container_responsive.box_form p label {
+        width: 40%!important;
+        display: block;
+        margin: 5px 0 0 0!important;
+        font-weight: normal!important;
+        line-height: 1.3em !important;
+        font-size: 12px;
+    }
+    #container_responsive .transaccional .attemp-message {
+        width: 95%;
+    }
+    #container_responsive .box_form {
+        padding: 0px;
+        width: 90%;
+        float: left;
+        margin: 0 0 0;
+        min-height: 510px
+    }
+}
+#container_responsive .box_form h5 {
+    font-size: 16px;
+    margin: 12px 0 30px !important;
+    color: #00427A;
+}
+#candado {
+    width: 50px !important;
+}
+@media only screen and (max-width: 767px) {
+    #candado {
+        width: 50px !important;
+        margin: 0 0 30px 45% !important;
+    }
+}
+#container_responsive {
+    width: 100%;
+}
+.texto-azul2 {
+    font-size: 16px !important;
+}
+.box_form {
+    background: none !important;
+    border: none !important;
+}
+.box_top {
+    font-size: 16px;
+    padding: 3px;
+    font-weight: 700;
+    margin: 0 0 8px 0;
+    color: #00427A;
+    #font-size: 22px;
+    border-bottom: solid 1px #ccc;
+    padding: 0 0 25px 0;
+    background-color: none !important;
+}
+.transaccional #container_responsive .box_form p.textobold label {
+    color: #515151 !important;
+    font-weight: bold !important;
+    width: 100% !important;
+}
+.transaccional #container_responsive .one {
+    width: 100%;
+}
+.container_main {
+    width: 90%;
+    margin: 0 auto;
+}
+.transaccional .progreso {
+    clear: both;
+    float: right;
+    height: 60px;
+    position: relative;
+    right: 0;
+    width: 330px;
+    top: 0;
+}
+.transaccional .progreso .cont {
+    background: url("../img/avance_bg.png") repeat-x scroll 0 0 transparent;
+    bottom: 0;
+    left: 50px;
+    position: absolute;
+    right: 50px;
+    top: 15px;
+}
+.transaccional .progreso ul {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+.transaccional .progreso ul li {
+    background: none repeat scroll 0 0 transparent !important;
+    border: 0 none !important;
+    float: left;
+    margin: 0 !important;
+    padding: 0 !important;
+    position: relative;
+    text-align: center;
+    width: 110px;
+}
+.transaccional .progreso ul li p {
+    color: #999999;
+    font-family: Arial !important;
+    font-size: 12px !important;
+}
+.transaccional .progreso ul li .active_p {
+    color: #005EAE;
+    font-family: Arial !important;
+    font-size: 12px !important;
+}
+.transaccional .progreso ul li .active_line {
+    background: url("../img/line_active.png") repeat-x scroll 0 0 transparent;
+    height: 3px;
+    margin-right: -55px;
+    position: absolute;
+    right: 0;
+    top: 17px;
+    width: 110px;
+}
+.transaccional .progreso ul .done {
+    background: url("../img/progreso_done.png") no-repeat scroll 0 0 transparent;
+    height: 22px;
+    margin: 7px auto;
+    position: relative;
+    width: 22px;
+    z-index: 1;
+}
+.transaccional .progreso ul .done.inicio {
+    background: url("../img/progreso_done_inicio.png") no-repeat scroll 0 0 transparent;
+}
+.transaccional .progreso ul .passive span {
+    color: #A6A6A6;
+    font-family: Arial !important;
+    font-size: 12px !important;
+    left: 8px;
+    margin: 0 !important;
+    position: absolute;
+    top: 4px;
+    width: auto !important;
+}
+.transaccional .progreso ul .active {
+    background: url("../img/progreso_active.png") no-repeat scroll 0 0 transparent;
+    height: 37px;
+    margin: 0 auto;
+    position: relative;
+    width: 36px;
+}
+.transaccional .progreso ul .passive {
+    background: url("../img/progreso_passive.png") no-repeat scroll 0 0 transparent;
+    height: 22px;
+    margin: 7px auto;
+    position: relative;
+    width: 22px;
+    z-index: 1;
+}
+.transaccional .progreso ul .passive.ultimo {
+    background: url("../img/progreso_passive_ultimo.png") no-repeat scroll 0 0 transparent;
+}
+.transaccional .progreso ul .active span {
+    color: #FFFFFF;
+    font-size: 15px !important;
+    left: 14px;
+    margin: 0 !important;
+    position: absolute;
+    top: 10px;
+    width: auto !important;
+}
+.transaccional .progreso_amarillo .active_p {
+    color: #5D4201 !important;
+}
+.transaccional .progreso_amarillo .active_line {
+    background: url("../img/line_active_amarillo.png") repeat-x scroll 0 0 transparent !important;
+}
+.transaccional .progreso_amarillo .done {
+    background: url("../img/progreso_done.png") no-repeat scroll 0 0 transparent;
+}
+.transaccional .progreso_amarillo .done.inicio {
+    background: url("../img/progreso_done_inicio_amarillo.png") no-repeat scroll 0 0 transparent !important;
+}
+.transaccional .progreso_amarillo .passive {
+    background: url("../img/progreso_passive.png") no-repeat scroll 0 0 transparent;
+}
+.transaccional .progreso_amarillo .passive span {
+    color: #A6A6A6;
+}
+.transaccional .progreso_amarillo .passive.ultimo {
+    background: url("../img/progreso_passive_ultimo.png") no-repeat scroll 0 0 transparent;
+}
+.transaccional .progreso_amarillo .active {
+    background: url("../img/progreso_active_amarillo.png") no-repeat scroll 0 0 transparent !important;
+}
+.transaccional .progreso_amarillo .active span {
+    color: #FFFFFF !important;
+}
+.transaccional .progreso.position_absoluta {
+    margin-top: 10px;
+    position: absolute;
+    right: 0;
+}
+.select_list {
+    padding: 0 0 0 60px;
+}
+#candado2 {
+    display: block;
+    float: left;
+    width: 60px !important;
+}
+#mensaje_candado {
+    float: left;
+}
+@media only screen and (min-width: 768px) {
+    #candado2 {
+        position: absolute;
+        z-index: 20;
+        left: -60px;
+        display: block;
+        float: left;
+        width: 60px !important;
+    }
+}
+.transaccional .attemp-message form p label {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1em;
+    display: block;
+    cursor: pointer;
+    margin: 5px 0 20px;
+    padding: 0;
+    font-family: sans-serif;
+    color: #222;
+}
+#container_responsive .box_form_crediticio {
+    padding: 0px;
+    width: 45%;
+    float: left;
+    margin: 0 15px 0px 0;
+    min-height: 510px
+}
+#container_responsive .box_form_crediticio h5 {
+    font-size: 16px;
+    margin: 12px 0 30px !important;
+    color: #00427A;
+}
+#container_responsive .box_form_crediticio .row p label {
+    width: 40%!important;
+    display: block;
+    margin: 5px 0 0 0!important;
+    font-weight: normal!important;
+    line-height: 1.3em !important;
+}
+#container_responsive .box_form_crediticio p input {
+    float: right !important;
+    width: 54%!important;
+}
+.box_form_crediticio p span {
+    display: inline-block!important;
+    margin-right: 0px;
+    margin-bottom: 6px;
+    margin-left: 0px;
+    float: none !important;
+    margin-top: 3px;
+}
+.box_form_crediticio p label span {
+    margin-bottom: 0px;
+}
+.box_form_crediticio {
+    padding: 0px;
+    width: 390px;
+    float: left;
+    margin: 0 15px 15px 0;
+    min-height: 510px
+}
+.box_form_crediticio h5 {
+    font-size: 16px;
+    margin: 12px 0!important;
+}
+.box_form_crediticio p {
+    overflow: hidden;
+    display: block;
+    margin: 4px 0 0px!important;
+}
+.box_form_crediticio p label {
+    width: 35%;
+    display: block;
+    margin: 5px 0 0 0!important;
+    font-weight: normal!important;
+    line-height: 1.3em !important
+}
+.box_form_crediticio p label.solo_lectura {
+    color: #515151 !important;
+    font-weight: bold !important;
+    width: 35% !important;
+}
+.box_form_crediticio p label.error,
+.box_form p label.question {
+    width: 100%!important;
+    clear: both!important;
+    margin: 8px 0 0 0!important;
+}
+.box_form_crediticio p label.question {
+    margin: 8px 0 6px 0!important;
+}
+.box_form_crediticio p input {
+    float: right!important;
+    width: 55%!important;
+}
+.box_form_crediticio p input,
+.box_form_crediticio p select {
+    float: right!important;
+    width: 54%!important;
+}
+.box_form_crediticio p select {
+    width: 59%!important;
+    margin-bottom: 10px;
+}
+.numeros_png {
+    line-height: 49px;
+    display: block;
+    text-decoration: none;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    z-index: 9999999;
+}
+.numeros_sprite {
+    list-style: none;
+    width: 38px;
+    height: 38px;
+    margin-bottom: 5px;
+    background: url("../img/sprite-numeros.png") no-repeat;
+    background-position: 2px 9px;
+    text-align: center;
+    padding-left: 1px;
+}
+.lista_amarilla {
+    float: none;
+    list-style-image: url("../img/lista-amarilla.png");
+    display: list-item;
+    border: 0!important;
+    line-height: 08px;
+}
+.constanciaTraspasoLiga {
+    text-align: center;
+    font-size: 12px;
+    font-weight: bold;
+    font-family: Helvetica, Arial;
+    color: #515151;
+    width: 125px!important;
+    margin: 0 auto;
+    text-aling: center;
+    display: block;
+    float: left;
+    position: absolute;
+    z-index: 1;
+}
+.divOculta {
+    padding-right: 473px;
+    margin-top: -46px !important;
+    position: initial;
+    z-index: -10;
+}
+.cargando body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    top: 0px;
+    left: 0px;
+    z-index: 10000;
+    text-align: center;
+    position: absolute;
+    background-color: #000000;
+    opacity: 0.6;
+    filter: alpha(opacity
+}

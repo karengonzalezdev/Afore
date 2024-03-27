@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?><!--File ConciliacionService.wsdl, shared library Lib_NCI_MM--><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" name="ConciliacionService" targetNamespace="http://mx.profuturo/iib/apovol/Conciliacion/ConciliacionService/v1" xmlns:iibe="http://mx.profuturo/iib/iibException/IIBException" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://mx.profuturo/iib/apovol/Conciliacion/ConciliacionService/v1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsd2="http://mx.profuturo/iib/apovol/Conciliacion/ConciliacionService/v1/types">
+  <wsdl:documentation>
+    <wsdl:appinfo source="WMQI_APPINFO">
+      <MRWSDLAppInfo imported="true">
+        <binding hasEncoding="false" imported="true" name="ConciliacionBinding" originalBindingStyle="document"/>
+      </MRWSDLAppInfo>
+    </wsdl:appinfo>
+  </wsdl:documentation>
+
+	<wsdl:types>
+		<xsd:schema>
+<xsd:import namespace="http://mx.profuturo/iib/apovol/Conciliacion/ConciliacionService/v1/types" schemaLocation="ConciliacionService.0.xsd">
+			</xsd:import>
+<xsd:import namespace="http://mx.profuturo/iib/iibException/IIBException" schemaLocation="ConciliacionService.1.xsd">
+			</xsd:import>
+</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="consultarArchivosPorConciliarRequest">
+		<wsdl:part element="xsd2:consultarArchivosPorConciliarRequest" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="consultarArchivosPorConciliarResponse">
+		<wsdl:part element="xsd2:consultarArchivosPorConciliarResponse" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="consultarArchivosBancariosRequest">
+		<wsdl:part element="xsd2:consultarArchivosBancariosRequest" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="consultarArchivosBancariosResponse">
+		<wsdl:part element="xsd2:consultarArchivosBancariosResponse" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="consultarAportacionesConciliadasRequest">
+		<wsdl:part element="xsd2:consultarAportacionesConciliadasRequest" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="consultarAportacionesConciliadasResponse">
+		<wsdl:part element="xsd2:consultarAportacionesConciliadasResponse" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="conciliarRequest">
+		<wsdl:part element="xsd2:conciliarRequest" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="conciliarResponse">
+		<wsdl:part element="xsd2:conciliarResponse" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="consultarArchivosNoConciliadosRequest">
+		<wsdl:part element="xsd2:consultarArchivosNoConciliadosRequest" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="consultarArchivosNoConciliadosResponse">
+		<wsdl:part element="xsd2:consultarArchivosNoConciliadosResponse" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="consultarMovimientosNoConciliadosRequest">
+		<wsdl:part element="xsd2:consultarMovimientosNoConciliadosRequest" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="consultarMovimientosNoConciliadosResponse">
+		<wsdl:part element="xsd2:consultarMovimientosNoConciliadosResponse" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="asociarMovimientosConArchivoRequest">
+		<wsdl:part element="xsd2:asociarMovimientosConArchivoRequest" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="asociarMovimientosConArchivoResponse">
+		<wsdl:part element="xsd2:asociarMovimientosConArchivoResponse" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="consultarConciliacionRequest">
+		<wsdl:part element="xsd2:consultarConciliacionRequest" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="consultarConciliacionResponse">
+		<wsdl:part element="xsd2:consultarConciliacionResponse" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="actualizarConciliacionRequest">
+		<wsdl:part element="xsd2:actualizarConciliacionRequest" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="actualizarConciliacionResponse">
+		<wsdl:part element="xsd2:actualizarConciliacionResponse" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="faultMsg">
+    	<wsdl:part element="iibe:iibException" name="parameters"/>
+  	</wsdl:message>
+  	<wsdl:message name="consultarFoliosPorConciliarRequest">
+		<wsdl:part element="xsd2:consultarFoliosPorConciliarRequest" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+  	<wsdl:message name="consultarFoliosPorConciliarResponse">
+		<wsdl:part element="xsd2:consultarFoliosPorConciliarResponse" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="consultarCuantosRegistrosRequest">
+		<wsdl:part element="xsd2:consultarCuantosRegistrosRequest" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+  	<wsdl:message name="consultarCuantosRegistrosResponse">
+		<wsdl:part element="xsd2:consultarCuantosRegistrosResponse" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="liberarMovimientosRequest">
+		<wsdl:part element="xsd2:liberarMovimientosRequest" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+  	<wsdl:message name="liberarMovimientosResponse">
+		<wsdl:part element="xsd2:liberarMovimientosResponse" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	
+	<wsdl:portType name="ConciliacionPortType">
+		<wsdl:operation name="consultarArchivosPorConciliar">
+			<wsdl:input message="tns:consultarArchivosPorConciliarRequest"/>
+			<wsdl:output message="tns:consultarArchivosPorConciliarResponse"/>
+			<wsdl:fault message="tns:faultMsg" name="fault"/>
+		</wsdl:operation>
+		<wsdl:operation name="consultarArchivosBancarios">
+			<wsdl:input message="tns:consultarArchivosBancariosRequest"/>
+			<wsdl:output message="tns:consultarArchivosBancariosResponse"/>
+			<wsdl:fault message="tns:faultMsg" name="fault"/>
+		</wsdl:operation>
+		<wsdl:operation name="consultarAportacionesConciliadas">
+			<wsdl:input message="tns:consultarAportacionesConciliadasRequest"/>
+			<wsdl:output message="tns:consultarAportacionesConciliadasResponse"/>
+			<wsdl:fault message="tns:faultMsg" name="fault"/>
+		</wsdl:operation>
+		<wsdl:operation name="conciliar">
+			<wsdl:input message="tns:conciliarRequest"/>
+			<wsdl:output message="tns:conciliarResponse"/>
+			<wsdl:fault message="tns:faultMsg" name="fault"/>
+		</wsdl:operation>
+		<wsdl:operation name="consultarArchivosNoConciliados">
+			<wsdl:input message="tns:consultarArchivosNoConciliadosRequest"/>
+			<wsdl:output message="tns:consultarArchivosNoConciliadosResponse"/>
+			<wsdl:fault message="tns:faultMsg" name="fault"/>
+		</wsdl:operation>
+		<wsdl:operation name="consultarMovimientosNoConciliados">
+			<wsdl:input message="tns:consultarMovimientosNoConciliadosRequest"/>
+			<wsdl:output message="tns:consultarMovimientosNoConciliadosResponse"/>
+			<wsdl:fault message="tns:faultMsg" name="fault"/>
+		</wsdl:operation>
+		<wsdl:operation name="asociarMovimientosConArchivo">
+			<wsdl:input message="tns:asociarMovimientosConArchivoRequest"/>
+			<wsdl:output message="tns:asociarMovimientosConArchivoResponse"/>
+			<wsdl:fault message="tns:faultMsg" name="fault"/>
+		</wsdl:operation>
+		<wsdl:operation name="consultarConciliacion">
+			<wsdl:input message="tns:consultarConciliacionRequest"/>
+			<wsdl:output message="tns:consultarConciliacionResponse"/>
+			<wsdl:fault message="tns:faultMsg" name="fault"/>
+		</wsdl:operation>
+		<wsdl:operation name="actualizarConciliacion">
+			<wsdl:input message="tns:actualizarConciliacionRequest"/>
+			<wsdl:output message="tns:actualizarConciliacionResponse"/>
+			<wsdl:fault message="tns:faultMsg" name="fault"/>
+		</wsdl:operation>
+		
+		<wsdl:operation name="consultarFoliosPorConciliar">
+			<wsdl:input message="tns:consultarFoliosPorConciliarRequest"/>
+			<wsdl:output message="tns:consultarFoliosPorConciliarResponse"/>
+			<wsdl:fault message="tns:faultMsg" name="fault"/>
+		</wsdl:operation>
+		<wsdl:operation name="consultarCuantosRegistros">
+			<wsdl:input message="tns:consultarCuantosRegistrosRequest"/>
+			<wsdl:output message="tns:consultarCuantosRegistrosResponse"/>
+			<wsdl:fault message="tns:faultMsg" name="fault"/>
+		</wsdl:operation>
+		<wsdl:operation name="liberarMovimientos">
+			<wsdl:input message="tns:liberarMovimientosRequest"/>
+			<wsdl:output message="tns:liberarMovimientosResponse"/>
+			<wsdl:fault message="tns:faultMsg" name="fault"/>
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<wsdl:binding name="ConciliacionBinding" type="tns:ConciliacionPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="consultarArchivosPorConciliar">
+			<soap:operation soapAction="urn:consultarArchivosPorConciliar" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarArchivosBancarios">
+			<soap:operation soapAction="urn:consultarArchivosBancarios" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarAportacionesConciliadas">
+			<soap:operation soapAction="urn:consultarAportacionesConciliadas" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="conciliar">
+			<soap:operation soapAction="urn:conciliar" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarArchivosNoConciliados">
+			<soap:operation soapAction="urn:consultarArchivosNoConciliados" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarMovimientosNoConciliados">
+			<soap:operation soapAction="urn:consultarMovimientosNoConciliados" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="asociarMovimientosConArchivo">
+			<soap:operation soapAction="urn:asociarMovimientosConArchivo" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarConciliacion">
+			<soap:operation soapAction="urn:consultarConciliacion" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="actualizarConciliacion">
+			<soap:operation soapAction="urn:actualizarConciliacion" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarFoliosPorConciliar">
+			<soap:operation soapAction="urn:consultarFoliosPorConciliar" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarCuantosRegistros">
+			<soap:operation soapAction="urn:consultarCuantosRegistros" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="liberarMovimientos">
+			<soap:operation soapAction="urn:liberarMovimientos" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:service name="ConciliacionService">
+		<wsdl:port binding="tns:ConciliacionBinding" name="ConciliacionPort">
+			<soap:address location="http://172.16.60.69:7801/iib/apovol/Conciliacion/ConciliacionService/v1"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

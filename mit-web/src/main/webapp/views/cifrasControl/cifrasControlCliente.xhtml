@@ -1,0 +1,614 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+<ui:composition template="/core/desktop/desktop.xhtml">
+
+	<ui:define name="body">
+
+		<script>
+		function bloqueaBuscar(){
+			var botonP = document.getElementById('formPrincipal:btnBuscar');
+			botonP.addEventListener("click", bloqueaBuscar); 
+			
+		  if(botonP.disabled == false){
+		     botonP.disabled = true;
+		     
+		     setTimeout(function(){
+		        botonP.disabled = false;
+		    }, 500)
+		  }
+		}
+		</script>
+
+		<h:form id="formPrincipal" style="padding:15px">
+			
+			<p:remoteCommand name="remoteCommAbilitarBtnConsultar" update="formPrincipal:btnBuscar,formPrincipal:btnLimpiar"/>
+			
+			<p:panel header="Reclasificacion de aportaciones voluntarias"
+				style="tesxt-aligh:left; ">
+
+				<p:panelGrid>
+
+					<p:row>
+						<p:column style="text-align:left;">
+
+							<p:selectOneRadio id="clientsSearchType" 
+								value="#{cifrasControlClienteView.clientsSearchType}">
+								<f:selectItem itemLabel="Cuenta" itemValue="Cuenta" />
+								<f:selectItem itemLabel="NSS" itemValue="NSS" />
+								<f:selectItem itemLabel="CURP" itemValue="CURP" />
+								<p:ajax event="change" update="inputTypeClients,btnLimpiar" />
+							</p:selectOneRadio>
+
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column style="text-align:left;">
+							
+							<p:inputMask id="inputTypeClients"
+								value="#{cifrasControlClienteView.clientsSearchValue}" autocomplete="off"
+								disabled="#{cifrasControlClienteView.clientsSearchType eq null}"
+								styleClass="input-style"  onblur="{value=value.toUpperCase();}" slotChar=""
+								mask="#{cifrasControlClienteView.clientsSearchType.contains('NSS') ? '?99999999999' : 
+					    				(cifrasControlClienteView.clientsSearchType.contains('CURP') ? '?aaaa999999aaaaaa99' : '?9999999999')}"
+					    				
+					    		maxlength="#{cifrasControlClienteView.clientsSearchType.contains('NSS') ? '11' : 
+					    				(cifrasControlClienteView.clientsSearchType.contains('CURP')? '18' : '10')}">
+					    		<p:ajax  event="keyup" update="formPrincipal:btnBuscar,formPrincipal:btnLimpiar,clientsSearchType"/>
+							</p:inputMask>
+							
+							<p:messages id="idMessageSizeInput" showIcon="false" closable="false" autoUpdate="true"/>
+							
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column style="width:50%; text-align:left;">
+							<p:outputLabel style="font-weight:bold" value="Fecha de Captura" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column style="text-align:left;">
+							<p:outputLabel value="Fecha Inicio:" />
+						</p:column>
+						<p:column style="text-align:left;">
+							<p:outputLabel value="Fecha Fin:" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column style="text-align:left;">
+							<p:calendar id="calendarFechInicio"
+								value="#{cifrasControlClienteView.fechaInicio}"
+								style="width:92%;" pattern="dd/MM/yyyy" showOn="button"
+								locale="es" mask="true" navigator="true" readonlyInput="true" maxdate="#{cifrasControlClienteView.fechaFin}" 
+								effect="fold">
+								<p:ajax event="dateSelect"
+									update="formPrincipal:btnBuscar,formPrincipal:btnLimpiar,calendarFechFin" />
+							</p:calendar>
+						</p:column>
+						<p:column style="text-align:left;">
+							<p:calendar id="calendarFechFin"
+								value="#{cifrasControlClienteView.fechaFin}" style="width:92%;"
+								pattern="dd/MM/yyyy" showOn="button" locale="es" mask="true" mindate="#{cifrasControlClienteView.fechaInicio}" 
+								navigator="true" readonlyInput="true" effect="fold">
+								<p:ajax event="dateSelect"
+									update="formPrincipal:btnBuscar,formPrincipal:btnLimpiar,calendarFechInicio" />
+							</p:calendar>
+						</p:column>
+					</p:row>
+
+					<p:row>
+						<p:column style="text-align:left;">
+							<p:outputLabel value="Origen de Captura Catalogo:" />
+						</p:column>
+						<p:column style="text-align:left;">
+							<p:outputLabel value="Estatus Solicitud Catalogo:" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column style="text-align:left;">
+							<p:selectOneMenu id="oneMenuOrigen"
+								value="#{cifrasControlClienteView.claveOrigen}"
+								onchange="remoteCommAbilitarBtnConsultar()">
+								<f:selectItem itemLabel="seleccione uno"
+									noSelectionOption="true" itemValue="" />
+								<f:selectItems value="#{cifrasControlClienteView.listOrigen}"
+									var="_origen" itemValue="#{_origen.idCatCatalogo}"
+									itemLabel="#{_origen.valor}" />
+								
+							</p:selectOneMenu>
+						</p:column>
+						<p:column style="text-align:left;">
+							<p:selectOneMenu id="oneMenuEstatus"
+								value="#{cifrasControlClienteView.claveEstatus}"
+								onchange="remoteCommAbilitarBtnConsultar()">
+								<f:selectItem itemLabel="seleccione uno"
+									noSelectionOption="true" itemValue="" />
+								<f:selectItems value="#{cifrasControlClienteView.listEstatus}"
+									var="_estatus" itemValue="#{_estatus.idCatCatalogo}"
+									itemLabel="#{_estatus.valor}" />
+							</p:selectOneMenu>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column style="text-align:left;">
+							<p:commandButton id="btnBuscar" value="Buscar"
+								styleClass="blue-button" update="formResultados" 
+								action="#{cifrasControlClienteView.consultarSolicitudes()}"
+								onclick="PF('consultDataDialog').show();bloqueaBuscar();"
+								oncomplete="PF('consultDataDialog').hide();"
+								disabled="#{empty cifrasControlClienteView.clientsSearchValue and 
+										    (empty cifrasControlClienteView.fechaInicio and
+										    empty cifrasControlClienteView.fechaFin and
+										    empty cifrasControlClienteView.claveOrigen and
+										    empty cifrasControlClienteView.claveEstatus)}" />
+							<p:spacer width="10;" />
+
+							<p:commandButton id="btnLimpiar" value="Limpiar"
+								styleClass="gray-button"
+								actionListener="#{cifrasControlClienteView.limpiar}"
+								update="formPrincipal,formResultados"
+								onclick="PF('consultDataDialog').show();"
+								oncomplete="PF('consultDataDialog').hide();"
+								disabled="#{(empty cifrasControlClienteView.clientsSearchType and
+											 empty cifrasControlClienteView.clientsSearchValue and 
+										     empty cifrasControlClienteView.fechaInicio and
+										     empty cifrasControlClienteView.fechaFin and
+										     empty cifrasControlClienteView.claveOrigen and
+										     empty cifrasControlClienteView.claveEstatus)}">
+							</p:commandButton>
+						</p:column>
+					</p:row>
+
+				</p:panelGrid>
+
+			</p:panel>
+
+		</h:form>
+
+
+		<h:form id="formResultados">
+			<p:panel header="Solicitudes de reclasificacion"
+				style="tesxt-aligh:left;">
+
+				<p:dataTable id="consultaSolicitudes" var="solicitudesCliente"
+					value="#{cifrasControlClienteView.resultados}"
+					tableStyleClass="table-style"
+					emptyMessage="No hay registros con los parametros de busqueda"
+					selection="#{cifrasControlClienteView.seleccionado}"
+					rowKey="#{solicitudesCliente.clave}" paginator="true" rows="5">
+					<p:ajax event="rowSelectRadio" 
+						update="formResultados:btnDetalle,formResultados:btnActualizar,formResultados:btnRechazar">
+						<f:setPropertyActionListener
+							target="#{cifrasControlClienteView.seleccionado}"
+							value="#{solicitudesCliente}" />
+					</p:ajax>
+
+					<p:column selectionMode="single" style="width:5%" />
+					
+					<p:column headerText="Clave solicitud" style="width:17%">
+						<p:outputLabel value="#{solicitudesCliente.clave}"
+							 />
+					</p:column>
+
+					<p:column headerText="Folio" style="width:17%">
+						<p:outputLabel value="#{solicitudesCliente.folio}"
+							 />
+					</p:column>
+
+					<p:column headerText="Fecha Solicitud" style="width:14%">
+						<p:outputLabel value="#{solicitudesCliente.fechaInicio}"
+							>
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</p:outputLabel>
+					</p:column>
+
+					<p:column headerText="Origen" style="width:14%">
+						<p:outputLabel value="#{solicitudesCliente.descOrigen}"
+							 />
+					</p:column>
+
+					<p:column headerText="Cuenta" style="width:14%">
+						<p:outputLabel value="#{solicitudesCliente.cuenta}"
+							 />
+					</p:column>
+
+					<p:column headerText="Nombre" style="width:14%">
+						<p:outputLabel
+							value="#{solicitudesCliente.nombre} #{solicitudesCliente.aPaterno} #{solicitudesCliente.aMaterno}"
+							 />
+					</p:column>
+
+					<p:column headerText="Importe" style="width:14%">
+						<p:outputLabel value="#{solicitudesCliente.importeString}"
+							 />
+					</p:column>
+					<p:column headerText="Estatus" style="width:14%">
+						<p:outputLabel value="#{solicitudesCliente.descEstatus}"
+							 />
+					</p:column>
+
+
+				</p:dataTable>
+				<p></p>
+				<p:row>
+					<p:column style="text-align:left;">
+						<p:commandButton id="btnExportar" value="Exportar"
+							styleClass="blue-button"
+							disabled="#{cifrasControlClienteView.resultados.size() == null or cifrasControlClienteView.resultados.size() == 0}"
+							ajax="false">
+							<p:fileDownload
+								value="#{cifrasControlClienteView.genrarReporte()}"></p:fileDownload>
+						</p:commandButton>
+
+						<p:spacer width="10;" />
+						<p:commandButton id="btnDetalle" value="Detalle"
+							styleClass="yellow-button"
+							actionListener="#{cifrasControlClienteView.consultarSolicitudesDetalle}"
+							disabled="#{cifrasControlClienteView.seleccionado == null}"
+							onclick="PF('detalleDomiDialog').show();"
+							update="consultarResultadosForm">
+						</p:commandButton>
+						<p:spacer width="10;" />
+
+						<p:commandButton id="btnActualizar" value="Suspender/Activar"
+							styleClass="yellow-button"
+							
+							onclick="PF('confirmarActualizacionDialog').show();"
+						
+							
+							disabled="#{cifrasControlClienteView.seleccionado == null}">
+						</p:commandButton>
+
+						<p:spacer width="10;" />
+						<p:commandButton id="btnRechazar" value="Rechazar"
+							onclick="PF('cargarMotivo').show();" styleClass="yellow-button"
+							disabled="#{cifrasControlClienteView.seleccionado == null or cifrasControlClienteView.seleccionado.getFolio() != null}">
+						</p:commandButton>
+					</p:column>
+				</p:row>
+
+			</p:panel>
+
+		</h:form>
+
+		<p:dialog id="confirmarActualizacionDialog"
+			widgetVar="confirmarActualizacionDialog" modal="true" draggable="false"
+			closable="false" resizable="false" appendTo="@(body)">
+			<p:panelGrid id="confirmarActualizacionGrid"
+					styleClass="leftAlignStyle" columns="1" style="text-align:center;">
+					<p:row>
+						<p:column>
+							<p:outputLabel id="confirmarAgregar"
+								value="Se actualiza el estatus de la solicitud ¿desea continuar?" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column style="text-align:right;">
+							<p:commandButton 
+								styleClass="blue-button" actionListener="#{cifrasControlClienteView.actualizar}"
+								value="Aceptar"
+								update="formResultados,mensajeGrid"
+								onclick="PF('consultDataDialog').show();"
+								oncomplete="PF('consultDataDialog').hide(); PF('confirmarActualizacionDialog').hide();">
+							</p:commandButton>
+
+							<p:spacer width="10;" />
+
+							<p:commandButton 
+								value="Cancelar"
+								onclick="PF('confirmarActualizacionDialog').hide();"
+								styleClass="gray-button" />
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+		</p:dialog>
+
+		<p:dialog id="sinResultadoTablaDialog"
+			widgetVar="sinResultadoTablaDialog" modal="true" draggable="false"
+			closable="false" resizable="false" appendTo="@(body)">
+			<p:panelGrid id="sinResultadoTablaGrid"
+				style="float:right; margin-top:-20px;">
+				<p:row>
+					<p:column>
+						<p:outputLabel id="sinResultadoTabla"
+							value="#{'No se encontró información con los criterios de búsqueda'}" />
+					</p:column>
+				</p:row>
+				<br />
+				<br />
+				<p:row>
+					<p:column style="text-align:right;">
+						<p:commandButton id="sinResultadoTablaBtn" type="button"
+							value="Cerrar"
+							onclick="PF('sinResultadoTablaDialog').hide();"
+							styleClass="gray-button" />
+					</p:column>
+				</p:row>
+			</p:panelGrid>
+		</p:dialog>
+
+		<p:dialog id="detalleDomiDialog" widgetVar="detalleDomiDialog"
+			modal="true" draggable="false" resizable="false" closable="false"
+			showHeader="false" showEffect="fade" width="50%" height="70%">
+			<h:form id="consultarResultadosForm">
+				<div align="center">
+
+					<p:panel id="detalleDomiciliacionPanel"
+						header="Reclasificacion de aportaciones voluntarias por cliente (detalle)"
+						style="text-align: left;">
+
+
+						<p:panelGrid id="detalleDomiciliacionPanelGridFiltro"
+							style="text-align:left; margin-left:-10px;">
+							<p:row>
+								<p:column style="font-weight:bold">
+									<p:outputLabel id="txtFiltroDetUno" value="Cuenta:" />
+								</p:column>
+								<p:column style="vertical-align: middle;">
+									<p:outputLabel id="cliente1"
+										value="#{cifrasControlClienteView.seleccionado.cuenta}" />
+								</p:column>
+								<p:column style="font-weight:bold">
+									<p:outputLabel id="txtFiltr2" value="CURP:" />
+								</p:column>
+								<p:column style="vertical-align: middle;">
+									<p:outputLabel id="clienteBu3"
+										value="#{cifrasControlClienteView.seleccionado.curp}" />
+								</p:column>
+								<p:column style="font-weight:bold">
+									<p:outputLabel id="txtFiltroD4" value="NSS:" />
+								</p:column>
+								<p:column style="vertical-align: middle;">
+									<p:outputLabel id="clienteBus5"
+										value="#{cifrasControlClienteView.seleccionado.nss}" />
+								</p:column>
+							</p:row>
+
+							<p:row>
+								<p:column style="font-weight:bold">
+									<p:outputLabel id="txtFiltro6" value="Nombre:" />
+								</p:column>
+								<p:column style="vertical-align: middle;">
+									<p:outputLabel id="txtApor7"
+										value="#{cifrasControlClienteView.seleccionado.nombre} #{cifrasControlClienteView.seleccionado.aPaterno} #{cifrasControlClienteView.seleccionado.aMaterno}" />
+								</p:column>
+								<p:column style="font-weight:bold">
+									<p:outputLabel id="txtFiltr8" value="Estatus Solicitud:" />
+								</p:column>
+								<p:column style="vertical-align: middle;">
+									<p:outputLabel id="txtAportS9"
+										value="#{cifrasControlClienteView.seleccionado.descEstatus}" />
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column style="font-weight:bold">
+									<p:outputLabel id="txtFilt100" value="Folio:" />
+								</p:column>
+								<p:column style="vertical-align: middle;">
+									<p:outputLabel id="txtAportS110"
+										value="#{cifrasControlClienteView.seleccionado.folio}" />
+								</p:column>
+																<p:column style="font-weight:bold">
+									<p:outputLabel id="txtFilt10" value="Clave solicitud:" />
+								</p:column>
+								<p:column style="vertical-align: middle;">
+									<p:outputLabel id="txtAportS11"
+										value="#{cifrasControlClienteView.seleccionado.clave}" />
+								</p:column>
+								
+								<p:column style="font-weight:bold">
+									<p:outputLabel id="txtFiltr12" value="Fecha de Creacion:" />
+								</p:column>
+								<p:column style="vertical-align: middle;">
+									<p:outputLabel id="txtAportS13"
+										value="#{cifrasControlClienteView.seleccionado.fechaInicio}">
+										<f:convertDateTime pattern="dd/MM/yyyy" />
+									</p:outputLabel>
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column style="font-weight:bold">
+									<p:outputLabel id="txtFiltroDe14" value="Importe:" />
+								</p:column>
+								<p:column style="vertical-align: middle;">
+									<p:outputLabel id="txtUserMod15"
+										value="#{cifrasControlClienteView.seleccionado.importeString}" />
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+					</p:panel>
+
+					<table>
+						<td width="350"><p:panel id="tablaCargos"
+								header="Informacion de cargo" style="tesxt-aligh:left;">
+								<p:dataTable id="consultaSolicitudesDetalleCargo"
+								emptyMessage="No hay informacion de diversificacion"
+									var="solicitudesDetalle2"
+									value="#{cifrasControlClienteView.resultadosDetalleCargo}">
+
+									<p:column>
+										<p:outputLabel value="#{solicitudesDetalle2.subCuenta}" />
+									</p:column>
+
+									<p:column>
+										<p:outputLabel value="#{solicitudesDetalle2.pesosString}" />
+									</p:column>
+
+
+								</p:dataTable>
+								<p:dataTable id="consultaSolicitudesDetalleTotalCargo"
+								emptyMessage="No hay informacion de diversificacion"
+									var="solicitudesDetalle2" rows="1"
+									value="#{cifrasControlClienteView.resultadosDetalle}">
+
+									<p:column>
+										<p:outputLabel value="Total:" />
+									</p:column>
+
+									<p:column>
+										<p:outputLabel value="#{cifrasControlClienteView.totalCargo}" />
+									</p:column>
+
+
+								</p:dataTable>
+
+
+							</p:panel></td>
+						<td width="350"><p:panel id="tablaAbonos"
+								header="Informacion de diversificacion"
+								style="tesxt-aligh:left;">
+
+								<p:dataTable id="consultaSolicitudesDetalle2"
+								emptyMessage="No hay informacion de diversificacion"
+									var="solicitudesDetalle2"
+									value="#{cifrasControlClienteView.resultadosDetalle}">
+
+									<p:column>
+										<p:outputLabel value="#{solicitudesDetalle2.subCuenta}" />
+									</p:column>
+
+									<p:column>
+										<p:outputLabel value="#{solicitudesDetalle2.pesosString}" />
+									</p:column>
+
+
+								</p:dataTable>
+								<p:dataTable id="consultaSolicitudesDetalleTotal"
+								emptyMessage="No hay informacion de diversificacion"
+									var="solicitudesDetalle2" rows="1"
+									value="#{cifrasControlClienteView.resultadosDetalle}">
+
+									<p:column>
+										<p:outputLabel value="Total:" />
+									</p:column>
+
+									<p:column>
+										<p:outputLabel value="#{cifrasControlClienteView.totalDiversifica}" />
+									</p:column>
+
+
+								</p:dataTable>
+
+							</p:panel></td>
+					</table>
+
+					<p:panel>
+
+						<p:column style="text-align:right">
+							<p:commandButton id="detalleBotonRegresarDomi" value="Salir"
+								styleClass="gray-button"
+								oncomplete="PF('detalleDomiDialog').hide()"
+								style="float: right;" />
+
+						</p:column>
+
+					</p:panel>
+				</div>
+			</h:form>
+		</p:dialog>
+
+		<p:dialog id="mensajeDialog"
+			widgetVar="mensajeDialog" modal="true" draggable="false"
+			closable="false" resizable="false" appendTo="@(body)">
+			<p:panelGrid id="mensajeGrid"
+				style="float:right;">
+				<p:row>
+					<p:column>
+						<p:outputLabel id="mensajeLabel"
+							value="#{cifrasControlClienteView.mensaje}" />
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column style="text-align:right;">
+						<p:commandButton id="mensajeBtn" type="button"
+							value="Cerrar"
+							onclick="PF('mensajeDialog').hide();"
+							styleClass="gray-button" />
+					</p:column>
+				</p:row>
+			</p:panelGrid>
+		</p:dialog>
+		
+		<p:dialog id="consultDataDialog" widgetVar="consultDataDialog"
+			modal="true" draggable="false" resizable="false" appendTo="@(body)"
+			closable="false" showHeader="false" showEffect="fade">
+			<div align="center">
+				<h:outputText value="procesando" styleClass="outputTextGeneric" />
+				<br />
+				<h:graphicImage value="/core/static/images/loading-bar.gif"
+					width="150" />
+			</div>
+		</p:dialog>
+
+		<p:dialog id="cargarMotivo" widgetVar="cargarMotivo" modal="true"
+			draggable="false" resizable="fasle" appendTo="@(body)" closable="false"
+			header="Confirmación de rechazo" >
+			<div>
+
+				<h:outputText value="*Motivo:"
+					styleClass="outputTextGeneric" />
+				<br /> <br />
+				<h:form id="consultarMotivo">
+					<p:row>
+						<p:selectOneMenu id="oneMenuMotivo"
+							value="#{cifrasControlClienteView.claveMotivo}">
+
+							<f:selectItem itemLabel="Seleccione Motivo"
+								noSelectionOption="true" itemValue="" />
+
+							<f:selectItems value="#{cifrasControlClienteView.listMotivos}"
+								var="_motivos" itemValue="#{_motivos.idCatCatalogo}"
+								itemLabel="#{_motivos.valor}" />
+							<p:ajax event="change" update="btnASDF"></p:ajax>
+						</p:selectOneMenu>
+						<br />
+					</p:row>
+
+
+					<p:row>
+						<br />
+						<h:outputText id="mensajeAlertaMotivo"
+							value="#{cifrasControlClienteView.mensajeError}"
+							styleClass="outputTextGeneric" />
+					</p:row>
+					
+					<p:panel id="panelBotonesModal" style="text-align:right;">
+						<p:column >
+							<p:commandButton styleClass="blue-button" id="btnASDF"
+								value="Aceptar"
+								actionListener="#{cifrasControlClienteView.consumeDictamenRechazado}"
+								disabled="#{empty cifrasControlClienteView.claveMotivo}"
+								rendered="#{!cifrasControlClienteView.estatusRechazado}"
+								update="oneMenuMotivo,mensajeAlertaMotivo"
+								onclick="PF('consultDataDialog').show();"
+								oncomplete="PF('consultDataDialog').hide(); PF('cargarMotivo').hide();"
+								/>
+						</p:column>
+						
+						<p:spacer width="10;" />
+						
+						<p:column>
+							<p:commandButton id="cargarMotivoBtnSalir" value="Cancelar"
+								styleClass="gray-button"
+								actionListener="#{cifrasControlClienteView.limpiarMotivo}"
+								oncomplete="PF('cargarMotivo').hide()" 
+								rendered="#{!cifrasControlView.estatusRechazado}"
+								update="oneMenuMotivo,mensajeAlertaMotivo" />
+
+						</p:column>
+
+					</p:panel>
+				</h:form>
+			</div>
+		</p:dialog>
+
+
+	</ui:define>
+
+</ui:composition>
+</html>

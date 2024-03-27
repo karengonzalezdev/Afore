@@ -1,0 +1,871 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="balance-pdf-summary-report" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="20" bottomMargin="0" uuid="6eae3a95-19d7-4924-8fae-b8e4be2ae557">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="759"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<parameter name="nombre" class="java.lang.String"/>
+	<parameter name="calle" class="java.lang.String"/>
+	<parameter name="colonia" class="java.lang.String"/>
+	<parameter name="cp" class="java.lang.String"/>
+	<parameter name="municipio" class="java.lang.String"/>
+	<parameter name="numCuenta" class="java.lang.String"/>
+	<parameter name="entidadfederativa" class="java.lang.String"/>
+	<parameter name="nss" class="java.lang.String"/>
+	<parameter name="rfc" class="java.lang.String"/>
+	<parameter name="curp" class="java.lang.String"/>
+	<parameter name="fechaConsulta" class="java.util.Date"/>
+	<parameter name="sar92Imss" class="java.math.BigDecimal"/>
+	<parameter name="sarIssste" class="java.math.BigDecimal"/>
+	<parameter name="sarSubtotal" class="java.math.BigDecimal"/>
+	<parameter name="rcvRetiroImss" class="java.math.BigDecimal"/>
+	<parameter name="rcvCesantiaVejesImss" class="java.math.BigDecimal"/>
+	<parameter name="rcvCuotaSocialImss" class="java.math.BigDecimal"/>
+	<parameter name="rcvSubtotalImss" class="java.math.BigDecimal"/>
+	<parameter name="rcvRetiroIssste" class="java.math.BigDecimal"/>
+	<parameter name="rcvCesantiaVejesIssste" class="java.math.BigDecimal"/>
+	<parameter name="rcvCuotaSocialIssste" class="java.math.BigDecimal"/>
+	<parameter name="rcvSubtotalIssste" class="java.math.BigDecimal"/>
+	<parameter name="volAhorroSolidarioIssste" class="java.math.BigDecimal"/>
+	<parameter name="volAportacionesVol" class="java.math.BigDecimal"/>
+	<parameter name="volProfut2" class="java.math.BigDecimal"/>
+	<parameter name="volProfut6" class="java.math.BigDecimal"/>
+	<parameter name="volProfut12" class="java.math.BigDecimal"/>
+	<parameter name="volProfut65" class="java.math.BigDecimal"/>
+	<parameter name="volAportacionesVolPerIverLp" class="java.math.BigDecimal"/>
+	<parameter name="volSubtotal" class="java.math.BigDecimal"/>
+	<parameter name="totalSubcuentasRetiro" class="java.math.BigDecimal"/>
+	<parameter name="viv92" class="java.math.BigDecimal"/>
+	<parameter name="viv97" class="java.math.BigDecimal"/>
+	<parameter name="vivFovissste" class="java.math.BigDecimal"/>
+	<parameter name="vivFovissste08" class="java.math.BigDecimal"/>
+	<parameter name="vivSubtotal" class="java.math.BigDecimal"/>
+	<parameter name="bonoNominalUdis" class="java.math.BigDecimal"/>
+	<parameter name="bonoNominalPeso" class="java.math.BigDecimal"/>
+	<parameter name="bonoActualUdis" class="java.math.BigDecimal"/>
+	<parameter name="bonoActualPeso" class="java.math.BigDecimal"/>
+	<parameter name="totalSaldoActual" class="java.math.BigDecimal"/>
+	<variable name="vNombre" class="java.lang.String"/>
+	<columnHeader>
+		<band height="60" splitType="Stretch">
+			<staticText>
+				<reportElement x="369" y="11" width="203" height="17" forecolor="#004A8D" uuid="902891ea-55e0-4147-a099-8388d6ce6078"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RESUMEN DE SALDOS]]></text>
+			</staticText>
+			<image>
+				<reportElement x="-32" y="-7" width="258" height="67" uuid="72d24264-2220-455d-bea5-b08bfdd79a1c"/>
+				<imageExpression><![CDATA["reports/imagenes/logo-profuruto-afore.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="369" y="25" width="203" height="17" forecolor="#004A8D" uuid="503e6f01-3565-47fe-a22b-8aeef1a380f6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DE LA CUENTA INDIVIDUAL]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<pageFooter>
+		<band height="63">
+			<staticText>
+				<reportElement x="19" y="0" width="555" height="34" forecolor="#004A8D" backcolor="#FFFFFF" uuid="694e07b2-2ec8-4a38-a99c-babaf917dd38"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[AFORE. Unidad Especializada de Atención al Público. Blvd. Adolfo López Mateos 2009. Los Alpes, Álvaro Obregón 01010, CDMX.
+5809 6555/ 01800 715 5555. Lunes a viernes 8 a 20 hrs/ Sábados 9 a 14 hrs. servicioaclientes@profuturo.com.mx profuturo.mx
+Los recursos de la cuenta individual son propiedad del trabajador. Consulta www.consar.gob.mx]]></text>
+			</staticText>
+			<image vAlign="Bottom">
+				<reportElement x="0" y="45" width="595" height="18" uuid="61471b6f-376e-4fc7-9052-611a23c9d805"/>
+				<imageExpression><![CDATA["reports/imagenes/foot-afore.png"]]></imageExpression>
+			</image>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="685" splitType="Stretch">
+			<rectangle radius="0">
+				<reportElement x="307" y="654" width="223" height="20" forecolor="#BFD1E2" backcolor="#FFFFFF" uuid="db1395ed-4680-4006-aed8-5c180378d3ea"/>
+				<graphicElement>
+					<pen lineWidth="2.0"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="20" y="30" width="453" height="15" uuid="08244d5b-390d-4139-834a-696454050025"/>
+				<textFieldExpression><![CDATA[$P{nombre}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="20" y="44" width="453" height="13" uuid="8248164b-3070-4317-956c-4b3c80e2cd16"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{calle}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="16" width="453" height="13" forecolor="#004A8D" uuid="54183fbf-c9e5-4b52-ba4c-91d2d05d3364"/>
+				<textElement>
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DATOS DE IDENTICACIÓN DEL TRABAJADOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="131" width="182" height="13" forecolor="#004A8D" uuid="8a7e502b-0b70-4be2-b4b6-c2694f7694da"/>
+				<textElement>
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[R.F.C:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="119" width="182" height="13" forecolor="#004A8D" uuid="efc449aa-cc9f-4286-a31b-d2d593f3d8af"/>
+				<textElement>
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Número de Seguro Social (NSS):]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="107" width="182" height="13" forecolor="#004A8D" uuid="778ec82a-2558-4349-bff0-050335cbd25f"/>
+				<textElement>
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Número de Cuenta:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="155" width="182" height="13" forecolor="#004A8D" uuid="96f2ef21-9756-47cc-a1de-6799dab3eaff"/>
+				<textElement>
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha de consulta:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="143" width="182" height="13" forecolor="#004A8D" uuid="45802240-3162-40c6-babb-955cf0213485"/>
+				<textElement>
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[C.U.R.P:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="203" y="107" width="270" height="13" uuid="0d981965-e10e-4bf7-9d0f-ab77aa1874cd"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{numCuenta}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="203" y="119" width="270" height="13" uuid="2bb3a13f-543c-4393-b115-9b080cf3b36c"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nss}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="203" y="131" width="270" height="13" uuid="3abe8423-2700-477a-92b6-1bd41325bc07"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{rfc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="203" y="143" width="270" height="13" uuid="ce615b89-761b-4e3c-b1cd-ddfe78e27f1f"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{curp}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd-MMM-yy" isBlankWhenNull="true">
+				<reportElement x="203" y="155" width="270" height="13" uuid="e56cb528-aeee-44ea-a3b8-aca4a7fb91ac"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaConsulta}]]></textFieldExpression>
+			</textField>
+			<elementGroup>
+				<rectangle>
+					<reportElement x="22" y="211" width="262" height="15" forecolor="#BFD1E2" uuid="7e30b693-79b7-4721-a4da-e0b7f6cdc72c"/>
+				</rectangle>
+				<rectangle>
+					<reportElement x="22" y="226" width="262" height="15" forecolor="#BFD1E2" uuid="a4b0e1af-e040-4c7d-891a-b543c5867668"/>
+				</rectangle>
+				<rectangle>
+					<reportElement x="22" y="200" width="262" height="11" forecolor="#004A8D" backcolor="#004A8D" uuid="37e9a4b3-0972-43e8-b885-b9f2384a6873"/>
+				</rectangle>
+				<rectangle>
+					<reportElement x="22" y="241" width="262" height="15" forecolor="#BFD1E2" backcolor="#BFD1E2" uuid="1325f357-4943-44aa-ab2b-bcae070472a9"/>
+				</rectangle>
+				<rectangle>
+					<reportElement x="22" y="309" width="262" height="15" forecolor="#BFD1E2" uuid="86040d98-2bcc-4866-9778-473f350a557a"/>
+				</rectangle>
+				<rectangle>
+					<reportElement x="22" y="294" width="262" height="15" forecolor="#BFD1E2" uuid="a699dce4-b359-464a-9cf7-73568422359e"/>
+				</rectangle>
+				<rectangle>
+					<reportElement x="22" y="324" width="262" height="15" forecolor="#BFD1E2" uuid="f997dce2-9dda-4fe2-9177-6c5e095db535"/>
+				</rectangle>
+				<rectangle>
+					<reportElement x="22" y="338" width="262" height="15" forecolor="#BFD1E2" backcolor="#BFD1E2" uuid="16f4cace-2ccf-4258-8fbc-8984729b69e2"/>
+				</rectangle>
+				<rectangle>
+					<reportElement x="22" y="392" width="262" height="15" forecolor="#BFD1E2" uuid="ba885e31-afa2-47fd-b07f-c7dac1fda48d"/>
+				</rectangle>
+				<rectangle>
+					<reportElement x="22" y="407" width="262" height="15" forecolor="#BFD1E2" uuid="71178aa6-8ec1-40be-9603-138fc5bcc65f"/>
+				</rectangle>
+				<rectangle>
+					<reportElement x="22" y="422" width="262" height="15" forecolor="#BFD1E2" uuid="a8e88329-d0c8-4a49-b042-e1b0341ecaf8"/>
+				</rectangle>
+				<rectangle>
+					<reportElement x="22" y="437" width="262" height="15" forecolor="#BFD1E2" backcolor="#BFD1E2" uuid="57a294ad-3db0-4e81-82d6-fb3f483dca9f"/>
+				</rectangle>
+				<rectangle>
+					<reportElement x="22" y="485" width="262" height="15" forecolor="#BFD1E2" uuid="980c09be-f2b3-4c07-930a-9fc12230350c"/>
+				</rectangle>
+				<rectangle>
+					<reportElement x="22" y="470" width="262" height="15" forecolor="#BFD1E2" uuid="aa416989-2291-4769-b1ac-3ced04acfab0"/>
+				</rectangle>
+				<rectangle>
+					<reportElement x="22" y="499" width="262" height="15" forecolor="#BFD1E2" uuid="555ddfd6-2c27-42fe-88a5-5f0cbafc5c6e"/>
+				</rectangle>
+				<rectangle>
+					<reportElement x="22" y="514" width="262" height="15" forecolor="#BFD1E2" uuid="476abb28-6e81-49e6-b83a-4d0172a042d0"/>
+				</rectangle>
+				<rectangle>
+					<reportElement x="22" y="594" width="262" height="15" forecolor="#BFD1E2" backcolor="#BFD1E2" uuid="8b991317-3076-43f8-a988-7fa4222448cf"/>
+				</rectangle>
+				<rectangle>
+					<reportElement x="22" y="529" width="262" height="15" forecolor="#BFD1E2" uuid="ffecb63a-b671-4c23-8eb2-b1d38076e362"/>
+				</rectangle>
+				<rectangle>
+					<reportElement x="22" y="559" width="262" height="35" forecolor="#BFD1E2" uuid="4fd3cd49-6877-4087-96e2-ac22b3f3babe"/>
+				</rectangle>
+				<rectangle>
+					<reportElement x="22" y="544" width="262" height="15" forecolor="#BFD1E2" uuid="fad15973-6af0-4c1a-b3c1-f8e2925a37b7"/>
+				</rectangle>
+				<rectangle radius="0">
+					<reportElement x="22" y="187" width="262" height="21" forecolor="#004A8D" backcolor="#004A8D" uuid="be381e0e-a85b-4dec-b5d2-0d1c43175905"/>
+					<graphicElement>
+						<pen lineWidth="0.5"/>
+					</graphicElement>
+				</rectangle>
+				<rectangle radius="0">
+					<reportElement mode="Transparent" x="22" y="187" width="262" height="447" forecolor="#004A8D" uuid="981ffcba-d14b-42fb-9adc-bee0b21a05dc"/>
+					<graphicElement>
+						<pen lineWidth="2.0"/>
+					</graphicElement>
+				</rectangle>
+			</elementGroup>
+			<elementGroup>
+				<rectangle>
+					<reportElement x="311" y="211" width="262" height="15" forecolor="#BFD1E2" uuid="18bf4c67-be66-4a2f-84fe-1cdc139d6d35"/>
+				</rectangle>
+				<rectangle>
+					<reportElement x="311" y="200" width="262" height="11" forecolor="#004A8D" backcolor="#004A8D" uuid="f9dcaf12-2164-410f-9c04-ecb527577dce"/>
+				</rectangle>
+				<rectangle>
+					<reportElement x="311" y="226" width="262" height="15" forecolor="#BFD1E2" uuid="e29b5861-ffa9-471e-b316-8ef9edb10eda"/>
+				</rectangle>
+				<rectangle>
+					<reportElement x="311" y="241" width="262" height="15" forecolor="#BFD1E2" uuid="25a7a505-ff4d-42b7-8976-7c6c31ac23a9"/>
+				</rectangle>
+				<rectangle>
+					<reportElement x="311" y="256" width="262" height="15" forecolor="#BFD1E2" uuid="19be6bb6-7d01-4159-a632-d1bebdf8f98a"/>
+				</rectangle>
+				<rectangle radius="0">
+					<reportElement mode="Transparent" x="311" y="188" width="262" height="108" forecolor="#004A8D" backcolor="#BFD1E2" uuid="5dca755e-7dcb-47e6-b282-a4b6b61c6419"/>
+					<graphicElement>
+						<pen lineWidth="2.0"/>
+					</graphicElement>
+				</rectangle>
+				<rectangle radius="0">
+					<reportElement x="311" y="188" width="262" height="21" forecolor="#004A8D" backcolor="#004A8D" uuid="b646bf82-aaa4-4e56-91c6-e6d6fd6e40ba"/>
+					<graphicElement>
+						<pen lineWidth="0.5"/>
+					</graphicElement>
+				</rectangle>
+			</elementGroup>
+			<elementGroup>
+				<rectangle>
+					<reportElement x="311" y="402" width="262" height="15" forecolor="#BFD1E2" backcolor="#BFD1E2" uuid="63d9a5fd-7e36-4422-8b2d-8f5edeab5dd3"/>
+				</rectangle>
+				<rectangle>
+					<reportElement x="311" y="371" width="262" height="15" forecolor="#BFD1E2" backcolor="#BFD1E2" uuid="ab2366b1-f4bb-4f62-bf90-b947d9af1cf0"/>
+				</rectangle>
+				<rectangle>
+					<reportElement x="311" y="386" width="262" height="15" forecolor="#BFD1E2" uuid="62f450de-e000-4f09-a2b3-f2e0b1001362"/>
+				</rectangle>
+				<rectangle radius="0">
+					<reportElement x="311" y="347" width="262" height="21" forecolor="#004A8D" backcolor="#004A8D" uuid="314c1aa6-c6f8-4d79-b4db-358e735e8495"/>
+					<graphicElement>
+						<pen lineWidth="0.5"/>
+					</graphicElement>
+				</rectangle>
+				<rectangle radius="0">
+					<reportElement mode="Transparent" x="311" y="347" width="262" height="91" forecolor="#004A8D" uuid="1cf863ed-e7c3-4ecc-b8b9-0c69c26e1b91"/>
+					<graphicElement>
+						<pen lineWidth="2.0"/>
+					</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement x="311" y="359" width="262" height="11" forecolor="#004A8D" backcolor="#004A8D" uuid="c2f527b4-073b-4760-8adc-f6549b80cc91"/>
+				</rectangle>
+			</elementGroup>
+			<staticText>
+				<reportElement x="24" y="324" width="184" height="15" forecolor="#004A8D" backcolor="#FFFFFF" uuid="bd919c9b-f497-4776-8027-03a719b5d5df"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cuota Social]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="208" y="324" width="76" height="15" uuid="e409ad67-f4ef-439b-b14e-b3b957caabe3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{rcvCuotaSocialImss}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="208" y="339" width="76" height="15" uuid="3a065ac2-b7f2-4dd5-85c9-484a45fa13ff"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{rcvSubtotalImss}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="24" y="339" width="184" height="15" forecolor="#004A8D" backcolor="#FFFFFF" uuid="fb3f5080-1bc7-4f5e-8b4b-508210431747"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SUBTOTAL RETIRO IMSS]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="208" y="211" width="76" height="15" uuid="8bd2c3d8-2c91-4af1-b1b8-c9a92945ff6e"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{sar92Imss}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="208" y="226" width="76" height="15" uuid="343873f4-c97d-4adb-9390-4252c4769fef"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{sarIssste}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="207" y="241" width="77" height="15" backcolor="#EBEEF5" uuid="b1bebc35-a986-4411-ab81-68eaed5c9269"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{sarSubtotal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="22" y="188" width="262" height="21" forecolor="#FFFFFF" uuid="b5d55148-af6c-4fd1-8e34-7ae822e0a530"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SALDOS DE SUBCUENTAS RETIRO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="32" y="257" width="246" height="16" forecolor="#004A8D" backcolor="#FFFFFF" uuid="288fc6d4-43c1-4917-95d1-219e3ec730d0"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RETIRO, CESANTIA EN EDAD AVANZADA Y VEJES]]></text>
+			</staticText>
+			<elementGroup/>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="208" y="392" width="76" height="15" uuid="e326fdaa-fc41-4d8f-abbf-09d582e0400d"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{rcvRetiroIssste}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="208" y="437" width="76" height="15" uuid="62824b2b-1ee5-49dc-b27b-030c823c3d74"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{rcvSubtotalIssste}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="24" y="407" width="184" height="15" forecolor="#004A8D" backcolor="#FFFFFF" uuid="6518d309-1052-4e1d-b93e-b80f097cca36"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cesantía en Edad Avanzada y Vejez]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="32" y="354" width="246" height="16" forecolor="#004A8D" backcolor="#FFFFFF" uuid="ef55d3b1-7040-48f8-bc7d-7499ac788814"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RETIRO, CESANTIA EN EDAD AVANZADA Y VEJES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="24" y="422" width="184" height="15" forecolor="#004A8D" backcolor="#FFFFFF" uuid="f86139fe-5027-40b2-b079-6b37aff38749"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cuota Social]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="24" y="437" width="184" height="15" forecolor="#004A8D" backcolor="#FFFFFF" uuid="62474b50-5dc0-4808-856e-5017d3082ac7"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SUBTOTAL RETIRO ISSSTE]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="207" y="407" width="77" height="15" uuid="28916199-a05e-435a-969a-585d06b9fd5c"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{rcvCesantiaVejesIssste}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="24" y="211" width="184" height="15" forecolor="#004A8D" backcolor="#FFFFFF" uuid="a7c7553d-698b-43d5-b0c8-72d2db543725"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SAR 92 (IMSS)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="24" y="226" width="184" height="15" forecolor="#004A8D" uuid="9e5e6629-4ed5-4e00-9526-e893d9542742"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SAR ISSSTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="62" y="268" width="182" height="27" forecolor="#004A8D" backcolor="#FFFFFF" uuid="d1ef2642-0179-497d-ba31-eb3446782605"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="false"/>
+				</textElement>
+				<text><![CDATA[(Nuevo Sistema a partir de julio 1997) IMSS]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="208" y="422" width="77" height="15" uuid="afe0a7c3-3cab-4c6d-9484-7ce4cb68e366"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{rcvCuotaSocialIssste}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="24" y="499" width="184" height="15" forecolor="#004A8D" backcolor="#FFFFFF" uuid="b7d22242-4c74-41cf-947b-d04c854d49c5"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Profut2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="24" y="470" width="184" height="15" forecolor="#004A8D" backcolor="#FFFFFF" uuid="3d0596e6-1bf7-4d58-b662-e5a1fda0121c"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ahorro Solidario ISSSTE]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="208" y="514" width="76" height="15" uuid="c12bb00b-598f-4b7d-923f-832968ace3fa"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{volProfut6}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="93" y="453" width="122" height="16" forecolor="#004A8D" backcolor="#FFFFFF" uuid="38efdc35-22c0-47ab-90db-670185162bd7"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[AHORRO VOLUNTARIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="24" y="514" width="184" height="15" forecolor="#004A8D" backcolor="#FFFFFF" uuid="becbaa5a-013e-498b-a40e-94503473dcfd"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Profut6]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="207" y="484" width="77" height="15" uuid="53d21c8b-c5c8-4f9d-9de6-694a2409d624"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{volAportacionesVol}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="208" y="499" width="77" height="15" uuid="52fb1f63-c544-4d4c-a58f-f13032be379c"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{volProfut2}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="24" y="484" width="184" height="15" forecolor="#004A8D" backcolor="#FFFFFF" uuid="39146f35-9fb2-4dcd-a5f1-3b49319646c2"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Aportaciones Voluntarias]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="208" y="470" width="76" height="15" uuid="d87a3fb2-c93b-462f-baa1-b1d90e2e5c3d"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{volAhorroSolidarioIssste}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="207" y="544" width="77" height="15" uuid="af0a2517-593e-4acd-b32f-ef002d0b4aee"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{volProfut65}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="24" y="594" width="184" height="15" forecolor="#004A8D" backcolor="#FFFFFF" uuid="741483fd-6f0b-40b1-b731-ec37834840eb"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SUBTOTAL RETIRO ISSSTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="24" y="560" width="184" height="34" forecolor="#004A8D" backcolor="#FFFFFF" uuid="a1123731-9dc7-4922-b676-46eb3706f5b1"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Aport. Vol. Con Perspectiva de inversion a Largo Plazo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="24" y="529" width="184" height="15" forecolor="#004A8D" backcolor="#FFFFFF" uuid="54329b12-71c4-48e7-8875-d80a7dd89b9f"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Profut12]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="208" y="594" width="76" height="15" uuid="2ed000e5-814c-44b1-a004-b49823c8025f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{volSubtotal}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="208" y="529" width="76" height="15" uuid="e85d0781-e032-4a8f-a282-91d4c5a34b0f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{volProfut12}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="24" y="544" width="184" height="15" forecolor="#004A8D" backcolor="#FFFFFF" uuid="f857d981-5308-425c-93ea-6fb4959bd7b4"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Profut65]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="208" y="560" width="77" height="34" uuid="87142f8a-a22d-49ea-af3c-1f473b25da77"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{volAportacionesVolPerIverLp}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="24" y="241" width="128" height="15" forecolor="#004A8D" uuid="bf214b12-986e-46cb-85f0-54f7b9531576"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SUBTOTAL SAR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="24" y="294" width="184" height="15" forecolor="#004A8D" backcolor="#FFFFFF" uuid="30e176f3-0e40-42df-a723-6116f0ad74b8"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Retiro]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="208" y="614" width="76" height="20" uuid="2aaf2e7f-b9f1-424f-a512-4857100e05e3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{totalSubcuentasRetiro}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="170" y="614" width="38" height="20" forecolor="#004A8D" backcolor="#FFFFFF" uuid="521c6e1f-a54c-4579-ac2b-76ee840a8c3b"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="313" y="370" width="259" height="15" forecolor="#004A8D" backcolor="#FFFFFF" uuid="5cf4430e-d702-4012-a37e-a027637fee9b"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[VALOR NOMINAL]]></text>
+			</staticText>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement x="347" y="386" width="76" height="15" uuid="8a7c9337-b5fc-4777-8f71-8e36441ce66e"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{bonoNominalUdis}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="313" y="402" width="259" height="15" forecolor="#004A8D" backcolor="#FFFFFF" uuid="fb6d1fe8-e865-4e0e-9e13-b3f18d320a2f"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[VALOR ACTUAL]]></text>
+			</staticText>
+			<textField pattern="###0.000000" isBlankWhenNull="true">
+				<reportElement x="347" y="420" width="76" height="15" uuid="669956e6-2be5-42a0-bac6-34ff4c0aa272"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{bonoActualUdis}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="313" y="420" width="34" height="15" forecolor="#004A8D" backcolor="#FFFFFF" uuid="d59995cb-1868-4a8e-a596-b1fa0e6e4af0"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[UDIS]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="473" y="386" width="76" height="15" uuid="2b1ebe11-858e-44e5-a39f-e204882fcd27"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{bonoNominalPeso}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="473" y="420" width="76" height="15" uuid="69f98c4b-0e5f-471f-851c-014b7c2d0ba7"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{bonoActualPeso}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="311" y="348" width="262" height="21" forecolor="#FFFFFF" uuid="f6ab6258-9899-470e-b229-873d8f98c268"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SALDO BONO DE PENSIÓN ISSSTE]]></text>
+			</staticText>
+			<rectangle radius="0">
+				<reportElement x="68" y="654" width="223" height="20" forecolor="#004A8D" backcolor="#004A8D" uuid="b9768e04-1582-471b-901b-989b9e84f0c7"/>
+				<graphicElement>
+					<pen lineWidth="2.0"/>
+				</graphicElement>
+			</rectangle>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="208" y="294" width="76" height="15" uuid="033675ff-c188-402a-858e-5b25f5353f42"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{rcvRetiroImss}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="308" y="654" width="221" height="20" uuid="3c13b3f0-e7fc-4c34-ac46-a168dd7ea683"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="15"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{totalSaldoActual}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="24" y="309" width="184" height="15" forecolor="#004A8D" backcolor="#FFFFFF" uuid="b7158374-30a7-49cc-b84e-a24bc46cb86d"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cesantía en Edad Avanzada y Vejez]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="62" y="365" width="182" height="27" forecolor="#004A8D" backcolor="#FFFFFF" uuid="25332874-f25d-4fb3-94f7-005dd331fd98"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="false"/>
+				</textElement>
+				<text><![CDATA[(Nuevo Sistema a partir de febrero 2008) ISSSTE]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="207" y="309" width="77" height="15" uuid="e1239bf2-4300-4fe1-b868-e3006dd8e17c"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{rcvCesantiaVejesImss}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="24" y="392" width="184" height="15" forecolor="#004A8D" backcolor="#FFFFFF" uuid="9afc72d8-d6c8-4a23-be75-de8b7d1ef187"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Retiro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="311" y="189" width="262" height="21" forecolor="#FFFFFF" uuid="895094b6-d792-4e42-896e-3f8d52badc5d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SALDO SUBCUENTA VIVIENDA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="313" y="256" width="184" height="15" forecolor="#004A8D" backcolor="#FFFFFF" uuid="a12d850d-8b7b-453a-8b51-d17cb12ecfbc"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FOVISSSTE 08]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="313" y="241" width="184" height="15" forecolor="#004A8D" backcolor="#FFFFFF" uuid="88f4d666-f6b6-4805-84e7-1ea3059e76f0"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FOVISSSTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="313" y="211" width="184" height="15" forecolor="#004A8D" backcolor="#FFFFFF" uuid="30378d07-700e-421c-a2e7-0e80f52a3014"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Vivienda 92]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="497" y="211" width="76" height="15" uuid="2e1534f5-3118-4f06-9af0-cffb04d7ad2c"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{viv92}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="313" y="226" width="184" height="15" forecolor="#004A8D" backcolor="#FFFFFF" uuid="d28c55b1-9b85-41b3-852a-3e6311ee0371"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Vivienda 97]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="497" y="241" width="77" height="15" uuid="e3c60b22-a73f-4c4d-bf69-3f8068e014ba"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{vivFovissste}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="458" y="275" width="38" height="20" forecolor="#004A8D" backcolor="#FFFFFF" uuid="086ccec8-3e30-49b2-8b16-912f8045e757"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="496" y="275" width="76" height="20" uuid="2e6412a7-c6de-4fca-b659-b5bbe03948de"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{vivSubtotal}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="497" y="256" width="76" height="15" uuid="fe423f15-50e2-4fd5-b46d-47ac29252143"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{vivFovissste08}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="497" y="226" width="77" height="15" uuid="4bb20c59-bf34-4a23-9bce-dac85cb4ac53"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{viv97}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="313" y="386" width="34" height="15" forecolor="#004A8D" backcolor="#FFFFFF" uuid="a7f939ae-f696-455c-be4b-00b5427ea7da"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[UDIS]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="20" y="56" width="453" height="13" uuid="c78a1a8d-e9bc-44ea-ae73-7fb02f7ef850"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{colonia}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="20" y="68" width="453" height="13" uuid="f5121229-9bcc-4976-bca6-dc34415e6e95"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{cp}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="20" y="80" width="453" height="13" uuid="09d33e7c-0505-4c32-990e-217b9341df15"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{municipio}.concat(" ,").concat( $P{entidadfederativa} )]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="68" y="654" width="223" height="20" forecolor="#FFFFFF" uuid="3bdd1623-b87e-41e4-b621-d9fa8e32dc1e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tu saldo actual es de:]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

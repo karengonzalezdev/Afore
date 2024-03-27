@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mx.profuturo.nci.persistence.DomiciliacionesPersistence">
+
+	<!-- MAP'S -->
+	<resultMap id="ResultMapProcesamientoDomi" 
+			  type="mx.profuturo.nci.business.vo.ProcesamientoDomiVO">
+		
+			<result property="valor" 				column="VALOR" 			jdbcType="VARCHAR" />
+			<result property="descripcion" 			column="DESCRIPCION" 	jdbcType="VARCHAR" />
+	
+	</resultMap>
+	
+	<resultMap id="ResultMapCatalogosControl" 
+			  type="mx.profuturo.nci.business.vo.CatalogosDomiVO">
+		
+			<result property="id" 				column="ID" 			jdbcType="VARCHAR" />
+			<result property="descripcion" 		column="DESCRIPCION" 	jdbcType="VARCHAR" />
+	
+	</resultMap>
+	
+	<resultMap id="ResultMapCifrasTotales" 
+			  type="mx.profuturo.nci.business.vo.CifrasTotalesDomiVO">
+		
+			<result property="idPerido" 		column="FTN_ID_PERIODO" 	jdbcType="VARCHAR" />
+			<result property="descPeriodo" 		column="DESC_PERIODO" 		jdbcType="VARCHAR" />
+			<result property="pesos" 			column="PESOS" 				jdbcType="VARCHAR" />
+	
+	</resultMap>
+	
+	<resultMap id="ResultMapCifraDomi" 
+			  type="mx.profuturo.nci.business.vo.RegistroCifrasDomiVO">
+		
+			<result property="archivoGenerar" 		column="ARCHIVO_GENERAR" 	jdbcType="VARCHAR" />
+			<result property="tipoCta" 				column="TIPO_CTA"  			jdbcType="VARCHAR" />
+			<result property="bancoIncluir" 		column="BANCO_INLUIR"  		jdbcType="VARCHAR" />
+	
+	</resultMap>
+	
+	<resultMap id="ResultMapImportesTotalesCifra" 
+			  type="mx.profuturo.nci.business.vo.TotalesRegistroDomiVO">
+		
+			<result property="descripcion" 		column="DESCRIPCION" 	jdbcType="VARCHAR" />
+			<result property="total" 			column="TOTAL"  		jdbcType="VARCHAR" />
+	
+	</resultMap>
+	
+	<resultMap id="ResultMapUltimosArchivosGenerados"
+			   type="mx.profuturo.nci.business.vo.ArchivosGeneradosDomiVO">
+			   
+			<result column="FLD_FEH_INI_GEN" 			property="fechaIniGen" 			jdbcType="VARCHAR" />
+			<result column="FLD_FEH_FIN_GEN" 			property="fechaFinGen" 			jdbcType="VARCHAR" />
+			<result column="FTN_TIPO_ARCHIVO" 			property="tipoArchivo" 			jdbcType="VARCHAR" />
+			<result column="FTN_VALOR_TIPO_ARCHIVO" 	property="tipoArchivoDesc" 		jdbcType="VARCHAR" />
+			<result column="FTN_ID_TIPO_CTA" 			property="tipoCta" 				jdbcType="VARCHAR" />
+			<result column="FCC_VALOR_TIPO_CTA" 		property="tipoCtaDesc" 			jdbcType="VARCHAR" />
+			<result column="FTN_CVE_BANCO" 				property="cveBanco" 			jdbcType="VARCHAR" />
+			<result column="FCC_VALOR_CLAVE_BANCO" 		property="cveBancoDesc" 		jdbcType="VARCHAR" />
+			<result column="ESTATUS" 					property="estatus" 				jdbcType="BOOLEAN" />
+			
+	</resultMap>
+	
+	<!-- SQL INSTRUCTIONS -->
+	<select id="consultarProcesamientoDomi"
+			resultMap="ResultMapProcesamientoDomi">
+			
+			SELECT 	  FCC_VALOR VALOR
+					, CASE WHEN FCC_VALOR = '1' THEN 'PROCESAMIENTO ORDINARIO DE ARCHIVOS DE DOMICILIACION (MANEJO DE UCA POR BUS)' 
+					  ELSE 'PROCESAMIENTO ESPECIAL DE ARCHIVOS DE DOMICILIACION (MANEJO DE UCA POR JAVA)' END AS DESCRIPCION
+			FROM TCCRXGRAL_CAT_CATALOGO 
+			WHERE FCN_ID_CAT_CATALOGO = 9618
+			
+	</select>
+			
+	<select id="getCatalogoOrigenAportacionDomi"
+			resultMap="ResultMapCatalogosControl">
+			SELECT 
+			    FCN_ID_CAT_CATALOGO     AS ID
+			    ,FCC_VALOR              AS DESCRIPCION
+			FROM TCCRXGRAL_CAT_CATALOGO WHERE FCN_ID_CAT_CATALOGO = 845
+			UNION ALL
+			SELECT 
+			     0 AS ID
+			    ,'DOMICILIACIONES' AS DESCRIPCION
+			FROM DUAL
+	</select>
+	
+	<select id="getCatalogoOrigenBancosCuentasIncluir"
+			resultMap="ResultMapCatalogosControl">
+			SELECT 
+			     FCN_ID_CAT_CATALOGO    AS ID
+			    ,FCC_VALOR              AS DESCRIPCION
+			FROM TCCRXGRAL_CAT_CATALOGO WHERE FCN_ID_CAT_CATALOGO IN (459 , 460, 848)
+	</select>
+	
+	<select id="getCatalogoOrigenBancosArchivosGenerar"
+			resultMap="ResultMapCatalogosControl">
+			SELECT 
+			     FCN_ID_CAT_CATALOGO    AS ID
+			    ,FCC_VALOR              AS DESCRIPCION
+			FROM TCCRXGRAL_CAT_CATALOGO WHERE FCN_ID_CAT_CATALOGO IN (459 , 460)
+	</select>
+	
+	<select id="getCatalogoTiposCuenta"
+			resultMap="ResultMapCatalogosControl">
+			SELECT 
+			     FCN_ID_CAT_CATALOGO    AS ID
+			    ,FCC_VALOR              AS DESCRIPCION
+			FROM TCCRXGRAL_CAT_CATALOGO WHERE FCN_ID_CAT_CATALOGO IN (847,496,497)
+	</select>
+	
+	<select id="getCifrasTotales"
+			parameterType="mx.profuturo.nci.business.wrapped.CifrasTotalesDomiFilter"
+			resultMap="ResultMapCifrasTotales">
+			
+			WITH CIFRAS_TOTALES AS(
+			(SELECT 
+			    /*+ PARALLEL(10) */
+			      CASE WHEN (SOL.FTN_ID_PERIODO = 495 ) THEN 400 ELSE SOL.FTN_ID_PERIODO END FTN_ID_PERIODO
+			    ,( SELECT FCC_VALOR FROM TCCRXGRAL_CAT_CATALOGO WHERE FCN_ID_CAT_CATALOGO = SOL.FTN_ID_PERIODO) DESC_PERIODO
+			    ,SUM( FTN_IMPORTE ) AS TOTAL
+			FROM TTAFOAVOL_SOLICITUD SOL
+			WHERE 
+			    SOL.FTN_ESTATUS_SOLICITUD = 512        				-- ==> SOLICITUDES ACEPTADAS ( FIJO )
+			    AND SOL.FTN_ID_TIPO_CTA IN 
+			    <if test="tipoCta != null and (tipoCta.size() > 0 )">
+			    	<foreach item="cta"  index="index" collection="tipoCta" open="(" separator="," close=")">
+						#{cta}
+					</foreach>
+			    </if>				
+			    AND 
+			    SOL.FTN_CVE_BANCO IN 
+			    <if test="cveBanco != null and (cveBanco.size() > 0 )">
+			    	<foreach item="cve"  index="index" collection="cveBanco" open="(" separator="," close=")">
+						#{cve}
+					</foreach>
+			    </if>         		
+			    AND SOL.FTD_FEH_PROX_CARGO BETWEEN TO_DATE( #{fechaInicio},'DD/MM/YYYY') AND TO_DATE(#{fechaFin},'DD/MM/YYYY')
+			    <if test='origenAportacion.equals("845")'>
+			    	AND SOL.FTN_ORIGEN_APORTACION = #{origenAportacion}        -- ==>  845 DOMICILIACIONES TRASPASOS ,0 DOMICILIACIONES
+			    </if>
+			    <if test='origenAportacion.equals("0")'>
+			    	AND SOL.FTN_ORIGEN_APORTACION <![CDATA[ <> ]]> 845        -- ==>  845 DOMICILIACIONES TRASPASOS ,0 DOMICILIACIONES
+			    </if>
+			    AND SOL.FTN_ID_ORIGEN_SOLICITUD <![CDATA[ <> ]]> 1042
+			    AND SOL.FTN_ESTATUS_CARGO IN ( 498 )
+			    GROUP BY SOL.FTN_ID_PERIODO
+			)
+			UNION ALL
+			(SELECT 
+			    /*+ PARALLEL(10) */
+			      0
+			    ,'IMPORTE TOTAL' DESC_PERIODO
+			    ,SUM( FTN_IMPORTE ) AS TOTAL
+			FROM TTAFOAVOL_SOLICITUD SOL
+			WHERE 
+			    SOL.FTN_ESTATUS_SOLICITUD = 512        					-- ==> SOLICITUDES ACEPTADAS ( FIJO )
+			    AND SOL.FTN_ID_TIPO_CTA IN 
+			    <if test="tipoCta != null and (tipoCta.size() > 0 )">
+			    	<foreach item="cta"  index="index" collection="tipoCta" open="(" separator="," close=")">
+						#{cta}
+					</foreach>
+			    </if>				
+			    AND 
+			    SOL.FTN_CVE_BANCO IN 
+			    <if test="cveBanco != null and (cveBanco.size() > 0 )">
+			    	<foreach item="cve"  index="index" collection="cveBanco" open="(" separator="," close=")">
+						#{cve}
+					</foreach>
+			    </if>
+			    AND SOL.FTD_FEH_PROX_CARGO BETWEEN TO_DATE( #{fechaInicio},'DD/MM/YYYY') AND TO_DATE( #{fechaFin},'DD/MM/YYYY')
+			    <if test='origenAportacion.equals("845")'>
+			    	AND SOL.FTN_ORIGEN_APORTACION = #{origenAportacion}        -- ==>  845 DOMICILIACIONES TRASPASOS ,0 DOMICILIACIONES
+			    </if>
+			    <if test='origenAportacion.equals("0")'>
+			    	AND SOL.FTN_ORIGEN_APORTACION <![CDATA[ <> ]]> 845        -- ==>  845 DOMICILIACIONES TRASPASOS ,0 DOMICILIACIONES
+			    </if>
+			    AND SOL.FTN_ID_ORIGEN_SOLICITUD <![CDATA[ <> ]]> 1042
+			    AND SOL.FTN_ESTATUS_CARGO IN ( 498 )
+			)
+			UNION ALL
+			(SELECT 
+			    /*+ PARALLEL(10) */
+			      -1
+			    ,'TOTAL REGISTROS' DESC_PERIODO
+			    ,COUNT(*) AS TOTAL
+			FROM TTAFOAVOL_SOLICITUD SOL
+			WHERE 
+			    SOL.FTN_ESTATUS_SOLICITUD = 512        					-- ==> SOLICITUDES ACEPTADAS ( FIJO )
+			    AND SOL.FTN_ID_TIPO_CTA IN 
+			    <if test="tipoCta != null and (tipoCta.size() > 0 )">
+			    	<foreach item="cta"  index="index" collection="tipoCta" open="(" separator="," close=")">
+						#{cta}
+					</foreach>
+			    </if>				
+			    AND 
+			    SOL.FTN_CVE_BANCO IN 
+			    <if test="cveBanco != null and (cveBanco.size() > 0 )">
+			    	<foreach item="cve"  index="index" collection="cveBanco" open="(" separator="," close=")">
+						#{cve}
+					</foreach>
+			    </if>
+			    AND SOL.FTD_FEH_PROX_CARGO BETWEEN TO_DATE(#{fechaInicio},'DD/MM/YYYY') AND TO_DATE(#{fechaFin},'DD/MM/YYYY')
+			    <if test='origenAportacion.equals("845")'>
+			    	AND SOL.FTN_ORIGEN_APORTACION = #{origenAportacion}        -- ==>  845 DOMICILIACIONES TRASPASOS ,0 DOMICILIACIONES
+			    </if>
+			    <if test='origenAportacion.equals("0")'>
+			    	AND SOL.FTN_ORIGEN_APORTACION <![CDATA[ <> ]]> 845        -- ==>  845 DOMICILIACIONES TRASPASOS ,0 DOMICILIACIONES
+			    </if>
+			    AND SOL.FTN_ID_ORIGEN_SOLICITUD <![CDATA[ <> ]]> 1042
+			    AND SOL.FTN_ESTATUS_CARGO IN ( 498 )
+			))
+			SELECT 
+			     FTN_ID_PERIODO
+			    ,DESC_PERIODO
+			    ,TOTAL PESOS
+			FROM CIFRAS_TOTALES CT
+			ORDER BY FTN_ID_PERIODO DESC
+	
+	</select>
+	
+	
+	<select id="getCifrasTotalesOtrosBancos"
+			parameterType="mx.profuturo.nci.business.wrapped.CifrasTotalesDomiFilter"
+			resultMap="ResultMapCifrasTotales">
+			
+			WITH CIFRAS_TOTALES AS(
+			(SELECT 
+			    /*+ PARALLEL(10) */
+			      CASE WHEN (SOL.FTN_ID_PERIODO = 495 ) THEN 400 ELSE SOL.FTN_ID_PERIODO END FTN_ID_PERIODO
+			    ,( SELECT FCC_VALOR FROM TCCRXGRAL_CAT_CATALOGO WHERE FCN_ID_CAT_CATALOGO = SOL.FTN_ID_PERIODO) DESC_PERIODO
+			    ,SUM( FTN_IMPORTE ) AS TOTAL
+			FROM TTAFOAVOL_SOLICITUD SOL
+			LEFT JOIN TCCRXGRAL_CAT_CATALOGO p ON p.FCN_ID_CAT_CATALOGO = SOL.FTN_ID_PERIODO
+			JOIN TCCRXGRAL_CAT_CATALOGO cbank ON cbank.FCN_ID_CAT_CATALOGO = SOL.FTN_CVE_BANCO 
+			JOIN TMSISGRAL_MAP_NCI_ITGY r_map ON r_map.TMN_CVE_NCI = SOL.FTN_CVE_BANCO AND TMC_USO = 'BANCOS'  and r_map.TMC_VIGENCIA = 1 and cbank.FCB_VIGENCIA =1
+			WHERE
+			    SOL.FTN_ESTATUS_SOLICITUD = 512        				-- ==> SOLICITUDES ACEPTADAS ( FIJO )
+			    AND SOL.FTN_ID_TIPO_CTA IN 
+			    <if test="tipoCta != null and (tipoCta.size() > 0 )">
+			    	<foreach item="cta"  index="index" collection="tipoCta" open="(" separator="," close=")">
+						#{cta}
+					</foreach>
+			    </if>				
+			    AND 
+			    SOL.FTN_CVE_BANCO NOT IN (459, 460)         		
+			    AND SOL.FTD_FEH_PROX_CARGO BETWEEN TO_DATE( #{fechaInicio},'DD/MM/YYYY') AND TO_DATE(#{fechaFin},'DD/MM/YYYY')
+			    <if test='origenAportacion.equals("845")'>
+			    	AND SOL.FTN_ORIGEN_APORTACION = #{origenAportacion}        -- ==>  845 DOMICILIACIONES TRASPASOS ,0 DOMICILIACIONES
+			    </if>
+			    <if test='origenAportacion.equals("0")'>
+			    	AND SOL.FTN_ORIGEN_APORTACION <![CDATA[ <> ]]> 845        -- ==>  845 DOMICILIACIONES TRASPASOS ,0 DOMICILIACIONES
+			    </if>
+			    AND SOL.FTN_ID_ORIGEN_SOLICITUD <![CDATA[ <> ]]> 1042
+			    AND SOL.FTN_ESTATUS_CARGO IN ( 498 )
+			    GROUP BY SOL.FTN_ID_PERIODO
+			)
+			UNION ALL
+			(SELECT 
+			    /*+ PARALLEL(10) */
+			      0
+			    ,'IMPORTE TOTAL' DESC_PERIODO
+			    ,SUM( FTN_IMPORTE ) AS TOTAL
+			FROM TTAFOAVOL_SOLICITUD SOL
+			LEFT JOIN TCCRXGRAL_CAT_CATALOGO p ON p.FCN_ID_CAT_CATALOGO = SOL.FTN_ID_PERIODO
+			JOIN TCCRXGRAL_CAT_CATALOGO cbank ON cbank.FCN_ID_CAT_CATALOGO = SOL.FTN_CVE_BANCO 
+			JOIN TMSISGRAL_MAP_NCI_ITGY r_map ON r_map.TMN_CVE_NCI = SOL.FTN_CVE_BANCO AND TMC_USO = 'BANCOS'  and r_map.TMC_VIGENCIA = 1 and cbank.FCB_VIGENCIA =1
+			WHERE 
+			    SOL.FTN_ESTATUS_SOLICITUD = 512        					-- ==> SOLICITUDES ACEPTADAS ( FIJO )
+			    AND SOL.FTN_ID_TIPO_CTA IN 
+			    <if test="tipoCta != null and (tipoCta.size() > 0 )">
+			    	<foreach item="cta"  index="index" collection="tipoCta" open="(" separator="," close=")">
+						#{cta}
+					</foreach>
+			    </if>				
+			    AND 
+			    SOL.FTN_CVE_BANCO NOT IN (459, 460) 
+			    AND SOL.FTD_FEH_PROX_CARGO BETWEEN TO_DATE( #{fechaInicio},'DD/MM/YYYY') AND TO_DATE( #{fechaFin},'DD/MM/YYYY')
+			    <if test='origenAportacion.equals("845")'>
+			    	AND SOL.FTN_ORIGEN_APORTACION = #{origenAportacion}        -- ==>  845 DOMICILIACIONES TRASPASOS ,0 DOMICILIACIONES
+			    </if>
+			    <if test='origenAportacion.equals("0")'>
+			    	AND SOL.FTN_ORIGEN_APORTACION <![CDATA[ <> ]]> 845        -- ==>  845 DOMICILIACIONES TRASPASOS ,0 DOMICILIACIONES
+			    </if>
+			    AND SOL.FTN_ID_ORIGEN_SOLICITUD <![CDATA[ <> ]]> 1042
+			    AND SOL.FTN_ESTATUS_CARGO IN ( 498 )
+			)
+			UNION ALL
+			(SELECT 
+			    /*+ PARALLEL(10) */
+			      -1
+			    ,'TOTAL REGISTROS' DESC_PERIODO
+			    ,COUNT(*) AS TOTAL
+			FROM TTAFOAVOL_SOLICITUD SOL
+			LEFT JOIN TCCRXGRAL_CAT_CATALOGO p ON p.FCN_ID_CAT_CATALOGO = SOL.FTN_ID_PERIODO
+			JOIN TCCRXGRAL_CAT_CATALOGO cbank ON cbank.FCN_ID_CAT_CATALOGO = SOL.FTN_CVE_BANCO 
+			JOIN TMSISGRAL_MAP_NCI_ITGY r_map ON r_map.TMN_CVE_NCI = SOL.FTN_CVE_BANCO AND TMC_USO = 'BANCOS'  and r_map.TMC_VIGENCIA = 1 and cbank.FCB_VIGENCIA =1
+			WHERE
+			    SOL.FTN_ESTATUS_SOLICITUD = 512        					-- ==> SOLICITUDES ACEPTADAS ( FIJO )
+			    AND SOL.FTN_ID_TIPO_CTA IN 
+			    <if test="tipoCta != null and (tipoCta.size() > 0 )">
+			    	<foreach item="cta"  index="index" collection="tipoCta" open="(" separator="," close=")">
+						#{cta}
+					</foreach>
+			    </if>				
+			    AND 
+			    SOL.FTN_CVE_BANCO NOT IN (459, 460) 
+			    AND SOL.FTD_FEH_PROX_CARGO BETWEEN TO_DATE(#{fechaInicio},'DD/MM/YYYY') AND TO_DATE(#{fechaFin},'DD/MM/YYYY')
+			    <if test='origenAportacion.equals("845")'>
+			    	AND SOL.FTN_ORIGEN_APORTACION = #{origenAportacion}        -- ==>  845 DOMICILIACIONES TRASPASOS ,0 DOMICILIACIONES
+			    </if>
+			    <if test='origenAportacion.equals("0")'>
+			    	AND SOL.FTN_ORIGEN_APORTACION <![CDATA[ <> ]]> 845        -- ==>  845 DOMICILIACIONES TRASPASOS ,0 DOMICILIACIONES
+			    </if>
+			    AND SOL.FTN_ID_ORIGEN_SOLICITUD <![CDATA[ <> ]]> 1042
+			    AND SOL.FTN_ESTATUS_CARGO IN ( 498 )
+			))
+			SELECT 
+			     FTN_ID_PERIODO
+			    ,DESC_PERIODO
+			    ,TOTAL PESOS
+			FROM CIFRAS_TOTALES CT
+			ORDER BY FTN_ID_PERIODO DESC
+	
+	</select>
+	
+	<select id="getCifraDomi"
+			parameterType="mx.profuturo.nci.business.wrapped.CifraDomiFilter"
+			resultMap="ResultMapCifraDomi">
+			
+			SELECT  ( SELECT FCC_VALOR
+					  FROM TCCRXGRAL_CAT_CATALOGO 
+					  WHERE FCN_ID_CAT_CATALOGO = #{cveBancoIncluir} ) BANCO_INLUIR
+				  , ( SELECT FCC_VALOR
+					  FROM TCCRXGRAL_CAT_CATALOGO 
+					  WHERE FCN_ID_CAT_CATALOGO = #{idArchivoGenerar} ) ARCHIVO_GENERAR
+				  , ( SELECT FCC_VALOR
+					  FROM TCCRXGRAL_CAT_CATALOGO 
+					  WHERE FCN_ID_CAT_CATALOGO = #{idTipoCta} ) TIPO_CTA
+			FROM DUAL
+	</select>
+	
+	
+	<select id="getImportesTotalesCifra"
+			parameterType="mx.profuturo.nci.business.wrapped.CifraDomiFilter"
+			resultMap="ResultMapImportesTotalesCifra">
+			
+			WITH CIFRAS_DETALLE AS(
+			(SELECT
+			    'IMPORTE TOTAL'  AS DESCRIPCION
+			    ,SUM( FTN_IMPORTE ) AS TOTAL
+			FROM TTAFOAVOL_SOLICITUD SOL
+			WHERE
+			    SOL.FTN_ESTATUS_SOLICITUD = 512       				  -- ==> SOLICITUDES ACEPTADAS ( FIJO )
+			    AND SOL.FTN_ID_TIPO_CTA = #{idTipoCta}             		  -- ==> TARJETA DEBITO 496, CLABE 497, CHEQUERA 847
+			    AND SOL.FTN_CVE_BANCO   = #{cveBancoIncluir}              -- ==> BANAMEX 459, BBVA 460, OTROS 848
+			    AND SOL.FTD_FEH_PROX_CARGO BETWEEN TO_DATE(#{fechaInicio},'DD/MM/YYYY') AND TO_DATE(#{fechaFin},'DD/MM/YYYY')
+			    <if test='origenAportacion.equals("845")'>
+			    	AND SOL.FTN_ORIGEN_APORTACION = #{origenAportacion}        -- ==>  845 DOMICILIACIONES TRASPASOS ,0 DOMICILIACIONES
+			    </if>
+			    <if test='origenAportacion.equals("0")'>
+			    	AND SOL.FTN_ORIGEN_APORTACION <![CDATA[ <> ]]> 845        -- ==>  845 DOMICILIACIONES TRASPASOS ,0 DOMICILIACIONES
+			    </if>
+			    AND SOL.FTN_ID_ORIGEN_SOLICITUD <![CDATA[ <> ]]> 1042
+			    AND SOL.FTN_ESTATUS_CARGO IN ( 498 )
+			    )
+			UNION ALL
+			(SELECT
+			    'TOTAL REGISTROS'  AS DESCRIPCION
+			    ,COUNT(*) AS TOTAL
+			FROM TTAFOAVOL_SOLICITUD SOL
+			WHERE
+			    SOL.FTN_ESTATUS_SOLICITUD = 512        					-- ==> SOLICITUDES ACEPTADAS ( FIJO )
+			    AND SOL.FTN_ID_TIPO_CTA = #{idTipoCta}              		-- ==> TARJETA DEBITO 496, CLABE 497, CHEQUERA 847
+			    AND SOL.FTN_CVE_BANCO = #{cveBancoIncluir}                	-- ==> BANAMEX 459, BBVA 460, OTROS 848
+			    AND SOL.FTD_FEH_PROX_CARGO BETWEEN TO_DATE(#{fechaInicio},'DD/MM/YYYY') AND TO_DATE(#{fechaFin},'DD/MM/YYYY')
+			    <if test='origenAportacion.equals("845")'>
+			    	AND SOL.FTN_ORIGEN_APORTACION = #{origenAportacion}        -- ==>  845 DOMICILIACIONES TRASPASOS ,0 DOMICILIACIONES
+			    </if>
+			    <if test='origenAportacion.equals("0")'>
+			    	AND SOL.FTN_ORIGEN_APORTACION <![CDATA[ <> ]]> 845        -- ==>  845 DOMICILIACIONES TRASPASOS ,0 DOMICILIACIONES
+			    </if>
+			    AND SOL.FTN_ID_ORIGEN_SOLICITUD <![CDATA[ <> ]]> 1042
+			    AND SOL.FTN_ESTATUS_CARGO IN ( 498 )
+			)
+			)
+			SELECT 
+			     DESCRIPCION
+			    ,CASE WHEN DESCRIPCION LIKE 'IMPORTE TOTAL' THEN ('$' || TO_CHAR(TOTAL,'fm9999,999,999,990.00')) ELSE TO_CHAR(TOTAL,'fm9999,999,999,990') END AS TOTAL 
+			FROM CIFRAS_DETALLE CD
+			
+	</select>
+	
+	
+	<select id="getImportesTotalesCifraOtrosBancos"
+			parameterType="mx.profuturo.nci.business.wrapped.CifraDomiFilter"
+			resultMap="ResultMapImportesTotalesCifra">
+			
+			WITH CIFRAS_DETALLE AS(
+			(SELECT
+			    'IMPORTE TOTAL'  AS DESCRIPCION
+			    ,SUM( FTN_IMPORTE ) AS TOTAL
+			FROM TTAFOAVOL_SOLICITUD SOL
+			LEFT JOIN TCCRXGRAL_CAT_CATALOGO p ON p.FCN_ID_CAT_CATALOGO = SOL.FTN_ID_PERIODO
+			JOIN TCCRXGRAL_CAT_CATALOGO cbank ON cbank.FCN_ID_CAT_CATALOGO = SOL.FTN_CVE_BANCO 
+			JOIN TMSISGRAL_MAP_NCI_ITGY r_map ON r_map.TMN_CVE_NCI = SOL.FTN_CVE_BANCO AND TMC_USO = 'BANCOS'  and r_map.TMC_VIGENCIA = 1 and cbank.FCB_VIGENCIA =1
+			WHERE 
+			    SOL.FTN_ESTATUS_SOLICITUD = 512       				  -- ==> SOLICITUDES ACEPTADAS ( FIJO )
+			    AND SOL.FTN_ID_TIPO_CTA = #{idTipoCta}             		  -- ==> TARJETA DEBITO 496, CLABE 497, CHEQUERA 847
+			    AND SOL.FTN_CVE_BANCO NOT IN (459, 460)              	  -- ==> BANAMEX 459, BBVA 460, OTROS 848
+			    AND SOL.FTD_FEH_PROX_CARGO BETWEEN TO_DATE(#{fechaInicio},'DD/MM/YYYY') AND TO_DATE(#{fechaFin},'DD/MM/YYYY')
+			    <if test='origenAportacion.equals("845")'>
+			    	AND SOL.FTN_ORIGEN_APORTACION = #{origenAportacion}        -- ==>  845 DOMICILIACIONES TRASPASOS ,0 DOMICILIACIONES
+			    </if>
+			    <if test='origenAportacion.equals("0")'>
+			    	AND SOL.FTN_ORIGEN_APORTACION <![CDATA[ <> ]]> 845        -- ==>  845 DOMICILIACIONES TRASPASOS ,0 DOMICILIACIONES
+			    </if>
+			    AND SOL.FTN_ID_ORIGEN_SOLICITUD <![CDATA[ <> ]]> 1042
+			    AND SOL.FTN_ESTATUS_CARGO IN ( 498 )
+			    )
+			UNION ALL
+			(SELECT
+			    'TOTAL REGISTROS'  AS DESCRIPCION
+			    ,COUNT(*) AS TOTAL
+			FROM TTAFOAVOL_SOLICITUD SOL
+			LEFT JOIN TCCRXGRAL_CAT_CATALOGO p ON p.FCN_ID_CAT_CATALOGO = SOL.FTN_ID_PERIODO
+			JOIN TCCRXGRAL_CAT_CATALOGO cbank ON cbank.FCN_ID_CAT_CATALOGO = SOL.FTN_CVE_BANCO 
+			JOIN TMSISGRAL_MAP_NCI_ITGY r_map ON r_map.TMN_CVE_NCI = SOL.FTN_CVE_BANCO AND TMC_USO = 'BANCOS'  and r_map.TMC_VIGENCIA = 1 and cbank.FCB_VIGENCIA =1
+			WHERE 
+			    SOL.FTN_ESTATUS_SOLICITUD = 512        					-- ==> SOLICITUDES ACEPTADAS ( FIJO )
+			    AND SOL.FTN_ID_TIPO_CTA = #{idTipoCta}              		-- ==> TARJETA DEBITO 496, CLABE 497, CHEQUERA 847
+			    AND SOL.FTN_CVE_BANCO NOT IN (459, 460)                  	-- ==> BANAMEX 459, BBVA 460, OTROS 848
+			    AND SOL.FTD_FEH_PROX_CARGO BETWEEN TO_DATE(#{fechaInicio},'DD/MM/YYYY') AND TO_DATE(#{fechaFin},'DD/MM/YYYY')
+			    <if test='origenAportacion.equals("845")'>
+			    	AND SOL.FTN_ORIGEN_APORTACION = #{origenAportacion}        -- ==>  845 DOMICILIACIONES TRASPASOS ,0 DOMICILIACIONES
+			    </if>
+			    <if test='origenAportacion.equals("0")'>
+			    	AND SOL.FTN_ORIGEN_APORTACION <![CDATA[ <> ]]> 845        -- ==>  845 DOMICILIACIONES TRASPASOS ,0 DOMICILIACIONES
+			    </if>
+			    AND SOL.FTN_ID_ORIGEN_SOLICITUD <![CDATA[ <> ]]> 1042
+			    AND SOL.FTN_ESTATUS_CARGO IN ( 498 )
+			)
+			)
+			SELECT 
+			     DESCRIPCION
+			    ,CASE WHEN DESCRIPCION LIKE 'IMPORTE TOTAL' THEN ('$' || TO_CHAR(TOTAL,'fm9999,999,999,990.00')) ELSE TO_CHAR(TOTAL,'fm9999,999,999,990') END AS TOTAL 
+			FROM CIFRAS_DETALLE CD
+			
+	</select>
+	
+	<select id="ultimosArchivosGenerados" 
+			resultMap="ResultMapUltimosArchivosGenerados"
+			parameterType="mx.profuturo.nci.business.wrapped.UltimosArchivosGeneradosFilter">
+			
+			WITH ARCHIVOS AS (
+				SELECT
+					TO_CHAR(MAX(ARGEN.FLD_FEH_INI_GEN), 'DD/MM/YYYY') AS FLD_FEH_INI_GEN,
+					TO_CHAR(MAX(ARGEN.FLD_FEH_FIN_GEN), 'DD/MM/YYYY') AS FLD_FEH_FIN_GEN,
+					ARGEN.FTN_CVE_BANCO AS FTN_TIPO_ARCHIVO,
+					T_A_CAT.FCC_VALOR AS FTN_VALOR_TIPO_ARCHIVO,
+					DET.FTN_ID_TIPO_CTA,
+					T_C_CAT.FCC_VALOR AS FCC_VALOR_TIPO_CTA,
+					DET.FTN_CVE_BANCO,
+					C_B_CAT.FCC_VALOR AS FCC_VALOR_CLAVE_BANCO,
+					FLN_ESTATUS ESTATUS
+				FROM TLAFOAVOL_ARCHIVOS_DOMI_GEN ARGEN
+					JOIN TLAFOAVOL_DETALLE_CTAS_BANCO DET
+						ON ARGEN.FLN_ID_ARCHIVO_DOMI = DET.FLN_ID_ARCHIVO_DOMI
+					LEFT JOIN TCCRXGRAL_CAT_CATALOGO T_A_CAT
+						ON T_A_CAT.FCN_ID_CAT_CATALOGO = ARGEN.FTN_CVE_BANCO
+					LEFT JOIN TCCRXGRAL_CAT_CATALOGO T_C_CAT
+						ON T_C_CAT.FCN_ID_CAT_CATALOGO = DET.FTN_ID_TIPO_CTA
+					LEFT JOIN TCCRXGRAL_CAT_CATALOGO C_B_CAT
+						ON C_B_CAT.FCN_ID_CAT_CATALOGO = DET.FTN_CVE_BANCO
+				WHERE
+					DET.FTN_ORIGEN_APORTACION = #{origenAportacion}
+						AND FLN_ESTATUS > 0
+				GROUP BY ARGEN.FTN_CVE_BANCO, DET.FTN_ID_TIPO_CTA, DET.FTN_CVE_BANCO,
+						T_A_CAT.FCC_VALOR,T_C_CAT.FCC_VALOR,C_B_CAT.FCC_VALOR, FLN_ESTATUS
+			)
+			SELECT * FROM ARCHIVOS
+			WHERE
+			FTN_CVE_BANCO = #{cuentasIncluir}
+			AND FTN_TIPO_ARCHIVO = #{archivoGenerar}
+			ORDER BY FTN_ID_TIPO_CTA
+	</select>
+	
+	<select id="getCatalogoContratoDomi"
+			resultMap="ResultMapCatalogosControl">
+			SELECT 
+			     FCN_ID_CAT_CATALOGO    AS ID,
+			     FCC_VALOR              AS DESCRIPCION
+			FROM TCCRXGRAL_CAT_CATALOGO WHERE FCN_ID_CAT_CATALOGO IN (9520, 9519)
+	</select>
+</mapper>

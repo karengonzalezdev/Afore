@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mx.profuturo.nci.persistence.AforeMovilPersistence">
+
+	<resultMap id="AforeMovilResultMap" type="mx.profuturo.nci.business.vo.ConciliacionVO">
+	    <id 	column="FTN_ID_CONCILIACION" 	property="idConciliacion" 				jdbcType="DECIMAL"/>
+	    <result column="FTC_CURP" 				property="curp" 						jdbcType="VARCHAR" 		javaType="String"/>
+	    <result column="FTC_NOMBRE_CTE" 		property="nombreCliente" 				jdbcType="VARCHAR" 		javaType="String"/>
+	    <result column="FTC_AP_PATERNO_CTE"     property="apellidoClientePaterno" 		jdbcType="VARCHAR"		javaType="String"/>
+	    <result column="FTC_AP_MATERNO_CTE"    	property="apellidoClienteMaterno" 		jdbcType="VARCHAR" 		javaType="String"/>
+	    <result column="FTN_IMPORTE"     		property="importe" 						jdbcType="DECIMAL"/>
+	    <result column="FTC_TIPO_AHORRADOR"     property="correoElectronico" 			jdbcType="VARCHAR" 		javaType="String"/>
+	    <result column="FTD_FEH_PAGO_APOVOL"    property="fechaPagoApovol" 				jdbcType="TIMESTAMP"/>
+	    <result column="FTC_DIFERENCIA" 	    property="numeroEmpleado" 				jdbcType="DECIMAL"/>
+	    <result column="FTN_NUM_CTA_INVDUAL" 	property="numeroCuentaIndividual" 		jdbcType="DECIMAL"/>
+	    <result column="FTD_FEH_DEPOSITO"    	property="fechaCargaArchivo" 			jdbcType="TIMESTAMP"/>
+	    <result column="FTD_FEH_CONCIL"   	 	property="fechaValorApovol" 			jdbcType="TIMESTAMP"/>
+	    
+	    <result column="FTC_RFC_CTE"   	 		property="rfc"	 						jdbcType="VARCHAR"/>
+	    <result column="FTN_NSS"   	 			property="nss" 							jdbcType="DECIMAL"/>
+	    <result column="FTC_CORREO_ELEC"   	 	property="correoElectronico" 			jdbcType="VARCHAR"/>
+	    <result column="FTN_CELULAR"   	 		property="celular" 						jdbcType="DECIMAL"/>
+	    
+	    <association property="estatusTramite"
+			resultMap="mx.profuturo.nci.persistence.CatalogoPersistence.resMapGenericEstatus" />
+	</resultMap>
+	
+	<select id="consultarAforeMovil" parameterType="mx.profuturo.nci.business.wrapped.AforeMovilFilter"
+		resultMap="AforeMovilResultMap">
+
+		SELECT TC.FTN_ID_CONCILIACION, TC.FTC_CURP, TC.FTC_NOMBRE_CTE, TC.FTC_AP_PATERNO_CTE, TC.FTC_AP_MATERNO_CTE, 
+		       TC.FTN_IMPORTE,TC.FTC_TIPO_AHORRADOR,TC.FTD_FEH_PAGO_APOVOL,
+		       TRUNC(SYSDATE-TRUNC(TC.FTD_FEH_PAGO_APOVOL)) AS FTC_DIFERENCIA, TCC.FCC_VALOR AS FLN_VALOR_ESTATUS,
+		       TC.FTN_ESTATUS_TRAMITE AS FLN_ESTATUS, FTN_NUM_CTA_INVDUAL, TC.FTD_FEH_PAGO_APOVOL AS FTD_FEH_DEPOSITO,
+		       TC.FTD_FEH_CONCILIACION AS FTD_FEH_CONCIL, TC.FTC_RFC_CTE, TC.FTN_NSS, TC.FTC_CORREO_ELEC, TC.FTN_CELULAR
+		  FROM TTAFOAVOL_CONCILIACION TC
+		  LEFT JOIN TCCRXGRAL_CAT_CATALOGO TCC ON TC.FTN_ESTATUS_TRAMITE=FCN_ID_CAT_CATALOGO
+	
+		<where>
+			TC.FTC_TIPO_AHORRADOR='02' AND ((TC.FTN_ESTATUS_TRAMITE=970) OR (TC.FTN_ESTATUS_TRAMITE=968 AND TC.FTN_REG_CONCILIADO=1))
+			<if test="nss != null">
+				AND TC.FTN_NSS = #{nss,jdbcType=VARCHAR}
+			</if>
+			<if test="curp != null">
+				AND TC.FTC_CURP = #{curp,jdbcType=VARCHAR}
+			</if>
+			<if test="fechaInicio != null and fechaFin != null">
+				AND TC.FTD_FEH_PAGO_APOVOL BETWEEN TRUNC(#{fechaInicio,jdbcType=TIMESTAMP}) AND
+				TRUNC(#{fechaFin,jdbcType=TIMESTAMP})+.99999
+			</if>
+		</where>
+		ORDER BY 8,2,3,4,5
+	</select>
+	
+	<update id="rechazarAforeMovil" parameterType="mx.profuturo.nci.business.wrapped.AforeMovilFilter">
+		UPDATE TTAFOAVOL_CONCILIACION
+		<set>
+			FTN_ESTATUS_TRAMITE= 970,FTN_REG_CONCILIADO=2,FTD_FEH_ACT = SYSTIMESTAMP
+			<if test="usuarioAct != null">
+				,FTC_USU_ACT= #{usuarioAct,jdbcType=VARCHAR}
+			</if>
+    	</set>
+		<where>
+			<if test="curp != null">
+				and FTC_CURP = #{curp,jdbcType=VARCHAR}
+			</if>
+			<if test="nombre != null">
+				and FTC_NOMBRE_CTE = #{nombre,jdbcType=VARCHAR}
+			</if>
+			<if test="apPaterno != null">
+				and FTC_AP_PATERNO_CTE = #{apPaterno,jdbcType=VARCHAR}
+			</if>
+			<if test="apMaterno != null">
+				and FTC_AP_MATERNO_CTE = #{apMaterno,jdbcType=VARCHAR}
+			</if>
+			<if test="estatus != null">
+				and FTN_ESTATUS_TRAMITE = #{estatus,jdbcType=DECIMAL}
+			</if>
+			<if test="estatus == null">
+				and FTN_ESTATUS_TRAMITE IS null
+			</if>
+		</where>
+  	</update>	
+	
+</mapper>

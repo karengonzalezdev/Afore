@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
+<!-- 2019-05-27T12:06:33 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteCifrasControlCliente" pageWidth="2210" pageHeight="842" columnWidth="2170" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="18719cfd-467a-4672-8289-e534f05396dc">
+	<property name="ireport.zoom" value="1.4641000000000033"/>
+	<property name="ireport.x" value="1646"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<field name="claveSolicitud" class="java.lang.String"/>
+	<field name="estatusSolicitud" class="java.lang.String"/>
+	<field name="usuarioActualizacion" class="java.lang.String"/>
+	<field name="numeroCuenta" class="java.lang.String"/>
+	<field name="curp" class="java.lang.String"/>
+	<field name="nss" class="java.lang.String"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="origenCaptura" class="java.lang.String"/>
+	<field name="usuarioCaptura" class="java.lang.String"/>
+	<field name="tipoMonto" class="java.lang.String"/>
+	<field name="fechaUltimoEstatus" class="java.lang.String"/>
+	<field name="cargosDS" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<field name="abonosDS" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<field name="fechaCaptura" class="java.lang.String"/>
+	<field name="folio" class="java.lang.String"/>
+	<field name="fechaLiquidacion" class="java.lang.String"/>
+	<field name="numeracion" class="java.lang.Integer"/>
+	<title>
+		<band height="100" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<image>
+				<reportElement x="0" y="0" width="285" height="67" uuid="37c7b38a-efb3-4e85-a551-7a2bd72e1481"/>
+				<imageExpression><![CDATA["reports/imagenes/logo-profuruto-afore.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="285" y="0" width="1895" height="67" uuid="0a46bfda-67aa-4212-8c20-8a73491900dc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="22" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[REPORTE CIFRAS CONTROL CLIENTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="285" y="72" width="105" height="20" forecolor="#FFFFFF" backcolor="#244162" uuid="524ab7dc-0525-43cf-8a87-49d46159ebba">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Cuenta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1855" y="72" width="105" height="20" forecolor="#FFFFFF" backcolor="#244162" uuid="91e195d9-1140-407b-8f92-11ad0553dd09">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Usuario captura]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1305" y="72" width="110" height="20" forecolor="#FFFFFF" backcolor="#244162" uuid="077917d5-9730-4c27-a010-bbc8d8de892b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Fondo apovol salida]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1415" y="72" width="110" height="20" forecolor="#FFFFFF" backcolor="#244162" uuid="7e36e974-63d4-477e-a495-f903f0832736"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Importe cargo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1635" y="72" width="110" height="20" forecolor="#FFFFFF" backcolor="#244162" uuid="a6d32e13-eb00-4f90-a38c-ad5c918c3159"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Importe abono]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1525" y="72" width="110" height="20" forecolor="#FFFFFF" backcolor="#244162" uuid="98740479-d6a8-43b5-9add-f53d26291145"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Fondo apovol entrada]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="50" y="72" width="120" height="20" forecolor="#FFFFFF" backcolor="#244162" uuid="ee95ed55-7290-43dc-8d27-4677350311fe"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Fecha captura]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="880" y="72" width="120" height="20" forecolor="#FFFFFF" backcolor="#244162" uuid="6d2746b8-0804-489f-8d0c-3ce327a432ac"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Folio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1745" y="72" width="110" height="20" forecolor="#FFFFFF" backcolor="#244162" uuid="182e1f2a-46ab-4f59-9322-5b8a63fcaa2e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Porcentaje]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1960" y="72" width="110" height="20" forecolor="#FFFFFF" backcolor="#244162" uuid="82f6071c-65f5-4631-b018-c6585c65dd7b">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Fecha ultimo estatus]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="2070" y="72" width="110" height="20" forecolor="#FFFFFF" backcolor="#244162" uuid="b7c49c77-1953-453e-9c19-074805cd79cb">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Usuario actualizacion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="495" y="72" width="110" height="20" forecolor="#FFFFFF" backcolor="#244162" uuid="830c551d-3c72-4823-b0a6-31d6564e3910">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[CURP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="390" y="72" width="105" height="20" forecolor="#FFFFFF" backcolor="#244162" uuid="0f97b771-17d7-4ea3-9efc-2f87af85a0f6">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[NSS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="605" y="72" width="155" height="20" forecolor="#FFFFFF" backcolor="#244162" uuid="8df0093a-ba5d-4118-9f54-8b13c8c2ec86">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="760" y="72" width="120" height="20" forecolor="#FFFFFF" backcolor="#244162" uuid="83377d9b-94ea-4006-a21c-f7fea6baf12f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Clave solicitud]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1000" y="72" width="100" height="20" forecolor="#FFFFFF" backcolor="#244162" uuid="bfa4449d-5ae8-49df-8915-999c80c38391"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Estatus solicitud]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1100" y="72" width="105" height="20" forecolor="#FFFFFF" backcolor="#244162" uuid="02295543-ce64-4264-a145-293aaebbba7f">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Origen captura]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1205" y="72" width="100" height="20" forecolor="#FFFFFF" backcolor="#244162" uuid="f56cab46-e163-474c-8a85-3aedc1171416"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Tipo monto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="170" y="72" width="115" height="20" forecolor="#FFFFFF" backcolor="#244162" uuid="50c8ada9-2fdf-4726-b672-4425159a38b0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Fecha liquidacion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="72" width="50" height="20" forecolor="#FFFFFF" backcolor="#244162" uuid="d33e5449-1762-4467-ab42-abc4ceb8f9c3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[No.]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="760" y="0" width="120" height="20" uuid="1539b227-35f2-4589-87f2-0922ffa22668">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{claveSolicitud}== null) ? " " :$F{claveSolicitud}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="1000" y="0" width="100" height="20" uuid="6dc53f80-f6bd-4004-b3b5-0e990d243d34"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{estatusSolicitud}== null) ? " " :$F{estatusSolicitud}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="2070" y="0" width="110" height="20" uuid="3d57cc1b-4cbf-404b-865b-bcc1306ff36f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{usuarioActualizacion}== null) ? " " :$F{usuarioActualizacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="285" y="0" width="105" height="20" uuid="8abf2f68-df3c-435e-b6a7-86751099fcd4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{numeroCuenta}== null) ? " " : $F{numeroCuenta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="390" y="0" width="105" height="20" uuid="f48df62d-70cd-4368-9592-59ca8e105a61"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{nss}== null) ? " " : $F{nss}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="495" y="0" width="110" height="20" uuid="380c89d9-5e71-4722-b356-67790c89ba0b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{curp}== null) ? " " : $F{curp}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="605" y="0" width="155" height="20" uuid="f0e6aaef-7bd4-42d9-9877-2f4c6b091cb8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{nombre}== null) ? " " : $F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="1100" y="0" width="105" height="20" uuid="42bdfe56-a808-468b-b3a6-e87a63d7b77a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{origenCaptura}== null) ? " " : $F{origenCaptura}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="1855" y="0" width="105" height="20" uuid="61d5cb92-6db3-4755-bc17-c5a889ba8462"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{usuarioCaptura}== null) ? " " : $F{usuarioCaptura}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="1205" y="0" width="100" height="20" uuid="0813c41c-ce00-4e05-a3e3-b7e59ae02187"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{tipoMonto}== null) ? " " : $F{tipoMonto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="1960" y="0" width="110" height="20" uuid="398d3b2c-7574-4e4b-89a8-194b20d4ddbd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{fechaUltimoEstatus}== null) ? " " :$F{fechaUltimoEstatus}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement stretchType="RelativeToBandHeight" x="1525" y="0" width="330" height="20" uuid="223fcad7-e275-4154-87ac-4f3037884371">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<dataSourceExpression><![CDATA[$F{abonosDS}]]></dataSourceExpression>
+				<subreportExpression><![CDATA["reports/subReporteAbonos.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement stretchType="RelativeToBandHeight" x="1305" y="0" width="220" height="20" uuid="41366ca8-be44-4cf6-bb4f-6741110509f6"/>
+				<dataSourceExpression><![CDATA[$F{cargosDS}]]></dataSourceExpression>
+				<subreportExpression><![CDATA["reports/subReporteCargos.jasper"]]></subreportExpression>
+			</subreport>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="50" y="0" width="120" height="20" uuid="94c7c19b-0d86-4c0e-9eee-97927033a2cc">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{fechaCaptura}== null) ? " " : $F{fechaCaptura}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="880" y="0" width="120" height="20" uuid="c51ad64e-d39b-4111-a54e-89bda95ce77b">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{folio}== null) ? " " : $F{folio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="170" y="0" width="115" height="20" uuid="03fef1e8-1f83-4d9d-9a08-4126f612d0ce">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{fechaLiquidacion}== null) ? " " : $F{fechaLiquidacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="50" height="20" uuid="bc6cdf19-f72b-459c-81ab-10ff9f6dbf99">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{numeracion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

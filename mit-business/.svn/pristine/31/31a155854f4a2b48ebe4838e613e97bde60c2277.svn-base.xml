@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" targetNamespace="http://www.profuturo.mx/ldap/OperacionesLdap" xmlns:tns="http://www.profuturo.mx/ldap/OperacionesLdap" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="ConsultaGruposPorUid" type="tns:ConsultaGruposPorUid"/>
+
+  <xs:element name="ConsultaGruposPorUidResponse" type="tns:ConsultaGruposPorUidResponse"/>
+
+  <xs:complexType name="ConsultaGruposPorUid">
+    <xs:sequence>
+      <xs:element name="ConsultaGruposPorUidIn" type="tns:consultaGruposPorUidIn" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultaGruposPorUidIn">
+    <xs:sequence>
+      <xs:element name="uid" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ConsultaGruposPorUidResponse">
+    <xs:sequence>
+      <xs:element name="ConsultaGruposPorUidOut" type="tns:consultaGruposPorUidOut" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultaGruposPorUidOut">
+    <xs:sequence>
+      <xs:element name="grupos" type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="faultBeanServiceInfo">
+    <xs:sequence>
+      <xs:element name="cveAplicacion" type="xs:string" minOccurs="0"/>
+      <xs:element name="cveCategoria" type="xs:string" minOccurs="0"/>
+      <xs:element name="cveSeveridad" type="xs:string" minOccurs="0"/>
+      <xs:element name="fechaExcepcionSistema" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="mensajeExcepcionAplicacion" type="xs:string" minOccurs="0"/>
+      <xs:element name="mensajeExcepcionSistema" type="xs:string" minOccurs="0"/>
+      <xs:element name="message" type="xs:string" minOccurs="0"/>
+      <xs:element name="nombreServicio" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+

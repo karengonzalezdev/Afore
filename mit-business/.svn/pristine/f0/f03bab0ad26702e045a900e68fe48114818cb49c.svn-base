@@ -1,0 +1,93 @@
+package mx.profuturo.nci.business.service.impl;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.jeveris.core.exception.impl.BusinessException;
+
+import mx.profuturo.nci.business.exception.ErrorCodeService;
+import mx.profuturo.nci.business.exception.GenerateExceptionDetails;
+import mx.profuturo.nci.business.exception.MitBusinessException;
+import mx.profuturo.nci.business.service.IServiciosCifService;
+import mx.profuturo.nci.business.vo.ActualizaEstatusCifVO;
+import mx.profuturo.nci.business.vo.ArchivoDetalleCifVO;
+import mx.profuturo.nci.business.vo.DetalleMovimientosCifVO;
+import mx.profuturo.nci.business.vo.DevolucionesApovolCifVO;
+import mx.profuturo.nci.business.vo.PendientesTimbradoCifVO;
+import mx.profuturo.nci.persistence.ServiciosCifPersistence;
+
+@Service("serviciosCifService")
+public class ServiciosCifServiceImpl implements IServiciosCifService {
+	private static final Logger LOGGER = LoggerFactory.getLogger(ServiciosCifServiceImpl.class);
+
+	@Autowired
+	ServiciosCifPersistence serviciosCifPersistence;	
+	
+	public Integer actualizaEstatusCif(ActualizaEstatusCifVO actualizaEstatusVO) throws Exception {
+		return serviciosCifPersistence.actualizaEstatusCif(actualizaEstatusVO);
+	}
+
+	public Integer actualizaEstatusCifDatamarts(ActualizaEstatusCifVO actualizaEstatusVO)
+			throws Exception {
+		return serviciosCifPersistence.actEstatCifData(actualizaEstatusVO);
+	}
+	
+	public List<PendientesTimbradoCifVO> obtenerDevolucionesApovol(PendientesTimbradoCifVO param) throws MitBusinessException {
+		String tipoDevolucionApovol = param.getTipoDevolucion();
+		if (tipoDevolucionApovol.equals("DEV-PROSPECTO") || tipoDevolucionApovol.equals("DEV-CLIENTE")) {
+			return this.serviciosCifPersistence.getDevolucionesCif(param);
+		} else if (tipoDevolucionApovol.equals("DEV-PROCESAR") || tipoDevolucionApovol.equals("DEV-PROFUTURO")) {
+			return this.serviciosCifPersistence.getDevolucionesProfuturo(param);
+		} else if (tipoDevolucionApovol.equals("DEV-PROFU-PROSPEC")) {
+			return null;
+		} else {
+			MitBusinessException mitBusinessException = new MitBusinessException(
+					GenerateExceptionDetails.generate(ErrorCodeService.EX_EXCEPTION, "El tipo de devolucion no existe",
+							new Object[] { "PendientesTimbradoCifServiceImpl", "obtenerDevolucionesApovol()" },
+							new Exception("Se debe incluir un valor valido para el tipo de devolucion DEV-PROSPECTO, DEV-CLIENTE, DEV-PROCESAR, DEV-PROFUTURO, DEV-PROFU-PROSPEC")));
+			throw mitBusinessException;
+		}
+	}
+	
+	public List<ArchivoDetalleCifVO> obtenerListaDetalleCif(ArchivoDetalleCifVO param) throws Exception {
+		return serviciosCifPersistence.getListaDetalleCif(param);
+	}
+	
+	public List<DevolucionesApovolCifVO> obtenerListaDevolucionesApovolCif(DevolucionesApovolCifVO param)throws Exception {
+		try{
+			String tipoDevolucionApovol = param.getTipoDevolucionApovol();
+			
+			if(tipoDevolucionApovol.equals("DEV-PROSPECTO") || tipoDevolucionApovol.equals("DEV-CLIENTE")) {
+				return this.serviciosCifPersistence.getListaDevolucionesApovol(param);
+				
+			}else if(tipoDevolucionApovol.equals("DEV-PROCESAR")|| tipoDevolucionApovol.equals("DEV-PROFUTURO")) {
+				return this.serviciosCifPersistence.getListadoDevolucionesApovol(param);
+			}else if (tipoDevolucionApovol.equals("DEV-PROFU-PROSPEC")) {
+				  return null;
+			}else {
+				MitBusinessException mitBusinessException = new MitBusinessException(
+						GenerateExceptionDetails.generate(ErrorCodeService.EX_EXCEPTION, "El tipo de devolucion no existe",
+								new Object[] { "ValidarResultLoteCifServiceImpl", "obtenerListaDevolucionesApovolCif()" },
+								new Exception("Se debe incluir un valor valido para el tipo de devolucion DEV-PROSPECTO, DEV-CLIENTE, DEV-PROCESAR, DEV-PROFUTURO, DEV-PROFU-PROSPEC")));
+				throw mitBusinessException;
+			}
+		}catch (Exception ex) {
+			MitBusinessException mitBusinessException = new MitBusinessException(GenerateExceptionDetails.generate(
+			ErrorCodeService.EX_EXCEPTION, "El tipo de devolución no existe.",
+			new Object[] { getClass().getSimpleName(), "obtenerListaDevolucionesApovolCif()" }, ex));
+			LOGGER.error(mitBusinessException.getMessage(), ex);
+			throw mitBusinessException;
+		}
+	}
+	
+	public List<DetalleMovimientosCifVO> obtenerListaDetalleMovCif(DetalleMovimientosCifVO param) throws Exception {
+		LOGGER.info("******************************     persistence:obtenerListaDetalleMovCif     ******************************");
+		return serviciosCifPersistence.getListaDetalleMovCif(param);
+	}
+
+}

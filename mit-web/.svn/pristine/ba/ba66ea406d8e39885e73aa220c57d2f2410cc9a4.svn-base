@@ -1,0 +1,158 @@
+
+@blue:                          #00427A;
+@yellow:                        #FDB813;
+@gray:                          #999999;
+@silver:                        #eaeaea;
+@white:                         #ffffff;
+
+@sans:                          "Arial", sans-serif;
+@serif:                         "Times", "Garamond", serif;
+@mono:                          monospace;
+@fontsize:                      14px;
+
+.radius(@radius: 5px) {
+    -moz-border-radius: @radius;
+    -webkit-border-radius: @radius;
+    -o-border-radius: @radius;
+    -ms-border-radius: @radius;
+    border-radius: @radius;
+}
+
+// Box Shadow
+.bs(@bsval: 0px 0px 0.83em #333, @due: 0 0 0 transparent) {
+    -moz-box-shadow: @bsval, @due;
+    -webkit-box-shadow: @bsval, @due;
+    -o-box-shadow: @bsval, @due;
+    -box-shadow: @bsval, @due;
+}
+.bs-ie(@color: @system, @strength: 1){
+//filter: ~"progid:DXImageTransform.Microsoft.Shadow(color='@color', Direction=@direction, Strength=@strength)";
+    filter: ~"Shadow(color=@system,strength=@strength);";
+}
+
+.ts(@tsval: 0px 1px 0px #fff) {
+    text-shadow: @tsval;
+}
+
+#gradient {
+    .h(@startColor: #555, @endColor: #333, @img: none) {
+    /* Legacy browsers */
+        background: @endColor, @img;
+    /* Recent browsers */
+        -o-background-size: 100% 100%;
+        -moz-background-size: 100% 100%;
+        -webkit-background-size: auto auto !important;
+        background-size: 100% 100%;
+        background: @img, -webkit-gradient(linear, left top, right top, from(@startColor), to(@endColor));
+        background: @img, -webkit-linear-gradient(right center, @startColor, @endColor);
+        background: @img, -moz-linear-gradient(right center, @startColor, @endColor);
+        background: @img, -o-linear-gradient(left,  @startColor,  @endColor);
+        background: @img, -khtml-gradient(linear, left top, right top, from(@startColor), to(@endColor));
+        filter: e(%("progid:DXImageTransform.Microsoft.Gradient(StartColorStr='%d', EndColorStr='%d', GradientType=1)",@startColor,@endColor));
+        -ms-filter: %("progid:DXImageTransform.Microsoft.gradient(startColorStr='%d', EndColorStr='%d', GradientType=1))",@startColor,@endColor);
+    }
+.v(@startColor: #555, @endColor: #333, @img: none) {
+/* Legacy browsers */
+    background: @endColor, @img;
+/* Recent browsers */
+    -o-background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    -webkit-background-size: auto auto !important;
+    background-size: 100% 100%;
+    background: @img, -webkit-gradient(linear, left top, left bottom, from(@startColor), to(@endColor));
+    background: @img, -webkit-linear-gradient(@startColor, @endColor);
+    background: @img, -moz-linear-gradient(@startColor, @endColor);
+    background: @img, -ms-linear-gradient(@startColor, @endColor);
+    background: @img, -o-linear-gradient(top,  @startColor,  @endColor);
+    background: @img, -khtml-gradient(linear, left top, left bottom, from(@startColor), to(@endColor));
+    filter: e(%("progid:DXImageTransform.Microsoft.Gradient(StartColorStr='%d', EndColorStr='%d', GradientType=0)",@startColor,@endColor));
+    -ms-filter: %("progid:DXImageTransform.Microsoft.gradient(startColorStr='%d', EndColorStr='%d', GradientType=0))",@startColor,@endColor);
+}
+    }
+
+.btn(@color: @blue, @text_color: @white, @bcolor: darken(@blue,5%), @text_shadow: 0 1px 0 darken(@blue,5%), @padding: 7px 15px, @rounded: 3px, @size: @fontsize) {
+    display: inline-block;
+    padding: @padding;
+    color: @text_color !important;
+    line-height: 20px;
+    border: 1px solid @bcolor;
+    margin: 3px 0;
+    font-size: @size;
+    text-align: center;
+    font-family: @sans;
+    background-image: none;
+    width: auto !important;
+    text-decoration: none;
+    #gradient > .v(lighten(@color,2%),darken(@color,6%));
+    .ts(@text_shadow);
+    .radius(@rounded);
+    .bs(0 1px 2px rgba(255,255,255,0.50), 0 1px 0 rgba(255,255,255,0.40) inset);
+    font-weight: 700;
+    cursor: pointer;
+    *overflow: visible;
+    &:hover, &:focus {
+        #gradient > .v(darken(@color,5%), @color);
+        .bs(0 1px 0 rgba(255,255,255,0.40), 0 1px 2px rgba(32,32,32,0.1) inset);
+        color: @text_color;
+        text-decoration: none;
+    }
+}
+.button, .boton, input[type="submit"], button {
+    .btn();
+    .subtle{
+        font-size: 12px;
+        display: block;
+        text-align: center;
+        line-height: 150%;
+    }
+}
+.gray-button{
+    .btn(lighten(@silver,8%), @blue, @silver, 0 1px 2px darken(@silver,5%), 11px 20px, 1px);
+    text-transform: uppercase;
+    border: 1px solid darken(@silver,10%);
+    letter-spacing: 0.05em;
+    .bs(0 1px 2px rgba(0,0,0,0.5));
+}
+.white.button, input[type="submit"].white.button{
+    .btn(lighten(@silver,8%), @blue, darken(@silver,15%), 0 1px 0 transparent, 7px 15px, 3px);
+    .bs(0 1px 2px darken(@silver,15%));
+    &:hover{
+        .bs(0 1px 4px darken(@white,20%)inset, 0 1px 0 @white);
+    }
+}
+.yellow.button, input[type="submit"].yellow.button{
+    .btn(@yellow, darken(@yellow,25%), darken(@yellow,15%), 0 1px 0 transparent, 7px 15px, 3px);
+    .bs(0 1px 2px rgba(0,0,0,0.3), 0 1px 0 lighten(@yellow,20%) inset);
+    margin: 0;
+}
+.button.mid{
+    font-size: 15px;
+}
+.button.big{
+    font-size: 16px;
+    padding: 10px 15px;
+}
+.button.bigger{
+    font-size: 20px;
+    padding: 9px 35px;
+    .radius(0);
+    margin: 0 5px !important;
+    font-family: 'Calibri', sans-serif;
+}
+.button.redondeado{
+    .radius(10px);
+}
+.button.faq-search{
+    padding: 8px 20px;
+    .radius(0);
+    height: auto !important;
+    color: darken(@gray,15%) !important;
+}
+.asistente-button{
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    font-size: 11px !important;
+    .radius(0);
+    padding: 1px 10px !important;
+}

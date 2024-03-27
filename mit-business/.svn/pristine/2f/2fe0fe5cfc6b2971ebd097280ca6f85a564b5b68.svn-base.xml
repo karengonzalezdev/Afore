@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mx.profuturo.nci.persistence.CifCtrlReclasificacionPersistence">
+	
+<!-- 	consultaTotalReclasificacion -->
+	<resultMap  id="CCAceptRechReclasifMap" 
+				type="mx.profuturo.nci.business.vo.cifctrlreclasificacion.CCTotalReclasificacionVO">
+		<result property="totalSolicitudes" 			javaType="int" column="TOTAL_SOLIC" 		jdbcType="DECIMAL" />
+		<result property="totalSolicitudesAceptadas" 	javaType="int" column="TOTAL_SOLIC_ACEP" 	jdbcType="DECIMAL" />
+		<result property="totalSolicitudesRechazadas" 	javaType="int" column="TOTAL_SOLIC_RECH" 	jdbcType="DECIMAL" />
+	</resultMap>
+	
+	<resultMap  id="CCInfoGeneralMap" 
+				type="mx.profuturo.nci.business.vo.cifctrlreclasificacion.CCTotalReclasificacionVO">
+		<result property="folio" 			javaType="String" column="FOLIO" 		jdbcType="VARCHAR" />
+		<result property="descProceso" 		javaType="String" column="PROCESO" 	jdbcType="VARCHAR" />
+		<result property="descEstatusProceso" 	javaType="String" column="ESTATUS_PROCESO" 	jdbcType="VARCHAR" />
+		<result property="fchIncioProceso" 		javaType="String" column="FECHA_INICIO_PROCESO" 	jdbcType="VARCHAR" />
+		<result property="fchUltimoEstatus" 	javaType="String" column="FECHA_ULTIMO_ESTATUS" 	jdbcType="VARCHAR" />
+	</resultMap>
+	
+	
+	<select id="consultaTotalReclasificacion" parameterType="mx.profuturo.nci.business.wrapped.cifctrlreclasificacion.CifCtrlReclasificacionFilter" resultMap="CCAceptRechReclasifMap">
+
+		SELECT  "512" +"511"  AS TOTAL_SOLIC, 
+        "512" AS TOTAL_SOLIC_ACEP, 
+        "511" AS TOTAL_SOLIC_RECH FROM 
+		    (
+				   SELECT 
+				        fcn_id_estatus_solicitud AS ESTATUS  
+				    FROM
+				        ttafoavol_sol_reclasificacion
+				        <where>
+					        <if test="folioCifCtrl != null"> 
+								FTC_FOLIO = #{folioCifCtrl,jdbcType=VARCHAR}
+							</if>
+						</where>
+				)
+				pivot 
+				(
+				   COUNT(ESTATUS)
+				   for ESTATUS in (512,511)
+				) 
+	</select>
+	
+<!-- 	consultaOrigDestReclasificacion -->
+	<resultMap  id="CCTotalReclasificacionMap" 
+				type="mx.profuturo.nci.business.vo.cifctrlreclasificacion.CCOrigDestReclasificacionVO">
+		<result property="fuenteSiefore" 	javaType="string" 	column="SIEFORE_FUENTE" jdbcType="VARCHAR" />
+		<result property="numSolicProfBp" 	javaType="int" 		column="TOTAL_PROF_BP" 	jdbcType="DECIMAL" />
+		<result property="numSolicProfB1" 	javaType="int" 		column="TOTAL_PROF_B1" 	jdbcType="DECIMAL" />
+		<result property="numSolicProfB2" 	javaType="int" 		column="TOTAL_PROF_B2" 	jdbcType="DECIMAL" />
+		<result property="numSolicProfB3" 	javaType="int" 		column="TOTAL_PROF_B3" 	jdbcType="DECIMAL" />
+		<result property="numSolicProfB4" 	javaType="int" 		column="TOTAL_PROF_B4" 	jdbcType="DECIMAL" />
+		<result property="numSolicProfCp" 	javaType="int" 		column="TOTAL_PROF_CP" 	jdbcType="DECIMAL" />
+		<result property="numSolicProfLp" 	javaType="int" 		column="TOTAL_PROF_LP" 	jdbcType="DECIMAL" />
+	</resultMap>
+	
+	<select id="consultaOrigDestReclasificacion" parameterType="mx.profuturo.nci.business.wrapped.cifctrlreclasificacion.CifCtrlReclasificacionFilter" 
+	resultMap="CCTotalReclasificacionMap">
+		
+SELECT 'ORIGEN' AS SIEFORE_FUENTE,
+ "74" AS TOTAL_PROF_BP,
+ "75" AS TOTAL_PROF_B1,
+ "76" AS TOTAL_PROF_B2,
+ "77" AS TOTAL_PROF_B3,
+ "78" AS TOTAL_PROF_B4,
+ "82" AS TOTAL_PROF_CP,
+ "83" AS TOTAL_PROF_LP
+FROM (SELECT mo.FCN_ID_SIEFORE AS SIEFORE_ORIGEN 
+   FROM PROFAPOVOL.TTAFOAVOL_RECLA_DIVERSIFICA MO, PROFAPOVOL.TTAFOAVOL_SOL_RECLASIFICACION SO
+   
+   <where>  MO.FTC_CVE_SOLICITUD = SO.FTC_CVE_SOLICITUD
+   AND SO.FCN_ID_ESTATUS_SOLICITUD = 512
+   and MO.FCN_ID_TIPO_MOV = 180
+   								        <if test="folioCifCtrl != null"> 
+											 AND SO.FTC_FOLIO = #{folioCifCtrl,jdbcType=VARCHAR}
+										</if>
+  
+   </where>
+   )
+PIVOT
+(
+COUNT(SIEFORE_ORIGEN)
+   FOR SIEFORE_ORIGEN IN (74,75,76,77,78,82,83)
+)
+UNION
+SELECT 'DESTINO' AS SIEFORE_FUENTE,
+ "74" AS TOTAL_PROF_BP,
+ "75" AS TOTAL_PROF_B1,
+ "76" AS TOTAL_PROF_B2,
+ "77" AS TOTAL_PROF_B3,
+ "78" AS TOTAL_PROF_B4,
+ "82" AS TOTAL_PROF_CP,
+ "83" AS TOTAL_PROF_LP
+FROM ( SELECT MO.FcN_ID_SIEFORE AS SIEFORE_DESTINO 
+   FROM PROFAPOVOL.TTAFOAVOL_RECLA_DIVERSIFICA MO, PROFAPOVOL.TTAFOAVOL_SOL_RECLASIFICACION SO
+   <where>
+   	MO.FTC_CVE_SOLICITUD = SO.FTC_CVE_SOLICITUD
+   AND SO.FCN_ID_ESTATUS_SOLICITUD = 512 
+   AND MO.FcN_ID_TIPO_MOV = 181
+   								        <if test="folioCifCtrl != null"> 
+											 AND SO.FTC_FOLIO = #{folioCifCtrl,jdbcType=VARCHAR}
+										</if>
+   </where>  
+   )
+PIVOT
+(
+ COUNT(SIEFORE_DESTINO)
+ FOR SIEFORE_DESTINO IN (74,75,76,77,78,82,83)
+)
+
+		
+		
+	
+	</select>
+	
+<!-- 	consultaOrigDestReclasificacion -->
+	<resultMap  id="CCTotPorSubctasReclasificacionMap" 
+				type="mx.profuturo.nci.business.vo.cifctrlreclasificacion.CCTotalSubcuentaReclasificacionVO">
+		<result property="subcuenta.id" 			javaType="short" 	column="FcN_ID_SUBCTA" 		jdbcType="VARCHAR" />
+		<result property="subcuenta.valor" 			javaType="string" 	column="VALOR_SUBCUENTA" 	jdbcType="DECIMAL" />
+		<!-- <result property="tipoMovimiento.id" 		javaType="short" 	column="ID_MOVIMIENTO" 		jdbcType="VARCHAR" />
+		<result property="tipoMovimiento.valor" 	javaType="string" 	column="VALOR_MOVIMIENTO" 	jdbcType="DECIMAL" /> -->
+		<result property="montoSolicProfBp" 		javaType="bigdecimal" 	column="TOTAL_PROF_BP" 		jdbcType="NUMERIC" />
+		<result property="montoSolicProfB1" 		javaType="bigdecimal" 	column="TOTAL_PROF_B1" 		jdbcType="NUMERIC" />
+		<result property="montoSolicProfB2" 		javaType="bigdecimal" 	column="TOTAL_PROF_B2" 		jdbcType="NUMERIC" />
+		<result property="montoSolicProfB3" 		javaType="bigdecimal" 	column="TOTAL_PROF_B3" 		jdbcType="NUMERIC" />
+		<result property="montoSolicProfB4" 		javaType="bigdecimal" 	column="TOTAL_PROF_B4" 		jdbcType="NUMERIC" />
+		<result property="montoSolicProfCp" 		javaType="bigdecimal" 	column="TOTAL_PROF_CP" 		jdbcType="NUMERIC" />
+		<result property="montoSolicProfLp" 		javaType="bigdecimal" 	column="TOTAL_PROF_LP" 		jdbcType="NUMERIC" />
+		<result property="totalAceptados" 			javaType="bigdecimal" 	column="TOTAL_ACEPTADOS" 	jdbcType="NUMERIC" />
+		<result property="totalRechazados" 			javaType="bigdecimal" 	column="TOTAL_RECHAZADOS" 	jdbcType="NUMERIC" />
+	</resultMap>
+	
+	<select id="consultaCarAboPorSubcuentas" parameterType="mx.profuturo.nci.business.wrapped.cifctrlreclasificacion.CifCtrlReclasificacionFilter" 
+	resultMap="CCTotPorSubctasReclasificacionMap">
+        
+SELECT c.FCN_ID_ESTATUS_SOLICITUD ,c.FTC_FOLIO,FcN_ID_SUBCTA as ID_SUBCUENTA,CAT.FCC_VALOR AS VALOR_SUBCUENTA,
+NVL( TOTAL_PROF_BP, 0)AS TOTAL_PROF_BP,
+NVL( TOTAL_PROF_B1, 0)AS TOTAL_PROF_B1,
+NVL( TOTAL_PROF_B2, 0)AS TOTAL_PROF_B2,
+NVL( TOTAL_PROF_B3, 0)AS TOTAL_PROF_B3,
+NVL( TOTAL_PROF_B4, 0)AS TOTAL_PROF_B4,
+NVL( TOTAL_PROF_CP, 0)AS TOTAL_PROF_CP,
+NVL( TOTAL_PROF_LP, 0)AS TOTAL_PROF_LP,
+(NVL( TOTAL_PROF_BP, 0)
+    + NVL( TOTAL_PROF_B1, 0) 
+    + NVL( TOTAL_PROF_B2, 0) 
+    + NVL( TOTAL_PROF_B3, 0) 
+    + NVL( TOTAL_PROF_B4, 0) 
+    + NVL( TOTAL_PROF_CP, 0) 
+    + NVL( TOTAL_PROF_LP, 0)) AS TOTAL_ACEPTADOS
+FROM ( SELECT  so.FCN_ID_ESTATUS_SOLICITUD,cc.FTC_FOLIO,mo.fcn_id_subcta,mo.fcn_id_siefore,so.ftn_monto_reclasif
+            FROM TTAFOAVOL_CC_RECLASIFICACION cc, TTAFOAVOL_SOL_RECLASIFICACION so, TTAFOAVOL_RECLA_DIVERSIFICA mo 
+            
+            
+            <where> 
+            cc.FTC_FOLIO = so.FTC_FOLIO
+            AND so.FTC_CVE_SOLICITUD = mo.FTC_CVE_SOLICITUD            
+            
+            <if test="folioCifCtrl != null"> 
+			AND cc.FTC_FOLIO = #{folioCifCtrl,jdbcType=VARCHAR}
+			</if>
+			
+			<if test="tipoMov != null"> 
+			AND mo.FcN_ID_TIPO_MOV = #{tipoMov,jdbcType=DECIMAL}
+			</if>
+            
+			 AND so.FCN_ID_ESTATUS_SOLICITUD = 511
+            </where>
+          
+                     group by so.FCN_ID_ESTATUS_SOLICITUD, cc.FTC_FOLIO,mo.fcn_id_subcta, mo.fcn_id_siefore,so.ftn_monto_reclasif)
+                         PIVOT
+                             (  SUM(ftn_monto_reclasif)
+                                FOR fcn_id_siefore IN 
+                                        (74 AS TOTAL_PROF_BP,
+                                        75 AS TOTAL_PROF_B1,
+                                        76 AS TOTAL_PROF_B2,    
+                                        77 AS TOTAL_PROF_B3,
+                                        78 AS TOTAL_PROF_B4,
+                                        82 AS TOTAL_PROF_CP,
+                                        83 AS TOTAL_PROF_LP)
+                             ) C
+                 LEFT JOIN TCCRXGRAL_CAT_CATALOGO CAT
+                     ON CAT.FCN_ID_CAT_CATALOGO = C.FcN_ID_SUBCTA
+                 ORDER BY 1 ASC
+
+		
+	</select>
+	
+	<select id="consultaTotalPorSubcuentas" parameterType="mx.profuturo.nci.business.wrapped.cifctrlreclasificacion.CifCtrlReclasificacionFilter" 
+	resultMap="CCTotPorSubctasReclasificacionMap">
+		WITH CARGO AS (
+            SELECT fcn_id_subcuenta,TOTAL_PROF_BP,TOTAL_PROF_B1,TOTAL_PROF_B2,TOTAL_PROF_B3,TOTAL_PROF_B4,TOTAL_PROF_CP,TOTAL_PROF_LP,NVL(TOTAL_RECHAZADOS,0) AS TOTAL_RECHAZADOS
+                FROM ( SELECT  fcn_id_subcuenta,fcn_id_siefore,ftn_monto_aceptado,SUM(ftn_monto_rechazado) AS TOTAL_RECHAZADOS
+                                FROM TTAFOAVOL_CC_RECLASIFICACION
+                                                                <where>
+                                    	FCN_ID_TIPO_MOV = 180 
+								        <if test="folioCifCtrl != null"> 
+											AND FTC_FOLIO = #{folioCifCtrl,jdbcType=VARCHAR}
+										</if>
+									</where> 
+                                group by fcn_id_subcuenta, fcn_id_siefore, ftn_monto_aceptado)
+                        PIVOT 
+                            (  SUM(ftn_monto_aceptado) 
+                               FOR fcn_id_siefore IN (74 AS TOTAL_PROF_BP,75 AS TOTAL_PROF_B1,76 AS TOTAL_PROF_B2,77 AS TOTAL_PROF_B3,78 AS TOTAL_PROF_B4,82 AS TOTAL_PROF_CP,83 AS TOTAL_PROF_LP)
+                            )
+                ORDER BY 2 DESC), 
+        ABONO AS (
+                SELECT fcn_id_subcuenta,TOTAL_PROF_BP,TOTAL_PROF_B1,TOTAL_PROF_B2,TOTAL_PROF_B3,TOTAL_PROF_B4,TOTAL_PROF_CP,TOTAL_PROF_LP,NVL(TOTAL_RECHAZADOS,0) AS TOTAL_RECHAZADOS
+                    FROM ( SELECT  fcn_id_subcuenta,fcn_id_siefore,ftn_monto_aceptado,SUM(ftn_monto_rechazado) AS TOTAL_RECHAZADOS
+                                    FROM TTAFOAVOL_CC_RECLASIFICACION
+                                                                         <where>
+                                    	FCN_ID_TIPO_MOV = 181 
+								        <if test="folioCifCtrl != null"> 
+											AND FTC_FOLIO = #{folioCifCtrl,jdbcType=VARCHAR}
+										</if>
+									</where>
+                                    group by fcn_id_subcuenta, fcn_id_siefore, ftn_monto_aceptado)
+                            PIVOT 
+                                (  SUM(ftn_monto_aceptado) 
+                                   FOR fcn_id_siefore IN (74 AS TOTAL_PROF_BP,75 AS TOTAL_PROF_B1,76 AS TOTAL_PROF_B2,77 AS TOTAL_PROF_B3,78 AS TOTAL_PROF_B4,82 AS TOTAL_PROF_CP,83 AS TOTAL_PROF_LP)
+                                )
+                    ORDER BY 2 DESC)
+        
+		 SELECT C.FCN_ID_SUBCUENTA AS ID_SUBCUENTA,CAT.FCC_VALOR AS VALOR_SUBCUENTA,
+		        (NVL( C.TOTAL_PROF_BP, 0) - NVL( A.TOTAL_PROF_BP, 0)) AS TOTAL_PROF_BP,
+		        (NVL( C.TOTAL_PROF_B1, 0) - NVL( A.TOTAL_PROF_B1, 0)) AS TOTAL_PROF_B1,
+		        (NVL( C.TOTAL_PROF_B2, 0) - NVL( A.TOTAL_PROF_B2, 0)) AS TOTAL_PROF_B2,
+		        (NVL( C.TOTAL_PROF_B3, 0) - NVL( A.TOTAL_PROF_B3, 0)) AS TOTAL_PROF_B3,
+		        (NVL( C.TOTAL_PROF_B4, 0) - NVL( A.TOTAL_PROF_B4, 0)) AS TOTAL_PROF_B4,
+		        (NVL( C.TOTAL_PROF_CP, 0) - NVL( A.TOTAL_PROF_CP, 0)) AS TOTAL_PROF_CP,
+		        (NVL( C.TOTAL_PROF_LP, 0) - NVL( A.TOTAL_PROF_LP, 0)) AS TOTAL_PROF_LP,
+		        (NVL( C.TOTAL_PROF_BP, 0) + NVL( C.TOTAL_PROF_B1, 0) + NVL( C.TOTAL_PROF_B2, 0) + NVL( C.TOTAL_PROF_B3, 0) + NVL( C.TOTAL_PROF_B4, 0) + NVL( C.TOTAL_PROF_CP, 0) + NVL( C.TOTAL_PROF_LP, 0)) AS TOTAL_ACEPTADOS,
+		        (C.TOTAL_RECHAZADOS - A.TOTAL_RECHAZADOS) AS TOTAL_RECHAZADOS
+		    FROM CARGO C
+		    INNER JOIN ABONO A
+		    ON c.fcn_id_subcuenta = a.fcn_id_subcuenta
+		    LEFT JOIN TCCRXGRAL_CAT_CATALOGO CAT
+		    ON CAT.FCN_ID_CAT_CATALOGO = c.fcn_id_subcuenta
+
+	</select>
+	
+	<select id="consultaCarAboPorSubcuentasV2" parameterType="mx.profuturo.nci.business.wrapped.cifctrlreclasificacion.CifCtrlReclasificacionFilter" 
+	resultMap="CCTotPorSubctasReclasificacionMap">
+	
+		SELECT  CC.FTC_FOLIO,CC.FFN_ID_CONCEPTO_MOV AS FcN_ID_SUBCTA,CAT.FCC_VALOR AS VALOR_SUBCUENTA,CC.FCN_ID_TIPO_MOV,
+    		NVL((SELECT SUM(CCA.FTN_MONTO_ACEPTADO) FROM PROFAPOVOL.TTAFOAVOL_CC_RECLASIFICACION CCA WHERE CCA.FCN_ID_SIEFORE = 74 and CCA.FFN_ID_CONCEPTO_MOV = CC.FFN_ID_CONCEPTO_MOV AND CCA.FCN_ID_SIEFORE = CC.FCN_ID_SIEFORE AND CCA.FCN_ID_SUBCUENTA = CC.FCN_ID_SUBCUENTA AND CCA.FTC_FOLIO = CC.FTC_FOLIO AND CCA.FCN_ID_TIPO_MOV = CC.FCN_ID_TIPO_MOV), 0) AS TOTAL_PROF_BP,
+    		NVL((SELECT SUM(CCB.FTN_MONTO_ACEPTADO) FROM PROFAPOVOL.TTAFOAVOL_CC_RECLASIFICACION CCB WHERE CCB.FCN_ID_SIEFORE = 75 and CCB.FFN_ID_CONCEPTO_MOV = CC.FFN_ID_CONCEPTO_MOV AND CCB.FCN_ID_SIEFORE = CC.FCN_ID_SIEFORE AND CCB.FCN_ID_SUBCUENTA = CC.FCN_ID_SUBCUENTA AND CCB.FTC_FOLIO = CC.FTC_FOLIO AND CCB.FCN_ID_TIPO_MOV = CC.FCN_ID_TIPO_MOV), 0) AS TOTAL_PROF_B1,
+    		NVL((SELECT SUM(CCC.FTN_MONTO_ACEPTADO) FROM PROFAPOVOL.TTAFOAVOL_CC_RECLASIFICACION CCC WHERE CCC.FCN_ID_SIEFORE = 76 and CCC.FFN_ID_CONCEPTO_MOV = CC.FFN_ID_CONCEPTO_MOV AND CCC.FCN_ID_SIEFORE = CC.FCN_ID_SIEFORE AND CCC.FCN_ID_SUBCUENTA = CC.FCN_ID_SUBCUENTA AND CCC.FTC_FOLIO = CC.FTC_FOLIO AND CCC.FCN_ID_TIPO_MOV = CC.FCN_ID_TIPO_MOV), 0) AS TOTAL_PROF_B2,
+    		NVL((SELECT SUM(CCD.FTN_MONTO_ACEPTADO) FROM PROFAPOVOL.TTAFOAVOL_CC_RECLASIFICACION CCD WHERE CCD.FCN_ID_SIEFORE = 77 and CCD.FFN_ID_CONCEPTO_MOV = CC.FFN_ID_CONCEPTO_MOV AND CCD.FCN_ID_SIEFORE = CC.FCN_ID_SIEFORE AND CCD.FCN_ID_SUBCUENTA = CC.FCN_ID_SUBCUENTA AND CCD.FTC_FOLIO = CC.FTC_FOLIO AND CCD.FCN_ID_TIPO_MOV = CC.FCN_ID_TIPO_MOV), 0) AS TOTAL_PROF_B3,
+    		NVL((SELECT SUM(CCE.FTN_MONTO_ACEPTADO) FROM PROFAPOVOL.TTAFOAVOL_CC_RECLASIFICACION CCE WHERE CCE.FCN_ID_SIEFORE = 78 and CCE.FFN_ID_CONCEPTO_MOV = CC.FFN_ID_CONCEPTO_MOV AND CCE.FCN_ID_SIEFORE = CC.FCN_ID_SIEFORE AND CCE.FCN_ID_SUBCUENTA = CC.FCN_ID_SUBCUENTA AND CCE.FTC_FOLIO = CC.FTC_FOLIO AND CCE.FCN_ID_TIPO_MOV = CC.FCN_ID_TIPO_MOV), 0) AS TOTAL_PROF_B4,
+    		NVL((SELECT SUM(CCF.FTN_MONTO_ACEPTADO) FROM PROFAPOVOL.TTAFOAVOL_CC_RECLASIFICACION CCF WHERE CCF.FCN_ID_SIEFORE = 82 and CCF.FFN_ID_CONCEPTO_MOV = CC.FFN_ID_CONCEPTO_MOV AND CCF.FCN_ID_SIEFORE = CC.FCN_ID_SIEFORE AND CCF.FCN_ID_SUBCUENTA = CC.FCN_ID_SUBCUENTA AND CCF.FTC_FOLIO = CC.FTC_FOLIO AND CCF.FCN_ID_TIPO_MOV = CC.FCN_ID_TIPO_MOV), 0) AS TOTAL_PROF_CP,
+    		NVL((SELECT SUM(CCG.FTN_MONTO_ACEPTADO) FROM PROFAPOVOL.TTAFOAVOL_CC_RECLASIFICACION CCG WHERE CCG.FCN_ID_SIEFORE = 83 and CCG.FFN_ID_CONCEPTO_MOV = CC.FFN_ID_CONCEPTO_MOV AND CCG.FCN_ID_SIEFORE = CC.FCN_ID_SIEFORE AND CCG.FCN_ID_SUBCUENTA = CC.FCN_ID_SUBCUENTA AND CCG.FTC_FOLIO = CC.FTC_FOLIO AND CCG.FCN_ID_TIPO_MOV = CC.FCN_ID_TIPO_MOV), 0) AS TOTAL_PROF_LP,
+    		NVL((SELECT SUM(CCH.FTN_MONTO_ACEPTADO) FROM PROFAPOVOL.TTAFOAVOL_CC_RECLASIFICACION CCH WHERE CCH.FCN_ID_SUBCUENTA = CC.FCN_ID_SUBCUENTA AND CCH.FFN_ID_CONCEPTO_MOV = CC.FFN_ID_CONCEPTO_MOV AND CCH.FCN_ID_SIEFORE = CC.FCN_ID_SIEFORE AND CCH.FTC_FOLIO = CC.FTC_FOLIO AND CCH.FCN_ID_TIPO_MOV = CC.FCN_ID_TIPO_MOV), 0 ) AS TOTAL_ACEPTADOS,
+    		NVL((SELECT SUM(CCI.FTN_MONTO_RECHAZADO) FROM PROFAPOVOL.TTAFOAVOL_CC_RECLASIFICACION CCI WHERE CCI.FCN_ID_SUBCUENTA = CC.FCN_ID_SUBCUENTA AND CCI.FFN_ID_CONCEPTO_MOV = CC.FFN_ID_CONCEPTO_MOV AND CCI.FCN_ID_SIEFORE = CC.FCN_ID_SIEFORE AND CCI.FTC_FOLIO = CC.FTC_FOLIO AND CCI.FCN_ID_TIPO_MOV = CC.FCN_ID_TIPO_MOV), 0) AS TOTAL_RECHAZADOS
+    	FROM  PROFAPOVOL.TTAFOAVOL_CC_RECLASIFICACION CC 
+			JOIN PROFAPOVOL.TTAFOAVOL_SOL_RECLASIFICACION SO ON CC.FTC_FOLIO = SO.FTC_FOLIO    
+			LEFT JOIN TCCRXGRAL_CAT_CATALOGO CAT ON CC.FFN_ID_CONCEPTO_MOV = CAT.FCN_ID_CAT_CATALOGO
+		<where>
+			<if test="folioCifCtrl != null">
+            CC.FTC_FOLIO = #{folioCifCtrl,jdbcType=VARCHAR}
+            </if>
+            
+            <if test="tipoMov != null">
+            AND CC.FCN_ID_TIPO_MOV = #{tipoMov,jdbcType=DECIMAL}
+            </if>
+        </where>
+        
+			GROUP BY CC.FTC_FOLIO, CC.FCN_ID_SUBCUENTA, CAT.FCC_VALOR, CC.FCN_ID_TIPO_MOV, CC.FFN_ID_CONCEPTO_MOV, CC.FCN_ID_SIEFORE
+			ORDER BY CC.FFN_ID_CONCEPTO_MOV ASC
+	</select>
+	
+	
+	<select id="consultaTotalPorSubcuentasV2" parameterType="mx.profuturo.nci.business.wrapped.cifctrlreclasificacion.CifCtrlReclasificacionFilter" 
+	resultMap="CCTotPorSubctasReclasificacionMap">
+		SELECT  CC.FTC_FOLIO, CC.FFN_ID_CONCEPTO_MOV as FcN_ID_SUBCTA, CAT.FCC_VALOR AS VALOR_SUBCUENTA,
+                (NVL((SELECT SUM(CCA.FTN_MONTO_ACEPTADO) FROM PROFAPOVOL.TTAFOAVOL_CC_RECLASIFICACION CCA
+                    WHERE CCA.FCN_ID_SIEFORE = 74 AND CCA.FFN_ID_CONCEPTO_MOV = CC.FFN_ID_CONCEPTO_MOV AND CCA.FTC_FOLIO = CC.FTC_FOLIO AND CCA.FCN_ID_TIPO_MOV = 181),0) -
+                NVL((SELECT SUM(CCA.FTN_MONTO_ACEPTADO) FROM PROFAPOVOL.TTAFOAVOL_CC_RECLASIFICACION CCA
+                    WHERE CCA.FCN_ID_SIEFORE = 74 AND CCA.FFN_ID_CONCEPTO_MOV = CC.FFN_ID_CONCEPTO_MOV AND CCA.FTC_FOLIO = CC.FTC_FOLIO AND CCA.FCN_ID_TIPO_MOV = 180), 0)) AS TOTAL_PROF_BP,
+            (NVL((SELECT SUM(CCA.FTN_MONTO_ACEPTADO) FROM PROFAPOVOL.TTAFOAVOL_CC_RECLASIFICACION CCA
+                    WHERE CCA.FCN_ID_SIEFORE = 75 AND CCA.FFN_ID_CONCEPTO_MOV = CC.FFN_ID_CONCEPTO_MOV AND CCA.FTC_FOLIO = CC.FTC_FOLIO AND CCA.FCN_ID_TIPO_MOV = 181),0) -
+                NVL((SELECT SUM(CCA.FTN_MONTO_ACEPTADO) FROM PROFAPOVOL.TTAFOAVOL_CC_RECLASIFICACION CCA
+                    WHERE CCA.FCN_ID_SIEFORE = 75 AND CCA.FFN_ID_CONCEPTO_MOV = CC.FFN_ID_CONCEPTO_MOV AND CCA.FTC_FOLIO = CC.FTC_FOLIO AND CCA.FCN_ID_TIPO_MOV = 180), 0)) AS TOTAL_PROF_B1,
+            (NVL((SELECT SUM(CCA.FTN_MONTO_ACEPTADO) FROM PROFAPOVOL.TTAFOAVOL_CC_RECLASIFICACION CCA
+                    WHERE CCA.FCN_ID_SIEFORE = 76 AND CCA.FFN_ID_CONCEPTO_MOV = CC.FFN_ID_CONCEPTO_MOV AND CCA.FTC_FOLIO = CC.FTC_FOLIO AND CCA.FCN_ID_TIPO_MOV = 181),0) -
+                NVL((SELECT SUM(CCA.FTN_MONTO_ACEPTADO) FROM PROFAPOVOL.TTAFOAVOL_CC_RECLASIFICACION CCA
+                    WHERE CCA.FCN_ID_SIEFORE = 76 AND CCA.FFN_ID_CONCEPTO_MOV = CC.FFN_ID_CONCEPTO_MOV AND CCA.FTC_FOLIO = CC.FTC_FOLIO AND CCA.FCN_ID_TIPO_MOV = 180), 0)) AS TOTAL_PROF_B2,
+            (NVL((SELECT SUM(CCA.FTN_MONTO_ACEPTADO) FROM PROFAPOVOL.TTAFOAVOL_CC_RECLASIFICACION CCA
+                    WHERE CCA.FCN_ID_SIEFORE = 77 AND CCA.FFN_ID_CONCEPTO_MOV = CC.FFN_ID_CONCEPTO_MOV AND CCA.FTC_FOLIO = CC.FTC_FOLIO AND CCA.FCN_ID_TIPO_MOV = 181),0) -
+                NVL((SELECT SUM(CCA.FTN_MONTO_ACEPTADO) FROM PROFAPOVOL.TTAFOAVOL_CC_RECLASIFICACION CCA
+                    WHERE CCA.FCN_ID_SIEFORE = 77 AND CCA.FFN_ID_CONCEPTO_MOV = CC.FFN_ID_CONCEPTO_MOV AND CCA.FTC_FOLIO = CC.FTC_FOLIO AND CCA.FCN_ID_TIPO_MOV = 180), 0)) AS TOTAL_PROF_B3,
+            (NVL((SELECT SUM(CCA.FTN_MONTO_ACEPTADO) FROM PROFAPOVOL.TTAFOAVOL_CC_RECLASIFICACION CCA
+                    WHERE CCA.FCN_ID_SIEFORE = 78 AND CCA.FFN_ID_CONCEPTO_MOV = CC.FFN_ID_CONCEPTO_MOV AND CCA.FTC_FOLIO = CC.FTC_FOLIO AND CCA.FCN_ID_TIPO_MOV = 181),0) -
+                NVL((SELECT SUM(CCA.FTN_MONTO_ACEPTADO) FROM PROFAPOVOL.TTAFOAVOL_CC_RECLASIFICACION CCA
+                    WHERE CCA.FCN_ID_SIEFORE = 78 AND CCA.FFN_ID_CONCEPTO_MOV = CC.FFN_ID_CONCEPTO_MOV AND CCA.FTC_FOLIO = CC.FTC_FOLIO AND CCA.FCN_ID_TIPO_MOV = 180), 0)) AS TOTAL_PROF_B4,
+            (NVL((SELECT SUM(CCA.FTN_MONTO_ACEPTADO) FROM PROFAPOVOL.TTAFOAVOL_CC_RECLASIFICACION CCA
+                    WHERE CCA.FCN_ID_SIEFORE = 82 AND CCA.FFN_ID_CONCEPTO_MOV = CC.FFN_ID_CONCEPTO_MOV AND CCA.FTC_FOLIO = CC.FTC_FOLIO AND CCA.FCN_ID_TIPO_MOV = 181),0) -
+                NVL((SELECT SUM(CCA.FTN_MONTO_ACEPTADO) FROM PROFAPOVOL.TTAFOAVOL_CC_RECLASIFICACION CCA
+                    WHERE CCA.FCN_ID_SIEFORE = 82 AND CCA.FFN_ID_CONCEPTO_MOV = CC.FFN_ID_CONCEPTO_MOV AND CCA.FTC_FOLIO = CC.FTC_FOLIO AND CCA.FCN_ID_TIPO_MOV = 180), 0)) AS TOTAL_PROF_CP,
+            (NVL((SELECT SUM(CCA.FTN_MONTO_ACEPTADO) FROM PROFAPOVOL.TTAFOAVOL_CC_RECLASIFICACION CCA
+                    WHERE CCA.FCN_ID_SIEFORE = 83 AND CCA.FFN_ID_CONCEPTO_MOV = CC.FFN_ID_CONCEPTO_MOV AND CCA.FTC_FOLIO = CC.FTC_FOLIO AND CCA.FCN_ID_TIPO_MOV = 181),0) -
+                NVL((SELECT SUM(CCA.FTN_MONTO_ACEPTADO) FROM PROFAPOVOL.TTAFOAVOL_CC_RECLASIFICACION CCA
+                    WHERE CCA.FCN_ID_SIEFORE = 83 AND CCA.FFN_ID_CONCEPTO_MOV = CC.FFN_ID_CONCEPTO_MOV AND CCA.FTC_FOLIO = CC.FTC_FOLIO AND CCA.FCN_ID_TIPO_MOV = 180), 0)) AS TOTAL_PROF_LP,
+            (NVL((SELECT SUM(CCA.FTN_MONTO_ACEPTADO) FROM PROFAPOVOL.TTAFOAVOL_CC_RECLASIFICACION CCA
+                    WHERE CCA.FFN_ID_CONCEPTO_MOV = CC.FFN_ID_CONCEPTO_MOV AND CCA.FTC_FOLIO = CC.FTC_FOLIO AND CCA.FCN_ID_TIPO_MOV = 181),0) -
+                NVL((SELECT SUM(CCA.FTN_MONTO_ACEPTADO) FROM PROFAPOVOL.TTAFOAVOL_CC_RECLASIFICACION CCA
+                    WHERE CCA.FFN_ID_CONCEPTO_MOV = CC.FFN_ID_CONCEPTO_MOV AND CCA.FTC_FOLIO = CC.FTC_FOLIO AND CCA.FCN_ID_TIPO_MOV = 180), 0)) AS TOTAL_ACEPTADOS,
+            (NVL((SELECT SUM(CCA.FTN_MONTO_RECHAZADO) FROM PROFAPOVOL.TTAFOAVOL_CC_RECLASIFICACION CCA
+                    WHERE CCA.FFN_ID_CONCEPTO_MOV = CC.FFN_ID_CONCEPTO_MOV AND CCA.FTC_FOLIO = CC.FTC_FOLIO AND CCA.FCN_ID_TIPO_MOV = 181),0) -
+                NVL((SELECT SUM(CCA.FTN_MONTO_RECHAZADO) FROM PROFAPOVOL.TTAFOAVOL_CC_RECLASIFICACION CCA
+                    WHERE CCA.FFN_ID_CONCEPTO_MOV = CC.FFN_ID_CONCEPTO_MOV AND CCA.FTC_FOLIO = CC.FTC_FOLIO AND CCA.FCN_ID_TIPO_MOV = 180), 0)) AS TOTAL_RECHAZADOS
+                FROM PROFAPOVOL.TTAFOAVOL_CC_RECLASIFICACION CC
+   JOIN PROFAPOVOL.TTAFOAVOL_SOL_RECLASIFICACION SO ON CC.FTC_FOLIO = SO.FTC_FOLIO
+   LEFT JOIN TCCRXGRAL_CAT_CATALOGO CAT ON CAT.FCN_ID_CAT_CATALOGO = CC.FFN_ID_CONCEPTO_MOV
+        <where> 
+            <if test="folioCifCtrl != null"> 
+                CC.FTC_FOLIO = #{folioCifCtrl,jdbcType=VARCHAR}
+            </if>
+        </where> 
+    GROUP BY CC.FTC_FOLIO,CC.FFN_ID_CONCEPTO_MOV, CAT.FCC_VALOR
+    ORDER BY cc.FFN_ID_CONCEPTO_MOV ASC
+        
+	</select>
+	
+	<select id="consultaGeneralCifrasControl" parameterType="mx.profuturo.nci.business.wrapped.cifctrlreclasificacion.CifCtrlReclasificacionFilter" resultMap="CCInfoGeneralMap">
+
+		SELECT F.FTC_FOLIO AS FOLIO, CTP.FCC_VALOR AS PROCESO, 
+		(
+		    SELECT CTS.FCC_VALOR FROM TTCRXGRAL_BITACORA_PROCESO PROE 
+		    INNER JOIN TCCRXGRAL_CAT_CATALOGO CTS ON CTS.FCN_ID_CAT_CATALOGO = PROE.FCN_ID_ESTATUS
+		    WHERE PROE.FTC_FOLIO = F.FTC_FOLIO
+		    AND PROE.FTD_FEH_REG = ( 
+		        SELECT MAX(PROM.FTD_FEH_REG) FROM TTCRXGRAL_BITACORA_PROCESO PROM WHERE PROM.FTC_FOLIO = F.FTC_FOLIO AND PROM.FCN_ID_SUBETAPA IN (26,424))
+		) AS ESTATUS_PROCESO,
+		TO_CHAR(F.FTD_FEH_CRE, 'DD/MM/YYYY HH24:MI:SS') AS FECHA_INICIO_PROCESO, 
+		(SELECT TO_CHAR(MAX(PRO.FTD_FEH_REG), 'DD/MM/YYYY HH24:MI:SS') FROM TTCRXGRAL_BITACORA_PROCESO PRO WHERE PRO.FTC_FOLIO = F.FTC_FOLIO) AS FECHA_ULTIMO_ESTATUS
+		FROM TTCRXGRAL_FOLIO F 
+		INNER JOIN TCCRXGRAL_CAT_CATALOGO CTP ON CTP.FCN_ID_CAT_CATALOGO = F.FCN_ID_PROCESO
+		
+		<where>
+				F.FTC_FOLIO = #{folioCifCtrl,jdbcType=VARCHAR}
+		</where>
+	</select>
+</mapper>

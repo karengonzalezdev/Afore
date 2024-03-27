@@ -1,0 +1,239 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+	<ui:composition template="/core/desktop/desktop.xhtml">
+		<ui:define name="body">
+			<h:form id="formPrincipal" styleClass="form-general"
+			enctype="multipart/form-data">
+				<p:panel id="parametrosConsultaPanel" header="#{msg['consulta.domiciliacion.parametrizacionIntCarga.title']}" style="margin-top:56px;">
+					<p:panelGrid id="paramConsultaFilter" style="text-align:left; margin-left:-10px;">
+						<p:row>
+							<p:column>
+								<p:outputLabel id="lblOrigen" value="#{msg['consulta.domiciliacion.parametrizacionIntCarga.imputOrigen']}"/>
+							</p:column>
+							<p:column>
+								<p:outputLabel id="lblPeriodo" value="#{msg['consulta.domiciliacion.parametrizacionIntCarga.imputPeriodo']}"/>
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>
+								<p:selectOneMenu id="OrigenAportacionSelect" value="#{ConfigIntentosCargaApoVolView.selOrigenApo}" style="width:240px;">
+									<f:selectItem itemLabel="Seleccion uno" itemValue="" />
+									<f:selectItems value="#{ConfigIntentosCargaApoVolView.origenAportacionLista}" var="origenAportacion"
+											   itemValue="#{origenAportacion.idCatCatalogo}" 
+											   itemLabel="#{origenAportacion.valor}"/>
+								</p:selectOneMenu>
+							</p:column>
+							<p:column>
+								<p:selectOneMenu id="idPeriodo" value="#{ConfigIntentosCargaApoVolView.selPeriodo}" style="width:300px;">
+									<f:selectItem itemLabel="Seleccion uno" itemValue="" />
+										<f:selectItems value="#{ConfigIntentosCargaApoVolView.periodoLista}" var="periodo"
+											   itemValue="#{periodo.idCatCatalogo}"
+											   itemLabel="#{periodo.valor}"/>
+								</p:selectOneMenu>
+							</p:column>						
+						</p:row>
+						<p:row>
+							<p:column>
+								<p:outputLabel id="lblNumIntentos" value="#{msg['consulta.domiciliacion.parametrizacionIntCarga.imputNoIntentos']}"/>
+							</p:column>					
+						</p:row>
+						<p:row>
+							<p:column>
+								<p:spinner id="rotate" value="#{ConfigIntentosCargaApoVolView.numIntentos}" min="1" max="99" rotate="true"
+								disabled="#{!ConfigIntentosCargaApoVolView.btnNumInten}"/>
+							</p:column>						
+						</p:row>
+						<p:spacer width="10" />
+						<p:row>
+							<p:column>
+								<p:commandButton value="#{msg['consulta.domiciliacion.parametrizacionIntCarga.button.Buscar']}" styleClass="blue-button"
+									actionListener="#{ConfigIntentosCargaApoVolView.busquedaPrincipal}"
+									update="formPrincipal"/>
+								<p:spacer width="10" />
+								<p:commandButton value="#{msg['consulta.domiciliacion.parametrizacionIntCarga.button.Limpiar']}" styleClass="gray-button"
+									actionListener="#{ConfigIntentosCargaApoVolView.limpiarBusq}"
+									update="formPrincipal"/>
+							</p:column>
+						</p:row>
+					</p:panelGrid>			
+				</p:panel>
+
+				<p:panel id="resultadoCuentasConsulta" rendered="#{ConfigIntentosCargaApoVolView.muestraCuentas}">
+					<p:panelGrid id="cuentasPorUserGrid" style="margin-top: 15px; width: 75%;vertical-align:middle; !important;">
+					
+					
+					<p:dataTable id="resultConsultaCuentasTable" var="configIntentosApoVol"
+						rows="8"
+						paginator="true"
+						value="#{ConfigIntentosCargaApoVolView.listConfigIntentosApoVol}"
+						selection="#{ConfigIntentosCargaApoVolView.selectedCuentaSolicitud}" 
+						rowKey="#{configIntentosApoVol.idConfigIntentosApoVol}" 
+						emptyMessage="No se encontraron registros"
+						tableStyleClass="table-style"
+						style="padding-right:10px;padding-left:0px;cursor: default">
+						<p:ajax event="rowSelectRadio"
+							listener="#{ConfigIntentosCargaApoVolView.onSeleccionar()}"
+							update="formPrincipal" />
+							
+						<p:column selectionMode="single"
+							style="padding-right:10px;padding-left:10px;text-align:center; width:7%;cursor: default; vertical-align:middle;" />								
+									
+	
+						<p:column
+							headerText="#{msg['consulta.domiciliacion.parametrizacionIntCarga.imputOrigen']}"
+							style="padding-left:10px;text-align: left !important;width:15%;cursor: default;">
+							<h:outputText value="#{configIntentosApoVol.descOrigenDomiciliacion}"/>
+						</p:column>
+						<p:column
+							headerText="#{msg['consulta.domiciliacion.parametrizacionIntCarga.imputPeriodo']}"
+							style="padding-right:10px;width:18%;cursor: default;">
+							<h:outputText value="#{configIntentosApoVol.descPeriodo}"/>
+						</p:column>
+						<p:column
+							headerText="#{msg['consulta.domiciliacion.parametrizacionIntCarga.imputNoIntentos']}"
+							style="padding-left:10px;text-align: left !important;width:28%;cursor: default;">
+							<h:outputText value="#{configIntentosApoVol.numIntentos}"/>
+						</p:column>
+					</p:dataTable>
+					
+							<p:commandButton id="btnEditar" value="#{msg['consulta.domiciliacion.parametrizacionIntCarga.button.Editar']}" styleClass="yellow-button"
+								actionListener="#{ConfigIntentosCargaApoVolView.editar}" 
+								update="formPrincipal"/>	
+							<p:spacer width="10" />
+							<p:commandButton value="#{msg['consulta.domiciliacion.parametrizacionIntCarga.button.Agregar']}" styleClass="gray-button"
+								actionListener="#{ConfigIntentosCargaApoVolView.onAgregarConfiguracion}"  rendered ="false"
+								update="formPrincipal"/>	
+							<p:spacer width="10" />
+							<p:commandButton value="#{msg['consulta.domiciliacion.parametrizacionIntCarga.button.Guardar']}" styleClass="blue-button"
+								actionListener="#{ConfigIntentosCargaApoVolView.onGuardarValidacion}"
+								disabled="#{!ConfigIntentosCargaApoVolView.btnGuardar}"
+								update="formPrincipal"/>
+							
+			
+					</p:panelGrid>
+				</p:panel>
+				
+				<p:dialog id="idConfirmDialogAct"
+					widgetVar="confirmDialogAct"
+					header="#{msg['consulta.domiciliacion.parametrizacionIntCarga.title']}" modal="true" draggable="false"
+					resizable="false" closable="false" height="100px" width="320px">
+		
+					<div align="center">
+						<h:outputText value="#{msg['consulta.domiciliacion.parametrizacionIntCarga.mensaje.confirmacion']}"
+							styleClass="outputTextGeneric" />
+					</div>
+		
+					<p:spacer width="25px" />
+		
+					<div align="center">
+						<p:panelGrid id="idPanelGridBotonesConfirmar">
+		
+							<p:row>
+								<p:column style="vertical-align:middle;">
+									<p:commandButton value="#{msg['consulta.domiciliacion.parametrizacionIntCarga.button.Aceptar']}"
+										actionListener="#{ConfigIntentosCargaApoVolView.onGuardarConfiguracion}"
+										update="formPrincipal"
+										onstart="PF('confirmDialogAct').hide();"
+										styleClass="gray-button" />
+								</p:column>
+		
+								<p:column style="vertical-align:middle;">
+									<p:commandButton value="#{msg['consulta.domiciliacion.parametrizacionIntCarga.button.Cancelar']}"
+										type="button" onclick="PF('confirmDialogAct').hide();"
+										styleClass="yellow-button" />
+								</p:column>
+							</p:row>
+		
+						</p:panelGrid>
+					</div>
+				</p:dialog>
+				
+				
+				<p:dialog id="idAlertaDialog"
+					widgetVar="alertaDialog"
+					header="#{msg['consulta.domiciliacion.parametrizacionIntCarga.title']}" modal="true" draggable="false"
+					resizable="false" closable="false" height="100px" width="320px">
+		
+					<div align="center">
+						<h:outputText value="#{msg['consulta.domiciliacion.parametrizacionIntCarga.mensaje.alerta']}"
+							styleClass="outputTextGeneric" />
+					</div>
+		
+					<p:spacer width="15px" />
+		
+					<div align="center">
+						<p:panelGrid id="idPnlGridBotonesConfirmar">
+		
+							<p:row>
+								<p:column style="vertical-align:middle;">
+									<p:commandButton value="#{msg['consulta.domiciliacion.parametrizacionIntCarga.button.Aceptar']}"
+										update="formPrincipal"
+										onstart="PF('alertaDialog').hide();"
+										styleClass="gray-button" />
+								</p:column>
+							</p:row>
+		
+						</p:panelGrid>
+					</div>
+				</p:dialog>
+				
+				<p:dialog id="idAlertaDialog2"
+					widgetVar="alertaDialog2"
+					header="#{msg['consulta.domiciliacion.parametrizacionIntCarga.title']}" modal="true" draggable="false"
+					resizable="false" closable="false" height="100px" width="320px">
+		
+					<div align="center">
+						<h:outputText value="#{msg['consulta.domiciliacion.parametrizacionIntCarga.mensaje.alerta2']}"
+							styleClass="outputTextGeneric" />
+					</div>
+		
+					<p:spacer width="15px" />
+		
+					<div align="center">
+						<p:panelGrid id="idPnlGridBotonesConfirmar2">
+		
+							<p:row>
+								<p:column style="vertical-align:middle;">
+									<p:commandButton value="#{msg['consulta.domiciliacion.parametrizacionIntCarga.button.Aceptar']}"
+										update="formPrincipal"
+										onstart="PF('alertaDialog2').hide();"
+										styleClass="gray-button" />
+								</p:column>
+							</p:row>
+		
+						</p:panelGrid>
+					</div>
+				</p:dialog>
+				
+
+				<p:dialog id="idDialogEditarIntentosCarg"
+					widgetVar="dialogEditarIntentosCarg"
+					header="#{msg['consulta.domiciliacion.parametrizacionIntCarga.title']}" modal="true" draggable="false"
+					resizable="false" closable="false" height="100px" width="320px">
+		
+					<div align="center">
+						<h:outputText value="#{msg['consulta.domiciliacion.parametrizacionIntCarga.mensaje.ok']}"
+							styleClass="outputTextGeneric" />
+					</div>
+		
+					<p:spacer width="15px" />
+		
+					<div align="center">
+						<p:commandButton value="#{msg['consulta.domiciliacion.parametrizacionIntCarga.button.Aceptar']}"
+							type="button" onsuccess=""
+							onclick="PF('dialogEditarIntentosCarg').hide();"
+							styleClass="gray-button" />
+					</div>
+		
+				</p:dialog>
+
+			</h:form>			
+		</ui:define>
+	</ui:composition>
+</html>

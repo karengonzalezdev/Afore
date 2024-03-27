@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mx.profuturo.nci.persistence.ParamCatConfigPersistence">
+
+	<resultMap id="ResultMapCatConfiguracion" type="mx.profuturo.nci.business.vo.ParamCataConfigVO">
+	    <id 		column="FFN_ID_CAT_CONFIG" 			property="idCatalogoConfiguracion" 	jdbcType="DECIMAL"      javaType="Short"/>
+	    <result 	column="FCN_ID_TIPO_CAT"			property="idTipoCat" 				jdbcType="DECIMAL"      javaType="Short"/>
+	    <result 	column="FFC_VALOR_CAT_CONFIG" 		property="valor" 					jdbcType="VARCHAR"		javaType="String"/>
+	    <result 	column="FFC_DESC_CAT_CONFIG" 		property="descripcion" 				jdbcType="VARCHAR"		javaType="String"/>
+	    <result 	column="FFB_VIGENCIA_CAT_CONFIG" 	property="vigencia" 				jdbcType="CHAR"			javaType="Boolean"/>
+	    <result 	column="FFD_FEH_CRE_CAT_CONFIG"     property="fechaCreacion" 			jdbcType="TIMESTAMP"	javaType="Date"/>
+	    <result 	column="FFC_USU_CRE_CAT_CONFIG"     property="usuarioCreacion" 			jdbcType="VARCHAR" 		javaType="String"/>
+	    <result 	column="FFD_FEH_ACT_CAT_CONFIG"     property="fechaActualizacion" 		jdbcType="TIMESTAMP"	javaType="Date"/>
+	    <result 	column="FFC_USU_ACT_CAT_CONFIG"     property="usuarioActualizacion" 	jdbcType="VARCHAR" 		javaType="String"/>
+	</resultMap>	
+	
+ <select id="select" parameterType="mx.profuturo.nci.business.wrapped.PrincipalFilter"
+ 		 resultMap="ResultMapCatConfiguracion">
+ 	SELECT FFN_ID_CAT_CONFIG, FCN_ID_TIPO_CAT, FFC_VALOR AS FFC_VALOR_CAT_CONFIG, FFC_DESC AS FFC_DESC_CAT_CONFIG, 
+ 	       FFB_VIGENCIA AS FFB_VIGENCIA_CAT_CONFIG, FFD_FEH_CRE AS FFD_FEH_CRE_CAT_CONFIG, FFC_USU_CRE AS FFC_USU_CRE_CAT_CONFIG, 
+ 	       FFD_FEH_ACT AS FFD_FEH_ACT_CAT_CONFIG,FFC_USU_ACT FFC_USU_ACT_CAT_CONFIG
+      FROM TFCRXGRAL_CAT_CONFIG 
+    <where>
+	  <if test="idCatalogo != null">
+	      FFN_ID_CAT_CONFIG = #{idCatalogo,jdbcType=DECIMAL}
+	  </if>
+    </where>
+ </select>
+
+</mapper>

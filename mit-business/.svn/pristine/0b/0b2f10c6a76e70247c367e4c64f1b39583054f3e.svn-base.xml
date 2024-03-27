@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="mx.profuturo.nci.persistence.MapaReferenciasPersistence" >
+
+
+
+	<resultMap id="ResultMapMapaReferencias" type="mx.profuturo.nci.business.vo.MapaReferenciasVO">
+	
+    <id 	column="TMN_ID_CONFIG" 			property="idconfiguracion" 			jdbcType="DECIMAL" />
+    <result column="TMN_CVE_NCI" 			property="claveNCI" 					jdbcType="DECIMAL" />
+    <result column="TMC_DESC_NCI" 	    	property="descripcionNCI" 		jdbcType="VARCHAR" />
+    <result column="TMN_CVE_ITGY" 			property="claveItgy" 				jdbcType="DECIMAL" />
+    <result column="TMC_DESC_ITGY" 			property="descripcionItgy" 				jdbcType="VARCHAR" />
+    <result column="TMC_VIGENCIA" 			property="vigencia" 			jdbcType="DECIMAL" />
+    <result column="TMC_USO" 		        property="uso" 			jdbcType="VARCHAR" />
+	
+	</resultMap>	
+  
+  <select id="selectSubCta" 
+  		  resultMap="ResultMapMapaReferencias"  >
+        select TMN_CVE_NCI, TMC_DESC_ITGY from TMSISGRAL_MAP_NCI_ITGY where upper(TMC_USO) = 'REFERENCIAS DEPOSITOS APOVOL' 
+         group by TMN_CVE_NCI, TMC_DESC_ITGY order by TMN_CVE_NCI desc
+        
+	</select>
+</mapper>

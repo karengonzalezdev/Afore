@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+  <h:head>
+      <meta name="description" content="Profuturo - Intranet" />
+      <meta name="keywords" content="Profuturo" />
+      <meta name="copyright" content="(c)Profuturo 2016" />
+      <link rel="shortcut icon" type="image/x-icon"
+            href="#{facesContext.externalContext.requestContextPath}/core/static/images/custom-shortcutIcon.ico" />
+      <link rel="stylesheet" type="text/css"
+            href="#{facesContext.externalContext.requestContextPath}/core/static/css/reset.css" />
+      <link rel="stylesheet" type="text/css"
+            href="#{facesContext.externalContext.requestContextPath}/core/static/css/screen.css" />
+      <link rel="stylesheet" type="text/css"
+            href="#{facesContext.externalContext.requestContextPath}/core/static/css/jeveris.css" />
+      <link rel="stylesheet" type="text/css"
+            href="#{facesContext.externalContext.requestContextPath}/core/static/css/ui.css" />
+      <link rel="stylesheet" type="text/css"
+            href="#{facesContext.externalContext.requestContextPath}/core/static/css/style.css" />
+  	<title>#{messageSource.welcomeMessage}<ui:insert name="title"></ui:insert>
+  	</title>
+  </h:head>
+  <h:body onload="document.loginForm.j_username.focus()">
+		<!-- HEADER -->
+<!-- 	  <ui:include src="../core/desktop/header.xhtml" /> -->
+		<!-- MAIN -->  
+		<div class="loginContainer" align="center" > 
+			<div class="loginContainer" align="center" style="width: 70%;padding-top:6%;padding-bottom: 6%;">
+				<h1>${msg.homePage}</h1>
+			</div>
+		</div>
+  	<div class="loginContainer" align="center" style="padding-bottom: 16%;">
+  	
+  <!-- 		<p:spacer height="20px" /> -->
+  		<div class="loginPanel" style="width: 30%; color: red;">
+  			<c:if test="${not empty param.login_error}">
+  				<div class="error">
+  					#{msg.loginError}<br /> #{msg.reason}
+  					#{sessionScope.SPRING_SECURITY_LAST_EXCEPTION.message}
+  				</div>
+  			</c:if>
+  			<p:panel header="#{msg.loginInfo}" >
+  				<form name="loginForm"
+  					action="${request.contextPath}/j_spring_security_check"
+  					method="post">
+  					<p><i>&#128100;</i>
+  						#{msg.user} <br />
+  						<c:if test="${not empty param.login_error}">
+  							<c:set var="username"
+  								value="${sessionScope.SPRING_SECURITY_LAST_USERNAME}" />
+  						</c:if>
+  						<input type="text" name="j_username" value="#{username}" />
+  					</p>
+  					<p><i>&#128273;</i>
+  					
+  						#{msg.contrasena} <br /> <input type="password" name="j_password" autocomplete="off"/>
+  					</p>
+  <!-- 					<p> -->
+  <!-- 						<input type="checkbox" name="_spring_security_remember_me" /> -->
+  <!-- 						#{msg.dontAsk} -->
+  <!-- 					</p> -->
+  					<p>
+  						<input name="submit" type="submit" value="#{msg.login}" class="boton boton-azul"/>
+  					</p>
+  				</form>
+  			</p:panel>
+  		</div>
+  	</div>
+	  <!-- FOOTER -->
+    <ui:include src="../core/desktop/footer.xhtml" />
+    
+    <script type="text/javascript">
+      // set IE version by parsing appVersion property 
+      // important: IE appVersion changed its format from IE11
+      function validateIeVersion() {
+    	  var ua = navigator.userAgent;
+        var version = -1;
+        
+        if ((ua.lastIndexOf('MSIE 7.0') != -1 &amp;&amp; ua.lastIndexOf("Trident") != -1)
+            || (ua.lastIndexOf('MSIE 8.0') != -1)
+            || (ua.lastIndexOf('MSIE 9.0') != -1)
+            || (ua.lastIndexOf('MSIE 10.0') != -1)
+            || (!!ua.match(/Trident.*rv[ :]*11\./))) {
+        	
+          if (navigator.appVersion.lastIndexOf('MSIE') != -1){
+            version = (navigator.appVersion.split('MSIE')[1]).split(";")[0];
+            version = version.substring(1, version.length);
+          } else {
+             version = navigator.appVersion.split('rv:')[1].split(';')[0].split(')')[0];
+          }
+          
+          version = parseInt(version);
+        }
+        
+        if (version == -1) {
+        	return ;
+        } else if (version &lt; 9) {
+        	$('.loginPanel').html('&lt;h2&gt;Navegador no soportado&lt;/h2&gt;&lt;br /2&gt;&lt;h2&gt;Usar Internet Explorer 9, 10 u 11.&lt;/h2&gt;');
+        }
+        
+      }
+    
+      validateIeVersion();
+    </script>"
+	</h:body>
+</html>

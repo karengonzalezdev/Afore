@@ -1,0 +1,110 @@
+// Colores
+@body: #f3f3f3;
+@blue: #00427a;
+@gray: #494949;
+@graylighter: #d7d7d7;
+@black: #222222;
+@white: #fff;
+
+// Imágenes
+@pathimg: "../img/";
+
+// Imports
+
+body {
+    background: @body;
+    color: @gray;
+    header {
+        height: 100px;
+        width: 100%;
+        background: url("@{pathimg}header-bg.png") repeat-x;
+        img {
+            margin-top: 15px;
+        }
+        h1 {
+            text-align: right;
+            margin-top: 25px;
+            color: @gray;
+        }
+    }
+    .biblioteca-container {
+        .container {
+            background: @white;
+            border: 1px solid @graylighter;
+            border-radius: 5px;
+            margin-top: 35px;
+            margin-bottom: 35px;
+            .menu {
+                position: relative;
+                h3 {
+                    color: @blue;
+                    text-align: right;
+                    padding-right: 30px;
+                    margin-top: 100px;
+                    font-size: 1em;
+                }
+                .segundo-titulo {
+                    margin-top: 50px;
+                }
+                ul {
+                    li {
+                        list-style: none;
+                        text-align: right;
+                        font-size: 0.9em;
+                        font-weight: bold;
+                        padding-right: 30px;
+                        margin-bottom: 20px;
+                        cursor: pointer;
+                        margin-right: -1px;
+                        z-index: 3;
+                        a {
+                            color: @gray;
+                            text-decoration: none;
+                        }
+                    }
+                    li.active {
+                        background: url("@{pathimg}componentes/ul-indicator.png") no-repeat;
+                        background-position: right center;
+                    }
+                    li.active  a { color: @blue; }
+                }
+            }
+            .panel-derecho {
+                background: url("@{pathimg}layout8-titulo-bg.png") repeat-x;
+                width: 689px !important;
+                margin-left: -5px !important;
+                border-left: 1px solid @graylighter;
+                .titulo {
+                    height: 83px;
+                    h1 {
+                        color: @blue;
+                        font-size: 1.5em;
+                        margin-left: 20px;
+                        margin: 26px 20px;
+                    }
+                }
+                .panel-derecho-content {
+                    background-position: bottom right;
+                    border-top: 1px solid @graylighter;
+                    clear: both;
+                    min-height: 700px;
+                    h3 {
+                        margin: 40px 80px;
+                    }
+                    p {
+                        margin: 30px 80px;
+                        a {
+                            color: #005eae;
+                        }
+                    }
+                    .cursiva {
+                        font-style: italic;
+                    }
+                }
+                .menu-hidden {
+                    display: none;
+                }
+            }
+        }
+    }
+}

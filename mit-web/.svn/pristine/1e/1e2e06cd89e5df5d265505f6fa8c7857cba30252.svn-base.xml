@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html">
+<ui:component>
+
+	<div class="languages">
+		<h:form>
+			<h:commandLink value="#{msg.languageSelectionEnglish}"
+				action="changeLocale">
+				<f:param name="lang" value="en_GB" />
+			</h:commandLink>
+			<p:spacer width="10px" />
+			<h:commandLink value="#{msg.languageSelectionSpanish}"
+				action="changeLocale">
+				<f:param name="lang" value="es_ES" />
+			</h:commandLink>
+		</h:form>
+	</div>
+
+
+</ui:component>
+
+</html>
+

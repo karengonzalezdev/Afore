@@ -1,0 +1,21 @@
+package mx.secure.nci.ws.service.domiciliacion;
+
+import mx.secure.nci.ws.beans.request.SolicitudDomiciliacionActualizarBeanRequest;
+import mx.secure.nci.ws.beans.request.SolicitudDomiciliacionConsultarBeanRequest;
+import mx.secure.nci.ws.beans.request.SolicitudDomiciliacionConsultarSumBeanRequest;
+import mx.secure.nci.ws.beans.request.SolicitudDomiciliacionInsertarBeanRequest;
+import mx.secure.nci.ws.beans.response.SolicitudDomiciliacionConsultarBeanResponse;
+import mx.secure.nci.ws.beans.response.SolicitudDomiciliacionConsultarSumBeanResponse;
+
+public interface ISolicitudDomiciliacionSoapService {
+
+	public SolicitudDomiciliacionConsultarBeanResponse consultar(
+			SolicitudDomiciliacionConsultarBeanRequest solicitudDomiciliacionConsultarBeanRequest);
+
+	public SolicitudDomiciliacionConsultarSumBeanResponse consultarMonto(
+			SolicitudDomiciliacionConsultarSumBeanRequest solicitudDomiciliacionConsultarMontoBeanRequest);
+	
+	public boolean Insertar(SolicitudDomiciliacionInsertarBeanRequest solicitudDomiciliacionInsertarBeanRequest);
+
+	public boolean Actualizar(SolicitudDomiciliacionActualizarBeanRequest solicitudDomiciliacionActualizarBeanRequest);
+}

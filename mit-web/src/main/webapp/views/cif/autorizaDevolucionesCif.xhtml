@@ -1,0 +1,363 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+  <ui:composition template="../../core/desktop/desktop.xhtml">
+	<ui:define name="body">
+		<style></style>
+		<!-- PANEL DE FILTROS -->
+		<h:form id="formBusquedaCIFDev" styleClass="form-general">
+			<p:panel id="idpanelPrincipalDev" header="#{msg['envio.dev.aut.cif.consulta.principal.titulo']}" style="margin-top: 50px;">
+				<p:panelGrid id="encabezadoDev" style="margin-top: 5px; width: 100%;vertical-align:middle; !important;" ></p:panelGrid>
+			</p:panel>
+			<p:panelGrid id="encabezadoBusqDev" style="padding: 0px 0px !important;" styleClass="panelAlign">
+	        	<p:row  style="text-align:left !important;">
+					<p:column style="text-align:left !important;">
+						<p:outputLabel value="#{msg['envio.dev.cif.consulta.fecha.inicio']}" />
+					</p:column>
+					<p:column style="text-align:left !important;">
+						<p:outputLabel value="#{msg['envio.dev.cif.consulta.fecha.final']}"/>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column style="text-align:left !important;">
+						<p:calendar id="idFechaIniDev" showOn="button" readonlyInput="true" navigator="true" 
+								disabled="#{!(devolucionesAutorizaCifView.paramDevBean.idConciliacion == null or devolucionesAutorizaCifView.paramDevBean.idConciliacion == '')}"
+								pattern="dd/MM/yyyy" timeZone="America/Mexico_City" locale="es"
+								value="#{devolucionesAutorizaCifView.paramDevBean.fechaInicio}">
+								<p:ajax event="dateSelect" listener="#{devolucionesAutorizaCifView.setFechaFin}" update="idFechaFinDev" />
+						</p:calendar>
+					</p:column>
+					<p:column style="text-align:left !important;">
+						<p:calendar id="idFechaFinDev" showOn="button" readonlyInput="true" navigator="true" 
+								disabled="#{!(devolucionesAutorizaCifView.paramDevBean.idConciliacion == null or devolucionesAutorizaCifView.paramDevBean.idConciliacion == '')}"
+								pattern="dd/MM/yyyy" timeZone="America/Mexico_City" locale="es"
+								value="#{devolucionesAutorizaCifView.paramDevBean.fechaFin}" 
+								mindate="#{devolucionesAutorizaCifView.paramDevBean.fechaInicio}" >
+								<p:ajax event="dateSelect" update="idFechaIniDev" />
+						</p:calendar>
+					</p:column>
+				</p:row>				
+				<p:row>
+			        <p:column style="text-align:left !important;vertical-align:bottom !important;margin-top: 15px !important;">
+			        		<p:outputLabel value="#{msg['envio.dev.cif.consulta.id.conciliacion']}" style="text-align:left !important;vertical-align:bottom !important;paddding-top: 15px !important;"/>
+			        </p:column>
+			    </p:row>	
+			    
+			    <p:row>	
+			        <p:column>
+							<p:inputMask id="idIdConciliacionDev" value="#{devolucionesAutorizaCifView.paramDevBean.idConciliacion}" 
+									mask="#{msg['envio.dev.cif.validacion.mask.id.conciliacion']}" slotChar="" 
+									validatorMessage="#{msg['envio.dev.cif.consulta.mensaje.validacion.id.conciliacion']}" 
+									converter="convertNumberInput"
+									maxlength="22" 
+									style="text-align:left !important;paddding-top: 0px !important;margin-top: 0px !important;margin-left: -5px !important;width:300px !important;" styleClass="input-style" >
+					                <f:validateRegex pattern="#{msg['envio.dev.cif.validacion.formato.id.conciliacion']}"/>
+					                <p:ajax event="keyup" update="idFechaIniDev,idFechaFinDev"/>
+					        </p:inputMask>	
+			        </p:column>
+				</p:row>
+				
+				<p:row id="encabezadoBusqBotDev" >
+						<p:column style="text-align:left !important;">
+							<p:commandButton id="idbuscarDatosDev" value="#{msg['envio.dev.cif.consulta.boton.buscar']}" 
+								action="#{devolucionesAutorizaCifView.buscarXcriterio}" 
+								onclick="PF('cargandoDialog').show();"
+								oncomplete="PF('cargandoDialog').hide();"
+								styleClass="blue-button" />
+							<p:spacer width="10" height="1"/>
+							<p:commandButton id="idlimpiarBusqDev" value="#{msg['envio.dev.cif.consulta.boton.limpiar']}"
+								action="#{devolucionesAutorizaCifView.limpiarBusqueda}"  update="idIdConciliacionDev,idFechaIniDev,idFechaFinDev,formResultadosCargosCIFDev"
+								styleClass="gray-button" />
+						</p:column>
+				</p:row>
+        	</p:panelGrid>
+		</h:form>
+		
+		<h:form id="formResultadosCargosCIFDev" >
+			<p:panel id="idpanelPrincipalDev" header="#{msg['envio.dev.aut.cif.consulta.principal.titulo']}" style="margin-top: 30px;" 
+						rendered="#{devolucionesAutorizaCifView.paramDevBean.resultados != null}">
+				<p:panelGrid id="encabezadoDiv" style="margin-top: 5px; width: 100%;vertical-align:middle; !important;" >
+					<p:dataTable id="movimientosCifResultDev" 
+									value="#{devolucionesAutorizaCifView.paramDevBean.resultados}" var="mov" 
+									selection="#{devolucionesAutorizaCifView.paramDevBean.cuentasAenviar}" 
+									rowSelectMode="checkbox"  rowKey="#{mov.itemDevolucion}"
+									paginator="true" paginatorPosition="bottom" rows="20" rowsPerPageTemplate="20,50,100,200"
+									tableStyleClass="table-style" styleClass="tabla-indicadores"
+									disabledSelection="#{mov.ftcSelecc==null?'false':'true'}"
+									emptyMessage="#{msg['general.table.rows.empty']}">
+									
+						<p:ajax event="rowSelectCheckbox" 	update=":formResultadosCargosCIFDev:idBtnEnviarCifDev,:formResultadosCargosCIFDev:idComButExcelReportCifrasCtlDev,:formResultadosCargosCIFDev:idComBtnElimCifDev"/>
+						<p:ajax event="rowUnselectCheckbox" update=":formResultadosCargosCIFDev:idBtnEnviarCifDev,:formResultadosCargosCIFDev:idComButExcelReportCifrasCtlDev,:formResultadosCargosCIFDev:idComBtnElimCifDev"/>
+						<p:ajax event="toggleSelect" 		update=":formResultadosCargosCIFDev:idBtnEnviarCifDev,:formResultadosCargosCIFDev:idComButExcelReportCifrasCtlDev,:formResultadosCargosCIFDev:idComBtnElimCifDev"/>
+								
+						<p:column selectionMode="multiple" style="width:3%;text-align:center" />
+						<p:column headerText="#{msg['envio.dev.cif.resultado.id.item']}" style="width:9%;text-align:center">
+				             <h:outputText value="#{mov.itemDevolucion}" />
+					    </p:column>						
+						<p:column headerText="#{msg['envio.dev.cif.resultado.id.folio']}" style="width:9%;text-align:center">
+				             <h:outputText value="#{mov.folio}" />
+					    </p:column>
+					    <p:column headerText="#{msg['envio.dev.cif.resultado.importe']}" style="width:10%;text-align:center">
+					        <h:outputText value="#{mov.monto}" style="text-align:right !important;">
+								<f:convertNumber pattern="$#,###,##0.00" locale="es_MX"/>
+							</h:outputText>
+					    </p:column>		
+					    <p:column headerText="#{msg['envio.cif.resultado.estatus.envio']}" style="width:9%;text-align:center">
+					       	 <h:outputText value="#{mov.ftcSelecc==null?'NO ENVIADO':''}#{mov.ftcSelecc==1?'ENVIADO':''}#{mov.ftcSelecc==2?'ELIMINADO':''}#{mov.ftcSelecc==3?'AUTORIZADO':''}" />
+					    </p:column> 
+					    <p:column headerText="#{msg['envio.dev.cif.resultado.edicion']}" style="width:10%;text-align:center">
+					    	<p:commandLink onclick="PF('cargandoDialog').show();" actionListener="#{devolucionesAutorizaCifView.selectMov}"
+									oncomplete="PF('cargandoDialog').hide();"
+									update="formResultadosCargosCIFDev">
+								<f:param name="idItem" value="#{mov.itemDevolucion}"/>
+								<h:outputText value="#{msg['envio.cif.resultado.detalle']}" />
+							</p:commandLink>
+					    </p:column>
+									
+					</p:dataTable>		
+					<p:commandButton id="idBtnEnviarCifDev" value="#{msg['envio.dev.aut.cif.resultado.eviar.cif']}" 
+							disabled="#{empty devolucionesAutorizaCifView.paramDevBean.cuentasAenviar}"
+							onclick="PF('dialogConfirmSendDev').show();" 
+							styleClass="blue-button" />
+					<p:spacer height="10" />
+					<p:commandButton id="idComButExcelReportCifrasCtlDev" value="#{msg['envio.dev.cif.resultado.exportar']}"
+							disabled="#{empty devolucionesAutorizaCifView.paramDevBean.cuentasAenviar}"
+							onclick="PF('dialogConfirmReportPrevDev').show();"
+                            styleClass="yellow-button" />
+	                <p:spacer height="10" />
+					<p:commandButton id="idComBtnElimCifDev"
+								     value="#{msg['envio.dev.cif.resultado.eliminar']}"
+								     disabled="#{empty devolucionesAutorizaCifView.paramDevBean.cuentasAenviar}"
+								     onclick="PF('dialogConfirmDeleteDev').show();"
+	                                 styleClass="gray-button" />	                
+						
+				</p:panelGrid>		
+			</p:panel>
+		</h:form>
+		
+		<h:form id="formDetallesCargosCIFDev">
+			<p:dialog id="idDialogDetallesCargosCIFDev" widgetVar="dialogDetallesCargosCIFDev" header="#{msg['envio.dev.cif.detalle.header']}"
+					closable="false" resizable="false" modal="true" draggable="false" showEffect="puff" visible="false" width="900">
+				<p:panelGrid id="idDetallesCIFDev" style="margin-top:5px; width:100%;vertical-align:left; !important;" >
+					<p:row>
+						<p:column style="width:125px;vertical-align:middle;text-align:right;font-weight:bold;padding-top:10px !important;">
+							<h:outputText value="#{msg['envio.dev.cif.resultado.id.item']}"/>
+						</p:column>
+						<p:column style="width:500px;vertical-align:middle !important;text-align:left !important;padding-top:10px !important;" >
+							<h:outputText id="idItemMov" value="#{devolucionesAutorizaCifView.paramDevBean.movDetalle.itemDevolucion}" disabled="true" style="width:100% !important;"/>
+						</p:column>
+						<p:column style="width:125px;vertical-align:middle;text-align:right;font-weight:bold;padding-top:10px !important;">
+							<h:outputText value="#{msg['envio.dev.cif.resultado.id.folio']}"/>
+						</p:column>
+						<p:column style="width:300px;vertical-align:middle !important;text-align:left !important;padding-top:10px !important;">
+							<h:outputText value="#{devolucionesAutorizaCifView.paramDevBean.movDetalle.folio}" disabled="true"/>
+						</p:column>
+					</p:row>	
+					<p:row>
+						<p:column style="width:125px;vertical-align:middle;text-align:right;font-weight:bold;padding-top:10px !important;">
+							<h:outputText value="#{msg['envio.dev.cif.resultado.id.negocio']}"/>
+						</p:column>
+						<p:column style="width:500px;vertical-align:middle !important;text-align:left !important;padding-top:10px !important;" >
+							<h:outputText value="#{devolucionesAutorizaCifView.paramDevBean.movDetalle.unidadNegocio}" disabled="true" style="width:100% !important;"/>
+						</p:column>
+						<p:column style="width:125px;vertical-align:middle;text-align:right;font-weight:bold;padding-top:10px !important;">
+							<h:outputText value="#{msg['envio.dev.cif.resultado.id.origen']}"/>
+						</p:column>
+						<p:column style="width:300px;vertical-align:middle !important;text-align:left !important;padding-top:10px !important;">
+							<h:outputText value="#{devolucionesAutorizaCifView.paramDevBean.movDetalle.origen}" disabled="true"/>
+						</p:column>
+					</p:row>	
+					<p:row>
+						<p:column style="width:125px;vertical-align:middle;text-align:right;font-weight:bold;padding-top:10px !important;">
+							<h:outputText value="#{msg['envio.dev.cif.resultado.id.tipoA']}"/>
+						</p:column>
+						<p:column style="width:500px;vertical-align:middle !important;text-align:left !important;padding-top:10px !important;" >
+							<h:outputText value="#{devolucionesAutorizaCifView.paramDevBean.movDetalle.tipoAfectacion}" disabled="true" style="width:100% !important;"/>
+						</p:column>
+						<p:column style="width:125px;vertical-align:middle;text-align:right;font-weight:bold;padding-top:10px !important;">
+							<h:outputText value="#{msg['envio.dev.cif.resultado.id.subtipoA']}"/>
+						</p:column>
+						<p:column style="width:300px;vertical-align:middle !important;text-align:left !important;padding-top:10px !important;">
+							<h:outputText value="#{devolucionesAutorizaCifView.paramDevBean.movDetalle.subTipoAfectacion}" disabled="true"/>
+						</p:column>
+					</p:row>	
+					<p:row>
+						<p:column style="width:125px;vertical-align:middle;text-align:right;font-weight:bold;padding-top:10px !important;">
+							<h:outputText value="#{msg['envio.dev.cif.resultado.id.nombre']}"/>
+						</p:column>
+						<p:column style="width:500px;vertical-align:middle !important;text-align:left !important;padding-top:10px !important;" >
+							<h:outputText value="#{devolucionesAutorizaCifView.paramDevBean.movCabecera.nombreBeneficiario}" disabled="true" style="width:100% !important;"/>
+						</p:column>
+						<p:column style="width:125px;vertical-align:middle;text-align:right;font-weight:bold;padding-top:10px !important;">
+							<h:outputText value="#{msg['envio.dev.cif.resultado.id.importe']}"/>
+						</p:column>
+						<p:column style="width:300px;vertical-align:middle !important;text-align:left !important;padding-top:10px !important;">
+							<h:outputText value="#{devolucionesAutorizaCifView.paramDevBean.movDetalle.monto}" disabled="true">
+								<f:convertNumber pattern="$#,###,##0.00" locale="es_MX"/>
+							</h:outputText>
+						</p:column>
+					</p:row>	
+					<p:row>
+						<p:column style="width:125px;vertical-align:middle;text-align:right;font-weight:bold;padding-top:10px !important;">
+							<h:outputText value="#{msg['envio.dev.cif.resultado.id.bancaria']}"/>
+						</p:column>
+						<p:column style="width:500px;vertical-align:middle !important;text-align:left !important;padding-top:10px !important;" >
+							<h:outputText value="#{devolucionesAutorizaCifView.paramDevBean.movCabecera.ctaBeneficiario}" disabled="true" style="width:100% !important;"/>
+						</p:column>
+						<p:column style="width:125px;vertical-align:middle;text-align:right;font-weight:bold;padding-top:10px !important;">
+							<h:outputText value="#{msg['envio.dev.cif.resultado.id.individual']}"/>
+						</p:column>
+						<p:column style="width:300px;vertical-align:middle !important;text-align:left !important;padding-top:10px !important;">
+							<h:outputText value="#{devolucionesAutorizaCifView.paramDevBean.movCabecera.numCtaIndividual}" disabled="true"/>
+						</p:column>
+					</p:row>	
+					<p:row>
+						<p:column style="width:125px;vertical-align:middle;text-align:right;font-weight:bold">
+							<h:outputText value="#{msg['envio.dev.cif.resultado.id.fpago']}"/>
+						</p:column>
+						<p:column style="width:300px;vertical-align:middle !important;text-align:left !important;">
+							<h:outputText value="#{devolucionesAutorizaCifView.paramDevBean.movCabecera.fechaPago}" disabled="true">
+								<f:convertDateTime type="date" pattern="dd/MM/yyyy" timeZone="America/Mexico_City"/>
+							</h:outputText>
+						</p:column>
+						<p:column style="width:125px;vertical-align:middle;text-align:right;font-weight:bold">
+							<h:outputText value="#{msg['envio.dev.cif.resultado.id.fcontable']}"/>
+						</p:column>
+						<p:column style="width:300px;vertical-align:middle !important;text-align:left !important;">
+							<h:outputText value="#{devolucionesAutorizaCifView.paramDevBean.movCabecera.fechaContable}" disabled="true">
+								<f:convertDateTime type="date" pattern="dd/MM/yyyy" timeZone="America/Mexico_City"/>
+							</h:outputText>
+						</p:column>
+					</p:row>					
+								
+					<p:row>
+						<p:column  style="text-align:right !important;" colspan="4">
+
+							<p:spacer width="10"/> 
+							<p:commandButton value="#{msg['envio.cif.detalle.boton.cerrar']}" styleClass="gray-button"
+									oncomplete="PF('dialogDetallesCargosCIFDev').hide();"
+									update=":formResultadosCargosCIFDev"/> 
+						</p:column>
+					</p:row>				
+				</p:panelGrid>			
+			</p:dialog>
+		</h:form>
+		
+		
+			<h:form id="formDeleteCIFDev">
+				<p:dialog id="idConfirmDeleteDev" modal="true"
+					widgetVar="dialogConfirmDeleteDev" draggable="false"
+					closable="false" resizable="false" appendTo="@(body)" header="#{msg['envio.cif.mensaje.borrar.confirmacion.header']}">
+					<p:panel id="idConfirmacionDeleteDev" >
+						<p:panelGrid style="float:right; margin-top:0px;">
+							<p:row>
+								<p:column style="text-align:left;">
+									<h:outputText value="#{msg['envio.cif.mensaje.borrar.confirmacion']}" />
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column style="text-align:right !important;;">
+									<p:commandButton value="#{msg['envio.cif.detalle.boton.aceptar']}" 
+										update="formDetallesCargosCIFDev formResultadosCargosCIFDev"
+										action="#{devolucionesAutorizaCifView.delete2CIF}" process="@this"
+										onclick="PF('dialogConfirmDeleteDev').hide();PF('cargandoDialog').show();"
+										oncomplete="PF('cargandoDialog').hide();"
+										styleClass="blue-button"/>
+									<p:spacer width="10"/>
+									<p:commandButton  value="#{msg['envio.cif.detalle.boton.cerrar']}"
+											onclick="PF('dialogConfirmDeleteDev').hide()" process="@this" 
+											styleClass="gray-button" />		
+								</p:column>	
+							</p:row>		
+						</p:panelGrid>
+					</p:panel>
+				</p:dialog>
+			</h:form>		
+			
+		<h:form id="formReportPrevCIFDev">
+			<p:dialog id="idMensajesEstatusEnvioPrevDev" widgetVar="dialogConfirmReportPrevDev" 
+					header="#{msg['envio.cif.detalle.boton.descarg.reporte']}"
+					closable="false" resizable="false" modal="true" draggable="false" showEffect="puff"  visible="false">
+				<p:panelGrid style="float:right; margin-top:0px;">
+					<p:row>
+						<p:column style="text-align:right;">
+							<p:commandButton value="#{msg['envio.cif.detalle.boton.aceptar']}"
+								update="formResultadosCargosCIFDev formBusquedaCIFDev" 
+								action="#{devolucionesAutorizaCifView.getReportPrev}" ajax="false" 
+								onclick="PF('dialogDetallesCargosCIFDev').hide();PF('dialogConfirmReportPrevDev').hide();"
+								styleClass="yellow-button" />
+							<p:spacer width="10"/>
+							<p:commandButton value="#{msg['envio.cif.detalle.boton.cerrar']}"  
+								onclick="PF('dialogConfirmReportPrevDev').hide(); "
+								styleClass="gray-button" />
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+			</p:dialog>
+		</h:form>			
+		
+			<h:form id="formEnvioCIFDev">
+				<p:dialog id="idConfirmSendDev" modal="true"
+					widgetVar="dialogConfirmSendDev" draggable="false"
+					closable="false" resizable="false" appendTo="@(body)" header="#{msg['envio.cif.mensaje.envio.confirmacion.header']}">
+					<p:panel id="idConfirmacionSendDev" >
+						<p:panelGrid style="float:right; margin-top:0px;">
+							<p:row>
+								<p:column style="text-align:left;">
+									<h:outputText value="#{msg['envio.dev.aut.cif.mensaje.envio.confirmacion.header']}" />
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column style="text-align:right  !important;;">
+									<p:commandButton value="#{msg['envio.cif.detalle.boton.aceptar']}" 
+										update="formResultadosCargosCIFDev"
+										action="#{devolucionesAutorizaCifView.send2CIF}" process="@this"
+										onclick="PF('dialogConfirmSendDev').hide();PF('cargandoDialog').show();"  
+										oncomplete=""
+										styleClass="blue-button"/>
+									<p:spacer width="10"/>
+									<p:commandButton  value="#{msg['envio.cif.detalle.boton.cerrar']}"
+											onclick="PF('dialogConfirmSendDev').hide()" process="@this" 
+											styleClass="gray-button" />		
+								</p:column>	
+							</p:row>		
+						</p:panelGrid>
+					</p:panel>
+				</p:dialog>
+			</h:form>		
+		
+		<p:dialog id="idDialogIdentificadorCiError" widgetVar="dialogIdentificadorCiError" header="Aviso Importante"
+					closable="false" resizable="false" modal="true" draggable="false" showEffect="puff" 
+				 	visible="#{facesContext.validationFailed}">
+				<p:panelGrid style="float:right; margin-top:0px;">
+					<p:row>
+						<p:column style="text-align:right;">
+							<p:outputLabel value="#{devolucionesAutorizaCifView.paramDevBean.msgMsg}" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column style="text-align:left;">
+							<p:commandButton value="#{msg['general.button.cerrar']}"  
+								onclick="PF('dialogIdentificadorCiError').hide();"
+								styleClass="gray-button" />
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+		</p:dialog>
+		
+		<p:dialog id="dialogCargando" widgetVar="cargandoDialog" appendTo="@(body)" 
+				modal="true" draggable="false" closable="false" resizable="false" showHeader="false" showEffect="fade">
+			<div align="center">
+					<h:outputText value="#{msg['envio.cif.cargando']}" styleClass="outputTextGeneric" />
+					<br/>
+					<h:graphicImage value="/core/static/images/loading-bar.gif" width="150" />
+			</div>
+		</p:dialog>		
+	</ui:define>
+  </ui:composition>
+</html>

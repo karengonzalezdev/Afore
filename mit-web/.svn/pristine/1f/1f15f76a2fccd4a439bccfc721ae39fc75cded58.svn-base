@@ -1,0 +1,13 @@
+#
+# Application configuration file
+# -------------------------------------------
+#
+#	Property						Required	Description
+#	---------------------------------------------------------------------------------
+#	application.errorPageId	 	 	Yes	 		Error page in JSF context (not include relative paths)
+#	application.defaultLanguage	 	Yes	 		Application default language
+# 
+
+*.application.errorPageId=errorPage.xhtml
+*.application.defaultLanguage=es_ES
+

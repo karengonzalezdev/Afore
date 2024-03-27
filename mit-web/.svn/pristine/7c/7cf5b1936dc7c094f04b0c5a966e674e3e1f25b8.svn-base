@@ -1,0 +1,56 @@
+<ui:component
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui"
+  xmlns:c="http://java.sun.com/jsp/jstl/core"
+  xmlns:s="http://www.springframework.org/security/tags">
+
+  <div class="leftMenuPrototype">
+  
+
+     <div class="ptMenuMainItem">Matriz de Convivencia</div>
+     <div id="menu1" class="ptSubMenu">
+        <div class="ptSubMenuItem"><a href="matrizConvivenciaConsulta-flow">#{msg.consultaMatrizConvivencia}</a></div>
+     </div>
+
+<s:authorize access="hasRole('255')">
+     <div class="ptMenuMainItem">#{msg['process.tracking.consult.menu.title']}</div>
+     <div id="menu2" class="ptSubMenu">
+        <div class="ptSubMenuItem"><a href="processTrackingConsult-flow">#{msg['process.tracking.consult.submenu.title']}</a></div>
+     </div>
+</s:authorize>
+<s:authorize access="hasRole('259')">
+     <div class="ptMenuMainItem">Movimientos</div>
+     <div id="menu3" class="ptSubMenu">
+        <div class="ptSubMenuItem"><a href="movimientoSubcuenta-flow">#{msg.catalogoMovimientos}</a></div>
+     </div>
+</s:authorize>
+<s:authorize access="hasAnyRole('252','253')">
+     <div class="ptMenuMainItem">Admon Permisos Consulta</div>
+     <div id="menu4" class="ptSubMenu">
+        <div class="ptSubMenuItem"><a href="admonPermisosConsulta-flow">Admon Permisos Consulta</a></div>
+     </div>
+</s:authorize>
+<s:authorize access="hasAnyRole('380','265')">
+     <div class="ptMenuMainItem">#{msg['catalogs.management.menu.title']}</div>
+     <div id="menu5" class="ptSubMenu">
+        <div class="ptSubMenuItem"><a href="catalogsManagement-flow">#{msg['catalogs.management.submenu.title']}</a></div>
+     </div>
+</s:authorize>
+<s:authorize access="hasRole('264')">
+     <div class="ptMenuMainItem">Saldos</div>
+     <div id="menu6" class="ptSubMenu">
+        <div class="ptSubMenuItem"><a href="identificarAlCliente-flow">Consulta De Saldos</a></div>
+     </div>
+</s:authorize>
+<s:authorize access="hasRole('381')">
+     <div class="ptMenuMainItem">Cifras Control</div>
+     <div id="menu7" class="ptSubMenu">
+        <div class="ptSubMenuItem"><a href="consultaCifrasControl-flow">Consulta Historico Cifras Control</a></div>
+     </div>
+</s:authorize>
+  </div>
+
+</ui:component>

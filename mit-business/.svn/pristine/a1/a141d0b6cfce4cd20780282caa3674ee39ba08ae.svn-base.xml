@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?><!--File DomiciliacionService.wsdl, shared library Lib_NCI_MM--><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" name="DomiciliacionService" targetNamespace="http://mx.profuturo/iib/apovol/Domiciliaciones/DomiciliacionService/v1" xmlns:iibe="http://mx.profuturo/iib/iibException/IIBException" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://mx.profuturo/iib/apovol/Domiciliaciones/DomiciliacionService/v1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsd2="http://mx.profuturo/iib/apovol/Domiciliaciones/DomiciliacionService/v1/types">
+  <wsdl:documentation>
+    <wsdl:appinfo source="WMQI_APPINFO">
+      <MRWSDLAppInfo imported="true">
+        <binding hasEncoding="false" imported="true" name="DomiciliacionBinding" originalBindingStyle="document"/>
+      </MRWSDLAppInfo>
+    </wsdl:appinfo>
+  </wsdl:documentation>
+  
+
+	<wsdl:types>
+		<xsd:schema>
+<xsd:import namespace="http://mx.profuturo/iib/apovol/Domiciliaciones/DomiciliacionService/v1/types" schemaLocation="DomiciliacionService.0.xsd">
+			</xsd:import>
+<xsd:import namespace="http://mx.profuturo/iib/iibException/IIBException" schemaLocation="DomiciliacionService.1.xsd">
+			</xsd:import>
+</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="consultarPreSolicitudRequest">
+		<wsdl:part element="xsd2:consultarPreSolicitudRequest" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="consultarPreSolicitudResponse">
+		<wsdl:part element="xsd2:consultarPreSolicitudResponse" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="actualizarPreSolicitudRequest">
+		<wsdl:part element="xsd2:actualizarPreSolicitudRequest" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="actualizarPreSolicitudResponse">
+		<wsdl:part element="xsd2:actualizarPreSolicitudResponse" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="rechazarPendientesPorFolioRequest">
+		<wsdl:part element="xsd2:rechazarPendientesPorFolioRequest" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="rechazarPendientesPorFolioResponse">
+		<wsdl:part element="xsd2:rechazarPendientesPorFolioResponse" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="guardarSolicitudRequest">
+		<wsdl:part element="xsd2:guardarSolicitudRequest" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="guardarSolicitudResponse">
+		<wsdl:part element="xsd2:guardarSolicitudResponse" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="consultarSolicitudRequest">
+		<wsdl:part element="xsd2:consultarSolicitudRequest" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="consultarSolicitudResponse">
+		<wsdl:part element="xsd2:consultarSolicitudResponse" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="actualizarSolicitudRequest">
+		<wsdl:part element="xsd2:actualizarSolicitudRequest" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="actualizarSolicitudResponse">
+		<wsdl:part element="xsd2:actualizarSolicitudResponse" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="actualizarTraspasoRequest">
+		<wsdl:part element="xsd2:actualizarTraspasoRequest" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="actualizarTraspasoResponse">
+		<wsdl:part element="xsd2:actualizarTraspasoResponse" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="consultarPagoTraspasoRequest">
+		<wsdl:part element="xsd2:consultarPagoTraspasoRequest" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="consultarPagoTraspasoResponse">
+		<wsdl:part element="xsd2:consultarPagoTraspasoResponse" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="actualizarListaTraspasoRequest">
+		<wsdl:part element="xsd2:actualizarListaTraspasoRequest" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="faultMsg">
+    	<wsdl:part element="iibe:iibException" name="parameters"/>
+  	</wsdl:message>
+	<wsdl:portType name="DomiciliacionPortType">
+		<wsdl:operation name="consultarPreSolicitud">
+			<wsdl:input message="tns:consultarPreSolicitudRequest"/>
+			<wsdl:output message="tns:consultarPreSolicitudResponse"/>
+			<wsdl:fault message="tns:faultMsg" name="fault"/>
+		</wsdl:operation>
+		<wsdl:operation name="actualizarPreSolicitud">
+			<wsdl:input message="tns:actualizarPreSolicitudRequest"/>
+			<wsdl:output message="tns:actualizarPreSolicitudResponse"/>
+			<wsdl:fault message="tns:faultMsg" name="fault"/>
+		</wsdl:operation>
+		<wsdl:operation name="rechazarPendientesPorFolio">
+			<wsdl:input message="tns:rechazarPendientesPorFolioRequest"/>
+			<wsdl:output message="tns:rechazarPendientesPorFolioResponse"/>
+			<wsdl:fault message="tns:faultMsg" name="fault"/>
+		</wsdl:operation>
+		<wsdl:operation name="guardarSolicitud">
+			<wsdl:input message="tns:guardarSolicitudRequest"/>
+			<wsdl:output message="tns:guardarSolicitudResponse"/>
+			<wsdl:fault message="tns:faultMsg" name="fault"/>
+		</wsdl:operation>
+		<wsdl:operation name="consultarSolicitud">
+			<wsdl:input message="tns:consultarSolicitudRequest"/>
+			<wsdl:output message="tns:consultarSolicitudResponse"/>
+			<wsdl:fault message="tns:faultMsg" name="fault"/>
+		</wsdl:operation>
+		<wsdl:operation name="actualizarSolicitud">
+			<wsdl:input message="tns:actualizarSolicitudRequest"/>
+			<wsdl:output message="tns:actualizarSolicitudResponse"/>
+			<wsdl:fault message="tns:faultMsg" name="fault"/>
+		</wsdl:operation>
+		<wsdl:operation name="actualizarTraspaso">
+			<wsdl:input message="tns:actualizarTraspasoRequest"/>
+			<wsdl:output message="tns:actualizarTraspasoResponse"/>
+			<wsdl:fault message="tns:faultMsg" name="fault"/>
+		</wsdl:operation>
+		<wsdl:operation name="consultarPagoTraspaso">
+			<wsdl:input message="tns:consultarPagoTraspasoRequest"/>
+			<wsdl:output message="tns:consultarPagoTraspasoResponse"/>
+			<wsdl:fault message="tns:faultMsg" name="fault"/>
+		</wsdl:operation>
+		<wsdl:operation name="actualizarListaTraspaso">
+			<wsdl:input message="tns:actualizarListaTraspasoRequest"/>
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<wsdl:binding name="DomiciliacionBinding" type="tns:DomiciliacionPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="consultarPreSolicitud">
+			<soap:operation soapAction="urn:consultarPreSolicitud" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="actualizarPreSolicitud">
+			<soap:operation soapAction="urn:actualizarPreSolicitud" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="rechazarPendientesPorFolio">
+			<soap:operation soapAction="urn:rechazarPendientesPorFolio" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="guardarSolicitud">
+			<soap:operation soapAction="urn:guardarSolicitud" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarSolicitud">
+			<soap:operation soapAction="urn:consultarSolicitud" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="actualizarSolicitud">
+			<soap:operation soapAction="urn:actualizarSolicitud" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="actualizarTraspaso">
+			<soap:operation soapAction="urn:actualizarTraspaso" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarPagoTraspaso">
+			<soap:operation soapAction="consultarPagoTraspaso" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="actualizarListaTraspaso">
+			<soap:operation soapAction="actualizarListaTraspaso" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:service name="DomiciliacionService">
+		<wsdl:port binding="tns:DomiciliacionBinding" name="DomiciliacionPort">
+			<soap:address location="http://172.16.60.69:7801/iib/apovol/Domiciliaciones/DomiciliacionService/v1"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

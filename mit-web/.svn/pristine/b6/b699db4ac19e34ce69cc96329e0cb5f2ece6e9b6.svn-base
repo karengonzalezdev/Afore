@@ -1,0 +1,594 @@
+# Generales
+general.header   = OP Aportaciones Voluntarias
+general.welcome = OP Aportaciones Voluntarias
+general.title = OP Aportaciones Voluntarias
+general.bienvenido = Bienvenidos
+general.progress.consultando = Consultando
+general.button.examinar = Examinar
+general.button.submit   = Aceptar
+general.button.cancel   = Cancelar
+general.button.depositar = Depositar
+general.button.clean    = Limpiar
+general.button.reintentar    = Reintentar
+#Browser message
+
+
+welcomeMessage=OP Aportaciones Voluntarias
+
+logout = Salir
+
+header.data.usuario = Usuario:
+
+
+#Login
+loginError=Intento de Ingreso fallido, intentelo nuevamente.
+reason=Razón:
+loginInfo=Información de login
+user=Usuario:
+password=Contraseña:
+contrasena=Contraseña:
+login=Iniciar sesión
+dontAsk=No preguntar contraseña durante dos semanas
+demoPairs=Usuario/password claves para la demo:
+loginMandatory=Por favor, introduzca su usuario
+passwdMandatory=Por favor, introduzca su contraseña
+
+
+#Logout
+
+accessDenied = Usted no tiene acceso a ésta página
+
+#Footer
+footerMessage= © Copyright 2016 GNP Profuturo
+
+#Menu
+homePage= OP Aportaciones Voluntarias
+
+menu.item1.name = ApoVol
+menu.item1.submenu1.name = Aportaciones no identificadas
+menu.item1.submenu2.name = Archivo de domiciliación
+menu.item1.submenu3.name = Aportaciones voluntarias por cliente
+menu.item1.submenu4.name = Depósito de archivos
+menu.item1.submenu5.name = Monitoreo afore móvil
+menu.item1.submenu6.name = Monitoreo de Cargos
+menu.item1.submenu7.name = Parametrizacion de intentos de Carga
+
+menu.item2.name = Domiciliación traspaso
+menu.item2.submenu1.name = Monitoreo de cargos
+menu.item2.submenu2.name = Inversión de domiciliaciones
+menu.item2.submenu3.name = Detalle mensual
+menu.item2.submenu4.name = Solicitudes de domiciliación
+
+
+menu.item3.name = Ordenes
+menu.item3.submenu1.name = Ordenes SPEI
+
+
+menu.item4.name = Consultas
+menu.item4.submenu1.name = Monitoreo de registros
+
+menu.item5.name = Afore móvil
+menu.item5.submenu2.name = Parametrización de importes
+
+menu.item6.name = CIF
+menu.item6.submenu1.name = Movimientos a enviar a CIF
+menu.item6.submenu2.dev.name = Devoluciones a enviar a CIF
+menu.item6.submenu3.dev.name = Autorización de Devoluciones CIF
+menu.item6.submenu4.dev.name = Seguimiento de Devoluciones CIF
+
+msg.selectOne = Seleccione uno
+msg.general.operaciones = NCI Monitor
+msg.general.operacion.concluida = Operación concluida
+
+general.ventana.espera=Espere un momento por favor...
+general.button.cerrar = Cerrar
+general.msg.fechaIni.requerida = Se requiere la fecha de inicio para realizar la búsqueda
+# Tables
+general.table.rows.empty= No se encontraron registros
+general.table.rows.empty.busqueda= No se encontraron registros para la búsqueda seleccionada
+
+#**********************************************************************
+# Validacion Manual Editar (consultarMovimientos.xhtml)
+#**********************************************************************
+validacion.cuenta.editar.title = Aportaciones no identificadas
+validacion.cuenta.label.fecha.inicio = Fecha inicio
+validacion.cuenta.label.fecha.fin = Fecha fin
+validacion.cuenta.label.banco = Banco
+validacion.cuenta.detalle.subtitle = Detalles de movimimento
+validacion.cuenta.buscar.button = Buscar
+validacion.cuenta.table.columna.fecha = Fecha
+validacion.cuenta.table.columna.banco = Banco
+validacion.cuenta.table.columna.importe = Importe
+validacion.cuenta.table.columna.referencia.cuenta = Referencia cuenta
+validacion.cuenta.table.columna.referencia.apovol = Referencia tipo apovol
+validacion.cuenta.table.columna.referencia.origen = Origen
+validacion.cuenta.table.columna.referencia.autMov = Autorización movimiento
+validacion.cuenta.identificar.button = Identificar
+validacion.cuenta.identificacion.subtitle.movimiento = Movimiento
+validacion.cuenta.identificacion.subtitle.cuenta = Asociar a la cuenta
+validacion.cuenta.identificacion.subtitle.documentacion = Documentación
+validacion.cuenta.identificacion.label.origen = Origen
+validacion.cuenta.identificacion.label.empresa = Empresa
+validacion.cuenta.identificacion.label.cuenta = Número de cuenta afore
+validacion.cuenta.identificacion.label.apovol = Número de referencia apovol
+validacion.cuenta.identificacion.subtitle.cuentacliente = Datos de cuenta afore
+validacion.cuenta.validar.button = Validar cuenta
+validacion.cuenta.examinar.button = Examinar
+validacion.cuenta.confirmar.button = Confirmar
+validacion.cuenta.cancelar.button = Cancelar
+validacion.cuenta.cerrar.button=Cerrar
+validacion.cuenta.confirmar.asociacion = Asociar aportación
+
+
+#**********************************************************************
+# Generación archivo Domi (principal.xhtml)
+#**********************************************************************
+
+domiciliacion.archivo.title = Archivo de domiciliación
+domiciliacion.archivo.title.general = Archivo Domiciliación
+domiciliacion.archivo.principal.fecha.inicio = Fecha inicio
+domiciliacion.archivo.principal.fecha.final = Fecha fin
+domiciliacion.archivo.principal.origen.aportacion= Origen aportación
+domiciliacion.archivo.principal.button.buscar = Buscar
+domiciliacion.archivo.principal.tabla.columna.cuentas = Cuentas a incluir
+domiciliacion.archivo.principal.tabla.columna.archivo.generar = Archivo a generar
+domiciliacion.archivo.principal.tabla.columna.tipo.cuenta = Con los tipos de cuenta
+domiciliacion.archivo.principal.tabla.columna.fecha.archivo.generado = Último archivo generado
+
+domiciliacion.archivo.principal.cuenta.incluir.banamex=Banamex
+domiciliacion.archivo.principal.cuenta.incluir.bancomer=Bancomer
+domiciliacion.archivo.principal.cuenta.incluir.otro=Otro
+domiciliacion.archivo.principal.tipo.domiciliaciones=DOMICILIACIONES
+
+domiciliacion.archivo.principal.tipo.cuenta.debito=Tarjeta de débito
+domiciliacion.archivo.principal.tipo.cuenta.clabe=Cuenta CLABE
+domiciliacion.archivo.principal.tipo.cuenta.chequera=Chequera
+
+domiciliacion.archivo.principal.un.solo.archivo=Un solo archivo
+
+domiciliacion.archivo.principal.cifras.totales.titulo=Cifras totales
+domiciliacion.archivo.principal.cifras.totales.importe.total=IMPORTE TOTAL
+domiciliacion.archivo.principal.cifras.totales.total.registros=TOTAL REGISTROS
+domiciliacion.archivo.principal.cifras.por.banco.titulo=Cifras por banco
+
+domiciliacion.archivo.principal.boton.generar.archivo=Generar archivo
+domiciliacion.archivo.principal.boton.cancelar= Cancelar
+domiciliacion.archivo.principal.boton.limpiar= Limpiar
+
+domiciliacion.archivo.principal.msg.confirmar=Se generarán los siguientes archivos de domiciliacion
+
+#**********************************************************************
+# Monitoreo de Cargos Domi Traspaso (monitoreoCargos.xhtml)
+#**********************************************************************
+domiciliacion.traspasos.monitoreo.titulo = Monitoreo de cargos 
+domiciliacion.traspasos.monitoreo.subtitulo = Cargos de domiciliaciones traspasos del día 
+
+domiciliacion.traspasos.monitoreo.botonDistribucionInv = Distribución de Inversión
+domiciliacion.traspasos.monitoreo.botonDetalleMes = Detalle por Mes
+
+domiciliacion.traspasos.monitoreo.mesaIngresoSolicitud = Mesa de ingreso de solicitud
+domiciliacion.traspasos.monitoreo.recurrencia = Recurrencia
+domiciliacion.traspasos.monitoreo.noSolicitudes = No. Solicitudes
+domiciliacion.traspasos.monitoreo.traspasoLiquidado = Traspaso liquidado
+domiciliacion.traspasos.monitoreo.traspasoPendiente = Traspaso pendiente
+domiciliacion.traspasos.monitoreo.cargos = Cargos
+domiciliacion.traspasos.monitoreo.montoEsperado = Monto esperado
+domiciliacion.traspasos.monitoreo.cargosAceptados = Cargos aceptados
+domiciliacion.traspasos.monitoreo.cargosRechazados = Cargos rechazados
+domiciliacion.traspasos.monitoreo.montoConfirmado = Monto confirmado
+domiciliacion.traspasos.monitoreo.montoRechazado = Monto rechazado
+domiciliacion.traspasos.monitoreo.totalDomiciliacionTraspaso = Total domiciliación traspaso
+domiciliacion.traspasos.monitoreo.btnInversion = Inversión
+domiciliacion.traspasos.monitoreo.btnDetalle = Detalle
+
+#**********************************************************************
+# inversión de las Domiciliaciones Traspaso (inversionDomiciliacion.xhtml)
+#**********************************************************************
+domiciliacion.traspasos.inversion.titulo = Inversión de domiciliaciones 
+domiciliacion.traspasos.inversion.subtitulo = Recursos domiciliacion traspaso hasta el 
+
+domiciliacion.traspasos.inversion.recursosAcreditar = Por acreditar
+domiciliacion.traspasos.inversion.recursosPendTraspaso = Pendientes traspaso
+domiciliacion.traspasos.inversion.devolucionRecursos = Devueltos
+domiciliacion.traspasos.inversion.recursosAcreditados = Acreditados
+
+domiciliacion.traspasos.inversion.siefore = SIEFORE
+domiciliacion.traspasos.inversion.subcuenta = Subcuenta
+domiciliacion.traspasos.inversion.tipoMovimiento = Tipo movimiento
+domiciliacion.traspasos.inversion.pesos = Pesos
+domiciliacion.traspasos.inversion.registros = Registros
+domiciliacion.traspasos.inversion.totales = TOTALES 
+#**********************************************************************
+# Detalle del Mes (detalleMes.xhtml)
+#**********************************************************************
+domiciliacion.traspasos.detalleMes.titulo = Detalle mensual
+domiciliacion.traspasos.detalleMes.subtitulo = Recursos de cargos domiciliación traspaso - Consulta por mes
+
+domiciliacion.traspasos.detalleMes.mes = Mes:
+domiciliacion.traspasos.detalleMes.buscar = Buscar
+domiciliacion.traspasos.detalleMes.recurrencia = Recurrencia
+domiciliacion.traspasos.detalleMes.solicitudes = Solicitudes
+domiciliacion.traspasos.detalleMes.ingresadas = Ingresadas
+domiciliacion.traspasos.detalleMes.aceptadas = Aceptadas
+domiciliacion.traspasos.detalleMes.canceladas = Canceladas
+domiciliacion.traspasos.detalleMes.solConAlMenosUnCargo = Solicitudes con al menos un cargo
+domiciliacion.traspasos.detalleMes.aceptado = Aceptado
+domiciliacion.traspasos.detalleMes.rechazado = Rechazado
+domiciliacion.traspasos.detalleMes.recursos = Recursos
+domiciliacion.traspasos.detalleMes.acreditados = Acreditados
+domiciliacion.traspasos.detalleMes.devolucionPorTesoreria = Devolucion por tesoreria
+domiciliacion.traspasos.detalleMes.total = Total
+domiciliacion.traspasos.detalleMes.titulo.DSL = Domiciliación Registro sin Liquidación
+domiciliacion.traspasos.detalleMes.titulo.DCL = Domiciliación Registro con Liquidación
+#**********************************************************************
+# Monitoreo de Solicitudes (monitoreoSolicitudes.xhtml)
+#**********************************************************************
+domiciliacion.traspasos.monSol.titulo = Solicitudes de domiciliación
+domiciliacion.traspasos.monSol.subtitulo = Monitoreo de solicitudes  (monitoreoSolicitudes.xhtml)
+
+domiciliacion.traspasos.monSol.btnLimpiar = Limpiar
+domiciliacion.traspasos.monSol.btnBuscar = Buscar
+domiciliacion.traspasos.monSol.claveSolicitud = Clave solicitud
+domiciliacion.traspasos.monSol.cuentaIndividual = Cuenta individual
+domiciliacion.traspasos.monSol.cuentaBancaria = Cuenta bancaria
+domiciliacion.traspasos.monSol.nombre = Nombre
+domiciliacion.traspasos.monSol.nss = NSS
+domiciliacion.traspasos.monSol.curp = CURP
+domiciliacion.traspasos.monSol.importe = Importe
+domiciliacion.traspasos.monSol.fechaCaptura = Fecha captura
+domiciliacion.traspasos.monSol.periodicidad = Periodicidad
+domiciliacion.traspasos.monSol.estatusSol = Estatus de solicitud
+domiciliacion.traspasos.monSol.detalle = Detalle
+domiciliacion.traspasos.monSol.fechaRecepcion = Fecha recepción
+domiciliacion.traspasos.monSol.estatusTraspaso = Estatus traspaso
+domiciliacion.traspasos.monSol.frecuenciaInicial = Frecuencia inicial
+domiciliacion.traspasos.monSol.frecuenciaFinal = Frecuencia final
+domiciliacion.traspasos.monSol.origenSolicitud = Origen solicitud
+domiciliacion.traspasos.monSol.cpDoceMeses = CP 2 meses
+domiciliacion.traspasos.monSol.lpDoceMeses = LP 12 meses
+domiciliacion.traspasos.monSol.avpilp = AVPILP
+domiciliacion.traspasos.monSol.acr = ACR
+domiciliacion.traspasos.monSol.tipoCuenta = Tipo cuenta
+domiciliacion.traspasos.monSol.cuentaDeCargo = Cuenta de cargo
+domiciliacion.traspasos.monSol.estatusSolicitud = Estatus solicitud
+domiciliacion.traspasos.monSol.motivoRechazo = Motivo rechazo
+domiciliacion.traspasos.monSol.infoCuentaIndividual= Información de la cuenta individual
+domiciliacion.traspasos.monSol.cuentaIndividualDosPunto = Cuenta:
+domiciliacion.traspasos.monSol.nombreDosPunto = Nombre:
+domiciliacion.traspasos.monSol.indicadorVigenciaDosPuntos = Estatus cuenta:
+domiciliacion.traspasos.monSol.btnModificar = Modificar
+domiciliacion.traspasos.monSol.btnAceptar = Aceptar
+domiciliacion.traspasos.monSol.btnCancelar = Cancelar
+domiciliacion.traspasos.monSol.btnReactivar = Reactivar
+domiciliacion.traspasos.monSol.btnRegresar = Regresar
+domiciliacion.traspasos.monSol.btnConfirmar = Confirmar
+domiciliacion.traspasos.monSol.btnDenegar = Denegar
+domiciliacion.traspasos.monSol.btnCerrar = Cerrar 
+domiciliacion.traspasos.monSol.fechaCargo = Fecha Cargo
+domiciliacion.traspasos.monSol.fechaProxCargo = Fecha prox. cargo
+domiciliacion.traspasos.monSol.estatusConciliacion = Estatus conciliación
+domiciliacion.traspasos.monSol.estatusMovimiento = Estatus movimiento
+domiciliacion.traspasos.monSol.estatusCargo = Estatus cargo
+domiciliacion.traspasos.monSol.diaUno = Día 1
+domiciliacion.traspasos.monSol.diaDos = Día 2
+domiciliacion.traspasos.monSol.fehCre = Fecha creación
+domiciliacion.traspasos.monSol.usuCre = Usuario creación
+domiciliacion.traspasos.monSol.fehAct = Fecha actualización
+domiciliacion.traspasos.monSol.usuAct = Usuario actualización
+#FOP 06/07/2018 Domi Registro
+domiciliacion.traspasos.monSol.gerencia = Gerencia
+domiciliacion.traspasos.monSol.promotor = Nombre del promotor
+domiciliacion.traspasos.monSol.region = Región
+domiciliacion.traspasos.monSol.tipoRegistro = Tipo de registro
+domiciliacion.traspasos.monSol.tutor = Nombre del tutor
+domiciliacion.traspasos.monSol.paternoTutor = Apellido paterno del tutor
+domiciliacion.traspasos.monSol.maternoTutor = Apellido materno del tutor
+
+domiciliacion.traspasos.monSol.confirmaModifSolDomiciliacion = Modificación de solicitud
+domiciliacion.traspasos.monSol.preguntaConfirmaModifSolDomiciliacion = ¿Confirma que desea aplicar las modificaciones efectuadas en la solicitud de domiciliación?
+domiciliacion.traspasos.monSol.confirmaCancelSolDomiciliacion = Cancelación de solicitud
+domiciliacion.traspasos.monSol.preguntaConfirmaCancelSolDomiciliacion = ¿Confirma que desea CANCELAR la solicitud de domiciliación?
+domiciliacion.traspasos.monSol.confirmaReactivarSolDomiciliacion = Confirmar activación de solicitud de domiciliación
+domiciliacion.traspasos.monSol.preguntaConfirmaReactivarSolDomiciliacion = ¿Confirma que desea ACTIVAR la solicitud de domiciliación?
+
+domiciliacion.traspasos.monSol.combo.seleccionar = Seleccione el tipo de domiciliación
+domiciliacion.traspasos.monSol.combo.busqueda = No se encontró información con los criterios de búsqueda
+
+#Error
+genericError=Se ha producido un error
+stackTrace=Pila del error 
+cause=Detalles
+
+
+formato.validacion.cuenta = [0-9]{1,10}
+formato.validacion.nss = [0-9]{1,11}
+formato.validacion.curp = [A-Z]{1}[AEIOUX]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}
+validacion.validacion.cuenta = Formato no válido para Cuenta
+validacion.validacion.nss = Formato no válido para NSS
+validacion.validacion.curp = Formato no válido para CURP
+
+domiciliacion.header.confirmacion=Modificación de solicitud
+domiciliacion.mensaje.confirmacion=¿Confirma que desea aplicar las modificaciones efectuadas en la solicitud de domiciliación?
+domiciliacion.header.cancelar=Confirmar cancelación de solicitud de domiciliación
+domiciliacion.mensaje.cancelar=¿Confirma que desea CANCELAR la solicitud de domiciliación?
+#**************************************************************************************
+# Pantalla Consulta Aportaciones Voluntarias (consultaDomiciliacion.xhtml)
+#**************************************************************************************
+consulta.domiciliacion.title=Aportaciones voluntarias por cliente
+consulta.domiciliacion.txtCuenta=Cuenta
+consulta.domiciliacion.txtNss=NSS
+consulta.domiciliacion.txtCurp=CURP
+consulta.txtNoValido=No es un valor válido
+consulta.txtCampoNoVacio=El campo no debe estar vacío
+consulta.domiciliacion.txtOrigen=Origen:
+consulta.domiciliacion.txtEstatus=Estatus;
+consulta.domiciliacion.txtFechaIni=Fecha inicial:
+consulta.domiciliacion.txtFechaFin=Fecha final:
+consulta.domiciliacion.btnBuscar=Buscar
+consulta.domiciliacion.btnFiltrar=Filtrar
+consulta.domiciliacion.txtCuenta=Cuenta
+consulta.domiciliacion.txtLineaNeg=Linea negocio
+consulta.domiciliacion.txtNombre=Nombre
+consulta.domiciliacion.txtPeriodo=Periodo
+consulta.domiciliacion.txtBanco=Banco
+consulta.domiciliacion.txtMonto=Monto
+consulta.domiciliacion.txtEstatus=Estatus
+consulta.domiciliacion.txtOrigen=Origen
+consulta.domiciliacion.txtFecCapt=Fecha captura
+consulta.domiciliacion.txtCuenta=Cuenta
+consulta.domiciliacion.txtCuentaBanc=Cuenta bancaria
+consulta.domiciliacion.txtMoneda=Moneda
+consulta.domiciliacion.txtDiaUno=Día 1
+consulta.domiciliacion.txtDiaDos=Día 2
+consulta.domiciliacion.txtCveSol=Cve. solicitud
+consulta.domiciliacion.txtFolSol=Folio solicitud
+consulta.domiciliacion.txtFecha=Fecha
+consulta.domiciliacion.txtEstatusCargo=Estatus del cargo
+consulta.domiciliacion.txtMotivoRechazo=Motivo de rechazo
+consulta.domiciliacion.txtTipoCargo=Tipo de cargo
+consulta.domiciliacion.txtFolio=Folio
+consulta.domiciliacion.txtFondo=Fondo
+consulta.domiciliacion.txtImporte=Importe
+consulta.domiciliacion.txtPeriodo=Periodo
+consulta.domiciliacion.txtFechaCargo=Fecha cargo
+consulta.domiciliacion.txtFechaSol=Fecha solicitud
+consulta.domiciliacion.txtFechaModificacion=Fecha modificación
+consulta.domiciliacion.txtUsuario=Usuario
+consulta.domiciliacion.txtEstatusDeCuenta=Estatus de cuenta
+consulta.domiciliacion.txtNombreDeCliente=Nombre de cliente
+consulta.domiciliacion.txtFechaCaptura=Fecha de captura
+consulta.domiciliacion.txtPeriodicidad=Periodicidad
+consulta.domiciliacion.txtTipoCuenta=Tipo cuenta
+
+consulta.domiciliacion.txtImprimir=Imprimir
+consulta.domiciliacion.txtExportar=Exportar
+consulta.domiciliacion.txtDetalle=Detalle
+consulta.domiciliacion.txtLimpiar=Limpiar
+consulta.domiciliacion.txtSalir=Salir
+consulta.domiciliacion.txtRegresar=Regresar
+consulta.domiciliacion.txtDetaDomiciliacion=Detalle aportaciones voluntarias
+consulta.domiciliacion.txtDetalle=Detalle 
+consulta.domiciliacion.txtCuentasPorUsuario=Cuentas por usuario
+consulta.domiciliacion.txtNoHayMasDatos=NO HAY MAS DATOS
+
+consulta.domiciliacion.txtDiversificacion=Diversificación
+consulta.domiciliacion.txtValidacion=Validación
+consulta.domiciliacion.txtCargo=Cargo
+
+consulta.domiciliacion.txtMonto=Monto
+consulta.domiciliacion.txtPorcentaje=Porcentaje
+
+consulta.domiciliacion.txtTipoValidacion=Tipo validación
+consulta.domiciliacion.txtMotivoRechazo=Motivo rechazo
+
+#**********************************************************************
+#  Deposito De Archivo (depositoArchivo.xhtml)
+#***********************************************************************
+deposito.archivo.title = Depósito de archivos
+deposito.archivo.table.empty = Lista de archivos vacia
+deposito.archivo.table.column.archivo = Archivo
+deposito.archivo.table.column.descripcion = Descripción
+deposito.archivo.table.column.status = Estatus
+deposito.archivo.table.column.remover = Remover
+
+#**********************************************************************
+#  Consulta Afore Movil (consultaMontosAforeMovil.xhtml)
+#***********************************************************************
+consulta.aforeMovil.title.dialogDetalleMonto = Detalle Afore móvil
+consulta.aforeMovil.title = Monitoreo de registros
+consulta.aforeMovil.curp = CURP
+consulta.aforeMovil.detalle = Detalle
+consulta.aforeMovil.diasDesdePrimerAportacion = Días transcurridos
+consulta.aforeMovil.fechaPrimerAportacion = Fecha primer aportación
+consulta.aforeMovil.importeAcumulado = Importe acumulado
+consulta.aforeMovil.nombre = Nombre
+consulta.aforeMovil.tipoCliente = Tipo Cliente
+consulta.aforeMovil.estatus = Estatus
+consulta.aforeMovil.sinResultados = Sin resultados.
+consulta.aforeMovil.consultar = Buscar
+consulta.aforeMovil.limpiar = Limpiar
+consulta.aforeMovil.enviarTraspasos = Enviar traspasos
+consulta.aforeMovil.exportar = Exportar
+consulta.aforeMovil.rechazar = Rechazar
+consulta.aforeMovil.liberar = Liberar
+consulta.aforeMovil.fechaDeposito = Fecha depósito
+consulta.aforeMovil.fechaConciliacion = Fecha conciliación
+consulta.aforeMovil.importe = Importe
+consulta.aforeMovil.cargando = Cargando
+consulta.aforeMovil.cerrar = Cerrar
+consulta.aforeMovil.error.rechazo.error = No se ha ejecutado correctamente el rechazo de los registros
+consulta.aforeMovil.error.rechazo.exito = Los registros han sido rechazados exitosamente
+
+consulta.aforeMovil.error.liberar.error = No se ha ejecutado correctamente la liberacion de los registros
+consulta.aforeMovil.error.liberar.exito = Los registros han sido liberados exitosamente
+
+consulta.aforeMovil.rechazo.pregunta = Se rechazaran los registros seleccionados ¿desea continuar?
+consulta.aforeMovil.liberar.pregunta = Se liberaran los registros seleccionados ¿desea continuar?
+consulta.aforeMovil.error.busqueda = Error en búsqueda
+consulta.aforeMovil.txtNo = No.
+
+consulta.aforeMovil.independiente = Independiente
+consulta.aforeMovil.asignado = Asignado
+consulta.aforeMovil.nombre.mayusculas = NOMBRE:
+consulta.aforeMovil.curp.mayusculas = CURP:
+consulta.aforeMovil.rechazar.mayusculas = RECHAZAR
+consulta.aforeMovil.liberar.mayusculas = LIBERAR
+
+#**********************************************
+#******* configMinimosAfiliadoIndependiente.xhtml *******
+#**********************************************
+config.minimos.afiliados.independientes.title = Parametrización de importes
+config.minimos.TxtTipoCiente = Tipo cliente:
+config.minimos.afiliados.independientes.actualizacion.titulo = Actualizar de importes
+config.minimos.afiliados.independientes.actualizacion.mensaje = Se actualizarán los importes ¿desea continuar?
+config.minimos.afiliados.independientes.mensaje.espera = Actualizando de importes
+config.minimos.TxtMontoMinimo = Monto mínimo:
+seleccione.uno = Seleccione uno
+general.button.actualizar  = Actualizar
+general.button.restaurar   = Restaurar
+
+#**********************************************************************
+# Pantalla de envíos a CIF (consultaMovimientosCif.xhtml)
+#**********************************************************************
+envio.cif.validacion.formato.id.conciliacion=[0-9]{0,22}
+envio.cif.validacion.mask.id.conciliacion=?9999999999999999999999
+envio.cif.consulta.principal.titulo = Depósitos a enviar a CIF
+envio.cif.consulta.fecha.inicio = Fecha inicio
+envio.cif.consulta.fecha.final = Fecha fin
+envio.cif.consulta.id.conciliacion = Folio conciliación
+envio.cif.consulta.estatus = Estatus
+envio.cif.consulta.mensaje.validacion.id.conciliacion = El identificador de conciliación no cumple con el formato establecido
+envio.cif.consulta.boton.buscar = Buscar
+envio.cif.cargando = Espere un momento por favor
+envio.cif.resultado.id.item = Id ítem
+envio.cif.resultado.id.conciliacion = Folio conciliación
+envio.cif.resultado.origen.aportacion = Origen Aportación
+envio.cif.resultado.consecutivo = Consecutivo
+envio.cif.resultado.unidad.negocio= Unidad de negocio
+envio.cif.resultado.importe = Importe
+envio.cif.resultado.referencia = Referencia
+envio.cif.resultado.referencia.ampliada = Referencia Ampliada
+envio.cif.resultado.fecha.item	 = Fecha asof
+envio.cif.resultado.fecha.contable = Fecha contable
+envio.cif.resultado.fecha.introduccion = Fecha introducción
+envio.cif.resultado.fecha.deposito = Fecha depósito
+envio.cif.resultado.metodo.cobro = Método de cobro
+envio.cif.resultado.condicion.cobro = Condición de cobro
+envio.cif.resultado.codigo.moneda = Código de moneda
+envio.cif.resultado.banco = Banco
+envio.cif.resultado.cuenta = Cuenta
+envio.cif.resultado.tipo.proceso = Tipo proceso
+envio.cif.resultado.estatus = Estatus
+envio.cif.resultado.estatus.envio = Estatus envío
+envio.cif.resultado.secuencia = Secuencia
+envio.cif.resultado.edicion = Edición
+envio.cif.resultado.detalle = Detalle
+envio.cif.resultado.usuario.actualiza = Usuario actualiza
+envio.cif.resultado.fecha.actualiza = Fecha actualiza
+envio.cif.resultado.usuario.envio = Usuario envío
+envio.cif.resultado.fecha.envio = Fecha envío
+envio.cif.resultado.eviar.cif = Enviar a CIF
+envio.cif.resultado.exportar = Exportar
+envio.cif.resultado.eliminar = Eliminar
+envio.cif.detalle.header = Detalles del movimiento
+envio.cif.detalle.boton.aceptar = Aceptar
+envio.cif.detalle.boton.cancelar = Cancelar
+envio.cif.detalle.boton.cerrar = Cerrar
+envio.cif.detalle.boton.descarg.reporte = Descargar reporte
+envio.cif.mensaje.confirma.actualizacion.header=Confirmación de actualización
+envio.cif.mensaje.confirma.actualizacion = ¿Está seguro que desea actualizar el movimiento?
+envio.cif.mensaje.envio.confirmacion.header = Confirmación de envío
+envio.cif.mensaje.envio.confirmacion = ¿Está seguro que desea enviar los movimientos seleccionados?
+envio.cif.mensaje.estatus.header = Resultado de la operación
+envio.cif.mensaje.borrar.confirmacion.header = Confirmación de borrado
+envio.cif.mensaje.borrar.confirmacion = ¿Está seguro que desea eliminar los movimientos seleccionados?
+
+#**********************************************************************
+#  Solicitud Cargo (monitoreoCargoNT.xhtml)
+#**********************************************************************
+consulta.cargos.title = Monitoreo de Cargos 
+consulta.cargos.cargo.id = Cargo Id
+consulta.cargos.clave.solicitud = Clave Solictud
+consulta.cargos.numero.cuenta.individual = Numero Cuenta Individual
+consulta.cargos.importe = Importe
+consulta.cargos.importe.rec = Importe Rec
+consulta.cargos.fecha.proximo.cargo = Fecha Proximo Cargo 
+consulta.cargos.estatus.cargo.valor = Estatus Cargo Valor
+consulta.cargos.estatus.cargo = Estatus Cargo
+consulta.cargos.btnBuscar = Buscar
+consulta.cargos.btnModificar = Modificar
+modificacion.cargos.mensaje.modificacion.confirmacion.header = Confirmación de modificación
+modificacion.cargos.mensaje.modificacion.confirmacion = ¿Está seguro de modificar los registros seleccionados?
+
+#FOP | 2314 | 12/03/2018
+domiciliacion.traspasos.monSol.btnSuspender = Suspender
+domiciliacion.traspasos.monSol.btnReanudar = Reactivar
+domiciliacion.traspasos.monSol.btnExecuteSuspender = Graba suspensión
+domiciliacion.traspasos.monSol.fechaSuspencion = Fecha de suspensión
+domiciliacion.traspasos.monSol.fechaReactivacion = Fecha de reactivación
+domiciliacion.traspasos.monSol.btnExecuteReactivar = Graba reactivación
+domiciliacion.traspasos.monSol.btnReanudarCancelacion = Reactivar
+domiciliacion.traspasos.monSol.btnCrearSolicitud = Crear solicitud
+domiciliacion.traspasos.monSol.fechaUnicoCargo = Fecha único cargo
+domiciliacion.traspasos.monSol.solDomi = Solicitud domiciliación
+domiciliacion.traspasos.monSol.generarSol = Generar
+
+#**********************************************************************
+# Pantalla de devoluciones a CIF (devolucionesMovimientosCif.xhtml)
+#**********************************************************************
+envio.dev.cif.consulta.principal.titulo = Depósitos a devolver a CIF
+envio.dev.cif.consulta.fecha.inicio = Fecha inicio
+envio.dev.cif.consulta.fecha.final = Fecha fin
+envio.dev.cif.consulta.boton.buscar = Buscar
+envio.dev.cif.consulta.boton.limpiar = Limpiar
+envio.dev.cif.consulta.id.conciliacion = Folio conciliación
+envio.dev.cif.validacion.mask.id.conciliacion=?9999999999999999999999
+envio.dev.cif.consulta.mensaje.validacion.id.conciliacion = El identificador de conciliación no cumple con el formato establecido
+envio.dev.cif.validacion.formato.id.conciliacion=[0-9]{0,22}
+envio.dev.cif.busqueda.titulo = Notificación de busqueda
+envio.dev.cif.consulta.principal.titulo = Depósitos a devolver a CIF
+envio.dev.cif.resultado.id.folio = Folio
+envio.dev.cif.resultado.id.item = Item ID
+envio.dev.cif.resultado.importe = Importe
+envio.dev.cif.resultado.eviar.cif = Enviar a CIF
+envio.dev.cif.resultado.exportar = Exportar
+envio.dev.cif.resultado.eliminar = Eliminar
+envio.dev.cif.resultado.edicion = Detalle
+envio.dev.cif.detalle.header = Detalles del movimiento
+envio.dev.cif.resultado.id.item = Id Devolución
+envio.dev.cif.resultado.id.folio = Folio
+envio.dev.cif.resultado.id.negocio = Unidad Negocio
+envio.dev.cif.resultado.id.origen = Origen
+envio.dev.cif.resultado.id.tipoA = Tipo Afectación
+envio.dev.cif.resultado.id.subtipoA = Subtipo Afectación
+envio.dev.cif.resultado.id.nombre = Nombre
+envio.dev.cif.resultado.id.importe = Importe
+envio.dev.cif.resultado.id.bancaria = Cta. Bancaria
+envio.dev.cif.resultado.id.individual = Cta. Indivudual
+envio.dev.cif.resultado.id.fpago = Fecha Pago
+envio.dev.cif.resultado.id.fcontable = Fecha Contable
+envio.dev.aut.cif.consulta.principal.titulo = Depósitos para Autorizar a devoluciones a CIF
+envio.dev.aut.cif.resultado.eviar.cif = Autorizar
+envio.dev.aut.cif.consulta.principal.titulo = Listado para Autorizar a devoluciones a CIF
+envio.dev.aut.cif.mensaje.envio.confirmacion.header = ¿Está seguro que desea autorizar los movimientos seleccionados?
+envio.dev.seg.cif.consulta.principal.titulo = Seguimiento de estatus en el CIF
+envio.dev.seg.cif.consulta.id.pfTranId = PF_TRAN_ID
+envio.dev.seg.cif.resultado.estatus = Obtener Estatus
+#**************************************************************************************
+# Pantalla Consulta Aportaciones Voluntarias (parametrizacionIntentosCarga.xhtml)
+#**************************************************************************************
+consulta.domiciliacion.parametrizacionIntCarga.title=Configuración de numero de intentos de cargo Apo Vol
+consulta.domiciliacion.parametrizacionIntCarga.imputOrigen=Origen Domiciliacion:
+consulta.domiciliacion.parametrizacionIntCarga.imputPeriodo=Periodo:
+consulta.domiciliacion.parametrizacionIntCarga.imputNoIntentos=No de Intentos:
+consulta.domiciliacion.parametrizacionIntCarga.button.Guardar=Guardar
+consulta.domiciliacion.parametrizacionIntCarga.button.Editar=Editar
+consulta.domiciliacion.parametrizacionIntCarga.button.Buscar=Buscar
+consulta.domiciliacion.parametrizacionIntCarga.button.Limpiar=Limpiar
+consulta.domiciliacion.parametrizacionIntCarga.button.Agregar=Agregar
+consulta.domiciliacion.parametrizacionIntCarga.button.Aceptar=Aceptar
+consulta.domiciliacion.parametrizacionIntCarga.button.Cancelar=Cancelar
+consulta.domiciliacion.parametrizacionIntCarga.mensaje.ok=Se han guardado los cambios de manera correcta
+consulta.domiciliacion.parametrizacionIntCarga.mensaje.confirmacion=¿Estas seguro que deseas aplicar el cambio?
+consulta.domiciliacion.parametrizacionIntCarga.mensaje.alerta=Debe seleccionar una fila
+consulta.domiciliacion.parametrizacionIntCarga.mensaje.alerta2=El número de intentos debe ser diferente al guardado anteriormente
